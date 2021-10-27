@@ -1,14 +1,14 @@
-package group1.megaman_dp.model;
+package design_pattern_blaster.model;
 
 import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
-import group1.megaman_dp.App;
-import group1.megaman_dp.constants.Constants;
-import group1.megaman_dp.interfaces.Saveable;
-import group1.megaman_dp.model.level.LevelManager;
-import group1.megaman_dp.model.player.PlayerManager;
+import design_pattern_blaster.App;
+import design_pattern_blaster.constants.Constants;
+import design_pattern_blaster.interfaces.Saveable;
+import design_pattern_blaster.model.level.LevelManager;
+import design_pattern_blaster.model.player.PlayerManager;
 
 public class SaveAndLoadManager 
 {

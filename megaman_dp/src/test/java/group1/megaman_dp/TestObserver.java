@@ -1,5 +1,5 @@
 package group1.megaman_dp;
-import group1.megaman_dp.interfaces.Observer;
+import design_pattern_blaster.interfaces.Observer;
 
 //Test class to test Model.notifyObservers()
 public class TestObserver implements Observer

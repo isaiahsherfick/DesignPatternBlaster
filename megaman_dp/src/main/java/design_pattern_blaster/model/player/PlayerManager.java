@@ -1,8 +1,8 @@
-package group1.megaman_dp.model.player;
+package design_pattern_blaster.model.player;
 
 import java.util.ArrayList;
 
-import group1.megaman_dp.interfaces.Saveable;
+import design_pattern_blaster.interfaces.Saveable;
 
 public class PlayerManager 
 {

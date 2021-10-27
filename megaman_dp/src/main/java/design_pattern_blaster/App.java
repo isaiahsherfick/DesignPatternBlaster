@@ -1,7 +1,7 @@
-package group1.megaman_dp;
+package design_pattern_blaster;
 
-import group1.megaman_dp.constants.Constants;
-import group1.megaman_dp.model.Model;
+import design_pattern_blaster.constants.Constants;
+import design_pattern_blaster.model.Model;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

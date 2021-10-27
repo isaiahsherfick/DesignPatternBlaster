@@ -1,14 +1,13 @@
-package group1.megaman_dp.model;
-
-import group1.megaman_dp.interfaces.Observer;
-import group1.megaman_dp.model.level.LevelManager;
-import group1.megaman_dp.model.player.PlayerManager;
-import group1.megaman_dp.model.sprite.SpriteManager;
+package design_pattern_blaster.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import group1.megaman_dp.interfaces.Observable;
+import design_pattern_blaster.interfaces.Observable;
+import design_pattern_blaster.interfaces.Observer;
+import design_pattern_blaster.model.level.LevelManager;
+import design_pattern_blaster.model.player.PlayerManager;
+import design_pattern_blaster.model.sprite.SpriteManager;
 
 
 //Model class which serves as a mediator between the various managers in our backend

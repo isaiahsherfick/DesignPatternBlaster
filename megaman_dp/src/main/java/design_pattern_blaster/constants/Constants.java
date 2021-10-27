@@ -1,4 +1,4 @@
-package group1.megaman_dp.constants;
+package design_pattern_blaster.constants;
 
 public final class Constants 
 {

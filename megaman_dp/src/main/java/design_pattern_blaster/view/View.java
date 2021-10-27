@@ -1,6 +1,6 @@
-package group1.megaman_dp.view;
+package design_pattern_blaster.view;
 
-import group1.megaman_dp.interfaces.Observer;
+import design_pattern_blaster.interfaces.Observer;
 
 public class View implements Observer
 {

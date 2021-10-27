@@ -1,4 +1,4 @@
-package group1.megaman_dp.interfaces;
+package design_pattern_blaster.interfaces;
 
 import org.json.simple.JSONObject;
 

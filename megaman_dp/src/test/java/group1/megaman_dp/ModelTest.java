@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import group1.megaman_dp.model.Model;
-import group1.megaman_dp.view.View;
+import design_pattern_blaster.model.Model;
+import design_pattern_blaster.view.View;
 
 class ModelTest {
 

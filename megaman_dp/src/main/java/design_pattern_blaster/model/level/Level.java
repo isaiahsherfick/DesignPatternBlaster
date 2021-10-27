@@ -1,8 +1,8 @@
-package group1.megaman_dp.model.level;
+package design_pattern_blaster.model.level;
 
 import org.json.simple.JSONObject;
 
-import group1.megaman_dp.interfaces.Saveable;
+import design_pattern_blaster.interfaces.Saveable;
 
 public class Level implements Saveable
 {

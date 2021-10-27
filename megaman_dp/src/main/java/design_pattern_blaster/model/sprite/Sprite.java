@@ -1,10 +1,10 @@
-package group1.megaman_dp.model.player;
+package design_pattern_blaster.model.sprite;
 
 import org.json.simple.JSONObject;
 
-import group1.megaman_dp.interfaces.Saveable;
+import design_pattern_blaster.interfaces.Saveable;
 
-public class Player implements Saveable
+public class Sprite implements Saveable
 {
 
 	@Override
