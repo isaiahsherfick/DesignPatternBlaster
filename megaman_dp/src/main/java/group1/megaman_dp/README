@@ -8,5 +8,5 @@ be done through the FXML file whenever possible.
 
 App.java contains singleton static references to Model, View, and Controller.
 Whenever objects need to get a reference to the model, view, or controller,
-they should get those references via App.Model, App.View, or App.Controller
+they should get those references via App.model, App.view, or App.controller
 respectively.
