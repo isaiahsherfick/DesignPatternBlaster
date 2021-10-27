@@ -1,4 +1,4 @@
-package group1.megaman_dp.model;
+package group1.megaman_dp.model.level;
 
 import java.util.ArrayList;
 

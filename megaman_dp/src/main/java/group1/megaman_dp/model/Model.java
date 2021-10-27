@@ -1,6 +1,9 @@
 package group1.megaman_dp.model;
 
 import group1.megaman_dp.interfaces.Observer;
+import group1.megaman_dp.model.level.LevelManager;
+import group1.megaman_dp.model.player.PlayerManager;
+import group1.megaman_dp.model.sprite.SpriteManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;

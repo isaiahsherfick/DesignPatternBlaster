@@ -1,4 +1,4 @@
-package group1.megaman_dp.model;
+package group1.megaman_dp.model.player;
 
 import java.util.ArrayList;
 

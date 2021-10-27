@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 import group1.megaman_dp.App;
 import group1.megaman_dp.constants.Constants;
 import group1.megaman_dp.interfaces.Saveable;
+import group1.megaman_dp.model.level.LevelManager;
+import group1.megaman_dp.model.player.PlayerManager;
 
 public class SaveAndLoadManager 
 {
