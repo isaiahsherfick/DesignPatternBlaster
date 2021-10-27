@@ -11,3 +11,8 @@ need to split that interface into some kind of hierarchy to avoid giving
 our classes dummy methods.
 
 https://stackoverflow.com/questions/56860/what-is-an-example-of-the-liskov-substitution-principle
+
+
+Observable.java - observable for observer pattern. Tells its observers to change state when it has.
+Observer.java - update() method is called by observable when it changes state.
+Saveable.java - object which can be serialized to a JSON. Used by SaveAndLoadManager.java to save/load.
