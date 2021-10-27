@@ -1,4 +1,4 @@
-package group1.megaman_dp;
+package tests;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

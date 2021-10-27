@@ -1,4 +1,4 @@
-package group1.megaman_dp;
+package tests;
 import design_pattern_blaster.interfaces.Observer;
 
 //Test class to test Model.notifyObservers()
