@@ -1,0 +1,7 @@
+    	            megaman_dp package readme:
+
+
+Asude from all the subpackages, this package contains App.java, where main() 
+is located, and mainWindow.fxml, the FXML file which contains the layout 
+details for our main window of the game. Changes to that window need to 
+be done through the FXML file whenever possible. 

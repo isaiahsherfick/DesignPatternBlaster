@@ -1,0 +1,11 @@
+   				    constants package readme:
+
+
+This package contains only the final class Constants.java which contains
+all of the magic numbers we'll use throughout the application. In the
+future, we can consider altering Constants.java to read a constants.txt
+file so that changes can be made without re-compiling.
+
+When adding a new constant to Constants.java, make sure that you also
+include a brief comment explaining where the constant will be used and
+what the value actually represents.
