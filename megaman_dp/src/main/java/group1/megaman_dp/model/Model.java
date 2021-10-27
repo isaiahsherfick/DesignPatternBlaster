@@ -10,10 +10,7 @@ import group1.megaman_dp.interfaces.Observable;
 
 //Model class which serves as a mediator between the various managers in our backend
 //as well as an observable which is observed by the View
-
-//The model also observes each of its managers so that when they experience a state change,
-//it automatically knows to call update() for the view. 
-public class Model implements Observable, Observer
+public class Model implements Observable
 {
 	//List of observers
 	private ArrayList<Observer> observers;
@@ -77,15 +74,6 @@ public class Model implements Observable, Observer
 			Observer o = iterator.next();
 			o.update();
 		}
-	}
-	
-	//When one of the things the model is observing (its children)
-	//changes state, we need to tell the view
-	
-	//This is the cleanest way to do it
-	public void update()
-	{
-		notifyObservers();
 	}
 
 
