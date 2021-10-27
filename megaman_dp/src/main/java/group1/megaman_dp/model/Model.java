@@ -15,13 +15,26 @@ public class Model implements Observable
 	//List of observers
 	private ArrayList<Observer> observers;
 	
-	//Uncomment these as they're implemented
+	//Manages all sprites in the game including updating their state on each tick
 	private SpriteManager spriteManager;
+	
+	//Manages the levels in the game, sends the list of sprites in a given level to the sprite manager
 	private LevelManager levelManager;
+	
+	//Responsible for ticking 
 	private GameClock gameClock;
+	
+	//Responsible for knowing the bounds of the screen. Capable of saying if a sprite is in the shot or not - used in SpriteManager to enable sprites 
+	//As they enter the screen
 	private GameCamera gameCamera;
+	
+	//Responsible for saving/loading the game to a file. Only the levels which have been completed are saved as well as the mode chosen by the player. (Easy/Hard).
 	private SaveAndLoadManager saveAndLoadManager;
+	
+	//Responsible for handling all collisions in the game. Receives a list of sprites from the sprite manager and checks for collisions within each layer.
 	private CollisionManager collisionManager;
+	
+	//Responsible for managing the Player objects in the game and attaching sprites to them. Will be simple until multiplayer is added.
 	private PlayerManager playerManager;
 	
 	//Default constructor
