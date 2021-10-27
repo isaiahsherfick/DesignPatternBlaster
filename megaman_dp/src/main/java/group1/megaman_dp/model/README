@@ -1,0 +1,11 @@
+    	            model package readme:
+
+
+The model package contains everything needed for the top-most level of our
+model within our MVC architecture. This amounts to Model.java and then the
+subpackages within model such as save_load, sprite, and level. The model
+should only really be responsible for gathering all of the various
+managers into one place and serving as a mediator between them all when
+necessary. It will receive commands from the Controller to perform these
+actions. It will also implement the Observable interface so that the view
+automatically updates as changes are made to the model.

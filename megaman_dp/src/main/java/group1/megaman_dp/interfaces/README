@@ -1,0 +1,13 @@
+    	            interface package readme:
+
+
+The interface package is home to all interfaces in our project. Generally
+speaking, we want our interfaces to be as specific as possible. In order
+to avoid violating the Liskov Substitution Principle, every class which
+implements an interface should have an implementation which makes sense
+for each and every method in the interface. If we're about to create
+a class which uses some, but not all, of the methods in an interface, we
+need to split that interface into some kind of hierarchy to avoid giving
+our classes dummy methods.
+
+https://stackoverflow.com/questions/56860/what-is-an-example-of-the-liskov-substitution-principle
