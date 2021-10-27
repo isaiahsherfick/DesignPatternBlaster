@@ -66,4 +66,10 @@ public class App extends Application
 		//Display the window
 		mainStage.show();
 	}
+	
+	//Resets the static model. Used for unit tests and save/load
+	public void resetModel()
+	{
+		model = new Model();
+	}
 }
