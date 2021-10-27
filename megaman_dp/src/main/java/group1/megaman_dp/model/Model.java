@@ -28,6 +28,12 @@ public class Model implements Observable
 		observers.add(o);
 	}
 	
+	//Unregister an observer to the model
+	public void unregisterObserver(Observer o)
+	{
+		observers.remove(o);
+	}
+	
 	//Notify each observer watching the model
 	public void notifyObservers()
 	{
@@ -38,5 +44,12 @@ public class Model implements Observable
 			Observer o = iterator.next();
 			o.update();
 		}
+	}
+
+
+	//Return the number of observers to the model, mainly for testing
+	public int getNumberOfObservers() 
+	{
+		return observers.size();
 	}
 }
