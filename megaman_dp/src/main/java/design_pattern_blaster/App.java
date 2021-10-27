@@ -68,7 +68,7 @@ public class App extends Application
 	}
 	
 	//Resets the static model. Used for unit tests and save/load
-	public void resetModel()
+	public static void resetModel()
 	{
 		model = new Model();
 	}

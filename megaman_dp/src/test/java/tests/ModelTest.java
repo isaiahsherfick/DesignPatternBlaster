@@ -6,16 +6,25 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import design_pattern_blaster.App;
+import design_pattern_blaster.model.CollisionManager;
+import design_pattern_blaster.model.GameCamera;
+import design_pattern_blaster.model.GameClock;
 import design_pattern_blaster.model.Model;
+import design_pattern_blaster.model.level.LevelManager;
+import design_pattern_blaster.model.player.PlayerManager;
+import design_pattern_blaster.model.sprite.SpriteManager;
 import design_pattern_blaster.view.View;
 
-class ModelTest {
+class ModelTest 
+{
 
 	@Test
 	void RegisterObserverTest() 
 	{
-		//Create new model
-		Model m = new Model();
+		
+		App.resetModel();
+		Model m = App.model;
 		
 		//It has no observers in it
 		assertEquals(0, m.getNumberOfObservers());
@@ -45,7 +54,8 @@ class ModelTest {
 	@Test 
 	public void notifyObserversTest()
 	{
-		Model m = new Model();
+		App.resetModel();
+		Model m = App.model;
 
 		//Create 50 observers, assert that their counter is initialized to 0, register them
 		ArrayList<TestObserver> observers = new ArrayList<>();
@@ -64,5 +74,67 @@ class ModelTest {
 			assertEquals(1, observers.get(i).getCounter());
 		}
 	}
+	
+	@Test 
+	public void getSpriteManagerTest()
+	{
+		App.resetModel();
+		Model m = App.model;
+		
+		Object o = m.getSpriteManager();
+		
+		assertTrue(o instanceof SpriteManager);
+	}
+	@Test 
+	public void getLevelManagerTest()
+	{
+		App.resetModel();
+		Model m = App.model;
+		
+		Object o = m.getLevelManager();
+		
+		assertTrue(o instanceof LevelManager);
+	}
+	@Test 
+	public void getGameClockTest()
+	{
+		App.resetModel();
+		Model m = App.model;
+		
+		Object o = m.getGameClock();
+		
+		assertTrue(o instanceof GameClock);
+	}
+	@Test 
+	public void getGameCameraTest()
+	{
+		App.resetModel();
+		Model m = App.model;
+		
+		Object o = m.getGameCamera();
+		
+		assertTrue(o instanceof GameCamera);
+	}
+	@Test 
+	public void getCollisionManagerTest()
+	{
+		App.resetModel();
+		Model m = App.model;
+		
+		Object o = m.getCollisionManager();
+		
+		assertTrue(o instanceof CollisionManager);
+	}
+	@Test 
+	public void getPlayerManagerTest()
+	{
+		App.resetModel();
+		Model m = App.model;
+		
+		Object o = m.getPlayerManager();
+		
+		assertTrue(o instanceof PlayerManager);
+	}
+	
 
 }
