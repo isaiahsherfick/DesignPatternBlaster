@@ -15,10 +15,26 @@ public class Model implements Observable
 	//List of observers
 	private ArrayList<Observer> observers;
 	
+	//Uncomment these as they're implemented
+	private SpriteManager spriteManager;
+	private LevelManager levelManager;
+	private GameClock gameClock;
+	private GameCamera gameCamera;
+	private SaveAndLoadManager saveAndLoadManager;
+	private CollisionManager collisionManager;
+	private PlayerManager playerManager;
+	
 	//Default constructor
 	public Model()
 	{
 		observers = new ArrayList<>();
+		spriteManager = new SpriteManager();
+		levelManager = new LevelManager();
+		gameClock = new GameClock();
+		gameCamera = new GameCamera();
+		saveAndLoadManager = new SaveAndLoadManager();
+		collisionManager = new CollisionManager();
+		playerManager = new PlayerManager();
 	}
 	
 	
@@ -47,7 +63,7 @@ public class Model implements Observable
 	}
 
 
-	//Return the number of observers to the model, mainly for testing
+	//Return the number of observers registered to the model, mainly for testing
 	public int getNumberOfObservers() 
 	{
 		return observers.size();
