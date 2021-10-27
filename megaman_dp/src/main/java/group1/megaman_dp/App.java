@@ -14,7 +14,7 @@ public class App extends Application
 {
 	
 	//Model singleton reference
-	private static Model model = new Model();
+	public static Model model = new Model();
 	
 	
     public static void main( String[] args )
