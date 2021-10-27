@@ -1,6 +1,7 @@
 package group1.megaman_dp;
 
 import group1.megaman_dp.constants.Constants;
+import group1.megaman_dp.model.Model;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,11 @@ import javafx.stage.WindowEvent;
 
 public class App extends Application
 {
+	
+	//Model singleton reference
+	private static Model model = new Model();
+	
+	
     public static void main( String[] args )
     {
         launch(args);

@@ -10,14 +10,18 @@ import group1.megaman_dp.interfaces.Observable;
 
 //Model class which serves as a mediator between the various managers in our backend
 //as well as an observable which is observed by the View
-public class Model implements Observable
+
+//The model also observes each of its managers so that when they experience a state change,
+//it automatically knows to call update() for the view. 
+public class Model implements Observable, Observer
 {
 	//List of observers
 	private ArrayList<Observer> observers;
 	
 	//Manages all sprites in the game including updating their state on each tick
 	private SpriteManager spriteManager;
-	
+
+
 	//Manages the levels in the game, sends the list of sprites in a given level to the sprite manager
 	private LevelManager levelManager;
 	
@@ -74,11 +78,62 @@ public class Model implements Observable
 			o.update();
 		}
 	}
+	
+	//When one of the things the model is observing (its children)
+	//changes state, we need to tell the view
+	
+	//This is the cleanest way to do it
+	public void update()
+	{
+		notifyObservers();
+	}
 
 
 	//Return the number of observers registered to the model, mainly for testing
 	public int getNumberOfObservers() 
 	{
 		return observers.size();
+	}
+
+	//Return a reference to the sprite manager
+	public SpriteManager getSpriteManager() 
+	{
+		return spriteManager;
+	}
+
+	//Return a reference to the level manager
+	public LevelManager getLevelManager() 
+	{
+		return levelManager;
+	}
+
+	//Return a reference to the game clock
+	public GameClock getGameClock() 
+	{
+		return gameClock;
+	}
+
+	//Return a reference to the game camera
+	public GameCamera getGameCamera() 
+	{
+		return gameCamera;
+	}
+
+	//Return a reference to the s/l manager -- probably not needed
+//	public SaveAndLoadManager getSaveAndLoadManager() 
+//	{
+//		return saveAndLoadManager;
+//	}
+
+	//Return a reference to the collision manager
+	public CollisionManager getCollisionManager() 
+	{
+		return collisionManager;
+	}
+
+	//Return a reference to the player manager
+	public PlayerManager getPlayerManager() 
+	{
+		return playerManager;
 	}
 }
