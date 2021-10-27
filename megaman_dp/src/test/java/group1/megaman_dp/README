@@ -1,0 +1,21 @@
+                      test package README:
+
+This is the main test package for the project. All classes need unit tests
+for all appropriate methods when they are written. Ideally, the tests are
+written before the methods are implemented. After all the unit tests pass,
+the class can be added to an integration test. When that's good, test the
+class in an end-to-end context and finally merge it to master. Below is
+a description of all the test classes in this package.
+
+
+TestObserver.java:
+
+    Class used for testing which implements Observer. On update(), it
+    increments the instance variable counter by 1. This is used to test
+    observer/observable interactions without fuddling with the actual
+    production classes for the sake of unit tests.
+
+ModelTests.java:
+    
+    Tests Model.java. Uses TestObserver.java to ensure that
+    notifyObservers() is being called correctly. 

@@ -41,5 +41,28 @@ class ModelTest {
 			assertEquals(i,m.getNumberOfObservers());
 		}
 	}
+	
+	@Test 
+	public void notifyObserversTest()
+	{
+		Model m = new Model();
+
+		//Create 50 observers, assert that their counter is initialized to 0, register them
+		ArrayList<TestObserver> observers = new ArrayList<>();
+		for (int i = 0; i < 50; i++)
+		{
+			observers.add(new TestObserver());
+			assertEquals(0, observers.get(i).getCounter());
+			m.registerObserver(observers.get(i));
+		}
+		
+		m.notifyObservers();
+
+		//Assert that the counters got incremented for all 50 observers
+		for (int i = 0; i < 50; i++)
+		{
+			assertEquals(1, observers.get(i).getCounter());
+		}
+	}
 
 }
