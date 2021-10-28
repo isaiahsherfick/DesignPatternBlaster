@@ -1,0 +1,10 @@
+    	            sprite package readme:
+
+
+The sprite package contains everything related to sprites within the model
+of our game. This includes Sprite.java, SpriteManager.java, and all of the
+types which a sprite contains, such as EventBehavior and Animation. 
+
+**Whenever a new GameEvent factory method is added, factoryMethodTests()
+in tests.GameEventTest.java needs updated to include that new factory
+method!

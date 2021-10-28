@@ -20,7 +20,8 @@ public class GameEvent implements Loadable
 	
 	private int eventType;
 	
-	public GameEvent(int eventType)
+	//Use the factory methods!
+	private GameEvent(int eventType)
 	{
 		this.eventType = eventType;
 	}
@@ -30,7 +31,7 @@ public class GameEvent implements Loadable
 		return eventType;
 	}
 	
-	//Factory methods for the different event types in case we want them
+	//Factory methods
 	public static GameEvent ClockTickEvent()
 	{
 		return new GameEvent(CLOCK_TICK);
@@ -42,6 +43,10 @@ public class GameEvent implements Loadable
 	public static GameEvent KeyPressedEvent()
 	{
 		return new GameEvent(KEY_PRESSED);
+	}
+	public static GameEvent HealthDepletedEvent()
+	{
+		return new GameEvent(HEALTH_DEPLETED);
 	}
 	public static GameEvent PlayerDeathEvent()
 	{
