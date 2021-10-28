@@ -54,6 +54,18 @@
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>5.5.2</version>
 		</dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>de.saxsys</groupId>
+          <artifactId>jfx-testrunner</artifactId>
+          <version>1.2</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
 
   <build>
@@ -98,6 +110,16 @@
         </plugin>
       </plugins>
     </pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>9</source>
+                  <target>9</target>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 
   <reporting>

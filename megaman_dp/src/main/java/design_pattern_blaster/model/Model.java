@@ -25,7 +25,7 @@ public class Model implements Observable
 	private LevelManager levelManager;
 	
 	//Responsible for ticking 
-	private GameClock gameClock;
+	private GameEngine gameClock;
 	
 	//Responsible for knowing the bounds of the screen. Capable of saying if a sprite is in the shot or not - used in SpriteManager to enable sprites 
 	//As they enter the screen
@@ -46,7 +46,7 @@ public class Model implements Observable
 		observers = new ArrayList<>();
 		spriteManager = new SpriteManager();
 		levelManager = new LevelManager();
-		gameClock = new GameClock();
+		gameClock = new GameEngine();
 		gameCamera = new GameCamera();
 		saveAndLoadManager = new SaveAndLoadManager();
 		collisionManager = new CollisionManager();
@@ -98,7 +98,7 @@ public class Model implements Observable
 	}
 
 	//Return a reference to the game clock
-	public GameClock getGameClock() 
+	public GameEngine getGameClock()
 	{
 		return gameClock;
 	}

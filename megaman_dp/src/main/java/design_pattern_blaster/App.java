@@ -3,12 +3,9 @@ package design_pattern_blaster;
 import design_pattern_blaster.constants.Constants;
 import design_pattern_blaster.model.Model;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class App extends Application
 {
@@ -25,33 +22,13 @@ public class App extends Application
 	@Override
 	public void start(Stage mainStage) throws Exception 
 	{
-		//TODO most of this needs moved out of here, I just slapped it together to get something on the screen
-		//									so we have something to demo if we do nothing else this weekend
-		
-		//Make the red X actually terminate the process 
-		mainStage.setOnCloseRequest((WindowEvent event1) ->
-		{
-			//exit jfx 
-			Platform.exit();
-			
-			//terminate process with exit code 0 (success)
-			System.exit(0);
-		});
-		
-		//FXML loader to read our FXML file
-		FXMLLoader loader = new FXMLLoader();
-		
-		//Set location of mainWindow.fxml
-		loader.setLocation(App.class.getResource("mainWindow.fxml"));
-		
-		//Tell the loader who it's loading for 
-		loader.setController(this);
-		
-		//Load from the loader
-		VBox windowLayout = (VBox)loader.load();
-		
+
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("mainWindow.fxml"));
+
 		//Create a new main scene from the loaded layout
-		Scene mainScene = new Scene(windowLayout);
+		Scene mainScene = new Scene(fxmlLoader.load());
+
+
 		
 		//Set the scene for the main stage
 		mainStage.setScene(mainScene);

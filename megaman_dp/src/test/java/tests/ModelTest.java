@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import design_pattern_blaster.App;
 import design_pattern_blaster.model.CollisionManager;
 import design_pattern_blaster.model.GameCamera;
-import design_pattern_blaster.model.GameClock;
+import design_pattern_blaster.model.GameEngine;
 import design_pattern_blaster.model.Model;
 import design_pattern_blaster.model.level.LevelManager;
 import design_pattern_blaster.model.player.PlayerManager;
@@ -103,7 +103,7 @@ class ModelTest
 		
 		Object o = m.getGameClock();
 		
-		assertTrue(o instanceof GameClock);
+		assertTrue(o instanceof GameEngine);
 	}
 	@Test 
 	public void getGameCameraTest()
