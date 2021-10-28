@@ -7,7 +7,7 @@ import javafx.animation.AnimationTimer;
 import java.io.File;
 import java.util.ArrayList;
 
-public class GameEngine extends AnimationTimer
+public class GameTimer extends AnimationTimer
 {
 
     private float totalTime = 0;
@@ -17,7 +17,7 @@ public class GameEngine extends AnimationTimer
     private boolean isPauseScheduled = false;
     private boolean isPlayScheduled = false;
 
-    public GameEngine() {
+    public GameTimer() {
 
     }
 
