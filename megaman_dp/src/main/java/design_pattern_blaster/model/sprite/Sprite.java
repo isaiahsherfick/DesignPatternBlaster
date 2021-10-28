@@ -1,6 +1,7 @@
 package design_pattern_blaster.model.sprite;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -14,6 +15,14 @@ public class Sprite implements Loadable
 {
 	private double x,y,xVelocity,yVelocity,width,height;
 	private int layer;
+	private Animation animation;
+	private int health;
+	private boolean enabled;
+
+	//List of the sprite's behaviors including ontick behaviors, onDeath, onCollision, onKeyPress, onTick, etc.
+	//This will be iterated through and we will perform a check to see if the Behavior is of a specific subclass
+	//Before calling the appropriate method call to cause the sprite to do what we want it to
+	private List<EventBehavior> eventBehaviors;
 
 	public Animation getAnimation() 
 	{
@@ -24,22 +33,16 @@ public class Sprite implements Loadable
 	{
 		this.animation = animation;
 	}
-
-	private Animation animation;
-	private int health;
-	private boolean enabled;
 	
-	//List of the sprite's behaviors including ontick behaviors, onDeath, onCollision, onKeyPress, onTick, etc.
-	//This will be iterated through and we will perform a check to see if the Behavior is of a specific subclass
-	//Before calling the appropriate method call to cause the sprite to do what we want it to
-	private List<EventBehavior> eventBehaviors;
 
 	public Sprite()
 	{
+		eventBehaviors = new LinkedList<EventBehavior>();
 		id = Constants.DEFAULT_SPRITE_ID;
 		x=0; y=0; xVelocity = 0; yVelocity =0;
 		width = 0; height =0;
 		layer = 0;
+		enabled = false;
 	}
 	
 	//This is the sprite's "do" method
@@ -152,6 +155,16 @@ public class Sprite implements Loadable
 	public void setEnabled(boolean enabled) 
 	{
 		this.enabled = enabled;
+	}
+	
+	public void enable()
+	{
+		setEnabled(true);
+	}
+	
+	public void disable()
+	{
+		setEnabled(false);
 	}
 
 	public List<EventBehavior> getEventBehaviors() 

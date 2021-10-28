@@ -19,7 +19,8 @@ import java.util.HashMap;
  * AnimationState RIGHT_MOVEMENT would be associated with a collection of sprites, each one representing
  * a frame in a walking animation
  */
-public class Animation {
+public class Animation 
+{
 
     public AnimationState animationState = AnimationState.IDLE;
     public Image spriteSheetImage;
@@ -32,7 +33,12 @@ public class Animation {
 
     }
 
-    public void setState(AnimationState animationState) {
+    public Animation() 
+    {
+
+	}
+
+	public void setState(AnimationState animationState) {
         this.animationState = animationState;
     }
 
