@@ -23,7 +23,7 @@ public class View implements Initializable, Observer
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle){
 		//random stuff for testing
-		Sprite testSprite = new Sprite(1);
+		Sprite testSprite = new Sprite();
 		File spriteSheetFile = new File("megaman_dp/src/main/resources/design_pattern_blaster/sample spritesheet.png");
 		testSprite.setAnimation(new Animation(spriteSheetFile));
 		HashMap<AnimationState, ArrayList<Image>> stateToAnimationLoop = testSprite.getAnimation().stateToAnimationLoop;
