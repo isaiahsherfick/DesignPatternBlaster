@@ -19,3 +19,12 @@ ModelTests.java:
     
     Tests Model.java. Uses TestObserver.java to ensure that
     notifyObservers() is being called correctly. 
+
+SpriteTest.java:
+
+    Tests Sprite.java. Uses GameEvent.java, a few different Behavior.java
+    subclasses, EventBehavior.java to test a few methods for Sprite.
+
+GameEventTest.java:
+
+    Tests GameEvent.java.
