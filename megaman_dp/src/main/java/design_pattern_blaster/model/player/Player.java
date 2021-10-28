@@ -2,9 +2,9 @@ package design_pattern_blaster.model.player;
 
 import org.json.simple.JSONObject;
 
-import design_pattern_blaster.interfaces.Saveable;
+import design_pattern_blaster.interfaces.Loadable;
 
-public class Player implements Saveable
+public class Player implements Loadable
 {
 
 	@Override

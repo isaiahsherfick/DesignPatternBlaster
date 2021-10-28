@@ -2,9 +2,9 @@ package design_pattern_blaster.model.level;
 
 import org.json.simple.JSONObject;
 
-import design_pattern_blaster.interfaces.Saveable;
+import design_pattern_blaster.interfaces.Loadable;
 
-public class Level implements Saveable
+public class Level implements Loadable
 {
 	@Override
 	public JSONObject save() 
