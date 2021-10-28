@@ -27,4 +27,6 @@ SpriteTest.java:
 
 GameEventTest.java:
 
-    Tests GameEvent.java.
+    Tests GameEvent.java. **Every time a new factory method is added to
+    GameEvent.java, make sure FactoryMethodTest() gets updated to include
+    it!**
