@@ -8,15 +8,15 @@
   <artifactId>megaman_dp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>megaman_dp</name>
+  <name>design_pattern_blaster</name>
   <description>A simple megaman_dp.</description>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>9</maven.compiler.source>
+    <maven.compiler.target>9</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -28,18 +28,18 @@
             <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13.0.2</version>
+            <version>14</version>
         </dependency>
         
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>11.0.2</version>
+            <version>14</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13.0.2</version>
+            <version>14</version>
             
         </dependency>
         
