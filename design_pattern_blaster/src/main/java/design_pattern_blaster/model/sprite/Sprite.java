@@ -7,11 +7,13 @@ import java.util.List;
 import org.json.simple.JSONObject;
 
 import design_pattern_blaster.constants.Constants;
+import design_pattern_blaster.interfaces.Drawable;
 import design_pattern_blaster.interfaces.Loadable;
+import javafx.scene.canvas.GraphicsContext;
 
 
 
-public class Sprite implements Loadable
+public class Sprite implements Loadable, Drawable
 {
 	private double x,y,xVelocity,yVelocity,width,height;
 	private int layer;
@@ -195,5 +197,11 @@ public class Sprite implements Loadable
 	public void setId(int newId) 
 	{
 		id = newId;
+	}
+
+	@Override
+	public void draw(GraphicsContext g) {
+		// TODO Auto-generated method stub
+		
 	}
 }

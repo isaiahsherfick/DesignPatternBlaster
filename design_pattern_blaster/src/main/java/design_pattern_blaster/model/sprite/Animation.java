@@ -7,6 +7,7 @@
 package design_pattern_blaster.model.sprite;
 
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 
@@ -14,12 +15,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import design_pattern_blaster.interfaces.Drawable;
+
 /**
  * Animation will contain arrays of Frames(Images) associated with state.
  * AnimationState RIGHT_MOVEMENT would be associated with a collection of sprites, each one representing
  * a frame in a walking animation
  */
-public class Animation 
+public class Animation implements Drawable
 {
 
     public AnimationState animationState = AnimationState.IDLE;
@@ -47,7 +50,8 @@ public class Animation
         ArrayList<Image> images = new ArrayList<>();
 
         int col =1;
-        while(col*32 <= spriteSheetImage.getWidth()){
+        while(col*32 <= spriteSheetImage.getWidth())
+        {
             Image sprite = new WritableImage(spriteSheetImage.getPixelReader(),row,col, 32,32 );
             images.add(sprite);
             col+=1;
@@ -57,4 +61,10 @@ public class Animation
 
 
     }
+
+	@Override
+	public void draw(GraphicsContext g) 
+	{
+		// TODO Auto-generated method stub
+	}
 }
