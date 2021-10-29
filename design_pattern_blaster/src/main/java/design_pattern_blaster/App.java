@@ -28,8 +28,6 @@ public class App extends Application
 		//Create a new main scene from the loaded layout
 		Scene mainScene = new Scene(fxmlLoader.load());
 
-
-		
 		//Set the scene for the main stage
 		mainStage.setScene(mainScene);
 		

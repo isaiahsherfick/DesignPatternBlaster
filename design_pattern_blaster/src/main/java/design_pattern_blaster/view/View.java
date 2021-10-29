@@ -24,7 +24,7 @@ public class View implements Initializable, Observer
 	public void initialize(URL url, ResourceBundle resourceBundle){
 		//random stuff for testing
 		Sprite testSprite = new Sprite();
-		File spriteSheetFile = new File("megaman_dp/src/main/resources/design_pattern_blaster/sample spritesheet.png");
+		File spriteSheetFile = new File("design_pattern_blaster/src/main/resources/design_pattern_blaster/sample spritesheet.png");
 		testSprite.setAnimation(new Animation(spriteSheetFile));
 		HashMap<AnimationState, ArrayList<Image>> stateToAnimationLoop = testSprite.getAnimation().stateToAnimationLoop;
 		for (int i = 1; i <= 4; i++) {
