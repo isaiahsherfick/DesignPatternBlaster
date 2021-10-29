@@ -23,6 +23,7 @@ public class App extends Application
 	public void start(Stage mainStage) throws Exception 
 	{
 
+		//FXML must be located in resources folder
 		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("mainWindow.fxml"));
 
 		//Create a new main scene from the loaded layout

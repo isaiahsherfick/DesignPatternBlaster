@@ -4,6 +4,7 @@ import design_pattern_blaster.interfaces.Observer;
 import design_pattern_blaster.model.sprite.Animation;
 import design_pattern_blaster.model.sprite.AnimationState;
 import design_pattern_blaster.model.sprite.Sprite;
+import design_pattern_blaster.model.sprite.behavior.MoveBehavior;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -27,9 +28,12 @@ public class View implements Initializable, Observer
 		File spriteSheetFile = new File("design_pattern_blaster/src/main/resources/design_pattern_blaster/sample spritesheet.png");
 		testSprite.setAnimation(new Animation(spriteSheetFile));
 		HashMap<AnimationState, ArrayList<Image>> stateToAnimationLoop = testSprite.getAnimation().stateToAnimationLoop;
+		testSprite.setVelocityX(32);
 		for (int i = 1; i <= 4; i++) {
+			MoveBehavior mb = new MoveBehavior();
+			mb.performBehavior(testSprite);
 			canvas.getGraphicsContext2D().drawImage(stateToAnimationLoop.get(AnimationState.IDLE).get(i-1),
-					32*i,0);
+					testSprite.getX(), testSprite.getY());
 		}
 
 	}
