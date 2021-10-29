@@ -32,29 +32,46 @@ public class Animation implements Drawable
     public Animation(File spriteSheet){
 
         spriteSheetImage = new Image(spriteSheet.toURI().toString());
-        stateToAnimationLoop.put(AnimationState.IDLE, getSpritesInRow(0));
+        stateToAnimationLoop.put(AnimationState.IDLE, getSpritesInRow(0,32,32));
 
     }
 
-    public Animation() 
-    {
+    public Animation(){
 
-	}
+    }
 
 	public void setState(AnimationState animationState) {
         this.animationState = animationState;
     }
 
-    public ArrayList<Image> getSpritesInRow(int row){
+
+    /**
+     * Extracts all sprites in a given row from this Animation's spritesheet
+     * Used for extracting a series of "frames" that, when looped, serve as animation for some
+     * state like "IDLE, RIGHT_MOVEMENT, ETC..."
+     * Assumes all sprites in a sprite sheet are uniformly sized
+     * @param row the row to extract
+     * @param spriteWidth the width of a single tile (or single frame)
+     * @param spriteHeight the height of a single tile (or single frame)
+     * @return an array of spriteSheet.getWidth() / spriteWidth images, each of size spriteWidth * spriteHeight
+     */
+    private ArrayList<Image> getSpritesInRow(int row, int spriteWidth, int spriteHeight) {
 
         ArrayList<Image> images = new ArrayList<>();
 
-        int col =1;
-        while(col*32 <= spriteSheetImage.getWidth())
-        {
-            Image sprite = new WritableImage(spriteSheetImage.getPixelReader(),row,col, 32,32 );
+        //represents how many pixels down from the top of image should we start extracting
+        final int ROW_PIXEL_COORD = spriteWidth * row;
+
+        //loop through row, extracting spriteSheet.getWidth() / spriteWidth images
+        int columnPixelCoord = 0;
+        while (columnPixelCoord<spriteSheetImage.getWidth()) {
+
+            Image sprite = new WritableImage(spriteSheetImage.getPixelReader(), columnPixelCoord,ROW_PIXEL_COORD,
+                    spriteWidth,spriteHeight );
             images.add(sprite);
-            col+=1;
+
+            //next tile will begin extraction at spriteWidth pixels to the right
+            columnPixelCoord += spriteWidth;
         }
 
         return images;
@@ -68,3 +85,5 @@ public class Animation implements Drawable
 		// TODO Auto-generated method stub
 	}
 }
+
+
