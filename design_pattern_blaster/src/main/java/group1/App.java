@@ -26,15 +26,14 @@ public class App extends Application
 		//FXML must be located in resources folder
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(getClass().getResource("mainWindow.fxml"));
+		System.out.println(getClass().getName());
 
-		if (getClass().getResource("mainWindow.fxml") != null)
-		{
-			//Create a new main scene from the loaded layout
-			Scene mainScene = new Scene(fxmlLoader.load());
+		//Create a new main scene from the loaded layout
+		Scene mainScene = new Scene(fxmlLoader.load());
 
-			//Set the scene for the main stage
-			mainStage.setScene(mainScene);
-		}
+		//Set the scene for the main stage
+		mainStage.setScene(mainScene);
+		
 		
 		//Change title, x, y, width, height
 		mainStage.setTitle("Design Pattern Blaster 0.0.1");
