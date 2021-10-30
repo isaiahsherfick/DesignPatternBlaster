@@ -11,10 +11,12 @@ public class SpriteManager
 {
 		private HashMap<Integer, Sprite> spriteMap;
 		private int highestSpriteId;
+		private HashMap<Integer, HashMap<Integer, Sprite>> spriteLayerMap;		//stores sprites of same layers together
 		
 		public SpriteManager()
 		{
 			this.spriteMap = new HashMap<>();
+			this.spriteLayerMap = new HashMap<>();
 			highestSpriteId = 0;
 		}
 		
@@ -24,12 +26,14 @@ public class SpriteManager
 			{
 				highestSpriteId = s.getId();
 				spriteMap.put(s.getId(), s);
+				spriteLayerMap.put(s.getLayer(), spriteMap);
 			}
 			else
 			{
 				highestSpriteId++;
 				s.setId(highestSpriteId);
 				spriteMap.put(s.getId(),s);
+				spriteLayerMap.put(s.getLayer(), spriteMap);
 			}
 		}
 		

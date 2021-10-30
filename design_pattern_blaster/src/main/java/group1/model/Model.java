@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import group1.interfaces.Observable;
 import group1.interfaces.Observer;
+import group1.model.collision.CollisionManager;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
 import group1.model.sprite.SpriteManager;
