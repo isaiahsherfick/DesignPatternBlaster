@@ -40,7 +40,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="683.0" prefWidth="1013.0" VBox.vgrow="ALWAYS">
       <children>
-            <Canvas fx:id="gameCanvas" height="581.0" onKeyPressed="#keyPressed" width="878.0" />
+            <Canvas fx:id="gameCanvas" height="581.0" width="878.0" />
       </children>
     </AnchorPane>
   </children>

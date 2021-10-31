@@ -17,13 +17,15 @@ public class Level implements Loadable
 	ArrayList<Sprite> allSprites;
 	
 	// Default Constructor initializing current level as -1 and creating the new ArrayList of Sprites
-	public Level() {
+	public Level() 
+	{
 		level = -1;
 		allSprites = new ArrayList<>();
 	}
 	
 	// Parameterized Constructor initializing level based on argument and creating the new ArrayList of Sprites
-	public Level(int level) {
+	public Level(int level) 
+	{
 		this.level = level;
 		allSprites = new ArrayList<>();
 	}
@@ -34,32 +36,41 @@ public class Level implements Loadable
 	//									//
 	//**********************************//
 	
-	public int getLevel() {
+	public int getLevel() 
+	{
 		return level;
 	}
 	
-	public void setLevel(int level) {
+	public void setLevel(int level) 
+	{
 		this.level = level;
 	}
 	
-	public void addSpriteToList(Sprite s) {
+	public void addSpriteToList(Sprite s) 
+	{
 		allSprites.add(s);
 	}
 	
-	public void removeSpriteFromList(Sprite s) {
-		if(allSprites.contains(s)) {
+	public void removeSpriteFromList(Sprite s) 
+	{
+		if(allSprites.contains(s)) 
+		{
 			allSprites.remove(s);
 		}
-		else {
-			System.out.println("Sprite not in this list.");
+		else 
+		{
+//			System.out.println("Sprite not in this list.");
+			//TODO return null sprite
 		}
 	}
 	
-	public ArrayList<Sprite> getAllSpritesOnLevel() {
+	public ArrayList<Sprite> getAllSpritesOnLevel() 
+	{
 		return allSprites;
 	}
 	
-	public void setAllSpritesOnLevel(ArrayList<Sprite> allSprites) {
+	public void setAllSpritesOnLevel(ArrayList<Sprite> allSprites) 
+	{
 		this.allSprites = allSprites;
 	}
 	

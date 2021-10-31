@@ -1,4 +1,4 @@
-package group1.view;
+package group1.viewcontroller;
 
 import group1.App;
 import group1.constants.Constants;
@@ -6,7 +6,9 @@ import group1.interfaces.Observer;
 import group1.model.sprite.Animation;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteManager;
 import group1.model.sprite.behavior.MoveBehavior;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,23 +16,35 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-public class View implements Observer
+public class ViewController implements Observer
 {
 
 	@FXML private Canvas gameCanvas;
 	private Stage mainStage;
 
-	public View(Stage mainStage)
+	public ViewController(Stage stage)
 	{
+		this.mainStage = stage;
+		mainStage.setOnCloseRequest( (WindowEvent event1) ->
+		{
+			Platform.exit();
+			System.exit(0);
+		});
+
+
 		//FXML must be located in resources folder
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(App.class.getResource("mainWindow.fxml"));
@@ -39,6 +53,7 @@ public class View implements Observer
 
 		//Create a new main scene from the loaded layout
 		Scene mainScene;
+
 		try
 		{
 			mainScene = new Scene(fxmlLoader.load());
@@ -57,11 +72,6 @@ public class View implements Observer
 			e.printStackTrace();
 		}
 
-
-
-		ObserverLevel obLevel = new ObserverLevel(mainStage, gameCanvas);
-
-
 		//Change title, x, y, width, height
 		mainStage.setTitle("Design Pattern Blaster 0.0.1");
 		mainStage.setX(Constants.WINDOW_X);
@@ -73,19 +83,22 @@ public class View implements Observer
 		mainStage.show();
 	}
 
-	@FXML
-	public void keyPressed(ActionEvent event) {
-
-	}
-
-	@FXML
-	public void keyReleased(ActionEvent event) {
-
-	}
-
 	public void update()
 	{
-		//Get list of game objects from the model
-		//Use an iterator to draw everything in that list
+		gameCanvas.getGraphicsContext2D().setFill(Color.WHITE);
+		gameCanvas.getGraphicsContext2D().fillRect(0,0,gameCanvas.getWidth(), gameCanvas.getHeight());
+		//TODO refactor this so it's just one model method to do all this stuff
+		SpriteManager spriteManager = App.model.getSpriteManager();		
+		Set<Integer> layerSet = spriteManager.getLayerSet();
+		for (Integer layer : layerSet)
+		{
+			System.out.println("ViewController.java drawing layer #" + layer);
+			ArrayList<Sprite> spritesInThisLayer = spriteManager.getSpriteListByLayer(layer);
+			Iterator<Sprite> iterator = spritesInThisLayer.iterator();
+			while (iterator.hasNext())
+			{
+				iterator.next().draw(gameCanvas.getGraphicsContext2D());
+			}
+		}
 	}
 }

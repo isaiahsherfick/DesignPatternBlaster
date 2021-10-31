@@ -16,7 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 
 
-public class Sprite implements Loadable, Drawable
+public class Sprite implements Loadable
 {
 	private double x,y,xVelocity,yVelocity,width,height;
 
@@ -64,6 +64,7 @@ public class Sprite implements Loadable, Drawable
 
 	public Sprite()
 	{
+		animation = new Animation();
 		eventBehaviors = new LinkedList<EventBehavior>();
 		customCollisionMap = new CustomCollisionMap();
 		spriteId = Constants.DEFAULT_SPRITE_ID;
@@ -242,10 +243,9 @@ public class Sprite implements Loadable, Drawable
 		spriteId = newId;
 	}
 
-	@Override
-	public void draw(GraphicsContext g) {
-		// TODO Auto-generated method stub
-		
+	public void draw(GraphicsContext g) 
+	{
+		animation.draw(g, this);
 	}
 
 	public void collideWith(Sprite spriteToCheck) 

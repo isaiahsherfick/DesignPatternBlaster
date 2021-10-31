@@ -10,6 +10,7 @@ package group1.model.sprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,63 +27,77 @@ public class Animation implements Drawable
 {
 
     public AnimationState animationState = AnimationState.IDLE;
-    public Image spriteSheetImage;
     public HashMap<AnimationState, ArrayList<Image>> stateToAnimationLoop = new HashMap<>();
+    private int frame;
 
-    public Animation(File spriteSheet){
-
-        spriteSheetImage = new Image(spriteSheet.toURI().toString());
-        stateToAnimationLoop.put(AnimationState.IDLE, getSpritesInRow(0,32,32));
-
+    public Animation()
+    {
+    	stateToAnimationLoop = new HashMap<>();
+    	frame = 0;
     }
 
-    public Animation(){
-
-    }
-
-	public void setState(AnimationState animationState) {
+	public void setState(AnimationState animationState) 
+	{
         this.animationState = animationState;
     }
 
-
-    /**
-     * Extracts all sprites in a given row from this Animation's spritesheet
-     * Used for extracting a series of "frames" that, when looped, serve as animation for some
-     * state like "IDLE, RIGHT_MOVEMENT, ETC..."
-     * Assumes all sprites in a sprite sheet are uniformly sized
-     * @param row the row to extract
-     * @param spriteWidth the width of a single tile (or single frame)
-     * @param spriteHeight the height of a single tile (or single frame)
-     * @return an array of spriteSheet.getWidth() / spriteWidth images, each of size spriteWidth * spriteHeight
-     */
-    private ArrayList<Image> getSpritesInRow(int row, int spriteWidth, int spriteHeight) {
-
-        ArrayList<Image> images = new ArrayList<>();
-
-        //represents how many pixels down from the top of image should we start extracting
-        final int ROW_PIXEL_COORD = spriteWidth * row;
-
-        //loop through row, extracting spriteSheet.getWidth() / spriteWidth images
-        int columnPixelCoord = 0;
-        while (columnPixelCoord<spriteSheetImage.getWidth()) {
-
-            Image sprite = new WritableImage(spriteSheetImage.getPixelReader(), columnPixelCoord,ROW_PIXEL_COORD,
-                    spriteWidth,spriteHeight );
-            images.add(sprite);
-
-            //next tile will begin extraction at spriteWidth pixels to the right
-            columnPixelCoord += spriteWidth;
-        }
-
-        return images;
-
-
-    }
+//
+//    /**
+//     * Extracts all sprites in a given row from this Animation's spritesheet
+//     * Used for extracting a series of "frames" that, when looped, serve as animation for some
+//     * state like "IDLE, RIGHT_MOVEMENT, ETC..."
+//     * Assumes all sprites in a sprite sheet are uniformly sized
+//     * @param row the row to extract
+//     * @param spriteWidth the width of a single tile (or single frame)
+//     * @param spriteHeight the height of a single tile (or single frame)
+//     * @return an array of spriteSheet.getWidth() / spriteWidth images, each of size spriteWidth * spriteHeight
+//     */
+//    private ArrayList<Image> getSpritesInRow(int row, int spriteWidth, int spriteHeight) {
+//
+//        ArrayList<Image> images = new ArrayList<>();
+//
+//        //represents how many pixels down from the top of image should we start extracting
+//        final int ROW_PIXEL_COORD = spriteWidth * row;
+//
+//        //loop through row, extracting spriteSheet.getWidth() / spriteWidth images
+//        int columnPixelCoord = 0;
+//        while (columnPixelCoord<spriteSheetImage.getWidth()) {
+//
+//            Image sprite = new WritableImage(spriteSheetImage.getPixelReader(), columnPixelCoord,ROW_PIXEL_COORD,
+//                    spriteWidth,spriteHeight );
+//            images.add(sprite);
+//
+//            //next tile will begin extraction at spriteWidth pixels to the right
+//            columnPixelCoord += spriteWidth;
+//        }
+//
+//        return images;
+//
+//
+//    }
 
 	@Override
-	public void draw(GraphicsContext g) 
+	public void draw(GraphicsContext g, Sprite sprite) 
 	{
-		// TODO Auto-generated method stub
+		if (stateToAnimationLoop.size() > 0)
+		{
+			ArrayList<Image> frames = stateToAnimationLoop.get(this.animationState);
+			Image currentFrame = frames.get(frame);
+			if (frame == frames.size())
+			{
+				frame = 0;
+			}
+			else
+			{
+				frame++;
+			}
+			g.drawImage(currentFrame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+		}
+		else
+		{
+			g.setFill(Color.RED);
+			g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+		}
 	}
 }
 

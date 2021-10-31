@@ -25,8 +25,8 @@ public class ModelTest
 		App.resetModel();
 		Model m = App.model;
 		
-		//It has no observers in it
-		assertEquals(0, m.getNumberOfObservers());
+		//It has no observers in it other than the viewcontroller
+		assertEquals(1, m.getNumberOfObservers());
 		
 		//Create 50 observers
 		ArrayList<TestObserver> observers = new ArrayList<>();

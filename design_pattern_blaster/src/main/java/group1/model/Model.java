@@ -8,6 +8,7 @@ import group1.interfaces.Observer;
 import group1.model.collision.CollisionManager;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
+import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteManager;
 
 
@@ -126,5 +127,12 @@ public class Model implements Observable
 	public PlayerManager getPlayerManager() 
 	{
 		return playerManager;
+	}
+
+
+	public void addSprite(Sprite s1) 
+	{
+		spriteManager.addSprite(s1);
+		notifyObservers();
 	}
 }
