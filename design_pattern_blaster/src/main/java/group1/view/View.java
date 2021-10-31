@@ -7,6 +7,7 @@ import group1.model.sprite.Animation;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.behavior.MoveBehavior;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,44 +25,63 @@ import java.util.ResourceBundle;
 
 public class View implements Observer
 {
-	
-	private Canvas gameCanvas;
+
+	@FXML private Canvas gameCanvas;
 	private Stage mainStage;
-	
+
 	public View(Stage mainStage)
 	{
 		//FXML must be located in resources folder
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(App.class.getResource("mainWindow.fxml"));
+		fxmlLoader.setController(this);
 		System.out.println(getClass().getName());
 
 		//Create a new main scene from the loaded layout
 		Scene mainScene;
-		try 
+		try
 		{
 			mainScene = new Scene(fxmlLoader.load());
+			mainScene.setOnKeyPressed(e -> {
+				System.out.println("Key Pressed");
+			});
+			mainScene.setOnKeyReleased(e -> {
+				System.out.println("Key Released");
+			});
 			//Set the scene for the main stage
 			mainStage.setScene(mainScene);
-		} 
-		catch (IOException e) 
+		}
+		catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
-		
+
+
+		ObserverLevel obLevel = new ObserverLevel(mainStage, gameCanvas);
+
+
 		//Change title, x, y, width, height
 		mainStage.setTitle("Design Pattern Blaster 0.0.1");
 		mainStage.setX(Constants.WINDOW_X);
 		mainStage.setY(Constants.WINDOW_Y);
 		mainStage.setWidth(Constants.WINDOW_WIDTH);
 		mainStage.setHeight(Constants.WINDOW_HEIGHT);
-		
+
 		//Display the window
 		mainStage.show();
 	}
 
+	@FXML
+	public void keyPressed(ActionEvent event) {
+
+	}
+
+	@FXML
+	public void keyReleased(ActionEvent event) {
+
+	}
 
 	public void update()
 	{
