@@ -16,6 +16,7 @@ class LayersIntegrationTest
 	@Test
 	void spriteManagerLayersTest() 
 	{
+		App.resetModel();
 		SpriteManager sm = new SpriteManager();
 		Sprite s1 = new Sprite();
 		Sprite s2 = new Sprite();
@@ -31,14 +32,14 @@ class LayersIntegrationTest
 	@Test
 	void layeredCollisionTest()
 	{
+		App.resetModel();
 		//Setup
 		SpriteManager sm = new SpriteManager();
 		Sprite s1 = new Sprite();
 		Sprite s2 = new Sprite();
 		s1.setLayer(0);
 		s2.setLayer(1);
-		sm.addSprite(s1);
-		sm.addSprite(s2);
+		
 		int xVelocity = 20;
 		s1.setVelocityX(20);
 		s2.setVelocityX(20);

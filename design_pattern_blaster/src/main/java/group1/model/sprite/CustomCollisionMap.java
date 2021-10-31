@@ -51,5 +51,24 @@ public class CustomCollisionMap implements Loadable
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void handleCollision(Sprite spriteToModify, Sprite collidee) 
+	{
+		//First check if the sprite id is in the map, as that means we have a custom collision with that specific sprite
+		if (collisionBehaviorMap.containsKey(collidee.getSpriteId()))
+		{
+			collisionBehaviorMap.get(collidee.getSpriteId()).performBehavior(spriteToModify);
+		}
+		//Next check if the sprite class id is in the map, as that means we have a custom collision with that class of sprite
+		else if (collisionBehaviorMap.containsKey(collidee.getSpriteClassId()))
+		{
+			collisionBehaviorMap.get(collidee.getSpriteClassId()).performBehavior(spriteToModify);
+		}
+		//If neither of those are true, execute the default collision behavior on spriteToModify
+		else
+		{
+			defaultCollisionBehavior.performBehavior(spriteToModify);
+		}
+	}
 	
 }

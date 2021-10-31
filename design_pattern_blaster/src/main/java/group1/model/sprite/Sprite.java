@@ -65,7 +65,9 @@ public class Sprite implements Loadable, Drawable
 	public Sprite()
 	{
 		eventBehaviors = new LinkedList<EventBehavior>();
+		customCollisionMap = new CustomCollisionMap();
 		spriteId = Constants.DEFAULT_SPRITE_ID;
+		hitBox = new HitBox(this); //TODO this is that circular thing we don't want, refactor
 		spriteClassId = SpriteClassIdConstants.DEFAULT_SPRITE_CLASS;
 		x=0; y=0; xVelocity = 0; yVelocity =0;
 		width = 0; height =0;
@@ -248,7 +250,7 @@ public class Sprite implements Loadable, Drawable
 
 	public void collideWith(Sprite spriteToCheck) 
 	{
-
+		customCollisionMap.handleCollision(this,spriteToCheck);
 	}
 
 	public void setDefaultCollisionBehavior(Behavior newDefault) 
