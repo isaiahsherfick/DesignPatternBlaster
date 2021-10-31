@@ -56,8 +56,8 @@ public class SpriteTest
 	{
 		Sprite s = new Sprite();
 		int expected = 420;
-		s.setId(expected);
-		assertEquals(expected,s.getId());
+		s.setSpriteId(expected);
+		assertEquals(expected,s.getSpriteId());
 	}
 	
 	@Test

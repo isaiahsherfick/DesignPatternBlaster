@@ -10,6 +10,8 @@ import group1.constants.Constants;
 import group1.interfaces.Drawable;
 import group1.interfaces.Loadable;
 import group1.model.collision.HitBox;
+import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.behavior.MoveBehavior;
 import javafx.scene.canvas.GraphicsContext;
 
 
@@ -17,11 +19,32 @@ import javafx.scene.canvas.GraphicsContext;
 public class Sprite implements Loadable, Drawable
 {
 	private double x,y,xVelocity,yVelocity,width,height;
+
+	//spriteId is a POSITIVE constant assigned at runtime by the spriteManager or hard coded before inserting the sprite into the manager
+	private int spriteId;
+	
+	//SpriteClassId is a NEGATIVE constant defined in SpriteClassIdConstants.java
+	//They encapsulate what kind of thing the sprite represents, like a bullet or an enemy
+	//Used to generalize the collision behaviors
+	private int spriteClassId;
+	
+	//Layer is an integer assigned at runtime to distinguish what order sprites are drawn in and what other sprites the sprite can collide with
 	private int layer;
+	
+	//Animation contains a list of frames with specific IDs that Behaviors can cause to be displayed
 	private Animation animation;
+	
+	//Health is the amount of health the sprite has. 
 	private int health;
+	
+	//Sprite will only be drawn / collidable if enabled is true. False by default, enabled by camera when the camera detects the sprite in the frame
 	private boolean enabled;
+	
+	//Hitbox object for collision
 	private HitBox hitBox;
+	
+	//HashMap for collisions. Custom collisions can be added for classes of sprites (negative values) or specific sprites (positive values). 
+	private CustomCollisionMap customCollisionMap;
 
 	//List of the sprite's behaviors including ontick behaviors, onDeath, onCollision, onKeyPress, onTick, etc.
 	//This will be iterated through and we will perform a check to see if the Behavior is of a specific subclass
@@ -42,7 +65,8 @@ public class Sprite implements Loadable, Drawable
 	public Sprite()
 	{
 		eventBehaviors = new LinkedList<EventBehavior>();
-		id = Constants.DEFAULT_SPRITE_ID;
+		spriteId = Constants.DEFAULT_SPRITE_ID;
+		spriteClassId = SpriteClassIdConstants.DEFAULT_SPRITE_CLASS;
 		x=0; y=0; xVelocity = 0; yVelocity =0;
 		width = 0; height =0;
 		layer = 0;
@@ -62,13 +86,20 @@ public class Sprite implements Loadable, Drawable
 			eventIterator.next().executeIfEventMatches(g, this);
 		}
 	}
-
-
-	private int id;
-
-	public int getId() 
+	
+	public int getSpriteClassId()
 	{
-		return id;
+		return spriteClassId;
+	}
+	
+	public void setSpriteClassId(int id)
+	{
+		spriteClassId = id;
+	}
+
+	public int getSpriteId() 
+	{
+		return spriteId;
 	}
 	public double getX() 
 	{
@@ -186,13 +217,13 @@ public class Sprite implements Loadable, Drawable
 		return hitBox;
 	}
 
-	public void setHitBox(HitBox hitBox) {
+	public void setHitBox(HitBox hitBox) 
+	{
 		this.hitBox = hitBox;
 	}
 
 	@Override
 	public JSONObject save()
-	
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -204,14 +235,24 @@ public class Sprite implements Loadable, Drawable
 		// TODO Auto-generated method stub
 	}
 
-	public void setId(int newId) 
+	public void setSpriteId(int newId) 
 	{
-		id = newId;
+		spriteId = newId;
 	}
 
 	@Override
 	public void draw(GraphicsContext g) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void collideWith(Sprite spriteToCheck) 
+	{
+
+	}
+
+	public void setDefaultCollisionBehavior(Behavior newDefault) 
+	{
+		customCollisionMap.setDefaultCollisionBehavior(newDefault);
 	}
 }

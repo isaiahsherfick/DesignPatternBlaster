@@ -2,39 +2,36 @@ package group1.model.collision;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteManager;
 
 public class CollisionManager 
 {
-private HashMap<Integer, ArrayList<Integer>> collisionMap;
-	
-	public CollisionManager() {
-		collisionMap = new HashMap<Integer, ArrayList<Integer>>();
-	}
-	
-	public void checkCollisions(SpriteManager spriteManager) {
-		ArrayList<Sprite> allSprites = spriteManager.getSpriteList();
-		collisionMap = new HashMap<Integer, ArrayList<Integer>>();
-		
-		if (allSprites.size() > 1)
+	public void checkCollisions(SpriteManager spriteManager)
+	{
+		Set<Integer> layerSet = spriteManager.getLayerSet();
+		for (Integer layer : layerSet)
 		{
-			for(int i=0; i< allSprites.size(); i++) {
-				Sprite collider = allSprites.get(i);
-				
-				for(int j = i+1; j< allSprites.size(); j++) {
-					Sprite collidee = allSprites.get(j);
-						if(collider.getLayer() == collidee.getLayer()) {
-							
-						}
+			ArrayList<Sprite> spritesInLayer = spriteManager.getSpriteListByLayer(layer);
+			Iterator<Sprite> firstIterator = spritesInLayer.iterator();
+			while (firstIterator.hasNext())
+			{
+				Sprite currentSprite = firstIterator.next();
+				HitBox currentHitBox = currentSprite.getHitBox();
+				Iterator<Sprite> secondIterator = spritesInLayer.iterator();
+				while (secondIterator.hasNext())
+				{
+					Sprite spriteToCheck = secondIterator.next();
+					HitBox hitBoxToCheck = spriteToCheck.getHitBox();
+					if (currentHitBox.overlaps(hitBoxToCheck) != HitBoxOverlapType.NO_OVERLAP)
+					{
+						currentSprite.collideWith(spriteToCheck);
+					}
 				}
 			}
-			
 		}
-	}
-	
-	public void clearCollisionMap() {
-		collisionMap.clear();
 	}
 }

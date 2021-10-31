@@ -2,12 +2,13 @@ package group1.model.collision;
 
 import group1.model.sprite.Sprite;
 
-public class HitBox {
+public class HitBox 
+{
 	
 	Sprite sprite;
 
-	public HitBox(Sprite sprite) {
-		super();
+	public HitBox(Sprite sprite) 
+	{
 		this.sprite = sprite;
 	}
 	

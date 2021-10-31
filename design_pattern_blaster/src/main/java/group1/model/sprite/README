@@ -8,3 +8,10 @@ types which a sprite contains, such as EventBehavior and Animation.
 **Whenever a new GameEvent factory method is added, factoryMethodTests()
 in tests.GameEventTest.java needs updated to include that new factory
 method!
+
+
+**Whenever a new field is added to Sprite, here is what needs done:
+	1. update default sprite constructor to include that field
+	2. add getters/setters for that field
+	3. add those fields to save/load
+	4. add those fields to sprite copy() (ensure that the new fields have copy() methods themselves if they aren't primitive)

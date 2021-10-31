@@ -2,7 +2,9 @@ package group1.model.sprite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import group1.App;
 import group1.model.level.Level;
@@ -22,17 +24,17 @@ public class SpriteManager
 		
 		public void addSprite(Sprite s) 
 		{
-			if (s.getId() > highestSpriteId)
+			if (s.getSpriteId() > highestSpriteId)
 			{
-				highestSpriteId = s.getId();
-				spriteMap.put(s.getId(), s);
+				highestSpriteId = s.getSpriteId();
+				spriteMap.put(s.getSpriteId(), s);
 				spriteLayerMap.put(s.getLayer(), spriteMap);
 			}
 			else
 			{
 				highestSpriteId++;
-				s.setId(highestSpriteId);
-				spriteMap.put(s.getId(),s);
+				s.setSpriteId(highestSpriteId);
+				spriteMap.put(s.getSpriteId(),s);
 				spriteLayerMap.put(s.getLayer(), spriteMap);
 			}
 		}
@@ -44,7 +46,7 @@ public class SpriteManager
 		
 		public void modifySprite(Sprite newSprite) 
 		{
-			int newSpriteId = newSprite.getId();
+			int newSpriteId = newSprite.getSpriteId();
 			Sprite oldSprite = spriteMap.get(newSpriteId);
 			oldSprite.setX(newSprite.getX());
 			oldSprite.setY(newSprite.getY());
@@ -102,5 +104,16 @@ public class SpriteManager
 				}
 			}
 			return spritesInTargetLayer;
+		}
+
+		public Set<Integer> getLayerSet() 
+		{
+			HashSet<Integer> layers = new HashSet<>();
+			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			while (spriteIterator.hasNext())
+			{
+				layers.add(spriteIterator.next().getLayer());
+			}
+			return layers;
 		}		
 }
