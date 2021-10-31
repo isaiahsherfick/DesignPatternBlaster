@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class App extends Application
@@ -47,7 +48,17 @@ public class App extends Application
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new HorizontalMoveBehavior()));
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new HorizontalMoveBehavior()));
+			playerSprite.setColor(Color.BLUE);
+			
+			Sprite floor = new Sprite();
+			floor.setWidth(Constants.WINDOW_WIDTH);
+			floor.setHeight(10);
+			floor.setY(Constants.WINDOW_HEIGHT - 50);
+			floor.setX(0);
+			floor.setColor(Color.BLACK);
+			
 			model.addSprite(playerSprite);
+			model.addSprite(floor);
 	}
 
 	//Resets the static model. Used for unit tests and save/load

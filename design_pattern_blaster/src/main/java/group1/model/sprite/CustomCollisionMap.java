@@ -36,7 +36,7 @@ public class CustomCollisionMap implements Loadable
 	//
 	public void addCustomCollision(int collisionId, Behavior behavior)
 	{
-		
+		collisionBehaviorMap.put(collisionId, behavior);
 	}
 	
 	@Override

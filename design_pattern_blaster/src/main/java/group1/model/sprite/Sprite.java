@@ -14,6 +14,7 @@ import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.MoveBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 
@@ -53,6 +54,9 @@ public class Sprite implements Loadable
 	//This will be iterated through and we will perform a check to see if the Behavior is of a specific subclass
 	//Before calling the appropriate method call to cause the sprite to do what we want it to
 	private List<EventBehavior> eventBehaviors;
+	
+	//Color - only used when the sprite is drawn using a primitive JFX shape, will eventually be deprecated
+	private Color color;
 
 	public Animation getAnimation() 
 	{
@@ -78,6 +82,17 @@ public class Sprite implements Loadable
 		layer = 0;
 		direction = Constants.LEFT;
 		enabled = false;
+		color = Color.RED;
+	}
+	
+	public Color getColor()
+	{
+		return color;
+	}
+	
+	public void setColor(Color color)
+	{
+		this.color = color;
 	}
 	
 	public int getDirection()
@@ -259,6 +274,7 @@ public class Sprite implements Loadable
 
 	public void draw(GraphicsContext g) 
 	{
+		g.setFill(color);
 		animation.draw(g, this);
 	}
 

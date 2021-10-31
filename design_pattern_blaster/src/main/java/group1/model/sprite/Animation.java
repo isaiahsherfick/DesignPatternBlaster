@@ -95,7 +95,6 @@ public class Animation implements Drawable
 		}
 		else
 		{
-			g.setFill(Color.RED);
 			g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}
 	}
