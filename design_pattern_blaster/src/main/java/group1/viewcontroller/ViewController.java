@@ -3,6 +3,7 @@ package group1.viewcontroller;
 import group1.App;
 import group1.constants.Constants;
 import group1.interfaces.Observer;
+import group1.model.KeyInputManager;
 import group1.model.sprite.Animation;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.Sprite;
@@ -60,11 +61,17 @@ public class ViewController implements Observer
 			mainScene = new Scene(fxmlLoader.load());
 			mainScene.setOnKeyPressed(e -> 
 			{
-				App.model.receiveEvent(GameEvent.KeyPressedEvent(e.getCode()));
+				KeyInputManager keyInputManager = App.model.getKeyInputManager();
+				if (!keyInputManager.isPressed(e.getCode()))
+				{
+					App.model.receiveEvent(GameEvent.KeyPressedEvent(e.getCode()));
+					keyInputManager.onKeyPress(e.getCode());
+				}
 			});
 			mainScene.setOnKeyReleased(e -> 
 			{
-				System.out.println("Key Released");
+				KeyInputManager keyInputManager = App.model.getKeyInputManager();
+				keyInputManager.onKeyRelease(e.getCode());
 			});
 			//Set the scene for the main stage
 			mainStage.setScene(mainScene);
@@ -97,7 +104,7 @@ public class ViewController implements Observer
 		Set<Integer> layerSet = spriteManager.getLayerSet();
 		for (Integer layer : layerSet)
 		{
-			System.out.println("ViewController.java drawing layer #" + layer);
+//			System.out.println("ViewController.java drawing layer #" + layer);
 			ArrayList<Sprite> spritesInThisLayer = spriteManager.getSpriteListByLayer(layer);
 			Iterator<Sprite> iterator = spritesInThisLayer.iterator();
 			while (iterator.hasNext())

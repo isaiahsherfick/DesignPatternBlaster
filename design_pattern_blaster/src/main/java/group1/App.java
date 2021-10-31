@@ -7,6 +7,7 @@ import group1.model.sprite.Sprite;
 import group1.model.sprite.behavior.FaceLeftBehavior;
 import group1.model.sprite.behavior.FaceRightBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehavior;
+import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
 import group1.model.sprite.behavior.MoveBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import group1.viewcontroller.ViewController;
@@ -40,14 +41,15 @@ public class App extends Application
 			
 			//TODO move all this to Level stuff, just for testing right now
 			Sprite playerSprite = new Sprite();
+			playerSprite.setY(Constants.WINDOW_HEIGHT - 100);
 			playerSprite.setWidth(50);
 			playerSprite.setHeight(50);
 			playerSprite.setVelocityX(10);
 			playerSprite.setDirection(Constants.RIGHT);
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
-			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new HorizontalMoveBehavior()));
-			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new HorizontalMoveBehavior()));
+			playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.A)));
+			playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
 			playerSprite.setColor(Color.BLUE);
 			
 			Sprite floor = new Sprite();
@@ -59,6 +61,7 @@ public class App extends Application
 			
 			model.addSprite(playerSprite);
 			model.addSprite(floor);
+			model.startGameClock();
 	}
 
 	//Resets the static model. Used for unit tests and save/load

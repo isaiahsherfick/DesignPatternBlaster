@@ -11,6 +11,7 @@ import group1.model.player.PlayerManager;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteManager;
 import group1.model.sprite.game_event.GameEvent;
+import javafx.scene.input.KeyCode;
 
 
 //Model class which serves as a mediator between the various managers in our backend
@@ -43,6 +44,9 @@ public class Model implements Observable
 	//Responsible for managing the Player objects in the game and attaching sprites to them. Will be simple until multiplayer is added.
 	private PlayerManager playerManager;
 	
+	//Responsible for managing the key presses
+	private KeyInputManager keyInputManager;
+	
 	//Default constructor
 	public Model()
 	{
@@ -54,6 +58,12 @@ public class Model implements Observable
 		saveAndLoadManager = new SaveAndLoadManager();
 		collisionManager = new CollisionManager();
 		playerManager = new PlayerManager();
+		keyInputManager = new KeyInputManager();
+	}
+	
+	public boolean isPressed(KeyCode k)
+	{
+		return keyInputManager.isPressed(k);
 	}
 	
 	
@@ -141,5 +151,16 @@ public class Model implements Observable
 	{
 		spriteManager.addSprite(s1);
 		notifyObservers();
+	}
+
+	public KeyInputManager getKeyInputManager() 
+	{
+		return keyInputManager;
+	}
+
+	public void startGameClock() 
+	{
+		gameClock.start();
+		gameClock.play();
 	}
 }

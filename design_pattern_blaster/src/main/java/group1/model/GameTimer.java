@@ -1,7 +1,9 @@
 package group1.model;
 
+import group1.App;
 import group1.interfaces.Observable;
 import group1.interfaces.Observer;
+import group1.model.sprite.game_event.GameEvent;
 import javafx.animation.AnimationTimer;
 
 import java.io.File;
@@ -48,6 +50,7 @@ public class GameTimer extends AnimationTimer
         if (isPaused) {
             super.start();
             isPlayScheduled = true;
+            isPaused = false;
             isPauseScheduled = false;
         }
     }
@@ -90,6 +93,7 @@ public class GameTimer extends AnimationTimer
             secondsSincePreviousFrame = (now - lastFrameTimeNanos) / 1e9;
             totalTime += secondsSincePreviousFrame;
             lastFrameTimeNanos = now;
+            App.model.receiveEvent(GameEvent.ClockTickEvent());
         }
     }
 
