@@ -20,6 +20,8 @@ import javafx.scene.canvas.GraphicsContext;
 public class Sprite implements Loadable
 {
 	private double x,y,xVelocity,yVelocity,width,height;
+	
+	private int direction;
 
 	//spriteId is a POSITIVE constant assigned at runtime by the spriteManager or hard coded before inserting the sprite into the manager
 	private int spriteId;
@@ -74,7 +76,18 @@ public class Sprite implements Loadable
 		x=Constants.DEFAULT_SPRITE_X; y=Constants.DEFAULT_SPRITE_Y; xVelocity = Constants.DEFAULT_SPRITE_DX; yVelocity =Constants.DEFAULT_SPRITE_DY; 
 		width = Constants.DEFAULT_SPRITE_WIDTH; height =Constants.DEFAULT_SPRITE_HEIGHT;
 		layer = 0;
+		direction = Constants.LEFT;
 		enabled = false;
+	}
+	
+	public int getDirection()
+	{
+		return direction;
+	}
+	
+	public void setDirection(int newDirection)
+	{
+		direction = newDirection;
 	}
 	
 	//This is the sprite's "do" method

@@ -81,6 +81,8 @@ public class ViewController implements Observer
 		mainStage.setY(Constants.WINDOW_Y);
 		mainStage.setWidth(Constants.WINDOW_WIDTH);
 		mainStage.setHeight(Constants.WINDOW_HEIGHT);
+		gameCanvas.setWidth(Constants.WINDOW_WIDTH);
+		gameCanvas.setHeight(Constants.WINDOW_HEIGHT);
 
 		//Display the window
 		mainStage.show();
