@@ -3,6 +3,7 @@ package group1.model.sprite.game_event;
 import org.json.simple.JSONObject;
 
 import group1.interfaces.Loadable;
+import javafx.scene.input.KeyCode;
 
 //GameEvent abstraction to represent what kind of event has occurred
 //used in EventBehavior.java
@@ -21,7 +22,7 @@ public class GameEvent implements Loadable
 	private int eventType;
 	
 	//Use the factory methods!
-	private GameEvent(int eventType)
+	protected GameEvent(int eventType)
 	{
 		this.eventType = eventType;
 	}
@@ -40,9 +41,9 @@ public class GameEvent implements Loadable
 	{
 		return new GameEvent(COLLISION);
 	}
-	public static GameEvent KeyPressedEvent()
+	public static GameEvent KeyPressedEvent(KeyCode keyCode)
 	{
-		return new GameEvent(KEY_PRESSED);
+		return new KeyPressEvent(keyCode);
 	}
 	public static GameEvent HealthDepletedEvent()
 	{
