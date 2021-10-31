@@ -13,13 +13,11 @@ public class SpriteManager
 {
 		private HashMap<Integer, Sprite> spriteMap;
 		private int highestSpriteId;
-		private HashMap<Integer, HashMap<Integer, Sprite>> spriteLayerMap;		//stores sprites of same layers together
 		
 		public SpriteManager()
 		{
 			this.spriteMap = new HashMap<>();
-			this.spriteLayerMap = new HashMap<>();
-			highestSpriteId = 0;
+			highestSpriteId = -1;
 		}
 		
 		public void addSprite(Sprite s) 
@@ -28,14 +26,12 @@ public class SpriteManager
 			{
 				highestSpriteId = s.getSpriteId();
 				spriteMap.put(s.getSpriteId(), s);
-				spriteLayerMap.put(s.getLayer(), spriteMap);
 			}
 			else
 			{
 				highestSpriteId++;
 				s.setSpriteId(highestSpriteId);
 				spriteMap.put(s.getSpriteId(),s);
-				spriteLayerMap.put(s.getLayer(), spriteMap);
 			}
 		}
 		
@@ -46,10 +42,12 @@ public class SpriteManager
 		
 		public void modifySprite(Sprite newSprite) 
 		{
-			int newSpriteId = newSprite.getSpriteId();
-			Sprite oldSprite = spriteMap.get(newSpriteId);
-			oldSprite.setX(newSprite.getX());
-			oldSprite.setY(newSprite.getY());
+			//If the sprite exists already
+			if (spriteMap.containsKey(newSprite.getSpriteId()))
+			{
+				//Replace the sprite stored there with the new version
+				spriteMap.put(newSprite.getSpriteId(), newSprite);
+			}
 		}
 		
 		//Receive a game event, send it to all the sprites
@@ -115,5 +113,10 @@ public class SpriteManager
 				layers.add(spriteIterator.next().getLayer());
 			}
 			return layers;
+		}
+
+		public int getNumberOfSprites() 
+		{
+			return spriteMap.size();
 		}		
 }

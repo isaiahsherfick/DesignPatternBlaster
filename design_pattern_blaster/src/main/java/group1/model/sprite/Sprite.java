@@ -69,8 +69,8 @@ public class Sprite implements Loadable, Drawable
 		spriteId = Constants.DEFAULT_SPRITE_ID;
 		hitBox = new HitBox(this); //TODO this is that circular thing we don't want, refactor
 		spriteClassId = SpriteClassIdConstants.DEFAULT_SPRITE_CLASS;
-		x=0; y=0; xVelocity = 0; yVelocity =0;
-		width = 0; height =0;
+		x=Constants.DEFAULT_SPRITE_X; y=Constants.DEFAULT_SPRITE_Y; xVelocity = Constants.DEFAULT_SPRITE_DX; yVelocity =Constants.DEFAULT_SPRITE_DY; 
+		width = Constants.DEFAULT_SPRITE_WIDTH; height =Constants.DEFAULT_SPRITE_HEIGHT;
 		layer = 0;
 		enabled = false;
 	}

@@ -10,5 +10,11 @@ public final class Constants
 	public static final int DEFAULT_SPRITE_ID = -2; //Sprite ID assigned in default constructor, overriden by Sprite Manager
 	public static final int FOREGROUND = 0; //layer value for sprites in the foreground
 	public static final int BACKGROUND = 1; //layer value for sprites in the background
+	public static final short DEFAULT_SPRITE_X = 0; //Default x location for sprites
+	public static final short DEFAULT_SPRITE_Y = 0; //Default y location for sprites
+	public static final short DEFAULT_SPRITE_DX = 0; //Default x velocity for sprites
+	public static final short DEFAULT_SPRITE_DY = 0; //Default y velocity for sprites
+	public static final short DEFAULT_SPRITE_WIDTH = 0; //Default width for sprites
+	public static final short DEFAULT_SPRITE_HEIGHT = 0; //Default height for sprites
 	
 }
