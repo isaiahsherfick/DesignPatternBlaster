@@ -33,11 +33,13 @@ public class SpriteManager
 			}
 		}
 		
-		public Sprite getSprite(int spriteId) {
+		public Sprite getSprite(int spriteId) 
+		{
 			return spriteMap.get(spriteId);
 		}
 		
-		public void modifySprite(Sprite newSprite) {
+		public void modifySprite(Sprite newSprite) 
+		{
 			int newSpriteId = newSprite.getId();
 			Sprite oldSprite = spriteMap.get(newSpriteId);
 			oldSprite.setX(newSprite.getX());
@@ -57,7 +59,8 @@ public class SpriteManager
 			App.model.notifyObservers();
 		}
 		
-		public ArrayList<Sprite> getSpriteList(){
+		public ArrayList<Sprite> getSpriteList()
+		{
 			ArrayList<Sprite> allSprites = new ArrayList<>();
 			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
 			while (spriteIterator.hasNext())
@@ -67,11 +70,33 @@ public class SpriteManager
 			return allSprites;
 		}
 		
-		public void clearAllSprites() {
+		public void clearAllSprites() 
+		{
 			spriteMap.clear();
 		}
 		
-		public void loadLevel(Level level) {
-			//load next level implementation goes here
+		public void loadLevel(Level level) 
+		{
+			ArrayList<Sprite> allSprites = new ArrayList<>();
+			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			while (spriteIterator.hasNext())
+			{
+				allSprites.add(spriteIterator.next());
+			}
+		}
+
+		public ArrayList<Sprite> getSpriteListByLayer(int layer) 
+		{
+			ArrayList<Sprite> spritesInTargetLayer = new ArrayList<>();
+			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			while (spriteIterator.hasNext())
+			{
+				Sprite current = spriteIterator.next();
+				if (current.getLayer() == (layer))
+				{
+					spritesInTargetLayer.add(current);
+				}
+			}
+			return spritesInTargetLayer;
 		}		
 }
