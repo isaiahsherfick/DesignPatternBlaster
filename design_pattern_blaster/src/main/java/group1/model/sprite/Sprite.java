@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import group1.constants.Constants;
 import group1.interfaces.Drawable;
 import group1.interfaces.Loadable;
+import group1.model.collision.HitBox;
 import javafx.scene.canvas.GraphicsContext;
 
 
@@ -20,6 +21,7 @@ public class Sprite implements Loadable, Drawable
 	private Animation animation;
 	private int health;
 	private boolean enabled;
+	private HitBox hitBox;
 
 	//List of the sprite's behaviors including ontick behaviors, onDeath, onCollision, onKeyPress, onTick, etc.
 	//This will be iterated through and we will perform a check to see if the Behavior is of a specific subclass
@@ -178,6 +180,14 @@ public class Sprite implements Loadable, Drawable
 	
 	{
 		eventBehaviors.add(newEventBehavior);
+	}
+	
+	public HitBox getHitBox() {
+		return hitBox;
+	}
+
+	public void setHitBox(HitBox hitBox) {
+		this.hitBox = hitBox;
 	}
 
 	@Override

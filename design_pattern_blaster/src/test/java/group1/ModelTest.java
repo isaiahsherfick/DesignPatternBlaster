@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import group1.TestObserver;
-import group1.model.CollisionManager;
 import group1.model.GameCamera;
 import group1.model.GameTimer;
 import group1.model.Model;
+import group1.model.collision.CollisionManager;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
 import group1.model.sprite.SpriteManager;
