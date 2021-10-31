@@ -8,6 +8,7 @@ import group1.interfaces.Observer;
 import group1.model.collision.CollisionManager;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
+import group1.model.sprite.GameEvent;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteManager;
 
@@ -129,6 +130,12 @@ public class Model implements Observable
 		return playerManager;
 	}
 
+	//Receive an event, pass it through the sprite manager
+	public void receiveEvent(GameEvent g)
+	{
+		spriteManager.updateSprites(g);
+		notifyObservers();
+	}
 
 	public void addSprite(Sprite s1) 
 	{

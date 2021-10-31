@@ -5,6 +5,7 @@ import group1.constants.Constants;
 import group1.interfaces.Observer;
 import group1.model.sprite.Animation;
 import group1.model.sprite.AnimationState;
+import group1.model.sprite.GameEvent;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteManager;
 import group1.model.sprite.behavior.MoveBehavior;
@@ -57,10 +58,12 @@ public class ViewController implements Observer
 		try
 		{
 			mainScene = new Scene(fxmlLoader.load());
-			mainScene.setOnKeyPressed(e -> {
-				System.out.println("Key Pressed");
+			mainScene.setOnKeyPressed(e -> 
+			{
+				App.model.receiveEvent(GameEvent.KeyPressedEvent());
 			});
-			mainScene.setOnKeyReleased(e -> {
+			mainScene.setOnKeyReleased(e -> 
+			{
 				System.out.println("Key Released");
 			});
 			//Set the scene for the main stage

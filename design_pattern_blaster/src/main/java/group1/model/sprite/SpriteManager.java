@@ -60,9 +60,6 @@ public class SpriteManager
 			{
 				spriteIterator.next().respondToEvent(g);
 			}
-			
-			//Tell the model to update the view since the sprites have changed
-			App.model.notifyObservers();
 		}
 		
 		public ArrayList<Sprite> getSpriteList()

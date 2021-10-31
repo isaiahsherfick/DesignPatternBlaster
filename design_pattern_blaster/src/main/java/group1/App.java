@@ -2,7 +2,10 @@ package group1;
 
 import group1.constants.Constants;
 import group1.model.Model;
+import group1.model.sprite.EventBehavior;
+import group1.model.sprite.GameEvent;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.behavior.MoveBehavior;
 import group1.viewcontroller.ViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +37,8 @@ public class App extends Application
 			Sprite s1 = new Sprite();
 			s1.setWidth(50);
 			s1.setHeight(50);
+			s1.setVelocityX(10);
+			s1.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(), new MoveBehavior()));
 			model.addSprite(s1);
 	}
 
