@@ -12,6 +12,7 @@ import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.MoveBehavior;
 import group1.model.sprite.game_event.GameEvent;
+import javafx.scene.input.KeyCode;
 
 public class SpriteTest 
 {
@@ -32,7 +33,7 @@ public class SpriteTest
 		s.setVelocityX(5);
 
 		//Factory method
-		GameEvent g = GameEvent.KeyPressedEvent();
+		GameEvent g = GameEvent.KeyPressedEvent(KeyCode.S); //Arbitrary key
 		
 		Behavior b = new MoveBehavior();
 		
@@ -47,7 +48,7 @@ public class SpriteTest
 		//The sprite shouldn't do anything on a clock tick
 		assertEquals(xBefore, s.getX());
 		
-		s.respondToEvent(GameEvent.KeyPressedEvent());
+		s.respondToEvent(GameEvent.KeyPressedEvent(KeyCode.S));
 		
 		assertEquals(xBefore + s.getVelocityX(), s.getX());
 		

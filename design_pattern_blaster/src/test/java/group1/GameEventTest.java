@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import group1.model.sprite.game_event.GameEvent;
+import javafx.scene.input.KeyCode;
 
 public class GameEventTest 
 {
@@ -22,7 +23,7 @@ public class GameEventTest
 	{
 		GameEvent g0 = GameEvent.ClockTickEvent();
 		GameEvent g1 = GameEvent.CollisionEvent();
-		GameEvent g2 = GameEvent.KeyPressedEvent();
+		GameEvent g2 = GameEvent.KeyPressedEvent(KeyCode.X);
 		GameEvent g3 = GameEvent.PlayerDeathEvent();
 		GameEvent g4 = GameEvent.KeyReleasedEvent();
 		GameEvent g5 = GameEvent.HealthDepletedEvent();

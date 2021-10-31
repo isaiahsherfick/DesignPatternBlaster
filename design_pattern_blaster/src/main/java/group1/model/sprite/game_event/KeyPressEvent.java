@@ -8,9 +8,20 @@ public class KeyPressEvent extends GameEvent
 	public KeyPressEvent(KeyCode keyCode)
 	{
 		super(GameEvent.KEY_PRESSED);
+		this.keyCode = keyCode;
 	}
 	public KeyCode getKeyCode()
 	{
 		return keyCode;
+	}
+	
+	public boolean equals(Object o)
+	{
+		if (o instanceof KeyPressEvent)
+		{
+			KeyPressEvent k = (KeyPressEvent)o;
+			return keyCode.equals(k.getKeyCode());
+		}
+		return false;
 	}
 }

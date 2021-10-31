@@ -10,6 +10,7 @@ import group1.viewcontroller.ViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 public class App extends Application
@@ -38,7 +39,7 @@ public class App extends Application
 			s1.setWidth(50);
 			s1.setHeight(50);
 			s1.setVelocityX(10);
-			s1.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(), new MoveBehavior()));
+			s1.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.W), new MoveBehavior()));
 			model.addSprite(s1);
 	}
 

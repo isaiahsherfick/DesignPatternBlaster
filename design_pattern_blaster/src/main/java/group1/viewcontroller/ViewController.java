@@ -60,7 +60,7 @@ public class ViewController implements Observer
 			mainScene = new Scene(fxmlLoader.load());
 			mainScene.setOnKeyPressed(e -> 
 			{
-				App.model.receiveEvent(GameEvent.KeyPressedEvent());
+				App.model.receiveEvent(GameEvent.KeyPressedEvent(e.getCode()));
 			});
 			mainScene.setOnKeyReleased(e -> 
 			{
