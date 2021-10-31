@@ -41,6 +41,7 @@ public class App extends Application
 	public static void resetModel()
 	{
 		model = new Model();
-		model.registerObserver(view);
+		if (view != null)
+			model.registerObserver(view);
 	}
 }

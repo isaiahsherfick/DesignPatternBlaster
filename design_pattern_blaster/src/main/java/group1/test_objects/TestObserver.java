@@ -1,4 +1,4 @@
-package group1;
+package group1.test_objects;
 import group1.interfaces.Observer;
 
 //Test class to test Model.notifyObservers()

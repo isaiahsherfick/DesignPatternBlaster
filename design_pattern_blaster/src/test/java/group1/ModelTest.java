@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import group1.TestObserver;
+import group1.App;
 import group1.model.GameCamera;
 import group1.model.GameTimer;
 import group1.model.Model;
@@ -14,6 +14,7 @@ import group1.model.collision.CollisionManager;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
 import group1.model.sprite.SpriteManager;
+import group1.test_objects.TestObserver;
 
 public class ModelTest 
 {
@@ -26,7 +27,7 @@ public class ModelTest
 		Model m = App.model;
 		
 		//It has no observers in it other than the viewcontroller
-		assertEquals(1, m.getNumberOfObservers());
+		assertEquals(0, m.getNumberOfObservers());
 		
 		//Create 50 observers
 		ArrayList<TestObserver> observers = new ArrayList<>();
