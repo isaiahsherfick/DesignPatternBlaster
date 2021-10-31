@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import group1.constants.Constants;
 import group1.model.sprite.Animation;
 import group1.model.sprite.EventBehavior;
-import group1.model.sprite.GameEvent;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.game_event.GameEvent;
 
 public class SpriteTest 
 {

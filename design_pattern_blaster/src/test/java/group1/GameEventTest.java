@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
-import group1.model.sprite.GameEvent;
+import group1.model.sprite.game_event.GameEvent;
 
 public class GameEventTest 
 {

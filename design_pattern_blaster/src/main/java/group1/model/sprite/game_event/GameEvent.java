@@ -1,4 +1,4 @@
-package group1.model.sprite;
+package group1.model.sprite.game_event;
 
 import org.json.simple.JSONObject;
 

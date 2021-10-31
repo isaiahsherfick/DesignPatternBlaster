@@ -1,6 +1,7 @@
 package group1.model.sprite;
 
 import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.game_event.GameEvent;
 import group1.model.sprite.Sprite;
 
 //Bridge between events and behaviors

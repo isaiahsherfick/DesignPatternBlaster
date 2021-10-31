@@ -12,6 +12,7 @@ import group1.interfaces.Loadable;
 import group1.model.collision.HitBox;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.canvas.GraphicsContext;
 
 

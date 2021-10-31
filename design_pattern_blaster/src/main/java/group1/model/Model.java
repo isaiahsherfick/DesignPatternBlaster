@@ -8,9 +8,9 @@ import group1.interfaces.Observer;
 import group1.model.collision.CollisionManager;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
-import group1.model.sprite.GameEvent;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteManager;
+import group1.model.sprite.game_event.GameEvent;
 
 
 //Model class which serves as a mediator between the various managers in our backend

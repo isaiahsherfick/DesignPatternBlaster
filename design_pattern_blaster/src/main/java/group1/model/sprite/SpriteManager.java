@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 import group1.App;
 import group1.model.level.Level;
+import group1.model.sprite.game_event.GameEvent;
 
 public class SpriteManager 
 {
