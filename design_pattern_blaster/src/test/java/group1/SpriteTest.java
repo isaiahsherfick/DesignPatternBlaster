@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import group1.constants.Constants;
 import group1.model.sprite.Animation;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.GameEvent;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.MoveBehavior;
 
@@ -144,5 +146,21 @@ public class SpriteTest
 		s.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
 		assertEquals(1,s.getEventBehaviors().size());
 		assertEquals(s.getEventBehaviors().get(0).getEvent(), GameEvent.ClockTickEvent());
+	}
+	
+	@Test
+	public void getSpriteClassIdTest()
+	{
+		Sprite s = new Sprite();
+		assertEquals(SpriteClassIdConstants.DEFAULT_SPRITE_CLASS, s.getSpriteClassId());
+	}
+	
+	@Test
+	public void setSpriteClassIdTest()
+	{
+		Sprite s = new Sprite();
+		assertNotEquals(420, s.getSpriteClassId());
+		s.setSpriteClassId(420);
+		assertEquals(420, s.getSpriteClassId());
 	}
 }
