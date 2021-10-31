@@ -14,7 +14,6 @@ import group1.model.Model;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
 import group1.model.sprite.SpriteManager;
-import group1.view.View;
 
 public class ModelTest 
 {
@@ -30,10 +29,10 @@ public class ModelTest
 		assertEquals(0, m.getNumberOfObservers());
 		
 		//Create 50 observers
-		ArrayList<View> observers = new ArrayList<>();
+		ArrayList<TestObserver> observers = new ArrayList<>();
 		for (int i = 0; i < 50; i++)
 		{
-			observers.add(new View());
+			observers.add(new TestObserver());
 		}
 
 		//Register and assert that they're being registered
