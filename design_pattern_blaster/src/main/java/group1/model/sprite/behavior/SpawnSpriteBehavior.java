@@ -34,7 +34,6 @@ public class SpawnSpriteBehavior implements Behavior
 	{
 		int x = (int)sprite.getX() + offsetX;
 		int y = (int)sprite.getY() + offsetY;
-		System.out.println("SPAWNING at " + x + "," + y);
 		Sprite newSprite = blueprint.copy();
 		newSprite.setX(x);
 		newSprite.setY(y);

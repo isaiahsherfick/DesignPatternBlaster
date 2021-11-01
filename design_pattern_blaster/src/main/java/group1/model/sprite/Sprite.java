@@ -274,8 +274,11 @@ public class Sprite implements Loadable
 
 	public void draw(GraphicsContext g) 
 	{
-		g.setFill(color);
-		animation.draw(g, this);
+		if (enabled)
+		{
+			g.setFill(color);
+			animation.draw(g, this);
+		}
 	}
 
 	public void collideWith(Sprite spriteToCheck) 

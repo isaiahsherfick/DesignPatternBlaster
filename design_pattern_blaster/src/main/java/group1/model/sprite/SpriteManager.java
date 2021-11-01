@@ -26,7 +26,6 @@ public class SpriteManager
 		
 		public void addSprite(Sprite s) 
 		{
-			System.out.println("Added " + s);
 			if (s.getSpriteId() > highestSpriteId)
 			{
 				highestSpriteId = s.getSpriteId();
@@ -38,7 +37,6 @@ public class SpriteManager
 				s.setSpriteId(highestSpriteId);
 				spriteMap.put(s.getSpriteId(),s);
 			}
-			System.out.println("I now contain " + getNumberOfSprites() + " sprites :)");
 		}
 		
 		public Sprite getSprite(int spriteId) 

@@ -64,9 +64,8 @@ public class App extends Application
 			bulletSprite.setDirection(Constants.RIGHT);
 			bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
 			bulletSprite.setColor(Color.ORANGE);
+			bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
 			
-			Sprite copy = bulletSprite.copy();
-			copy.setX(200);
 			
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new SpawnSpriteBehavior((int)(playerSprite.getWidth() + 15), (int)(playerSprite.getHeight() / 2), bulletSprite)));
 			
