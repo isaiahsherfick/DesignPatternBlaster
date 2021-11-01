@@ -310,7 +310,7 @@ public class Sprite implements Loadable
 			copy.addEventBehavior(eb.copy());
 		}
 		copy.setColor(color);
-		return new Sprite();
+		return copy;
 	}
 
 	private void setCustomCollisionMap(CustomCollisionMap ccm) 

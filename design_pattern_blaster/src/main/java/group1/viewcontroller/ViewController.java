@@ -109,7 +109,9 @@ public class ViewController implements Observer
 			Iterator<Sprite> iterator = spritesInThisLayer.iterator();
 			while (iterator.hasNext())
 			{
-				iterator.next().draw(gameCanvas.getGraphicsContext2D());
+				Sprite next = iterator.next();
+				System.out.println("Drawing sprite " + next);
+				next.draw(gameCanvas.getGraphicsContext2D());
 			}
 		}
 	}
