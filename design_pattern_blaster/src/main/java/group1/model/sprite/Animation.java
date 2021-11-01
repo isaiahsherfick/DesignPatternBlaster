@@ -38,11 +38,18 @@ public class Animation implements Drawable
     	frame = 0;
     }
 
-	public void setState(AnimationState animationState) 
+	public void setState(AnimationState animationState)
 	{
         this.animationState = animationState;
     }
-	
+
+	public void setAnimationLoopForState(AnimationState animationState, ArrayList<Image> animationLoop) {
+		stateToAnimationLoop.put(animationState, animationLoop);
+	}
+
+	public ArrayList<Image> getAnimationLoopForState(AnimationState animationState) {
+		return stateToAnimationLoop.get(animationState);
+	}
 
 //
 //    /**
@@ -80,12 +87,12 @@ public class Animation implements Drawable
 //    }
 
 	@Override
-	public void draw(GraphicsContext g, Sprite sprite) 
+	public void draw(GraphicsContext g, Sprite sprite)
 	{
 		if (stateToAnimationLoop.size() > 0)
 		{
 			ArrayList<Image> frames = stateToAnimationLoop.get(this.animationState);
-			Image currentFrame = frames.get(frame);
+			Image currentFrame = frames.get(frame%frames.size());
 			if (frame == frames.size())
 			{
 				frame = 0;
@@ -94,7 +101,7 @@ public class Animation implements Drawable
 			{
 				frame++;
 			}
-			g.drawImage(currentFrame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+			g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth()*0.2, currentFrame.getHeight()*0.2);
 		}
 		else
 		{
@@ -103,11 +110,17 @@ public class Animation implements Drawable
 	}
 
 	//TODO this doesn't do the full copy yet - needs to copy over the map thing too
-	public Animation copy() 
+	public Animation copy()
 	{
 		Animation copy = new Animation();
 		copy.setState(animationState);
 		return copy;
+	}
+
+	@Override
+	public void draw(GraphicsContext g) {
+		// TODO Auto-generated method stub
+
 	}
 }
 
