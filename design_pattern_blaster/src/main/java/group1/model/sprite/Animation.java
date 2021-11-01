@@ -15,6 +15,8 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import group1.interfaces.Drawable;
 
@@ -40,6 +42,7 @@ public class Animation implements Drawable
 	{
         this.animationState = animationState;
     }
+	
 
 //
 //    /**
@@ -97,6 +100,14 @@ public class Animation implements Drawable
 		{
 			g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}
+	}
+
+	//TODO this doesn't do the full copy yet - needs to copy over the map thing too
+	public Animation copy() 
+	{
+		Animation copy = new Animation();
+		copy.setState(animationState);
+		return copy;
 	}
 }
 

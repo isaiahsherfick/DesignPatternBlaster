@@ -5,20 +5,31 @@ import group1.model.sprite.Sprite;
 public class HitBox 
 {
 	
-	Sprite sprite;
+	private double x, y, width, height;
 
 	public HitBox(Sprite sprite) 
 	{
-		this.sprite = sprite;
+		x = sprite.getX();
+		y = sprite.getY();
+		width = sprite.getWidth();
+		height = sprite.getHeight();
+	}
+	
+	public HitBox(double x, double y, double w, double h)
+	{
+		this.x = x;
+		this.y = y;
+		width = w;
+		height = h;
 	}
 	
 	public HitBoxOverlapType overlaps(HitBox secondaryBox) {
 		
-		double topLeftX = sprite.getX();
-		double topLeftY = sprite.getY();
+		double topLeftX = getTopLeftX();
+		double topLeftY = getTopLeftY();
 		
-		double bottomRightX = sprite.getX() + sprite.getWidth();
-		double bottomRightY = sprite.getY() + sprite.getHeight();
+		double bottomRightX = getBottomRightX();
+		double bottomRightY = getBottomRightY();
 		
 		boolean bottomOverlap = bottomRightY <= secondaryBox.getTopLeftY() && bottomRightY >= secondaryBox.getBottomRightY();
 		boolean topOverlap = topLeftY >= secondaryBox.getBottomRightY() && topLeftY <= secondaryBox.getTopLeftY();
@@ -49,18 +60,23 @@ public class HitBox
 	}
 	
 	public double getTopLeftX() {
-		return sprite.getX();
+		return x;
 	}
 	
 	public double getTopLeftY() {
-		return sprite.getY();
+		return y;
 	}
 	
 	public double getBottomRightX() {
-		return sprite.getX() + sprite.getWidth();
+		return x + width;
 	}
 	
 	public double getBottomRightY() {
-		return sprite.getY() + sprite.getHeight();
+		return y + height;
+	}
+
+	public HitBox copy() 
+	{
+		return new HitBox(x,y,width,height);
 	}
 }

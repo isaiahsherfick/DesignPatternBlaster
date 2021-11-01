@@ -287,4 +287,34 @@ public class Sprite implements Loadable
 	{
 		customCollisionMap.setDefaultCollisionBehavior(newDefault);
 	}
+
+	public Sprite copy() 
+	{
+		Sprite copy = new Sprite();
+		copy.setX(x);
+		copy.setY(y);
+		copy.setVelocityX(xVelocity);
+		copy.setVelocityY(yVelocity);
+		copy.setWidth(width);
+		copy.setHeight(height);
+		copy.setDirection(direction);
+		copy.setSpriteClassId(spriteClassId);
+		copy.setLayer(layer);
+		copy.setAnimation(animation.copy());
+		copy.setHealth(health);
+		copy.setEnabled(enabled);
+		copy.setHitBox(hitBox.copy());
+		copy.setCustomCollisionMap(customCollisionMap.copy());
+		for (EventBehavior eb : eventBehaviors)
+		{
+			copy.addEventBehavior(eb.copy());
+		}
+		copy.setColor(color);
+		return new Sprite();
+	}
+
+	private void setCustomCollisionMap(CustomCollisionMap ccm) 
+	{
+		customCollisionMap = ccm;
+	}
 }

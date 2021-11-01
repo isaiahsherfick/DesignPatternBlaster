@@ -41,4 +41,8 @@ public class EventBehavior
 			behavior.performBehavior(sprite);
 		}
 	}
+	public EventBehavior copy() 
+	{
+		return new EventBehavior(event, behavior);
+	}
 }

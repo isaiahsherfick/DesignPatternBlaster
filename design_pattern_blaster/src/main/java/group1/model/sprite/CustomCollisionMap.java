@@ -1,6 +1,7 @@
 package group1.model.sprite;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 
@@ -70,5 +71,17 @@ public class CustomCollisionMap implements Loadable
 			defaultCollisionBehavior.performBehavior(spriteToModify);
 		}
 	}
-	
+
+	public CustomCollisionMap copy() 
+	{
+		CustomCollisionMap copy = new CustomCollisionMap();
+		copy.setDefaultCollisionBehavior(defaultCollisionBehavior);
+		Iterator<Integer> keyIterator = collisionBehaviorMap.keySet().iterator();
+		while (keyIterator.hasNext())
+		{
+			Integer key = keyIterator.next();
+			copy.addCustomCollision(key, collisionBehaviorMap.get(key));
+		}
+		return copy;
+	}
 }
