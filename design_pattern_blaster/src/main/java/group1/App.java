@@ -10,6 +10,7 @@ import group1.model.sprite.behavior.FaceRightBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
 import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.behavior.ShootSpriteBehavior;
 import group1.model.sprite.behavior.SpawnSpriteBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import group1.viewcontroller.ViewController;
@@ -61,13 +62,12 @@ public class App extends Application
 			bulletSprite.setWidth(20);
 			bulletSprite.setHeight(20);
 			bulletSprite.setVelocityX(40);
-			bulletSprite.setDirection(Constants.RIGHT);
 			bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
 			bulletSprite.setColor(Color.ORANGE);
-			bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+			//bulletSprite.setDefaultCollisionBehavior(new DisableBehavior()); disabled because collision isn't working atm
 			
 			
-			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new SpawnSpriteBehavior((int)(playerSprite.getWidth() + 15), (int)(playerSprite.getHeight() / 2), bulletSprite)));
+			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 15), (int)(playerSprite.getHeight() / 2), bulletSprite)));
 			
 			Sprite floor = new Sprite();
 			floor.setWidth(Constants.WINDOW_WIDTH);
@@ -82,6 +82,8 @@ public class App extends Application
 			enemy.setX(Constants.WINDOW_WIDTH - 100);
 			enemy.setY(Constants.WINDOW_HEIGHT - 150);
 			enemy.setColor(Color.RED);
+			enemy.setVelocityX(1);
+			enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
 			
 			model.addSprite(playerSprite);
 			model.addSprite(floor);

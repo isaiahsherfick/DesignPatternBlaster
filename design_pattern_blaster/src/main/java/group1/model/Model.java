@@ -144,6 +144,10 @@ public class Model implements Observable
 	public void receiveEvent(GameEvent g)
 	{
 		spriteManager.updateSprites(g);
+		if (g.equals(GameEvent.ClockTickEvent()))
+		{
+			collisionManager.checkCollisions(spriteManager);
+		}
 		notifyObservers();
 	}
 

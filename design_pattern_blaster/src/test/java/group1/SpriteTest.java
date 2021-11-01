@@ -132,11 +132,11 @@ public class SpriteTest
 	public void EnabledTest()
 	{
 		Sprite s = new Sprite();
+		assertEquals(true,s.isEnabled());
+		s.disable();
 		assertEquals(false,s.isEnabled());
 		s.enable();
 		assertEquals(true, s.isEnabled());
-		s.disable();
-		assertEquals(false,s.isEnabled());
 	}
 	
 	@Test
