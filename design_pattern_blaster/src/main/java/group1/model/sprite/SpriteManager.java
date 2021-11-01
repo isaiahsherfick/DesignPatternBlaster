@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -25,6 +26,7 @@ public class SpriteManager
 		
 		public void addSprite(Sprite s) 
 		{
+			System.out.println("Added " + s);
 			if (s.getSpriteId() > highestSpriteId)
 			{
 				highestSpriteId = s.getSpriteId();
@@ -36,6 +38,7 @@ public class SpriteManager
 				s.setSpriteId(highestSpriteId);
 				spriteMap.put(s.getSpriteId(),s);
 			}
+			System.out.println("I now contain " + getNumberOfSprites() + " sprites :)");
 		}
 		
 		public Sprite getSprite(int spriteId) 
@@ -56,11 +59,24 @@ public class SpriteManager
 		//Receive a game event, send it to all the sprites
 		public void updateSprites(GameEvent g) 
 		{
-			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			HashMap<Integer,Sprite> copy = spriteMapCopy();
+			Iterator<Sprite> spriteIterator = copy.values().iterator();
 			while (spriteIterator.hasNext())
 			{
 				spriteIterator.next().respondToEvent(g);
 			}
+		}
+		
+		private HashMap<Integer,Sprite> spriteMapCopy()
+		{
+			HashMap<Integer, Sprite> copy = new HashMap<>();
+			Iterator<Entry<Integer,Sprite>> iterator = spriteMap.entrySet().iterator();
+			while (iterator.hasNext())
+			{
+				Entry<Integer,Sprite> entry = iterator.next();
+				copy.put(entry.getKey(), entry.getValue());
+			}
+			return copy;
 		}
 		
 		public ArrayList<Sprite> getSpriteList()

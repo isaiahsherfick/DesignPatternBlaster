@@ -81,7 +81,7 @@ public class Sprite implements Loadable
 		width = Constants.DEFAULT_SPRITE_WIDTH; height =Constants.DEFAULT_SPRITE_HEIGHT;
 		layer = 0;
 		direction = Constants.LEFT;
-		enabled = false;
+		enabled = true;
 		color = Color.RED;
 	}
 	

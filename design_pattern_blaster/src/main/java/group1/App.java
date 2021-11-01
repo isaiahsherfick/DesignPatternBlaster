@@ -56,11 +56,11 @@ public class App extends Application
 			playerSprite.setColor(Color.BLUE);
 			
 			Sprite bulletSprite = new Sprite();
-			bulletSprite.setWidth(10);
-			bulletSprite.setHeight(10);
-			bulletSprite.setVelocityX(30);
+			bulletSprite.setWidth(20);
+			bulletSprite.setHeight(20);
+			bulletSprite.setVelocityX(5);
 			bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-			bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+			bulletSprite.setColor(Color.ORANGE);
 			
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new SpawnSpriteBehavior((int)(playerSprite.getWidth() + 15), (int)(playerSprite.getHeight() / 2), bulletSprite)));
 			
