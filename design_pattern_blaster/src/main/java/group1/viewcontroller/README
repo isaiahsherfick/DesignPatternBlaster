@@ -1,0 +1,8 @@
+                viewcontroller package readme:
+
+    This package contains the code for the viewcontroller, which is
+    a weird thing that we weren't entirely satisfied with  when we were
+    conceiving the idea. However, when we realized that our Controller was
+    going to entirely consist of getters and setters, we decided to
+    simpoly merge it into our view instead of creating an unnecessarily
+    complicated callstack for our overall system.

@@ -1,0 +1,7 @@
+    	            test_objects package readme:
+
+
+    This package contains only objects that we ahve created for the sake
+    of testing. At the moment, that is only TestObserver.java, which is
+    used when testing the model in order to test its update() method
+    without mucking with the viewcontroller at all.

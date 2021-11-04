@@ -1,0 +1,15 @@
+    	            game_event package readme:
+
+
+    The game_event package contains the abstraction for game events within
+    our system. They are all contained within the GameEvent.java class
+    which itself contains factory methods for the instantiation of new
+    game events. The only oddball class is the KeyPressEvent, which needs
+    to actually store a KeyCode to have any use for us.
+
+    **Whenever a new GameEvent factory method is added, factoryMethodTests()
+    in tests.GameEventTest.java needs updated to include that new factory
+    method!
+
+
+

@@ -1,0 +1,11 @@
+                    behavior package readme:
+
+
+    The behavior package contains all of the concrete implementations of
+    the behavior interface. Behaviors are the abstraction for how a sprite
+    will change state based on some event occuring. They are contained in
+    EventBehavior objects which sprites contain as well as within each
+    sprite's custom collision map. 
+
+    Whenever a new behavior is added, nothing more than writing tests for
+    that specific behavior needs done.
