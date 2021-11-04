@@ -35,7 +35,7 @@ public class App extends Application
 
 	//Model singleton reference
 	public static Model model = new Model();
-	public static ViewController view;
+	public static ViewController viewController;
 
 
     public static void main( String[] args )
@@ -46,8 +46,8 @@ public class App extends Application
 	@Override
 	public void start(Stage mainStage) throws Exception
 	{
-			view = new ViewController(mainStage);
-			model.registerObserver(view);
+			viewController = new ViewController(mainStage);
+			model.registerObserver(viewController);
 //		ObserverLevel obLevel = new ObserverLevel();
 
 
@@ -133,7 +133,7 @@ public class App extends Application
 	public static void resetModel()
 	{
 		model = new Model();
-		if (view != null)
-			model.registerObserver(view);
+		if (viewController != null)
+			model.registerObserver(viewController);
 	}
 }
