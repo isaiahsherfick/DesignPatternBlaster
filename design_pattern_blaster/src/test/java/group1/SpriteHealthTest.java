@@ -31,5 +31,4 @@ class SpriteHealthTest
 		assertEquals(dx, s.getX());
 		
 	}
-
 }

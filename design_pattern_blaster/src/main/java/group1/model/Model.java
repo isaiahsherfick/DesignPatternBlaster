@@ -6,6 +6,7 @@ import java.util.Iterator;
 import group1.interfaces.Observable;
 import group1.interfaces.Observer;
 import group1.model.collision.CollisionManager;
+import group1.model.level.Level;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
 import group1.model.sprite.Sprite;
@@ -166,5 +167,20 @@ public class Model implements Observable
 	{
 		gameClock.start();
 		gameClock.play();
+	}
+
+	public void clearSprites() 
+	{
+		spriteManager.clearAllSprites();
+	}
+
+	public void loadLevel(Level currentLevel) 
+	{
+		ArrayList<Sprite> sprites = currentLevel.getAllSpritesOnLevel();
+		Iterator<Sprite> iterator = sprites.iterator();
+		while (iterator.hasNext())
+		{
+			addSprite(iterator.next());
+		}
 	}
 }

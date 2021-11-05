@@ -1,6 +1,7 @@
 package group1.model.level;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 
@@ -29,6 +30,19 @@ public class Level implements Loadable
 		this.level = level;
 		allSprites = new ArrayList<>();
 	}
+
+	// Parameterized Constructor initializing level based on argument and also receiving list of Sprites
+	public Level(int level, ArrayList<Sprite> sprites) 
+	{
+		this.level = level;
+		Iterator<Sprite> iterator = sprites.iterator();
+		allSprites = new ArrayList<>();
+		while (iterator.hasNext())
+		{
+			Sprite s = iterator.next();
+			allSprites.add(s);
+		}
+	}
 	
 	//**********************************//
 	//									//
@@ -36,6 +50,7 @@ public class Level implements Loadable
 	//									//
 	//**********************************//
 	
+
 	public int getLevel() 
 	{
 		return level;
