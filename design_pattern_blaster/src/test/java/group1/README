@@ -30,3 +30,11 @@ GameEventTest.java:
     Tests GameEvent.java. **Every time a new factory method is added to
     GameEvent.java, make sure FactoryMethodTest() gets updated to include
     it!**
+    
+LevelTest.java
+	Tests that we can load the next level into the sprite manager using
+	LevelManager.java.
+	
+SpriteHealthTest.java
+	Tests that a sprite is able to use a CheckHealthBehavior on ClockTick
+	to create a HealthDepletedEvent for itself if its health goes below 1
