@@ -13,6 +13,7 @@ import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.behavior.DisableBehavior;
+import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.FaceLeftBehavior;
 import group1.model.sprite.behavior.FaceRightBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehavior;
@@ -54,10 +55,12 @@ public class App extends Application
 			//TODO move all this to Level stuff, just for testing right now
 			//TODO this is ideally all handled by creational patterns. PlayerBuilder, ___EnemyBuilder, etc.
 			Sprite playerSprite = new Sprite();
+			playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
 			playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
 			playerSprite.setWidth(50);
 			playerSprite.setHeight(100);
 			playerSprite.setVelocityX(10);
+			playerSprite.setSpriteClassId(-1);
 			playerSprite.setDirection(Constants.RIGHT);
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
@@ -65,12 +68,6 @@ public class App extends Application
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
 			playerSprite.setColor(Color.BLUE);
 			Image image = new Image(Paths.get("src/main/resources/assets/avatar/1x/blaster_demo.png").toUri().toString());
-//			BufferedImage playerBuffer = new BufferedImage(600, 800, BufferedImage.TYPE_INT_ARGB);
-//			Graphics playerGraphic = playerBuffer.createGraphics();
-//			playerGraphic.drawImage(face, 0, 0, null);
-
-
-//			Image image = new Image(Paths.get("src/main/resources/assets/avatar/1x/face/FaceManWhite.png").toUri().toString());
 
 			ArrayList<Image> playerImage;
 			if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null) {
@@ -101,8 +98,8 @@ public class App extends Application
 			bulletSprite.setVelocityX(40);
 			bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
 			bulletSprite.setColor(Color.ORANGE);
-			//bulletSprite.setDefaultCollisionBehavior(new DisableBehavior()); disabled because collision isn't working atm
-
+			bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+			bulletSprite.setSpriteClassId(-3);
 
 			playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 10), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
 
@@ -110,22 +107,30 @@ public class App extends Application
 			floor.setWidth(Constants.WINDOW_WIDTH);
 			floor.setHeight(10);
 			floor.setY(Constants.WINDOW_HEIGHT - 50);
-			floor.setX(0);
+			floor.setX(10);
 			floor.setColor(Color.BLACK);
 
 			Sprite enemy = new Sprite();
 			enemy.setWidth(50);
+			enemy.setSpriteClassId(-2);
 			enemy.setHeight(100);
-			enemy.setX(Constants.WINDOW_WIDTH - 100);
+			enemy.setX(100);
 			enemy.setY(Constants.WINDOW_HEIGHT - 150);
 			enemy.setColor(Color.RED);
-
-			enemy.setVelocityX(1);
+			enemy.setVelocityX(-1);
 			enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+			enemy.getCustomCollisionMap().addCustomCollision(bulletSprite.getSpriteClassId(), new DisableBehavior());
+			Sprite enemy1 = enemy.copy();
+			enemy1.setX(Constants.WINDOW_WIDTH - 100);
+			enemy1.setColor(Color.RED);
+			enemy1.setVelocityX(1);
+			enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+			enemy1.getCustomCollisionMap().addCustomCollision(bulletSprite.getSpriteClassId(), new DisableBehavior());
 
 			model.addSprite(playerSprite);
 			model.addSprite(floor);
 			model.addSprite(enemy);
+			model.addSprite(enemy1);
 			model.startGameClock();
 	}
 

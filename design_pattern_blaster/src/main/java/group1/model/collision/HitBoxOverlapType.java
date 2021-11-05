@@ -9,5 +9,6 @@ public enum HitBoxOverlapType {
 	BOTTOM_RIGHT,
 	BOTTOM_CENTER,
 	LEFT_CENTER,
-	RIGHT_CENTER
+	RIGHT_CENTER,
+	ENGULF
 }
