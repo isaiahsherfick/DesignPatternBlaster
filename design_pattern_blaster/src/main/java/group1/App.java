@@ -56,35 +56,12 @@ public class App extends Application
 
 			//TODO move all this to Level stuff, just for testing right now
 			//TODO this is ideally all handled by creational patterns. PlayerBuilder, ___EnemyBuilder, etc.
-            Sprite playerSprite = SpriteFactory.playerSprite();
-			Sprite floor = new Sprite();
-			floor.setWidth(Constants.WINDOW_WIDTH);
-			floor.setHeight(10);
-			floor.setY(Constants.WINDOW_HEIGHT - 50);
-			floor.setX(10);
-			floor.setColor(Color.BLACK);
+            Sprite player = SpriteFactory.player();
+            Sprite floor = SpriteFactory.demo_floor();
 
-			Sprite enemy = new Sprite();
-			enemy.setWidth(50);
-			enemy.setSpriteClassId(-2);
-			enemy.setHeight(100);
-			enemy.setX(100);
-			enemy.setY(Constants.WINDOW_HEIGHT - 150);
-			enemy.setColor(Color.RED);
-			enemy.setVelocityX(-1);
-			enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-			enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-			Sprite enemy1 = enemy.copy();
-			enemy1.setX(Constants.WINDOW_WIDTH - 100);
-			enemy1.setColor(Color.RED);
-			enemy1.setVelocityX(1);
-			enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-			enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+            Sprite enemy1 = SpriteFactory.demo_enemy_1();  
+            Sprite enemy2 = SpriteFactory.demo_enemy_2();
 
-			model.addSprite(playerSprite);
-			model.addSprite(floor);
-			model.addSprite(enemy);
-			model.addSprite(enemy1);
 			model.startGameClock();
 	}
 

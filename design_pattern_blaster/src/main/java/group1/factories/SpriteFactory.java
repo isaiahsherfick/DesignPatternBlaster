@@ -1,5 +1,6 @@
 package group1.factories;
 
+import group1.App;
 import group1.model.sprite.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -43,7 +44,8 @@ public final class SpriteFactory
 {
     private SpriteFactory(){}
     
-    public static Sprite playerSprite()
+    //Player sprite: not the final version by any stretch of the imagination
+    public static Sprite player()
     {
         Sprite playerSprite = new Sprite();
         playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
@@ -81,13 +83,14 @@ public final class SpriteFactory
         playerSprite.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, playerImageLeft);
         playerSprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
 
-        Sprite bulletSprite = bulletSprite();
+        Sprite bulletSprite = bulletNoInsertIntoSpriteManager();
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 10), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
+        App.model.addSprite(playerSprite);
         return playerSprite;
     }
 
-    public static Sprite bulletSprite()
+    public static Sprite bulletNoInsertIntoSpriteManager()
     {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
@@ -100,5 +103,45 @@ public final class SpriteFactory
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
         bulletSprite.setSpriteClassId(-3);
         return bulletSprite;
+    }
+
+    public static Sprite demo_floor()
+    {
+			Sprite floor = new Sprite();
+			floor.setWidth(Constants.WINDOW_WIDTH);
+			floor.setHeight(10);
+			floor.setY(Constants.WINDOW_HEIGHT - 50);
+			floor.setX(10);
+			floor.setColor(Color.BLACK);
+            App.model.addSprite(floor);
+            return floor;
+    }
+
+    public static Sprite demo_enemy_1()
+    {
+			Sprite enemy = new Sprite();
+			enemy.setWidth(50);
+			enemy.setSpriteClassId(-2);
+			enemy.setHeight(100);
+			enemy.setX(100);
+			enemy.setY(Constants.WINDOW_HEIGHT - 150);
+			enemy.setColor(Color.RED);
+			enemy.setVelocityX(-1);
+			enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+			enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+            App.model.addSprite(enemy);
+            return enemy;
+    }
+
+    public static Sprite demo_enemy_2()
+    {
+			Sprite enemy1 = demo_enemy_1();
+			enemy1.setX(Constants.WINDOW_WIDTH - 100);
+			enemy1.setColor(Color.RED);
+			enemy1.setVelocityX(1);
+			enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+			enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+            App.model.addSprite(enemy1);
+            return enemy1;
     }
 }

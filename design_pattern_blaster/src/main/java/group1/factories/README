@@ -1,0 +1,10 @@
+    	            factories package readme:
+
+
+    The factories package contains all of our factory classes for easy
+    object instantiation. Currently, that is only SpriteFactory.java,
+    which contains a series of factory methods each of which corresponds
+    to a sprite that we want to appear in our game. To get a sprite,
+    simply ask the SpriteFactory for it, and it will automatically insert
+    the sprite into the SpriteManager without the client having to worry
+    about it or even be aware of its presence.
