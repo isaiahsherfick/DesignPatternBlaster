@@ -1,17 +1,21 @@
 package group1.model.sprite.behavior;
-
 import org.json.simple.JSONObject;
-
 import group1.model.sprite.Sprite;
+import group1.App;
+import javafx.scene.input.KeyCode;
 
-public class JumpBehavior implements Behavior
+public class JumpBehaviorWhileHoldingKey implements Behavior
 {
 	
 	private int maxJumpHeight;
+    private KeyCode keyToJumpWhenHeld;
+    private Integer yValueBeforeJumpStarted;
 	
-	public JumpBehavior(int maxJumpHeight)
+	public JumpBehaviorWhileHoldingKey(int maxJumpHeight, KeyCode key)
 	{
 		this.maxJumpHeight = maxJumpHeight;
+        keyToJumpWhenHeld = key;
+        yValueBeforeJumpStarted = null;
 	}
 	
 	public int getMaxJumpHeight()
@@ -37,7 +41,10 @@ public class JumpBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-		
+		if (App.model.getKeyInputManager().isPressed(keyToJumpWhenHeld))
+		{
+            
+		}
 	}
 
 }
