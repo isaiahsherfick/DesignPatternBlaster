@@ -99,6 +99,7 @@ public class ViewController implements Observer
 	{
 		gameCanvas.getGraphicsContext2D().setFill(Color.WHITE);
 		gameCanvas.getGraphicsContext2D().fillRect(0,0,gameCanvas.getWidth(), gameCanvas.getHeight());
+		gameCanvas.getGraphicsContext2D().translate(App.model.getGameCamera().getXPos(), App.model.getGameCamera().getYPos());	//start translating camera
 		//TODO refactor this so it's just one model method to do all this stuff
 		SpriteManager spriteManager = App.model.getSpriteManager();		
 		Set<Integer> layerSet = spriteManager.getLayerSet();
@@ -113,5 +114,6 @@ public class ViewController implements Observer
 				next.draw(gameCanvas.getGraphicsContext2D());
 			}
 		}
+		gameCanvas.getGraphicsContext2D().translate(-App.model.getGameCamera().getXPos(), -App.model.getGameCamera().getYPos());	//again translate camera with everything new which got rendered
 	}
 }

@@ -10,6 +10,7 @@ import group1.model.level.Level;
 import group1.model.level.LevelManager;
 import group1.model.player.PlayerManager;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.SpriteManager;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.input.KeyCode;
@@ -55,7 +56,7 @@ public class Model implements Observable
 		spriteManager = new SpriteManager();
 		levelManager = new LevelManager();
 		gameClock = new GameTimer();
-		gameCamera = new GameCamera();
+		gameCamera = new GameCamera(0,0);
 		saveAndLoadManager = new SaveAndLoadManager();
 		collisionManager = new CollisionManager();
 		playerManager = new PlayerManager();
@@ -167,6 +168,20 @@ public class Model implements Observable
 	{
 		gameClock.start();
 		gameClock.play();
+		setCameraToFollowPlayer();
+	}
+	
+	public void setCameraToFollowPlayer() {
+		boolean found = false;
+		for(int i=0; i< spriteManager.getNumberOfSprites();i++) {
+			System.out.println(spriteManager.getSprite(i).getSpriteClassId()+" *******************************************");
+			if(spriteManager.getSprite(i).getSpriteClassId() == SpriteClassIdConstants.PLAYER) {
+				found = true;
+				gameCamera.setFocusSprite(spriteManager.getSprite(i));
+			}
+		}
+		if(found)
+			gameCamera.moveCamera();
 	}
 
 	public void clearSprites() 
