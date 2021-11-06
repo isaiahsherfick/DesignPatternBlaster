@@ -94,6 +94,8 @@ public class GameTimer extends AnimationTimer
             totalTime += secondsSincePreviousFrame;
             lastFrameTimeNanos = now;
             App.model.receiveEvent(GameEvent.ClockTickEvent());
+            App.model.getGameCamera().setMoving(true);	//set camera isMoving true (needs to be optimized more I couldnt think of an alternative here)
+            App.model.getGameCamera().moveCamera();		//start camera movement
         }
     }
 
