@@ -18,6 +18,12 @@ public class LevelManager
 	{
 		completedLevels = new ArrayList<>();
 		unfinishedLevels = new ArrayList<>();
+		
+		Level level1 = new Level1();
+		Level level2 = new Level2();
+		unfinishedLevels.add(level1);
+		unfinishedLevels.add(level2);
+		
 	}
 	
 	public Level getLevel(int levelNumber) 
@@ -26,7 +32,7 @@ public class LevelManager
 		while(UnfinishedlevelIterator.hasNext()) 
 		{
 			Level Unfinishedlevel = (Level) UnfinishedlevelIterator.next();
-			if(Unfinishedlevel.getLevel()==levelNumber) 
+			if(Unfinishedlevel.getLevelNumber()==levelNumber) 
 			{
 				return Unfinishedlevel;
 			}
@@ -35,7 +41,7 @@ public class LevelManager
 		while(CompletedlevelIterator.hasNext()) 
 		{
 			Level CompletedLevel = CompletedlevelIterator.next();
-			if(CompletedLevel.getLevel()==levelNumber) 
+			if(CompletedLevel.getLevelNumber()==levelNumber) 
 			{
 				return CompletedLevel;
 			}
@@ -107,8 +113,9 @@ public class LevelManager
 
 	public void loadNextLevel() 
 	{
-		if (currentLevel != null)
+		if (unfinishedLevels.size()>0)
 		{
+			currentLevel = unfinishedLevels.get(0);
 			unfinishedLevels.remove(currentLevel); //will require a .equals() method in Level.java
 			completedLevels.add(currentLevel);
 		}
