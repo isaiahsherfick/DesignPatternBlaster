@@ -103,6 +103,7 @@ public class SpriteManager
 			}
 		}
 
+        //Returns all ENABLED sprites in layer
 		public ArrayList<Sprite> getSpriteListByLayer(int layer) 
 		{
 			ArrayList<Sprite> spritesInTargetLayer = new ArrayList<>();
@@ -110,7 +111,7 @@ public class SpriteManager
 			while (spriteIterator.hasNext())
 			{
 				Sprite current = spriteIterator.next();
-				if (current.getLayer() == (layer))
+				if (current.getLayer() == (layer) && current.isEnabled())
 				{
 					spritesInTargetLayer.add(current);
 				}

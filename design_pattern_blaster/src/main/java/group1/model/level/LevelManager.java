@@ -4,23 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import group1.App;
 import group1.interfaces.Saveable;
 
 public class LevelManager 
 {
 	
-	ArrayList<Level> CompletedLevels;
-	ArrayList<Level> UnfinishedLevels;
+	private ArrayList<Level> completedLevels;
+	private ArrayList<Level> unfinishedLevels;
+	private Level currentLevel;
 	
 	public LevelManager() 
 	{
-		CompletedLevels = new ArrayList<>();
-		UnfinishedLevels = new ArrayList<>();
+		completedLevels = new ArrayList<>();
+		unfinishedLevels = new ArrayList<>();
 	}
 	
 	public Level getLevel(int levelNumber) 
 	{
-		Iterator<Level> UnfinishedlevelIterator = UnfinishedLevels.iterator();
+		Iterator<Level> UnfinishedlevelIterator = unfinishedLevels.iterator();
 		while(UnfinishedlevelIterator.hasNext()) 
 		{
 			Level Unfinishedlevel = (Level) UnfinishedlevelIterator.next();
@@ -29,7 +31,7 @@ public class LevelManager
 				return Unfinishedlevel;
 			}
 		}
-		Iterator<Level> CompletedlevelIterator = CompletedLevels.iterator();
+		Iterator<Level> CompletedlevelIterator = completedLevels.iterator();
 		while(CompletedlevelIterator.hasNext()) 
 		{
 			Level CompletedLevel = CompletedlevelIterator.next();
@@ -43,43 +45,43 @@ public class LevelManager
 	
 	public ArrayList<Level> getCompletedLevelsList() 
 	{
-		return CompletedLevels;
+		return completedLevels;
 	}
 	
 	public ArrayList<Level> getUnfinishedLevelsList() 
 	{
-		return UnfinishedLevels;
+		return unfinishedLevels;
 	}
 	
 	public void addLevelToCompletedLevelList(Level level) 
 	{
-		if(UnfinishedLevels.contains(level)) 
+		if(unfinishedLevels.contains(level)) 
 		{
-			UnfinishedLevels.remove(level);
+			unfinishedLevels.remove(level);
 		}
-		if(!CompletedLevels.contains(level)) 
+		if(!completedLevels.contains(level)) 
 		{
-			CompletedLevels.add(level);
+			completedLevels.add(level);
 		}
 	}
 	
 	public void addLevelToUnfinishedLevelList(Level level) 
 	{
-		if(!UnfinishedLevels.contains(level)) 
+		if(!unfinishedLevels.contains(level)) 
 		{
-			UnfinishedLevels.add(level);
+			unfinishedLevels.add(level);
 		}
 	}
 	
 	public void removeLevelFromCompletedLevelList(Level level) 
 	{
-		if(CompletedLevels.contains(level)) 
+		if(completedLevels.contains(level)) 
 		{
-			CompletedLevels.remove(level);
+			completedLevels.remove(level);
 		}
-		if(!UnfinishedLevels.contains(level)) 
+		if(!unfinishedLevels.contains(level)) 
 		{
-			UnfinishedLevels.add(level);
+			unfinishedLevels.add(level);
 		}
 	}
 	
@@ -96,6 +98,23 @@ public class LevelManager
 	{
 		//Return the list of levels which the player has not completed yet
 		return null;
+	}
+
+	public void addLevel(Level level) 
+	{
+		unfinishedLevels.add(level);
+	}
+
+	public void loadNextLevel() 
+	{
+		if (currentLevel != null)
+		{
+			unfinishedLevels.remove(currentLevel); //will require a .equals() method in Level.java
+			completedLevels.add(currentLevel);
+		}
+		App.model.clearSprites();
+		currentLevel = unfinishedLevels.get(0);
+		App.model.loadLevel(currentLevel);
 	}
 
 }

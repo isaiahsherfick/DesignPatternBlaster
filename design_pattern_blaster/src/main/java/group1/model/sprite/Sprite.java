@@ -141,6 +141,7 @@ public class Sprite implements Loadable
 	public void setX(double x)
 	{
 		this.x = x;
+		hitBox.setX(x);
 	}
 
 	public double getY()
@@ -151,6 +152,7 @@ public class Sprite implements Loadable
 	public void setY(double y)
 	{
 		this.y = y;
+		hitBox.setY(y);
 	}
 
 	public double getVelocityX()
@@ -181,6 +183,7 @@ public class Sprite implements Loadable
 	public void setWidth(double width)
 	{
 		this.width = width;
+		hitBox.setWidth(width);
 	}
 
 	public double getHeight()
@@ -191,6 +194,7 @@ public class Sprite implements Loadable
 	public void setHeight(double height)
 	{
 		this.height = height;
+		hitBox.setHeight(height);
 	}
 
 	public int getLayer()
@@ -222,6 +226,11 @@ public class Sprite implements Loadable
 	public void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
+	}
+
+	public boolean getEnabled()
+	{
+		return enabled;
 	}
 
 	public void enable()
@@ -319,5 +328,9 @@ public class Sprite implements Loadable
 	private void setCustomCollisionMap(CustomCollisionMap ccm)
 	{
 		customCollisionMap = ccm;
+	}
+
+	public CustomCollisionMap getCustomCollisionMap() {
+		return customCollisionMap;
 	}
 }

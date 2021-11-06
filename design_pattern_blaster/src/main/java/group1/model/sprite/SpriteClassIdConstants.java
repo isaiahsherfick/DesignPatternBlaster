@@ -1,8 +1,9 @@
 package group1.model.sprite;
 
 //These all need to be NEGATIVE!!!!!! I'd explain but there is no time just listen to the comment
-public class SpriteClassIdConstants 
+public final class SpriteClassIdConstants 
 {
+    private SpriteClassIdConstants(){}
 	public static final int PLAYER = -1;
 	public static final int ENEMY = -2;
 	public static final int BULLET = -3;
