@@ -171,10 +171,10 @@ public class Model implements Observable
 		setCameraToFollowPlayer();
 	}
 	
+	//set which sprite the camera should follow by comparing the class id's
 	public void setCameraToFollowPlayer() {
 		boolean found = false;
 		for(int i=0; i< spriteManager.getNumberOfSprites();i++) {
-			System.out.println(spriteManager.getSprite(i).getSpriteClassId()+" *******************************************");
 			if(spriteManager.getSprite(i).getSpriteClassId() == SpriteClassIdConstants.PLAYER) {
 				found = true;
 				gameCamera.setFocusSprite(spriteManager.getSprite(i));
