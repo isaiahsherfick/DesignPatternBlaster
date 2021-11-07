@@ -53,13 +53,13 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
                 {
                     jumping = true;
                     yValueBeforeJumpStarted = sprite.getY();
-                    sprite.setY(sprite.getY() + sprite.getVelocityY());
+                    sprite.setY(sprite.getY() - sprite.getVelocityY());
                 }
                 else
                 {
-                    if (sprite.getY() < yValueBeforeJumpStarted + maxJumpHeight)
+                    if (sprite.getY() > yValueBeforeJumpStarted - maxJumpHeight)
                     {
-                        sprite.setY(sprite.getY() + sprite.getVelocityY());
+                        sprite.setY(sprite.getY() - sprite.getVelocityY());
                     }
                 }
             }
@@ -74,8 +74,8 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
             else if (falling)
             {
                 System.out.println("FALLING!");
-                sprite.setY(sprite.getY() - sprite.getVelocityY());
-                if (sprite.getY() <= yValueBeforeJumpStarted)
+                sprite.setY(sprite.getY() + sprite.getVelocityY());
+                if (sprite.getY() >= yValueBeforeJumpStarted)
                     falling = false;
             }
         }
