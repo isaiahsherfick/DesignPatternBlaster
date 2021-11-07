@@ -7,49 +7,48 @@
 package group1.model.sprite;
 
 
+import group1.App;
+import group1.interfaces.Drawable;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-import group1.interfaces.Drawable;
 
 /**
  * Animation will contain arrays of Frames(Images) associated with state.
  * AnimationState RIGHT_MOVEMENT would be associated with a collection of sprites, each one representing
  * a frame in a walking animation
  */
-public class Animation implements Drawable
-{
+public class Animation implements Drawable {
 
     public AnimationState animationState = AnimationState.IDLE;
     public HashMap<AnimationState, ArrayList<Image>> stateToAnimationLoop = new HashMap<>();
     private int frame;
+    private double nextTimeToChangeFrames;
+    private double loopPeriodSeconds = .25;
 
-    public Animation()
-    {
-    	stateToAnimationLoop = new HashMap<>();
-    	frame = 0;
+    public Animation() {
+        stateToAnimationLoop = new HashMap<>();
+        frame = 0;
     }
 
-	public void setState(AnimationState animationState)
-	{
+    public void setState(AnimationState animationState) {
         this.animationState = animationState;
     }
 
-	public void setAnimationLoopForState(AnimationState animationState, ArrayList<Image> animationLoop) {
-		stateToAnimationLoop.put(animationState, animationLoop);
-	}
+    public void setAnimationLoopForState(AnimationState animationState, ArrayList<Image> animationLoop) {
+        stateToAnimationLoop.put(animationState, animationLoop);
+    }
 
-	public ArrayList<Image> getAnimationLoopForState(AnimationState animationState) {
-		return stateToAnimationLoop.get(animationState);
-	}
+    public ArrayList<Image> getAnimationLoopForState(AnimationState animationState) {
+        return stateToAnimationLoop.get(animationState);
+    }
+
+    public void setLoopPeriodSeconds(double loopPeriodSeconds) {
+        this.loopPeriodSeconds = loopPeriodSeconds;
+    }
+
 
 //
 //    /**
@@ -86,42 +85,47 @@ public class Animation implements Drawable
 //
 //    }
 
-	@Override
-	public void draw(GraphicsContext g, Sprite sprite)
-	{
-		if (stateToAnimationLoop.size() > 0)
-		{
-			ArrayList<Image> frames = stateToAnimationLoop.get(this.animationState);
-			Image currentFrame = frames.get(frame%frames.size());
-			if (frame == frames.size())
-			{
-				frame = 0;
-			}
-			else
-			{
-				frame++;
-			}
-			g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth()*0.2, currentFrame.getHeight()*0.2);
-		}
-		else
-		{
-			g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-		}
-	}
+    @Override
+    public void draw(GraphicsContext g, Sprite sprite) {
+        //This method "Draw" is being called every tick
+        //we need to restrict that so that rather than a frame change every tick
+        // the frame changes every x'th of a second
+        // time delta represents the time since last frame
+        // divinding it by
+        if (stateToAnimationLoop.size() > 0) {
+            ArrayList<Image> frames = stateToAnimationLoop.get(this.animationState);
+            Image currentFrame = frames.get(frame % frames.size());
+            if (frame == frames.size()) {
+                frame = 0;
+            } else {
+                //restrict this increase to occur every loopPeriodSeconds by marking
+                //relevant times to execute
+                float timeElapsed = App.model.getTimeElapsed();
+                if (timeElapsed > nextTimeToChangeFrames) {
+                    nextTimeToChangeFrames = timeElapsed + loopPeriodSeconds;
+                    frame++;
+                }
 
-	//TODO this doesn't do the full copy yet - needs to copy over the map thing too
-	public Animation copy()
-	{
-		Animation copy = new Animation();
-		copy.setState(animationState);
-		return copy;
-	}
+            }
+            g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth() * 0.2, currentFrame.getHeight() * 0.2);
+        } else {
+            g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
-	@Override
-	public void draw(GraphicsContext g) {
-		// TODO Auto-generated method stub
+        }
+    }
 
-	}
+    //TODO this doesn't do the full copy yet - needs to copy over the map thing too
+    public Animation copy() {
+        Animation copy = new Animation();
+        copy.setState(animationState);
+        return copy;
+    }
+
+    @Override
+    public void draw(GraphicsContext g) {
+        // TODO Auto-generated method stub
+
+    }
 }
 
 

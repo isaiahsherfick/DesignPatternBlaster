@@ -198,4 +198,12 @@ public class Model implements Observable
 			addSprite(iterator.next());
 		}
 	}
+
+	public double getTimeDelta(){
+		return getGameClock().getSecondsSincePreviousFrame();
+	}
+
+	public float getTimeElapsed(){
+		return gameClock.getTotalTime();
+	}
 }
