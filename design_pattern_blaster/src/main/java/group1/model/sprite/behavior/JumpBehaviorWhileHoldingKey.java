@@ -44,30 +44,30 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-        double ceiling = yValueBeforeJumpStarted + maxJumpHeight;
+        double ceiling = yValueBeforeJumpStarted - maxJumpHeight;
 		if (App.model.getKeyInputManager().isPressed(keyToJumpWhenHeld))
 		{
-            System.out.println("JUMPING!");
             if (!jumping && !falling)
             {
                 jumping = true;
                 yValueBeforeJumpStarted = sprite.getY();
-            }
-            else if (jumping && sprite.getY() < ceiling)
-            {
                 sprite.setY(sprite.getY() - sprite.getVelocityY());
             }
-            else if (jumping && sprite.getY() >= ceiling)
-            {
-                jumping = false;
-                falling = true;
-            }
         }
-        if (falling && sprite.getY() > ceiling)
+        else if (jumping && sprite.getY() > ceiling)
+        {
+            sprite.setY(sprite.getY() - sprite.getVelocityY());
+        }
+        else if (jumping && sprite.getY() <= ceiling)
+        {
+            jumping = false;
+            falling = true;
+        }
+        if (falling && sprite.getY() < yValueBeforeJumpStarted)
         {
             System.out.println("FALLING!");
             sprite.setY(sprite.getY() + sprite.getVelocityY());
-            if (sprite.getY() <= ceiling)
+            if (sprite.getY() >= yValueBeforeJumpStarted)
             {
                 falling = false;
             }

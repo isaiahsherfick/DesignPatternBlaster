@@ -54,7 +54,7 @@ public final class SpriteFactory
         playerSprite.setWidth(50);
         playerSprite.setHeight(100);
         playerSprite.setVelocityX(10);
-        playerSprite.setVelocityY(2);
+        playerSprite.setVelocityY(5);
         playerSprite.setSpriteClassId(-1);
         playerSprite.setDirection(Constants.LEFT);
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
