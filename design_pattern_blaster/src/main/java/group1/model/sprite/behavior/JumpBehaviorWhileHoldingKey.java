@@ -16,7 +16,7 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
 	{
 		this.maxJumpHeight = maxJumpHeight;
         keyToJumpWhenHeld = key;
-        yValueBeforeJumpStarted = null;
+        yValueBeforeJumpStarted = 0.0;
         jumping = false;
         falling = false;
 	}
@@ -44,39 +44,32 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
+        double ceiling = yValueBeforeJumpStarted - maxJumpHeight;
 		if (App.model.getKeyInputManager().isPressed(keyToJumpWhenHeld))
 		{
-            System.out.println("JUMPING!");
-            if (!falling)
+            if (!jumping && !falling)
             {
-                if (!jumping)
-                {
-                    jumping = true;
-                    yValueBeforeJumpStarted = sprite.getY();
-                    sprite.setY(sprite.getY() + sprite.getVelocityY());
-                }
-                else
-                {
-                    if (sprite.getY() < yValueBeforeJumpStarted + maxJumpHeight)
-                    {
-                        sprite.setY(sprite.getY() + sprite.getVelocityY());
-                    }
-                }
-            }
-		}
-        else 
-        {
-            if (jumping)
-            {
-                falling = true;
-                jumping = false;
-            }
-            else if (falling)
-            {
-                System.out.println("FALLING!");
+                jumping = true;
+                yValueBeforeJumpStarted = sprite.getY();
                 sprite.setY(sprite.getY() - sprite.getVelocityY());
-                if (sprite.getY() <= yValueBeforeJumpStarted)
-                    falling = false;
+            }
+        }
+        else if (jumping && sprite.getY() > ceiling)
+        {
+            sprite.setY(sprite.getY() - sprite.getVelocityY());
+        }
+        else if (jumping && sprite.getY() <= ceiling)
+        {
+            jumping = false;
+            falling = true;
+        }
+        if (falling && sprite.getY() < yValueBeforeJumpStarted)
+        {
+            System.out.println("FALLING!");
+            sprite.setY(sprite.getY() + sprite.getVelocityY());
+            if (sprite.getY() >= yValueBeforeJumpStarted)
+            {
+                falling = false;
             }
         }
 	}
