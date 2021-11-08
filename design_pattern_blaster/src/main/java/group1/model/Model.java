@@ -197,6 +197,13 @@ public class Model implements Observable
 		{
 			addSprite(iterator.next());
 		}
+		gameCamera.setFocusSprite(currentLevel.getFocusSprite());
+	}
+	
+	public void startGame()
+	{
+		startGameClock();
+		levelManager.loadNextLevel();
 	}
 
 	public double getTimeDelta(){
@@ -205,5 +212,10 @@ public class Model implements Observable
 
 	public float getTimeElapsed(){
 		return gameClock.getTotalTime();
+	}
+
+	public void loadNextLevel() 
+	{
+		levelManager.loadNextLevel();
 	}
 }

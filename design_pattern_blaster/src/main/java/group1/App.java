@@ -39,8 +39,7 @@ public class App extends Application
 			{
 				model.getLevelManager().addLevel(l);
 			}
-
-			model.startGameClock();
+			model.startGame();
 	}
 
 	//Resets the static model. Used for unit tests and save/load

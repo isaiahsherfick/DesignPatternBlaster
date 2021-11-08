@@ -1,6 +1,7 @@
 package group1.model;
 
 import group1.constants.Constants;
+import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
 
 public class GameCamera 
@@ -29,6 +30,7 @@ public class GameCamera
 	public GameCamera(double x, double y) {
 		this.x = x;
 		this.y = y;
+		focusSprite = new NullSprite();
 	}
 	
 	//move camera keeping focus sprite at the center. We shall only be moving camera with respect to the x axis

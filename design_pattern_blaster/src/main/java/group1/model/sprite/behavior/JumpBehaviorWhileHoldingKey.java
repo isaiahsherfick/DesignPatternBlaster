@@ -65,7 +65,7 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
         }
         if (falling && sprite.getY() < yValueBeforeJumpStarted)
         {
-            System.out.println("FALLING!");
+            //System.out.println("FALLING!");
             sprite.setY(sprite.getY() + sprite.getVelocityY());
             if (sprite.getY() >= yValueBeforeJumpStarted)
             {

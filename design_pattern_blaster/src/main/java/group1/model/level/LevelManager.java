@@ -107,7 +107,7 @@ public class LevelManager
 
 	public void loadNextLevel() 
 	{
-		if (unfinishedLevels.size()>0)
+		if (currentLevel != null)
 		{
 			currentLevel = unfinishedLevels.get(0);
 			unfinishedLevels.remove(currentLevel); //will require a .equals() method in Level.java
@@ -116,5 +116,6 @@ public class LevelManager
 		App.model.clearSprites();
 		currentLevel = unfinishedLevels.get(0);
 		App.model.loadLevel(currentLevel);
+		//System.out.println("Loaded level#" + currentLevel.getLevelNumber());
 	}
 }

@@ -37,6 +37,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import group1.factories.SpriteFactory;
 import group1.model.sprite.behavior.JumpBehaviorWhileHoldingKey;
+import group1.model.sprite.behavior.LoadNextLevelBehavior;
 
 
 //Creational class for making sprites
@@ -55,7 +56,7 @@ public final class SpriteFactory
         playerSprite.setHeight(100);
         playerSprite.setVelocityX(10);
         playerSprite.setVelocityY(5);
-        playerSprite.setSpriteClassId(-1);
+        playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
         playerSprite.setDirection(Constants.LEFT);
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
@@ -107,40 +108,52 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
-    public static Sprite demo_floor()
+    public static Sprite demoFloor()
     {
-			Sprite floor = new Sprite();
-			floor.setWidth(Constants.WINDOW_WIDTH);
-			floor.setHeight(10);
-			floor.setY(Constants.WINDOW_HEIGHT - 50);
-			floor.setX(10);
-			floor.setColor(Color.BLACK);
-            return floor;
+		Sprite floor = new Sprite();
+		floor.setWidth(Constants.WINDOW_WIDTH);
+		floor.setHeight(10);
+		floor.setY(Constants.WINDOW_HEIGHT - 50);
+		floor.setX(10);
+		floor.setColor(Color.BLACK);
+		return floor;
     }
 
-    public static Sprite demo_enemy_1()
+    public static Sprite demoEnemy1()
     {
-			Sprite enemy = new Sprite();
-			enemy.setWidth(50);
-			enemy.setSpriteClassId(-2);
-			enemy.setHeight(100);
-			enemy.setX(100);
-			enemy.setY(Constants.WINDOW_HEIGHT - 150);
-			enemy.setColor(Color.RED);
-			enemy.setVelocityX(-1);
-			enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-			enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-            return enemy;
+		Sprite enemy = new Sprite();
+		enemy.setWidth(50);
+		enemy.setSpriteClassId(-2);
+		enemy.setHeight(100);
+		enemy.setX(100);
+		enemy.setY(Constants.WINDOW_HEIGHT - 150);
+		enemy.setColor(Color.RED);
+		enemy.setVelocityX(-1);
+		enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+		enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+		return enemy;
     }
 
-    public static Sprite demo_enemy_2()
+    public static Sprite demoEnemy2()
     {
-			Sprite enemy1 = demo_enemy_1();
-			enemy1.setX(Constants.WINDOW_WIDTH - 100);
-			enemy1.setColor(Color.RED);
-			enemy1.setVelocityX(1);
-			enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-			enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-            return enemy1;
+		Sprite enemy1 = demoEnemy1();
+		enemy1.setX(Constants.WINDOW_WIDTH - 100);
+		enemy1.setColor(Color.RED);
+		enemy1.setVelocityX(1);
+		enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+		enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+		return enemy1;
     }
+
+	public static Sprite endOfLevelSprite() 
+	{
+		Sprite endOfLevelSprite = new Sprite();
+		endOfLevelSprite.setWidth(50);
+		endOfLevelSprite.setHeight(50);
+		endOfLevelSprite.setX(1400);
+		endOfLevelSprite.setY(Constants.WINDOW_HEIGHT - 150);
+		endOfLevelSprite.setColor(Color.GOLD);
+		endOfLevelSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.PLAYER, new LoadNextLevelBehavior());
+		return endOfLevelSprite;
+	}
 }

@@ -3,11 +3,14 @@ package group1.model.level;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
 
 public class Level 
 {
 	private int levelNumber;
+	
+	private Sprite focusSprite = new NullSprite();
 	
 	private ArrayList<Sprite> sprites;
 	
@@ -32,6 +35,20 @@ public class Level
 		{
 			sprites.add(i.next());
 		}
+	}
+	
+	public void setFocusSprite(Sprite sprite)
+	{
+		focusSprite = sprite;
+		if (!sprites.contains(sprite))
+		{
+			sprites.add(sprite);
+		}
+	}
+	
+	public Sprite getFocusSprite()
+	{
+		return focusSprite;
 	}
 	
 	public int getLevelNumber()

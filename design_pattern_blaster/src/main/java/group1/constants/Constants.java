@@ -18,4 +18,5 @@ public final class Constants
 	public static final short DEFAULT_SPRITE_HEIGHT = 0; //Default height for sprites
 	public static final short LEFT = 0; //Sprite is facing LEFT
 	public static final short RIGHT = 1; //Sprite is facing RIGHT
+	public static final short NULL_SPRITE_ID =-3; //ID for null sprites
 }
