@@ -3,7 +3,7 @@ package group1.constants;
 public final class Constants 
 {
 	public static final int WINDOW_HEIGHT = 700; //Height of the main stage, App.java
-	public static final int WINDOW_WIDTH = 810; //Width of the main stage, App.java
+	public static final int WINDOW_WIDTH = 1200; //Width of the main stage, App.java
 	public static final int WINDOW_X = 0; //X coordinate of the main stage's top left, App.java
 	public static final int WINDOW_Y = 0; //Y coordinate of the main stage's top left, App.java
 	public static final String DEFAULT_SAVE_FILE = "save"; //Default save file
