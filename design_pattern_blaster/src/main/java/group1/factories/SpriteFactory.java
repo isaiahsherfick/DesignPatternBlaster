@@ -89,7 +89,6 @@ public final class SpriteFactory
         Sprite bulletSprite = bulletNoInsertIntoSpriteManager();
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 10), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
-        App.model.addSprite(playerSprite);
         return playerSprite;
     }
 
@@ -116,7 +115,6 @@ public final class SpriteFactory
 			floor.setY(Constants.WINDOW_HEIGHT - 50);
 			floor.setX(10);
 			floor.setColor(Color.BLACK);
-            App.model.addSprite(floor);
             return floor;
     }
 
@@ -132,7 +130,6 @@ public final class SpriteFactory
 			enemy.setVelocityX(-1);
 			enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
 			enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-            App.model.addSprite(enemy);
             return enemy;
     }
 
@@ -144,7 +141,6 @@ public final class SpriteFactory
 			enemy1.setVelocityX(1);
 			enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
 			enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-            App.model.addSprite(enemy1);
             return enemy1;
     }
 }

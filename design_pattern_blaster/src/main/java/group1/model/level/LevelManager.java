@@ -18,12 +18,6 @@ public class LevelManager
 	{
 		completedLevels = new ArrayList<>();
 		unfinishedLevels = new ArrayList<>();
-		
-		Level level1 = new Level1();
-		Level level2 = new Level2();
-		unfinishedLevels.add(level1);
-		unfinishedLevels.add(level2);
-		
 	}
 	
 	public Level getLevel(int levelNumber) 
@@ -123,5 +117,4 @@ public class LevelManager
 		currentLevel = unfinishedLevels.get(0);
 		App.model.loadLevel(currentLevel);
 	}
-
 }

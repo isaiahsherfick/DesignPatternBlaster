@@ -7,7 +7,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import group1.model.level.Level;
-import group1.model.level.Level1;
 import group1.model.level.LevelManager;
 import group1.model.sprite.Sprite;
 
@@ -18,9 +17,9 @@ public class LevelManagerTest {
 		LevelManager levelManager = new LevelManager();
 		assertEquals(Collections.emptyList(), levelManager.getCompletedLevelsList());
 //		assertEquals(Collections.emptyList(), levelManager.getUnfinishedLevelsList());
-		Level level = new Level1(1);
+		Level level = new Level(1);
 		Sprite s = new Sprite();
-		level.addSpriteToList(s);
+		level.addSprite(s);
 		levelManager.addLevelToUnfinishedLevelList(level);
 		assertNotNull(levelManager.getLevel(1).getLevelNumber());
 	}
@@ -28,9 +27,9 @@ public class LevelManagerTest {
 	@Test
 	public void getCompletedLevelsListTest() {
 		LevelManager levelManager = new LevelManager();
-		Level level = new Level1(1);
+		Level level = new Level(1);
 		Sprite s = new Sprite();
-		level.addSpriteToList(s);
+		level.addSprite(s);
 		levelManager.addLevelToCompletedLevelList(level);
 		assertNotNull(levelManager.getCompletedLevelsList());
 	}
@@ -48,9 +47,9 @@ public class LevelManagerTest {
 	@Test
 	public void addLevelToCompletedLevelListTest() {
 		LevelManager levelManager = new LevelManager();
-		Level level = new Level1(1);
+		Level level = new Level(1);
 		Sprite s = new Sprite();
-		level.addSpriteToList(s);
+		level.addSprite(s);
 //		levelManager.addLevelToUnfinishedLevelList(level);
 		levelManager.addLevelToCompletedLevelList(level);
 //		assertEquals(Collections.emptyList(), levelManager.getUnfinishedLevelsList());
@@ -74,9 +73,9 @@ public class LevelManagerTest {
 		LevelManager levelManager = new LevelManager();
 		assertEquals(Collections.emptyList(), levelManager.getCompletedLevelsList());
 //		assertEquals(Collections.emptyList(), levelManager.getUnfinishedLevelsList());
-		Level level = new Level1(1);
+		Level level = new Level(1);
 		Sprite s = new Sprite();
-		level.addSpriteToList(s);
+		level.addSprite(s);
 		levelManager.addLevelToCompletedLevelList(level);
 		assertNotNull(levelManager.getCompletedLevelsList());
 		levelManager.removeLevelFromCompletedLevelList(level);

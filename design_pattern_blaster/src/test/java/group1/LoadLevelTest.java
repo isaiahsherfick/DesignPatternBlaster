@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import group1.model.level.Level1;
-import group1.model.level.Level2;
+import group1.model.level.Level;
+import group1.model.level.Level;
 import group1.model.level.*;
 import group1.model.level.LevelManager;
 import group1.model.sprite.Sprite;
@@ -28,14 +28,14 @@ class LoadLevelTest
 			sprites.add(new Sprite());
 		}
 		
-		Level level1 = new Level1(1, sprites);
+		Level level1 = new Level(1, sprites);
 
 		for (int i =0 ;i < 25; i++)
 		{
 			sprites.add(new Sprite());
 		}
 
-		Level level2 = new Level2(2, sprites);
+		Level level2 = new Level(2, sprites);
 		
 		lm.addLevel(level1);
 		lm.addLevel(level2);

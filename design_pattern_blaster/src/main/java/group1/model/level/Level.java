@@ -1,15 +1,61 @@
 package group1.model.level;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import group1.model.sprite.Sprite;
 
-public abstract class Level {
-	public abstract Level getLevel();
-	public abstract int getLevelNumber();
-	public abstract void setLevelNumber(int level);
-	public abstract void addSpriteToList(Sprite s);
-	public abstract void removeSpriteFromList(Sprite s);
-	public abstract ArrayList<Sprite> getAllSpritesOnLevel();
-	public abstract void setAllSpritesOnLevel(ArrayList<Sprite> allSprites);
+public class Level 
+{
+	private int levelNumber;
+	
+	private ArrayList<Sprite> sprites;
+	
+	public Level()
+	{
+		this.levelNumber = 0;
+		sprites = new ArrayList<>();
+	}
+	
+	public Level(int levelNumber)
+	{
+		this.levelNumber = levelNumber;
+		sprites = new ArrayList<>();
+	}
+	
+	public Level(int levelNumber, ArrayList<Sprite> spritesToAdd)
+	{
+		this.levelNumber = levelNumber;
+		sprites = new ArrayList<>();
+		Iterator<Sprite> i = spritesToAdd.iterator();
+		while (i.hasNext())
+		{
+			sprites.add(i.next());
+		}
+	}
+	
+	public int getLevelNumber()
+	{
+		return levelNumber;
+	}
+	
+	public void setLevelNumber(int level)
+	{
+		levelNumber = level;
+	}
+	
+	public void addSprite(Sprite sprite)
+	{
+		sprites.add(sprite);
+	}
+	
+	public void removeSprite(Sprite sprite)
+	{
+		sprites.remove(sprite);
+	}
+	
+	public ArrayList<Sprite> getAllSpritesOnLevel()
+	{
+		return sprites;
+	}
 }
