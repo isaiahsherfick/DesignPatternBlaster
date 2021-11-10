@@ -2,16 +2,18 @@ package group1.model.sprite.behavior;
 
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import group1.App;
 import group1.constants.Constants;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.NullSprite;
 
-public class ShootSpriteBehavior implements Behavior
+public class ShootAtPlayerBehavior implements Behavior
 {
 	private Sprite blueprint;
 	int offsetX, offsetY;
 	
-	public ShootSpriteBehavior(int offsetX, int offsetY, Sprite blueprint)
+	public ShootAtPlayerBehavior(int offsetX, int offsetY, Sprite blueprint)
 	{
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
@@ -33,21 +35,22 @@ public class ShootSpriteBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-        int x;
-		if (sprite.getDirection() == Constants.RIGHT)
+		ArrayList<Sprite> playerSprites = App.model.getPlayerSprites();
+        Sprite nearestPlayerSprite = new NullSprite();
+        double minDistance = Double.MAX_VALUE;
+        double x = sprite.getX();
+        double y = sprite.getY();
+        for (Sprite s : playerSprites)
         {
-            //System.out.println("Sprite's x: " + sprite.getX());
-			x = (int)sprite.getX() + offsetX;
-            //System.out.println("bullet's x: " + x);
+            //System.out.println(s.getX());
+            if (Math.abs(s.getX() - x) < minDistance)
+            {
+                nearestPlayerSprite = s;
+                minDistance = Math.abs(s.getX() - x);
+            }
+        }
 
-        }
-		else
-        {
-            //System.out.println("Sprite's x: " + sprite.getX());
-			x = (int)sprite.getX();
-            //System.out.println("bullet's x: " + x);
-        }
-        int y = (int)sprite.getY() + offsetY;
+        //Spawn the bullet sprite
         Sprite newSprite = blueprint.copy();
         newSprite.setX(x);
         newSprite.setY(y);

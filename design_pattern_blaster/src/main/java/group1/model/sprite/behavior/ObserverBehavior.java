@@ -13,7 +13,6 @@ public class ObserverBehavior implements Behavior
 {
 	
 	private Sprite observable;
-	private ArrayList<Sprite> playerSprites;
 	private Sprite observableReference;
 	
 	private int secondsBetweenShots;
@@ -26,7 +25,6 @@ public class ObserverBehavior implements Behavior
 	{
 		this.observable = observable;
 		this.observableReference = observable.copy();
-		playerSprites = App.model.getPlayerSprites();
 		secondsBetweenShots = Constants.OBSERVER_SECONDS_BETWEEN_SHOTS;
 	}
 	
@@ -60,8 +58,8 @@ public class ObserverBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
+		ArrayList<Sprite> playerSprites = App.model.getPlayerSprites();
 		counter += App.model.getTimeDelta();
-		System.out.println(counter);
 		if (observableChangedState())
 		{
 			//Figure out which player is closest
@@ -70,6 +68,7 @@ public class ObserverBehavior implements Behavior
 			Sprite nearestPlayerSprite = new NullSprite();
 			for (Sprite s : playerSprites)
 			{
+                //System.out.println(s.getX());
 				if (Math.abs(s.getX() - x) < minDistance)
 				{
 					nearestPlayerSprite = s;
@@ -80,9 +79,15 @@ public class ObserverBehavior implements Behavior
 			//Turn towards the nearest player
 			
 			if (nearestPlayerSprite.getX() > x)
+            {
+                //System.out.println("I'm facing RIGHT now");
 				sprite.setDirection(Constants.RIGHT);
+            }
 			else
+            {
+                //System.out.println("I'm facing LEFT now");
 				sprite.setDirection(Constants.LEFT);
+            }
 			
 			//Move towards them
 			
