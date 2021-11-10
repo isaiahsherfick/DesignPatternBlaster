@@ -54,6 +54,8 @@ public class ShootAtPlayerBehavior implements Behavior
         Sprite newSprite = blueprint.copy();
         newSprite.setX(x);
         newSprite.setY(y);
+        newSprite.setVelocityX(dx);
+        newSprite.setVelocityY(dy);
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}
