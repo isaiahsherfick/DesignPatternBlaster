@@ -19,7 +19,7 @@ public class ObserverBehavior implements Behavior
 	
 	private double counter = 0.0;
 	
-	private ShootSpriteBehavior shootBehavior;
+	private Behavior shootBehavior;
 
 	public ObserverBehavior(Sprite observable)
 	{
@@ -43,7 +43,7 @@ public class ObserverBehavior implements Behavior
 		return false;
 	}
 	
-	public void setShootSpriteBehavior(ShootSpriteBehavior ssb)
+	public void setShootSpriteBehavior(Behavior ssb)
 	{
 		shootBehavior = ssb;
 	}

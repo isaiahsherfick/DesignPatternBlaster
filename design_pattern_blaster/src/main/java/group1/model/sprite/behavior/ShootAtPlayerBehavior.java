@@ -50,12 +50,20 @@ public class ShootAtPlayerBehavior implements Behavior
             }
         }
 
-        //Spawn the bullet sprite
+        //Spawn the copy of the blueprint sprite
         Sprite newSprite = blueprint.copy();
+
+        //Set its position
         newSprite.setX(x);
         newSprite.setY(y);
-        newSprite.setVelocityX(dx);
-        newSprite.setVelocityY(dy);
+
+        //Calculate slope
+        double slope = (x - nearestPlayerSprite.getX()) / (y - nearestPlayerSprite.getY());
+        System.out.println("SLOPE: " + slope);
+           
+
+        //newSprite.setVelocityX(dx);
+        //newSprite.setVelocityY(dy);
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}

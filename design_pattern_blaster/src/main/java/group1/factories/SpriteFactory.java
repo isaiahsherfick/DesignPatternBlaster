@@ -12,6 +12,7 @@ import java.awt.image.ImageObserver;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import group1.model.sprite.behavior.ShootAtPlayerBehavior;
 import group1.constants.Constants;
 import group1.model.Model;
 import group1.model.sprite.AnimationState;
@@ -117,22 +118,21 @@ public final class SpriteFactory
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
         bulletSprite.setColor(Color.ORANGE);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
-        bulletSprite.setSpriteClassId(-3);
+        bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET);
         return bulletSprite;
     }
 
     public static Sprite enemyBullet()
     {
         Sprite bulletSprite = new Sprite();
-        bulletSprite.setX(100);
-        bulletSprite.setY(80);
         bulletSprite.setWidth(24);
         bulletSprite.setHeight(12);
-        bulletSprite.setVelocityX(40);
-        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+        bulletSprite.setVelocityX(5);
+        bulletSprite.setVelocityY(5);
+        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         bulletSprite.setColor(Color.RED);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
-        bulletSprite.setSpriteClassId(-3);
+        bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET);
         return bulletSprite;
     }
 
@@ -216,10 +216,8 @@ public final class SpriteFactory
 		observer.setColor(Color.GOLD);
 
 		Sprite bulletSprite = enemyBullet();
-		
 		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(observer.getWidth() + 15), (int)(observer.getHeight() *0.78), bulletSprite));
-		
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight()), bulletSprite));
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
 		
 		
@@ -240,11 +238,9 @@ public final class SpriteFactory
 		Sprite bulletSprite = enemyBullet();
 		
 		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(observer.getWidth() + 15), (int)(observer.getHeight() *0.78), bulletSprite));
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight()), bulletSprite));
 		
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
-		
-		
 		
 		return observer;
 	}
