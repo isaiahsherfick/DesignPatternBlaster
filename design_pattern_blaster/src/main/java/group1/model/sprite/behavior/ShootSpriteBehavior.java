@@ -45,7 +45,7 @@ public class ShootSpriteBehavior implements Behavior
 		}
 		else
 		{
-			int x = (int)sprite.getX() - offsetX;
+			int x = (int)sprite.getX();
 			int y = (int)sprite.getY() + offsetY;
 			Sprite newSprite = blueprint.copy();
 			newSprite.setX(x);

@@ -32,8 +32,9 @@ public class App extends Application
 			model.registerObserver(viewController);
 			
 			ArrayList<Level> levels = new ArrayList<>();
-			levels.add(LevelFactory.demoLevel1());
-			levels.add(LevelFactory.demoLevel2());
+//			levels.add(LevelFactory.demoLevel1());
+//			levels.add(LevelFactory.demoLevel2());
+			levels.add(LevelFactory.observerLevel());
 			
 			for (Level l : levels)
 			{

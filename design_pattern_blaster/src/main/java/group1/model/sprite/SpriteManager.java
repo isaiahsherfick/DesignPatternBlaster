@@ -133,5 +133,20 @@ public class SpriteManager
 		public int getNumberOfSprites() 
 		{
 			return spriteMap.size();
+		}
+
+		public ArrayList<Sprite> getPlayerSprites() 
+		{
+			ArrayList<Sprite> playerSprites = new ArrayList<>();
+			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			while (spriteIterator.hasNext())
+			{
+				Sprite current = spriteIterator.next();
+				if (current.getSpriteClassId() == SpriteClassIdConstants.PLAYER)
+				{
+					playerSprites.add(current);
+				}
+			}
+			return playerSprites;
 		}		
 }

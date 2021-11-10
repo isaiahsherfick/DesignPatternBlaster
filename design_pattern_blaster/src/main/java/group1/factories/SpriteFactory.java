@@ -17,6 +17,7 @@ import group1.model.Model;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.DisableBehavior;
 import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.FaceLeftBehavior;
@@ -24,6 +25,7 @@ import group1.model.sprite.behavior.FaceRightBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
 import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.behavior.ObserverBehavior;
 import group1.model.sprite.behavior.ShootSpriteBehavior;
 import group1.model.sprite.behavior.SpawnSpriteBehavior;
 import group1.model.sprite.game_event.GameEvent;
@@ -87,13 +89,13 @@ public final class SpriteFactory
         playerSprite.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, playerImageLeft);
         playerSprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
 
-        Sprite bulletSprite = bulletNoInsertIntoSpriteManager();
+        Sprite bulletSprite = bullet();
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 10), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
         return playerSprite;
     }
 
-    public static Sprite bulletNoInsertIntoSpriteManager()
+    public static Sprite bullet()
     {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
@@ -155,5 +157,32 @@ public final class SpriteFactory
 		endOfLevelSprite.setColor(Color.GOLD);
 		endOfLevelSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.PLAYER, new LoadNextLevelBehavior());
 		return endOfLevelSprite;
+	}
+
+	public static Sprite observer(Sprite observable) 
+	{
+		Sprite observer = new Sprite();
+		observer.setWidth(50);
+		observer.setHeight(50);
+		observer.setVelocityX(10);
+		observer.setX(1400);
+		observer.setY(Constants.WINDOW_HEIGHT - 150);
+		observer.setColor(Color.GOLD);
+
+		Sprite bulletSprite = bullet();
+		
+		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
+		observerBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(observer.getWidth() + 10), (int)(observer.getHeight() *0.78), bulletSprite));
+		
+		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+		
+		
+		
+		return observer;
+	}
+
+	public static Sprite notifier() 
+	{
+		return demoEnemy2();
 	}
 }

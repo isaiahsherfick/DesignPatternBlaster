@@ -51,4 +51,19 @@ public class LevelFactory
 		level2.setFocusSprite(player);
 		return level2;
 	}
+	
+	public static Level observerLevel()
+	{
+		Sprite player  = SpriteFactory.player();
+		
+		Sprite observer = SpriteFactory.observer(player);
+		
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(player);
+		sprites.add(observer);
+		
+		Level observerLevel = new Level(1,sprites);
+		observerLevel.setFocusSprite(player);
+		return observerLevel;
+	}
 }

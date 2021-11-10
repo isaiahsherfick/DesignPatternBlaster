@@ -218,4 +218,9 @@ public class Model implements Observable
 	{
 		levelManager.loadNextLevel();
 	}
+
+	public ArrayList<Sprite> getPlayerSprites() 
+	{
+		return spriteManager.getPlayerSprites();
+	}
 }
