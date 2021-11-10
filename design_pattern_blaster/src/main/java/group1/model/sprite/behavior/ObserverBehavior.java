@@ -61,9 +61,9 @@ public class ObserverBehavior implements Behavior
 	public void performBehavior(Sprite sprite) 
 	{
 		counter += App.model.getTimeDelta();
+		System.out.println(counter);
 		if (observableChangedState())
 		{
-			System.out.println("ObserverBehavior.java The sprite changed state!");
 			//Figure out which player is closest
 			double x = sprite.getX();
 			double minDistance = Double.MAX_VALUE;
