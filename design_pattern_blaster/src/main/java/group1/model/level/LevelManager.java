@@ -7,84 +7,84 @@ import java.util.Iterator;
 import group1.App;
 import group1.interfaces.Saveable;
 
-public class LevelManager 
+public class LevelManager
 {
-	
+
 	private ArrayList<Level> completedLevels;
 	private ArrayList<Level> unfinishedLevels;
 	private Level currentLevel;
-	
-	public LevelManager() 
+
+	public LevelManager()
 	{
 		completedLevels = new ArrayList<>();
 		unfinishedLevels = new ArrayList<>();
 	}
-	
-	public Level getLevel(int levelNumber) 
+
+	public Level getLevel(int levelNumber)
 	{
 		Iterator<Level> UnfinishedlevelIterator = unfinishedLevels.iterator();
-		while(UnfinishedlevelIterator.hasNext()) 
+		while(UnfinishedlevelIterator.hasNext())
 		{
 			Level Unfinishedlevel = (Level) UnfinishedlevelIterator.next();
-			if(Unfinishedlevel.getLevelNumber()==levelNumber) 
+			if(Unfinishedlevel.getLevelNumber()==levelNumber)
 			{
 				return Unfinishedlevel;
 			}
 		}
 		Iterator<Level> CompletedlevelIterator = completedLevels.iterator();
-		while(CompletedlevelIterator.hasNext()) 
+		while(CompletedlevelIterator.hasNext())
 		{
 			Level CompletedLevel = CompletedlevelIterator.next();
-			if(CompletedLevel.getLevelNumber()==levelNumber) 
+			if(CompletedLevel.getLevelNumber()==levelNumber)
 			{
 				return CompletedLevel;
 			}
 		}
 		return null;
 	}
-	
-	public ArrayList<Level> getCompletedLevelsList() 
+
+	public ArrayList<Level> getCompletedLevelsList()
 	{
 		return completedLevels;
 	}
-	
-	public ArrayList<Level> getUnfinishedLevelsList() 
+
+	public ArrayList<Level> getUnfinishedLevelsList()
 	{
 		return unfinishedLevels;
 	}
-	
-	public void addLevelToCompletedLevelList(Level level) 
+
+	public void addLevelToCompletedLevelList(Level level)
 	{
-		if(unfinishedLevels.contains(level)) 
+		if(unfinishedLevels.contains(level))
 		{
 			unfinishedLevels.remove(level);
 		}
-		if(!completedLevels.contains(level)) 
+		if(!completedLevels.contains(level))
 		{
 			completedLevels.add(level);
 		}
 	}
-	
-	public void addLevelToUnfinishedLevelList(Level level) 
+
+	public void addLevelToUnfinishedLevelList(Level level)
 	{
-		if(!unfinishedLevels.contains(level)) 
+		if(!unfinishedLevels.contains(level))
 		{
 			unfinishedLevels.add(level);
 		}
 	}
-	
-	public void removeLevelFromCompletedLevelList(Level level) 
+
+	public void removeLevelFromCompletedLevelList(Level level)
 	{
-		if(completedLevels.contains(level)) 
+		if(completedLevels.contains(level))
 		{
 			completedLevels.remove(level);
 		}
-		if(!unfinishedLevels.contains(level)) 
+		if(!unfinishedLevels.contains(level))
 		{
 			unfinishedLevels.add(level);
 		}
 	}
-	
+
 
 	//Needed by Save/Load manager
 	public ArrayList<Saveable> getCompletedLevels()
@@ -94,18 +94,18 @@ public class LevelManager
 	}
 
 	//Needed by Save/Load manager
-	public ArrayList<Saveable> getUnfinishedLevels() 
+	public ArrayList<Saveable> getUnfinishedLevels()
 	{
 		//Return the list of levels which the player has not completed yet
 		return null;
 	}
 
-	public void addLevel(Level level) 
+	public void addLevel(Level level)
 	{
 		unfinishedLevels.add(level);
 	}
 
-	public void loadNextLevel() 
+	public void loadNextLevel()
 	{
 		if (currentLevel != null)
 		{

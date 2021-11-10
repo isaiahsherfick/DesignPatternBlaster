@@ -4,7 +4,7 @@ import group1.constants.Constants;
 import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
 
-public class GameCamera 
+public class GameCamera
 {
 	private double x, y;
 	private Sprite focusSprite;
@@ -32,19 +32,20 @@ public class GameCamera
 		this.y = y;
 		focusSprite = new NullSprite();
 	}
-	
+
 	//move camera keeping focus sprite at the center. We shall only be moving camera with respect to the x axis
 	public void moveCamera() {
 		if(isMoving)
-			x = -focusSprite.getX() + Constants.WINDOW_WIDTH/2;	
+			x = -focusSprite.getX() + Constants.WINDOW_WIDTH/2;
 	}
-	
+
 	//set isMoving to false to stop camera movement
 	public void stopCamera() {
 		isMoving = false;
 	}
 
 	public double getXPos() {
+//		if(x<0) return 0;
 		return x;
 	}
 
@@ -53,10 +54,11 @@ public class GameCamera
 	}
 
 	public double getYPos() {
+//		if(y<0) return 0;
 		return y;
 	}
 
 	public void setYPos(double y) {
 		this.y = y;
-	}	
+	}
 }

@@ -30,17 +30,27 @@ public class App extends Application
 	{
 			viewController = new ViewController(mainStage);
 			model.registerObserver(viewController);
-			
+
 			ArrayList<Level> levels = new ArrayList<>();
 //			levels.add(LevelFactory.demoLevel1());
 //			levels.add(LevelFactory.demoLevel2());
 			levels.add(LevelFactory.observerLevel());
 			
+			levels.add(LevelFactory.demoLevel1());
+			levels.add(LevelFactory.demoLevel2());
+
 			for (Level l : levels)
 			{
 				model.getLevelManager().addLevel(l);
 			}
 			model.startGame();
+//            Sprite player =  SpriteFactory.player();
+//            Sprite floor = SpriteFactory.demo_floor();
+//
+//            Sprite enemy1 = SpriteFactory.demo_enemy_1();
+//            Sprite enemy2 = SpriteFactory.demo_enemy_2();
+//
+//			model.startGameClock();
 	}
 
 	//Resets the static model. Used for unit tests and save/load

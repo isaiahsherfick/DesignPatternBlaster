@@ -18,6 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -25,6 +30,7 @@ import javafx.stage.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,6 +41,13 @@ public class ViewController implements Observer
 {
 
 	@FXML private Canvas gameCanvas;
+	@FXML private AnchorPane anchorPane;
+
+	private static Image backgroundImage;
+
+	static {
+		backgroundImage = new Image(Paths.get("src/main/resources/assets/levels/background_city_blue.png").toUri().toString(), 0, 0, false, false);
+	}
 	private Stage mainStage;
 
 	public ViewController(Stage stage)
@@ -59,7 +72,7 @@ public class ViewController implements Observer
 		try
 		{
 			mainScene = new Scene(fxmlLoader.load());
-			mainScene.setOnKeyPressed(e -> 
+			mainScene.setOnKeyPressed(e ->
 			{
 				KeyInputManager keyInputManager = App.model.getKeyInputManager();
 				if (!keyInputManager.isPressed(e.getCode()))
@@ -68,7 +81,7 @@ public class ViewController implements Observer
 					keyInputManager.onKeyPress(e.getCode());
 				}
 			});
-			mainScene.setOnKeyReleased(e -> 
+			mainScene.setOnKeyReleased(e ->
 			{
 				KeyInputManager keyInputManager = App.model.getKeyInputManager();
 				keyInputManager.onKeyRelease(e.getCode());
@@ -95,13 +108,28 @@ public class ViewController implements Observer
 		mainStage.show();
 	}
 
+	private void loadBackground()
+	{
+		double w = backgroundImage.getWidth();
+		double h = backgroundImage.getHeight();
+		double x = App.model.getGameCamera().getXPos()%backgroundImage.getWidth() - backgroundImage.getWidth();
+		double y = App.model.getGameCamera().getYPos()%backgroundImage.getHeight();
+
+		for(int i=0;i<3;i++) {
+			gameCanvas.getGraphicsContext2D().drawImage(backgroundImage, x,y,w,h);
+			x+=backgroundImage.getWidth();
+		}
+	}
 	public void update()
 	{
-		gameCanvas.getGraphicsContext2D().setFill(Color.WHITE);
-		gameCanvas.getGraphicsContext2D().fillRect(0,0,gameCanvas.getWidth(), gameCanvas.getHeight());
-		gameCanvas.getGraphicsContext2D().translate(App.model.getGameCamera().getXPos(), App.model.getGameCamera().getYPos());	//start translating camera
+		loadBackground();
+//		if(App.model.getGameCamera().getXPos()>0)
+//		{
+			System.out.println(App.model.getGameCamera().getXPos()+" "+gameCanvas.getLayoutX());
+			gameCanvas.getGraphicsContext2D().translate(App.model.getGameCamera().getXPos()-gameCanvas.getLayoutX(), App.model.getGameCamera().getYPos());	//start translating camera
+//		}
 		//TODO refactor this so it's just one model method to do all this stuff
-		SpriteManager spriteManager = App.model.getSpriteManager();		
+		SpriteManager spriteManager = App.model.getSpriteManager();
 		Set<Integer> layerSet = spriteManager.getLayerSet();
 		for (Integer layer : layerSet)
 		{

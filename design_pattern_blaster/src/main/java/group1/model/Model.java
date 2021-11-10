@@ -203,6 +203,7 @@ public class Model implements Observable
 	public void startGame()
 	{
 		startGameClock();
+//		levelManager.
 		levelManager.loadNextLevel();
 	}
 

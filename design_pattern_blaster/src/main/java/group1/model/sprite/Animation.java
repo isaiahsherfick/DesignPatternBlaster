@@ -107,7 +107,7 @@ public class Animation implements Drawable {
                 }
 
             }
-            g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth() * 0.2, currentFrame.getHeight() * 0.2);
+            g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth(), currentFrame.getHeight());
         } else {
             g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
