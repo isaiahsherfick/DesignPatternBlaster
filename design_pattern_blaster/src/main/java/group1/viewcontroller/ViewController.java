@@ -64,7 +64,7 @@ public class ViewController implements Observer
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(App.class.getResource("mainWindow.fxml"));
 		fxmlLoader.setController(this);
-		System.out.println(getClass().getName());
+		//System.out.println(getClass().getName());
 
 		//Create a new main scene from the loaded layout
 		Scene mainScene;
@@ -125,7 +125,7 @@ public class ViewController implements Observer
 		loadBackground();
 //		if(App.model.getGameCamera().getXPos()>0)
 //		{
-			System.out.println(App.model.getGameCamera().getXPos()+" "+gameCanvas.getLayoutX());
+			//System.out.println(App.model.getGameCamera().getXPos()+" "+gameCanvas.getLayoutX());
 			gameCanvas.getGraphicsContext2D().translate(App.model.getGameCamera().getXPos()-gameCanvas.getLayoutX(), App.model.getGameCamera().getYPos());	//start translating camera
 //		}
 		//TODO refactor this so it's just one model method to do all this stuff

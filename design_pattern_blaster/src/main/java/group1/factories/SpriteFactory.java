@@ -121,6 +121,7 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
+    //TODO change this
     public static Sprite demoFloor()
     {
     	Sprite floor = new Sprite();
