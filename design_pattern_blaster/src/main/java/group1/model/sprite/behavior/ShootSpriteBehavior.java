@@ -33,26 +33,21 @@ public class ShootSpriteBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
+        int x;
 		if (sprite.getDirection() == Constants.RIGHT)
-		{
-			int x = (int)sprite.getX() + offsetX;
-			int y = (int)sprite.getY() + offsetY;
-			Sprite newSprite = blueprint.copy();
-			newSprite.setX(x);
-			newSprite.setY(y);
-			newSprite.setDirection(sprite.getDirection());
-			App.model.addSprite(newSprite);
-		}
+        {
+			x = (int)sprite.getX() + offsetX;
+        }
 		else
-		{
-			int x = (int)sprite.getX();
-			int y = (int)sprite.getY() + offsetY;
-			Sprite newSprite = blueprint.copy();
-			newSprite.setX(x);
-			newSprite.setY(y);
-			newSprite.setDirection(sprite.getDirection());
-			App.model.addSprite(newSprite);
-		}
+        {
+			x = (int)sprite.getX() - offsetX / 2;
+        }
+        int y = (int)sprite.getY() + offsetY;
+        Sprite newSprite = blueprint.copy();
+        newSprite.setX(x);
+        newSprite.setY(y);
+        newSprite.setDirection(sprite.getDirection());
+        App.model.addSprite(newSprite);
 	}
 
 }
