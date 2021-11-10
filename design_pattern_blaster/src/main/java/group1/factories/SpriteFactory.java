@@ -196,6 +196,28 @@ public final class SpriteFactory
 		return observer;
 	}
 
+	public static Sprite observer(Sprite observable, int x, int y) 
+	{
+		Sprite observer = new Sprite();
+		observer.setWidth(50);
+		observer.setHeight(50);
+		observer.setVelocityX(5);
+		observer.setX(x);
+		observer.setY(y);
+		observer.setColor(Color.GOLD);
+
+		Sprite bulletSprite = enemyBullet();
+		
+		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
+		observerBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(observer.getWidth() + 15), (int)(observer.getHeight() *0.78), bulletSprite));
+		
+		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+		
+		
+		
+		return observer;
+	}
+
 	public static Sprite notifier() 
 	{
 		return demoEnemy2();

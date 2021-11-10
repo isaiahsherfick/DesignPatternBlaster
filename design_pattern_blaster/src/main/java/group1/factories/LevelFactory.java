@@ -56,7 +56,7 @@ public class LevelFactory
 	{
 		Sprite player  = SpriteFactory.player();
 		
-		Sprite observer = SpriteFactory.observer(player);
+		Sprite observer = SpriteFactory.observer(player, 500, 25);
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(player);
