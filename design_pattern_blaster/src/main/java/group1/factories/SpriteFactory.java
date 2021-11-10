@@ -110,6 +110,21 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
+    public static Sprite enemyBullet()
+    {
+        Sprite bulletSprite = new Sprite();
+        bulletSprite.setX(100);
+        bulletSprite.setY(80);
+        bulletSprite.setWidth(24);
+        bulletSprite.setHeight(12);
+        bulletSprite.setVelocityX(40);
+        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+        bulletSprite.setColor(Color.RED);
+        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+        bulletSprite.setSpriteClassId(-3);
+        return bulletSprite;
+    }
+
     public static Sprite demoFloor()
     {
 		Sprite floor = new Sprite();
@@ -164,15 +179,15 @@ public final class SpriteFactory
 		Sprite observer = new Sprite();
 		observer.setWidth(50);
 		observer.setHeight(50);
-		observer.setVelocityX(10);
+		observer.setVelocityX(5);
 		observer.setX(1400);
 		observer.setY(Constants.WINDOW_HEIGHT - 150);
 		observer.setColor(Color.GOLD);
 
-		Sprite bulletSprite = bullet();
+		Sprite bulletSprite = enemyBullet();
 		
 		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(observer.getWidth() + 10), (int)(observer.getHeight() *0.78), bulletSprite));
+		observerBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(observer.getWidth() + 15), (int)(observer.getHeight() *0.78), bulletSprite));
 		
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
 		
