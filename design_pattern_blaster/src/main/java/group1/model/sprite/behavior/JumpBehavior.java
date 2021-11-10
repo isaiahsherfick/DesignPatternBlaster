@@ -4,7 +4,7 @@ import group1.model.sprite.Sprite;
 import group1.App;
 import javafx.scene.input.KeyCode;
 
-public class JumpBehaviorWhileHoldingKey implements Behavior
+public class JumpBehavior implements Behavior
 {
 	
 	private int maxJumpHeight;
@@ -12,7 +12,7 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
     private Double yValueBeforeJumpStarted;
     private boolean jumping, falling;
 	
-	public JumpBehaviorWhileHoldingKey(int maxJumpHeight, KeyCode key)
+	public JumpBehavior(int maxJumpHeight, KeyCode key)
 	{
 		this.maxJumpHeight = maxJumpHeight;
         keyToJumpWhenHeld = key;
@@ -45,7 +45,7 @@ public class JumpBehaviorWhileHoldingKey implements Behavior
 	public void performBehavior(Sprite sprite) 
 	{
         double ceiling = yValueBeforeJumpStarted - maxJumpHeight;
-		if (App.model.getKeyInputManager().isPressed(keyToJumpWhenHeld))
+		if (App.model.getKeyInputManager().isPressed(keyToJumpWhenHeld) && !jumping)
 		{
             if (!jumping && !falling)
             {
