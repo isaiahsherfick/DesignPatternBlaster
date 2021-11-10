@@ -111,12 +111,14 @@ public class Sprite implements Loadable
 	public void respondToEvent(GameEvent g)
 
 	{
-		Iterator<EventBehavior> eventIterator = eventBehaviors.iterator();
-		while(eventIterator.hasNext())
-
-		{
-			eventIterator.next().executeIfEventMatches(g, this);
-		}
+        if (enabled)
+        {
+            Iterator<EventBehavior> eventIterator = eventBehaviors.iterator();
+            while(eventIterator.hasNext())
+            {
+                eventIterator.next().executeIfEventMatches(g, this);
+            }
+        }
 	}
 
 	public int getSpriteClassId()
