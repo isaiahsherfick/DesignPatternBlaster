@@ -230,11 +230,11 @@ public final class SpriteFactory
 		commander.setWidth(50);
 		commander.setHeight(50);
 //		commander.setVelocityX(10);
-		commander.setX(1400);
+		commander.setX(100);
 		commander.setY(Constants.WINDOW_HEIGHT - 150);
-		commander.setColor(Color.AQUA);
+		commander.setColor(Color.RED);
 		
-		Sprite bulletSprite = bullet();
+		Sprite bulletSprite = commandBullet();
 		
 		CommanderBehavior commanderBehavior = new CommanderBehavior();
 		commanderBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(commander.getWidth()+10),(int)(commander.getHeight()*0.78), bulletSprite));
@@ -243,32 +243,32 @@ public final class SpriteFactory
 		return commander;
 	}
 	
-//	public static Sprite commandBullet()
-//    {
-//        Sprite bulletSprite = new Sprite();
-//        bulletSprite.setX(100);
-//        bulletSprite.setY(80);
-//        bulletSprite.setWidth(60);
-//        bulletSprite.setHeight(30);
-//        bulletSprite.setVelocityX(20);
-////        bulletSprite.setDirection(Constants.LEFT);
-//        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-//        bulletSprite.setColor(Color.RED);
-//        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
-//        bulletSprite.setSpriteClassId(-3);
-//        return bulletSprite;
-//    }
+	public static Sprite commandBullet()
+    {
+        Sprite bulletSprite = new Sprite();
+        bulletSprite.setX(100);
+        bulletSprite.setY(80);
+        bulletSprite.setWidth(30);
+        bulletSprite.setHeight(30);
+        bulletSprite.setVelocityX(10);
+//        bulletSprite.setDirection(Constants.LEFT);
+        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+        bulletSprite.setColor(Color.RED);
+        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+        bulletSprite.setSpriteClassId(-3);
+        return bulletSprite;
+    }
 	
 	public static Sprite subordinates() {
 		Sprite subordinate = new Sprite();
 		subordinate.setWidth(40);
 		subordinate.setHeight(50);
-		subordinate.setX(1600);
+		subordinate.setX(400);
 		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
-		subordinate.setColor(Color.BLUE);
+		subordinate.setColor(Color.YELLOW);
 		
 		Sprite bulletSprite = bullet();
-		bulletSprite.setDirection(Constants.LEFT);
+		bulletSprite.setDirection(Constants.RIGHT);
 		
 //		SubordinatesBehavior subordinateBehavior = new SubordinateBehavior();
 //		subordinate.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));

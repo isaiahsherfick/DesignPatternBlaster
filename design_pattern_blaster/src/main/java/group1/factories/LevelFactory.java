@@ -2,6 +2,7 @@ package group1.factories;
 
 import java.util.ArrayList;
 
+import group1.constants.Constants;
 import group1.model.level.Level;
 import group1.model.sprite.Sprite;
 
@@ -72,11 +73,15 @@ public class LevelFactory
 		Sprite player = SpriteFactory.player();
 		Sprite commander = SpriteFactory.commander();
 		Sprite subordinates = SpriteFactory.subordinates();
+		subordinates.setDirection(Constants.RIGHT);
+		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(player);
 		sprites.add(commander);
 		sprites.add(subordinates);
+		sprites.add(levelend);
+		
 		
 		Level commanderLevel = new Level(3,sprites);
 		commanderLevel.setFocusSprite(player);

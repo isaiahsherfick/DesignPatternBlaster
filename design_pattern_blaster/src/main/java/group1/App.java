@@ -34,10 +34,9 @@ public class App extends Application
 			ArrayList<Level> levels = new ArrayList<>();
 			//levels.add(LevelFactory.demoLevel1());
 			//levels.add(LevelFactory.demoLevel2());
+			levels.add(LevelFactory.commanderLevel());
 			levels.add(LevelFactory.observerLevel());
 
-//			levels.add(LevelFactory.commanderLevel());
-			
 
 			for (Level l : levels)
 			{
