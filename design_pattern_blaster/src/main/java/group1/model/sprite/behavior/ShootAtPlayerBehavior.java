@@ -77,14 +77,13 @@ public class ShootAtPlayerBehavior implements Behavior
         
         //Magnitude is projectileSpeed
         double magnitude = (double)projectileSpeed;
-        System.out.println("magnitude: " + magnitude);
         
         //Create vector object
         Vector shootVector = new Vector(magnitude, angle);
         
         double velocityX = shootVector.getCosComponent();
         double velocityY = shootVector.getSinComponent();
-        if (Math.toDegrees(angle) >= 90)
+        if (Math.toDegrees(angle) > 90)
             velocityY *= -1;
         if (Math.toDegrees(angle) <= 0)
         {
