@@ -1,0 +1,15 @@
+    	            physics package readme:
+
+
+    The physics package contains classes related to physics operations
+    present in our game. Right now that is simply a vector class, but we
+    may add more in the future.
+
+    Vectors have two components: magnitude and direction (angle). Java
+    wants these angles to be in radians, so be sure to use Math.toRadians
+    on any calculations you perform which output degrees before
+    constructing a vector.
+
+    We'll be using vectors to accomplish diagonal movement with varying
+    andles but a constant speed, such as shooting at the player from above
+    or launching a command at a subordinate.

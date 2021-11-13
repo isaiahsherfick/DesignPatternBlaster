@@ -217,10 +217,8 @@ public final class SpriteFactory
 
 		Sprite bulletSprite = enemyBullet();
 		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight()), bulletSprite));
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight() + 10), bulletSprite));
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
-		
-		
 		
 		return observer;
 	}

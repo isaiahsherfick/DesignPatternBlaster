@@ -38,8 +38,8 @@ public class ShootAtPlayerBehavior implements Behavior
 		ArrayList<Sprite> playerSprites = App.model.getPlayerSprites();
         Sprite nearestPlayerSprite = new NullSprite();
         double minDistance = Double.MAX_VALUE;
-        double x = sprite.getX();
-        double y = sprite.getY();
+        double x = sprite.getX() + offsetX;
+        double y = sprite.getY() + offsetY;
         for (Sprite s : playerSprites)
         {
             //System.out.println(s.getX());
@@ -60,10 +60,13 @@ public class ShootAtPlayerBehavior implements Behavior
         //Calculate slope
         double slope = (x - nearestPlayerSprite.getX()) / (y - nearestPlayerSprite.getY());
         System.out.println("SLOPE: " + slope);
+        double dx = x - nearestPlayerSprite.getX();
+        double dy = y = nearestPlayerSprite.getY();
+        newSprite.setVelocityX(dx);
+        newSprite.setVelocityY(dy);
+        System.out.println("New dx: " + dx + " new dy: " + dy); 
            
 
-        //newSprite.setVelocityX(dx);
-        //newSprite.setVelocityY(dy);
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}
