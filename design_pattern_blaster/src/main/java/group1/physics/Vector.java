@@ -32,14 +32,14 @@ public class Vector
 	}
 	
 	//x component of a vector is equal to its magnitude * cos(angle)
-	public double getXComponent()
+	public double getCosComponent()
 	{
-		return Math.cos(Math.toRadians(angle)) * magnitude;
+		return Math.cos(angle) * magnitude;
 	}
 	
 	//y component of a vector is equal to its magnitude * cos(angle)
-	public double getYComponent()
+	public double getSinComponent()
 	{
-		return Math.sin(Math.toRadians(angle)) * magnitude;
+		return Math.sin(angle) * magnitude;
 	}
 }

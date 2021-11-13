@@ -55,11 +55,11 @@ class VectorTest
     void getXComponentTest()
     {
         double magnitude = 100.0;
-        double angle = 30.0;
+        double angle = Math.toRadians(30.0);
         Vector forceVector = new Vector(magnitude, angle); 
 
         //x component of a vector is equal to magnitude * cos(angle)
-        double expected = Math.cos(Math.toRadians(angle)) * forceVector.getMagnitude();
+        double expected = Math.cos((angle)) * forceVector.getMagnitude();
         assertEquals(expected, forceVector.getXComponent());
         System.out.println("dx: " + expected);
     }
@@ -68,11 +68,11 @@ class VectorTest
     void getYComponentTest()
     {
         double magnitude = 100.0;
-        double angle = 30.0;
+        double angle = Math.toRadians(30.0);
         Vector forceVector = new Vector(magnitude, angle); 
 
         //y component of a vector is equal to magnitude * sin(angle)
-        double expected = Math.sin(Math.toRadians(angle)) * forceVector.getMagnitude();
+        double expected = Math.sin((angle)) * forceVector.getMagnitude();
         assertEquals(expected, forceVector.getYComponent());
         System.out.println("dy: " + expected);
     }

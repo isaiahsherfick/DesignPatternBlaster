@@ -126,7 +126,7 @@ public final class SpriteFactory
     {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setWidth(24);
-        bulletSprite.setHeight(12);
+        bulletSprite.setHeight(24);
         bulletSprite.setVelocityX(5);
         bulletSprite.setVelocityY(5);
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
@@ -205,24 +205,6 @@ public final class SpriteFactory
 		return endOfLevelSprite;
 	}
 
-	public static Sprite observer(Sprite observable) 
-	{
-		Sprite observer = new Sprite();
-		observer.setWidth(50);
-		observer.setHeight(50);
-		observer.setVelocityX(5);
-		observer.setX(1400);
-		observer.setY(Constants.WINDOW_HEIGHT - 150);
-		observer.setColor(Color.GOLD);
-
-		Sprite bulletSprite = enemyBullet();
-		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight() + 10), bulletSprite));
-		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
-		
-		return observer;
-	}
-
 	public static Sprite observer(Sprite observable, int x, int y) 
 	{
 		Sprite observer = new Sprite();
@@ -236,7 +218,7 @@ public final class SpriteFactory
 		Sprite bulletSprite = enemyBullet();
 		
 		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight()), bulletSprite));
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight()), bulletSprite, 20));
 		
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
 		
