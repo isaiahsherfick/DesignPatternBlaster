@@ -23,18 +23,6 @@ public class ShootAtPlayerBehavior implements Behavior
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public JSONObject save() 
-	{
-		JSONObject json = new JSONObject();
-		json.put("type", "SpawnSpriteBehavior");
-		json.put("blueprint", blueprint.save());
-		json.put("offsetX", offsetX);
-		json.put("offsetY", offsetY);
-		return json;
-	}
-
-	@Override
 	public void performBehavior(Sprite sprite) 
 	{
 		ArrayList<Sprite> playerSprites = App.model.getPlayerSprites();

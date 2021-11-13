@@ -6,12 +6,10 @@
  **/
 
 package group1.model.sprite.behavior;
-
-import group1.interfaces.Saveable;
 import group1.model.sprite.Sprite;
 
 //Behaviors will be linked to events to prevent an explosion of classes
-public interface Behavior extends Saveable
+public interface Behavior 
 {
 	//Executes the behavior on the sprite
     public void performBehavior(Sprite sprite);

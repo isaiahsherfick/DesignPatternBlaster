@@ -49,13 +49,6 @@ public class ObserverBehavior implements Behavior
 	}
 
 	@Override
-	public JSONObject save() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void performBehavior(Sprite sprite) 
 	{
 		ArrayList<Sprite> playerSprites = App.model.getPlayerSprites();

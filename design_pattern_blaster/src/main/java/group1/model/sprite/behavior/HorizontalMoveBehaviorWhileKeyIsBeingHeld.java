@@ -16,17 +16,6 @@ public class HorizontalMoveBehaviorWhileKeyIsBeingHeld implements Behavior
 	{
 		this.key = key;
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public JSONObject save()
-	{
-		JSONObject json = new JSONObject();
-		json.put("key",key.toString());
-		json.put("type", "HorizontalMoveBehaviorWhileKeyIsBeingHeld");
-		return json;
-	}
-	
 	public KeyCode getKey()
 	{
 		return key;

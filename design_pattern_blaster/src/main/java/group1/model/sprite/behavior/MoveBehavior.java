@@ -15,14 +15,4 @@ public class MoveBehavior implements Behavior
 		sprite.setX(sprite.getVelocityX() + sprite.getX());
 		sprite.setY(sprite.getVelocityY() + sprite.getY());
 	}
-	
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public JSONObject save() 
-	{
-		JSONObject json = new JSONObject();
-		json.put("type","MoveBehavior");
-		return json;
-	}
 }

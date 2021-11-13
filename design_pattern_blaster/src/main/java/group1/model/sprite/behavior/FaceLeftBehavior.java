@@ -8,16 +8,6 @@ import group1.model.sprite.Sprite;
 
 public class FaceLeftBehavior implements Behavior
 {
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public JSONObject save()
-	{
-		JSONObject json = new JSONObject();
-		json.put("type", "ChangeDirectionBehavior");
-		return json;
-	}
-
 	@Override
 	public void performBehavior(Sprite sprite)
 	{

@@ -16,19 +16,6 @@ public class SpawnSpriteBehavior implements Behavior
 		this.offsetY = offsetY;
 		this.blueprint = blueprint;
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public JSONObject save() 
-	{
-		JSONObject json = new JSONObject();
-		json.put("type", "SpawnSpriteBehavior");
-		json.put("blueprint", blueprint.save());
-		json.put("offsetX", offsetX);
-		json.put("offsetY", offsetY);
-		return json;
-	}
-
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{

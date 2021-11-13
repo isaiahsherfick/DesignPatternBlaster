@@ -17,13 +17,6 @@ public class AlternateHorizontalMovementInSetIntervalBehavior implements Behavio
 	}
 
 	@Override
-	public JSONObject save() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void performBehavior(Sprite sprite) 
 	{
 		//int ticksUntilIFlip = Constants.$NUMBER_OF_CLOCK_TICKS_PER_SECOND * numberOfSecondsToMoveInEachDirection

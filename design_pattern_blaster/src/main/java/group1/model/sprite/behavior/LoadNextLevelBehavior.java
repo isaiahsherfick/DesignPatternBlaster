@@ -7,13 +7,6 @@ import group1.model.sprite.Sprite;
 
 public class LoadNextLevelBehavior implements Behavior
 {
-	
-	@Override
-	public JSONObject save() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void performBehavior(Sprite sprite) 

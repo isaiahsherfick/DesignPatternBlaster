@@ -20,14 +20,6 @@ public class CommanderBehavior implements Behavior {
 	{
 		shootBehavior = ssb;
 	}
-	
-
-	@Override
-	public JSONObject save() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public void performBehavior(Sprite sprite) {
 		// TODO Auto-generated method stub

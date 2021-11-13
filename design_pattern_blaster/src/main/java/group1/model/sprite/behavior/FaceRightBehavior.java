@@ -10,15 +10,6 @@ public class FaceRightBehavior implements Behavior
 {
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public JSONObject save()
-	{
-		JSONObject json = new JSONObject();
-		json.put("type","FaceRightBehavior");
-		return json;
-	}
-
-	@Override
 	public void performBehavior(Sprite sprite)
 	{
 		sprite.setDirection(Constants.RIGHT);

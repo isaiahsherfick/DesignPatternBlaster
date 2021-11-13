@@ -7,15 +7,6 @@ import group1.model.sprite.game_event.GameEvent;
 
 public class CheckHealthBehavior implements Behavior
 {
-
-	@Override
-	public JSONObject save() 
-	{
-		JSONObject json = new JSONObject();
-		// TODO Auto-generated method stub
-		return json;
-	}
-
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{

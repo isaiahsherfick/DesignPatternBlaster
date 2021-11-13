@@ -30,17 +30,6 @@ public class JumpBehavior implements Behavior
 	{
 		this.maxJumpHeight = maxJumpHeight;
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public JSONObject save() 
-	{
-		JSONObject json = new JSONObject();
-		json.put("type", "JumpBehavior");
-
-		return json;
-	}
-
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{

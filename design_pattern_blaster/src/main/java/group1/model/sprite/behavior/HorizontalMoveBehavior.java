@@ -7,16 +7,6 @@ import group1.model.sprite.Sprite;
 
 public class HorizontalMoveBehavior implements Behavior
 {
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public JSONObject save() 
-	{
-		JSONObject json = new JSONObject();
-		json.put("type", "HorizontalMoveBehavior");
-		return json;
-	}
-
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
