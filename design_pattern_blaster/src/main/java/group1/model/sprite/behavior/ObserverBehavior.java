@@ -60,6 +60,7 @@ public class ObserverBehavior implements Behavior
 	{
 		ArrayList<Sprite> playerSprites = App.model.getPlayerSprites();
 		counter += App.model.getTimeDelta();
+
 		if (observableChangedState())
 		{
 			//Figure out which player is closest

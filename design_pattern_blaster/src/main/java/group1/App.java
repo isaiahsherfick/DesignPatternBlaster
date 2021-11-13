@@ -36,6 +36,9 @@ public class App extends Application
 			//levels.add(LevelFactory.demoLevel2());
 			levels.add(LevelFactory.observerLevel());
 
+//			levels.add(LevelFactory.commanderLevel());
+			
+
 			for (Level l : levels)
 			{
 				model.getLevelManager().addLevel(l);

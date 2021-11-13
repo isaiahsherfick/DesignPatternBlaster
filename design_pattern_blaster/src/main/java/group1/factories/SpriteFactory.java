@@ -19,6 +19,7 @@ import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.behavior.CommanderBehavior;
 import group1.model.sprite.behavior.DisableBehavior;
 import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.FaceLeftBehavior;
@@ -115,6 +116,7 @@ public final class SpriteFactory
         bulletSprite.setWidth(24);
         bulletSprite.setHeight(12);
         bulletSprite.setVelocityX(40);
+//        bulletSprite.setDirection(Constants.LEFT);
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
         bulletSprite.setColor(Color.ORANGE);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
@@ -223,6 +225,57 @@ public final class SpriteFactory
 		
 		
 		return observer;
+	}
+	
+	public static Sprite commander() {
+		Sprite commander = new Sprite();
+		commander.setWidth(50);
+		commander.setHeight(50);
+//		commander.setVelocityX(10);
+		commander.setX(1400);
+		commander.setY(Constants.WINDOW_HEIGHT - 150);
+		commander.setColor(Color.AQUA);
+		
+		Sprite bulletSprite = bullet();
+		
+		CommanderBehavior commanderBehavior = new CommanderBehavior();
+		commanderBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(commander.getWidth()+10),(int)(commander.getHeight()*0.78), bulletSprite));
+		commander.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
+		
+		return commander;
+	}
+	
+//	public static Sprite commandBullet()
+//    {
+//        Sprite bulletSprite = new Sprite();
+//        bulletSprite.setX(100);
+//        bulletSprite.setY(80);
+//        bulletSprite.setWidth(60);
+//        bulletSprite.setHeight(30);
+//        bulletSprite.setVelocityX(20);
+////        bulletSprite.setDirection(Constants.LEFT);
+//        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+//        bulletSprite.setColor(Color.RED);
+//        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+//        bulletSprite.setSpriteClassId(-3);
+//        return bulletSprite;
+//    }
+	
+	public static Sprite subordinates() {
+		Sprite subordinate = new Sprite();
+		subordinate.setWidth(40);
+		subordinate.setHeight(50);
+		subordinate.setX(1600);
+		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
+		subordinate.setColor(Color.BLUE);
+		
+		Sprite bulletSprite = bullet();
+		bulletSprite.setDirection(Constants.LEFT);
+		
+//		SubordinatesBehavior subordinateBehavior = new SubordinateBehavior();
+//		subordinate.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
+		subordinate.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new ShootSpriteBehavior((int)(subordinate.getWidth()+10),(int)(subordinate.getHeight()*0.78), bulletSprite));
+		return subordinate;
 	}
 
 	public static Sprite observer(Sprite observable, int x, int y) 

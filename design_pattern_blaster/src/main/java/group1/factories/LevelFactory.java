@@ -7,6 +7,7 @@ import group1.model.sprite.Sprite;
 
 public class LevelFactory 
 {
+
 	private LevelFactory() {}
 	public static Level demoLevel1()
 	{
@@ -65,5 +66,20 @@ public class LevelFactory
 		Level observerLevel = new Level(1,sprites);
 		observerLevel.setFocusSprite(player);
 		return observerLevel;
+	}
+	
+	public static Level commanderLevel() {
+		Sprite player = SpriteFactory.player();
+		Sprite commander = SpriteFactory.commander();
+		Sprite subordinates = SpriteFactory.subordinates();
+		
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(player);
+		sprites.add(commander);
+		sprites.add(subordinates);
+		
+		Level commanderLevel = new Level(3,sprites);
+		commanderLevel.setFocusSprite(player);
+		return commanderLevel;
 	}
 }
