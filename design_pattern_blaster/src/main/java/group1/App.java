@@ -32,10 +32,9 @@ public class App extends Application
 			model.registerObserver(viewController);
 
 			ArrayList<Level> levels = new ArrayList<>();
-			//levels.add(LevelFactory.demoLevel1());
-			//levels.add(LevelFactory.demoLevel2());
-			levels.add(LevelFactory.commanderLevel());
+			//This is the order the levels will appear in
 			levels.add(LevelFactory.observerLevel());
+			levels.add(LevelFactory.commanderLevel());
 
 
 			for (Level l : levels)
@@ -43,16 +42,9 @@ public class App extends Application
 				model.getLevelManager().addLevel(l);
 			}
 			model.startGame();
-//            Sprite player =  SpriteFactory.player();
-//            Sprite floor = SpriteFactory.demo_floor();
-//
-//            Sprite enemy1 = SpriteFactory.demo_enemy_1();
-//            Sprite enemy2 = SpriteFactory.demo_enemy_2();
-//
-//			model.startGameClock();
 	}
 
-	//Resets the static model. Used for unit tests and save/load
+	//Resets the static model. Used for unit tests
 	public static void resetModel()
 	{
 		model = new Model();

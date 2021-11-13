@@ -8,6 +8,7 @@ import group1.App;
 import group1.interfaces.Saveable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class LevelManager
 {
@@ -126,6 +127,13 @@ public class LevelManager
 			mediaPlayer.stop();
 		}
 		mediaPlayer = new MediaPlayer(song);
+		mediaPlayer.setOnEndOfMedia(new Runnable() {
+	        @Override
+	        public void run() {
+	            mediaPlayer.seek(Duration.ZERO);
+	            mediaPlayer.play();
+	        }
+	    });
 		mediaPlayer.play();
 	}
 }
