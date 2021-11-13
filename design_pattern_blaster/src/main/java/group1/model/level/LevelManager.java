@@ -121,7 +121,6 @@ public class LevelManager
 		App.model.loadLevel(currentLevel);
 		//System.out.println("Loaded level#" + currentLevel.getLevelNumber());
 		Media song = currentLevel.getSong();
-		System.out.println(song);
 		if (mediaPlayer != null)
 		{
 			mediaPlayer.stop();
