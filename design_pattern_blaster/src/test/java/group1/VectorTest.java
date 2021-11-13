@@ -60,7 +60,7 @@ class VectorTest
 
         //x component of a vector is equal to magnitude * cos(angle)
         double expected = Math.cos((angle)) * forceVector.getMagnitude();
-        assertEquals(expected, forceVector.getXComponent());
+        assertEquals(expected, forceVector.getCosComponent());
         System.out.println("dx: " + expected);
     }
 
@@ -73,7 +73,7 @@ class VectorTest
 
         //y component of a vector is equal to magnitude * sin(angle)
         double expected = Math.sin((angle)) * forceVector.getMagnitude();
-        assertEquals(expected, forceVector.getYComponent());
+        assertEquals(expected, forceVector.getSinComponent());
         System.out.println("dy: " + expected);
     }
 

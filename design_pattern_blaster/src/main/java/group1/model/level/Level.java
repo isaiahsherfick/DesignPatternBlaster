@@ -3,8 +3,10 @@ package group1.model.level;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import group1.App;
 import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
+import javafx.scene.media.Media;
 
 public class Level 
 {
@@ -13,6 +15,8 @@ public class Level
 	private Sprite focusSprite = new NullSprite();
 	
 	private ArrayList<Sprite> sprites;
+
+    private Media song;
 	
 	public Level()
 	{
@@ -36,6 +40,18 @@ public class Level
 			sprites.add(i.next());
 		}
 	}
+
+	public Level(int levelNumber, ArrayList<Sprite> spritesToAdd, String pathToSongFile)
+	{
+		this.levelNumber = levelNumber;
+		sprites = new ArrayList<>();
+		Iterator<Sprite> i = spritesToAdd.iterator();
+		while (i.hasNext())
+		{
+			sprites.add(i.next());
+		}
+        this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
+	}
 	
 	public void setFocusSprite(Sprite sprite)
 	{
@@ -44,6 +60,11 @@ public class Level
 		{
 			sprites.add(sprite);
 		}
+	}
+	
+	public Media getSong()
+	{
+		return song;
 	}
 	
 	public Sprite getFocusSprite()

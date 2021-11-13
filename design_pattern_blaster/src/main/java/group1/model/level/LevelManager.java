@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import group1.App;
 import group1.interfaces.Saveable;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class LevelManager
 {
@@ -13,6 +15,7 @@ public class LevelManager
 	private ArrayList<Level> completedLevels;
 	private ArrayList<Level> unfinishedLevels;
 	private Level currentLevel;
+	private MediaPlayer mediaPlayer;
 
 	public LevelManager()
 	{
@@ -117,5 +120,12 @@ public class LevelManager
 		currentLevel = unfinishedLevels.get(0);
 		App.model.loadLevel(currentLevel);
 		//System.out.println("Loaded level#" + currentLevel.getLevelNumber());
+		Media song = currentLevel.getSong();
+		if (mediaPlayer != null)
+		{
+			mediaPlayer.stop();
+		}
+		mediaPlayer = new MediaPlayer(song);
+		mediaPlayer.play();
 	}
 }

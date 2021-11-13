@@ -64,7 +64,7 @@ public class LevelFactory
 		sprites.add(player);
 		sprites.add(observer);
 		
-		Level observerLevel = new Level(1,sprites);
+		Level observerLevel = new Level(1,sprites, "Level_Music.mp3");
 		observerLevel.setFocusSprite(player);
 		return observerLevel;
 	}
@@ -83,7 +83,7 @@ public class LevelFactory
 		sprites.add(levelend);
 		
 		
-		Level commanderLevel = new Level(3,sprites);
+		Level commanderLevel = new Level(3,sprites, "Level_Music.mp3");
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}
