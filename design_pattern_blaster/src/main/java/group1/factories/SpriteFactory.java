@@ -368,6 +368,7 @@ public final class SpriteFactory
 		factory.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new FlashColorWhenDamagedBehavior(Color.RED)));
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+        factory.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
 
 		return factory;
 	}

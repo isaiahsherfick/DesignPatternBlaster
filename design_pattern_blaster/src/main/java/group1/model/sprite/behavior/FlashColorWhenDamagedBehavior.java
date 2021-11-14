@@ -41,7 +41,7 @@ public class FlashColorWhenDamagedBehavior implements Behavior
 			}
 			else
 			{
-				if (sprite.getColor().equals(color) == false)
+				if (sprite.getColor().equals(swapColor) == false)
 					sprite.setColor(swapColor);
 			}
 		}
