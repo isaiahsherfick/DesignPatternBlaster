@@ -12,9 +12,6 @@ import java.awt.image.ImageObserver;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import group1.model.sprite.behavior.GravityBehavior;
-import group1.model.sprite.behavior.ShootAtPlayerBehavior;
-import group1.model.sprite.behavior.ShootDiagonallyAtTargetBehavior;
 import group1.constants.Constants;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
@@ -44,21 +41,22 @@ public final class SpriteFactory
     {
         Sprite playerSprite = new Sprite();
         playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
-        playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
+        //playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
+        playerSprite.setY(0);
         playerSprite.setWidth(50);
         playerSprite.setHeight(100);
-        playerSprite.setVelocityX(10);
-        playerSprite.setVelocityY(5);
         playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
         playerSprite.setDirection(Constants.LEFT);
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.A, -1*Constants.PLAYER_DX)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.D, Constants.PLAYER_DX)));
-        //playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A),
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(100, KeyCode.W)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(10)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
+        playerSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new UpdateVelocityYBehavior(0));
         playerSprite.setColor(Color.BLUE);
         ArrayList<Image> playerImageRight;
         if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null)
@@ -200,38 +198,16 @@ public final class SpriteFactory
         return playerSprite;
     }
 
-    //TODO change this
-    public static Sprite demoFloor() 
-     {
+    public static Sprite floor(int width, int height)
+    {
         Sprite floor = new Sprite();
-        for (int i = 0; i < 1000; i++) 
-        {
-            floor = new Sprite();
-            floor.setWidth(Constants.WINDOW_WIDTH);
-
-//			floor.setHeight(10);
-            floor.setY(Constants.WINDOW_HEIGHT - 50);
-            floor.setX(-500 + i * 20);
-//			floor.setColor(Color.BLACK);
-            ArrayList<Image> floorImageList;
-            if (floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE) == null) 
-			{
-                floorImageList = new ArrayList<Image>();
-            } else 
-			{
-                floorImageList = floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE);
-            }
-            ArrayList<String> imageCenterPaths = new ArrayList<String>();
-            imageCenterPaths.add("src/main/resources/assets/levels/ground/0.2x/center_top@0.2x.png");
-            for (String imagePath : imageCenterPaths) 
-			{
-                floorImageList.add(new Image(Paths.get(imagePath).toUri().toString()));
-            }
-            floor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, floorImageList);
-            floor.getAnimation().setState(AnimationState.IDLE);
-
-            App.model.addSprite(floor);
-        }
+        floor.setX(0);
+        floor.setY(Constants.FLOOR_Y);
+        floor.setWidth(width);
+        floor.setHeight(height);
+        floor.setSpriteClassId(SpriteClassIdConstants.FLOOR);
+        floor.setColor(Color.BLACK);
+        floor.setDefaultCollisionBehavior(new DoNothingBehavior());
         return floor;
     }
 
