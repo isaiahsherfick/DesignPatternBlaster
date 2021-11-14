@@ -18,7 +18,9 @@ public class UpdateVelocityYBehavior implements Behavior
 
 	public void performBehavior(Sprite sprite)
 	{
+        //System.out.println("UpdateVelocityYBehavior.java: setting dy to " + velocity);
         sprite.setVelocityY(velocity);
+        //System.out.println("UpdateVelocityYBehavior.java: sprite's dy after I touched it: " + sprite.getVelocityY());
 	}
 	
 	public Behavior copy()

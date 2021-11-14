@@ -32,12 +32,16 @@ public class GravityBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
     {
-		double velY = sprite.getVelocityY();
-		velY = velY + gravity * App.model.getTimeDelta(); // v = u + gt
-        if (velY == 0)
+        //If the sprite is NOT touching a floor
+        if (!App.model.spriteIsCollidingWithFloor(sprite))
         {
-            velY = gravity;
+            double velY = sprite.getVelocityY();
+            velY = velY + gravity * App.model.getTimeDelta(); // v = u + gt
+            if (velY == 0)
+            {
+                velY = gravity;
+            }
+            sprite.setVelocityY(velY);
         }
-		sprite.setVelocityY(velY);
 	}
 }
