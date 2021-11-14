@@ -59,21 +59,17 @@ public class CollisionManager
 	}
 
     //Returns true if the sprite is colliding with another sprite which has sprite classid constant FLOOR. 
-    //could be more efficient if we use a hash table and update it in checkCollisions(), but this is quicker for now
-    //used for gravity behavior 
     public boolean isCollidingWithFloor(Sprite sprite, SpriteManager spriteManager)
     {
-        int layer = sprite.getLayer();
+        int layer = SpriteClassIdConstants.FLOOR;
         HitBox currentHitBox = sprite.getHitBox();
         ArrayList<Sprite> spritesInLayer = spriteManager.getSpriteListByLayer(layer);
-
+        System.out.println(String.format("CollisionManager.java: I've got %d floors here", spritesInLayer.size()));
         //Iterate over them 
         Iterator<Sprite> spriteIterator = spritesInLayer.iterator();
         while (spriteIterator.hasNext())
         {
             Sprite spriteToCheck = spriteIterator.next();
-            //If the sprite is a floor
-            if (spriteToCheck.getSpriteClassId() == SpriteClassIdConstants.FLOOR)
             {
                 HitBox hitBoxToCheck = spriteToCheck.getHitBox();
 

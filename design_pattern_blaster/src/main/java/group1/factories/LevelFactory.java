@@ -14,6 +14,7 @@ public class LevelFactory
 
 	public static Level observerLevel()
 	{
+        Sprite floor = SpriteFactory.floor(5000, 20);
 		Sprite player  = SpriteFactory.player();
 		
 		Sprite observer = SpriteFactory.observer(player, 1000, 25);
@@ -23,7 +24,6 @@ public class LevelFactory
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
 
-        Sprite floor = SpriteFactory.floor(5000, 20);
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
         sprites.add(floor);
@@ -41,14 +41,16 @@ public class LevelFactory
 
 	public static Level commanderLevel() 
 	{
+        Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
 		Sprite subordinates = SpriteFactory.subordinates();
 		Sprite commander = SpriteFactory.commander(subordinates);
-		commander.setY(500);
+		commander.setY(250);
 		subordinates.setDirection(Constants.RIGHT);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(commander);
 		sprites.add(subordinates);
@@ -62,11 +64,13 @@ public class LevelFactory
 
 	public static Level factoryLevel()
 	{
+        Sprite floor = SpriteFactory.floor(10000, 20);
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite player = SpriteFactory.player();
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
         Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
         endOfLevelSprite.setX(1500);
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(enemyFactory);
         sprites.add(endOfLevelSprite);
@@ -77,6 +81,7 @@ public class LevelFactory
 
 	public static Level MVCLevel()
 	{
+        Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player  = SpriteFactory.MVCPlayer();
 
 		Sprite viewEnemy = SpriteFactory.viewSprite();
@@ -87,6 +92,7 @@ public class LevelFactory
 		nextLevelSprite.setX(2000);
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(viewEnemy);
 		sprites.add(nextLevelSprite);

@@ -43,5 +43,9 @@ public class GravityBehavior implements Behavior
             }
             sprite.setVelocityY(velY);
         }
+        else
+        {
+            sprite.setVelocityY(0.0);
+        }
 	}
 }

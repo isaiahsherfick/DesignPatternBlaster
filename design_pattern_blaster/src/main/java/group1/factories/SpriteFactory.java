@@ -56,7 +56,6 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
         //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, -12)));
-        playerSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new UpdateVelocityYBehavior(0.0));
         //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         playerSprite.setColor(Color.BLUE);
@@ -135,6 +134,7 @@ public final class SpriteFactory
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         bulletSprite.setColor(Color.RED);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new DoNothingBehavior());
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.ENEMY_BULLET);
         return bulletSprite;
     }
@@ -203,7 +203,8 @@ public final class SpriteFactory
     public static Sprite floor(int width, int height)
     {
         Sprite floor = new Sprite();
-        floor.setX(0);
+        floor.setLayer(SpriteClassIdConstants.FLOOR);
+        floor.setX(-1 * (int)(width/2));
         floor.setY(Constants.FLOOR_Y);
         floor.setWidth(width);
         floor.setHeight(height);
@@ -262,10 +263,10 @@ public final class SpriteFactory
         commander.setY(Constants.WINDOW_HEIGHT - 150);
         commander.setColor(Color.RED);
 
-        Sprite bulletSprite = commandBullet();
+        Sprite commandBullet = commandBullet();
 
         CommanderBehavior commanderBehavior = new CommanderBehavior();
-        commanderBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int) (commander.getWidth() + 10), (int) (commander.getHeight() * 0.78), bulletSprite));
+        commanderBehavior.setShootSpriteBehavior(new ShootDiagonallyAtTargetBehavior((int) (commander.getWidth() + 10), (int) (commander.getHeight() * 0.78), commandBullet, 10, subordinate));
         commander.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
 
         return commander;
