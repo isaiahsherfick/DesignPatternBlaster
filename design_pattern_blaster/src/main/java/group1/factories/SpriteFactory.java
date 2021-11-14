@@ -55,7 +55,7 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
         //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, 20)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, -12)));
         playerSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new UpdateVelocityYBehavior(0.0));
         //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
