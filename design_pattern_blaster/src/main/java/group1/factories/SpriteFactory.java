@@ -1,60 +1,32 @@
 package group1.factories;
 
 import group1.App;
-import group1.model.sprite.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
-import group1.model.sprite.behavior.ShootAtPlayerBehavior;
 import group1.constants.Constants;
-import group1.model.Model;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
-import group1.model.sprite.behavior.Behavior;
-import group1.model.sprite.behavior.CommanderBehavior;
-import group1.model.sprite.behavior.DisableBehavior;
-import group1.model.sprite.behavior.DoNothingBehavior;
-import group1.model.sprite.behavior.FaceLeftBehavior;
-import group1.model.sprite.behavior.FaceRightBehavior;
-import group1.model.sprite.behavior.HorizontalMoveBehavior;
-import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
-import group1.model.sprite.behavior.MoveBehavior;
-import group1.model.sprite.behavior.ObserverBehavior;
-import group1.model.sprite.behavior.ShootSpriteBehavior;
-import group1.model.sprite.behavior.SpawnSpriteBehavior;
+import group1.model.sprite.SpriteClassIdConstants;
+import group1.model.sprite.behavior.*;
 import group1.model.sprite.game_event.GameEvent;
-import group1.viewcontroller.ViewController;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import group1.factories.SpriteFactory;
-import group1.model.sprite.behavior.JumpBehavior;
-import group1.model.sprite.behavior.LoadNextLevelBehavior;
+
+import javax.swing.text.View;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 
 //Creational class for making sprites
 //Right now everything is a Factory Method but we could refactor to Builder later
-public final class SpriteFactory
-{
-    private SpriteFactory(){}
+public final class SpriteFactory {
+    private SpriteFactory() {
+    }
 
     //Player sprite: not the final version by any stretch of the imagination
-    public static Sprite player()
-    {
+    public static Sprite player() {
         Sprite playerSprite = new Sprite();
-        playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
+        playerSprite.setX(Constants.WINDOW_WIDTH / 2 - 25);
         playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
         playerSprite.setWidth(50);
         playerSprite.setHeight(100);
@@ -69,7 +41,7 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(100, KeyCode.W)));
         playerSprite.setColor(Color.BLUE);
         ArrayList<Image> playerImageRight;
-        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null) {
+        if (playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT) == null) {
             playerImageRight = new ArrayList<Image>();
         } else {
             playerImageRight = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT);
@@ -79,14 +51,14 @@ public final class SpriteFactory
         imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame1_0.2x.png");
         imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame2_0.2x.png");
         imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame3_0.2x.png");
-        for(String imagePath: imageRightPaths) {
+        for (String imagePath : imageRightPaths) {
             playerImageRight.add(new Image(Paths.get(imagePath).toUri().toString()));
         }
         playerSprite.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, playerImageRight);
         playerSprite.getAnimation().setState(AnimationState.RIGHT_MOVEMENT);
 
         ArrayList<Image> playerImageLeft;
-        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null) {
+        if (playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT) == null) {
             playerImageLeft = new ArrayList<Image>();
         } else {
             playerImageLeft = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
@@ -95,7 +67,7 @@ public final class SpriteFactory
         imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame1_0.2x.png");
         imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png");
         imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame3_0.2x.png");
-        for(String imagePath: imageLeftPaths) {
+        for (String imagePath : imageLeftPaths) {
             playerImageLeft.add(new Image(Paths.get(imagePath).toUri().toString()));
         }
 
@@ -104,12 +76,11 @@ public final class SpriteFactory
 
         Sprite bulletSprite = bullet();
 
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30), (int) (playerSprite.getHeight() * 0.78), bulletSprite)));
         return playerSprite;
     }
 
-    public static Sprite bullet()
-    {
+    public static Sprite bullet() {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
         bulletSprite.setY(80);
@@ -124,8 +95,7 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
-    public static Sprite enemyBullet()
-    {
+    public static Sprite enemyBullet() {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setWidth(24);
         bulletSprite.setHeight(24);
@@ -138,19 +108,31 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
-    public static Sprite viewSprite(){
+    public static Sprite viewSprite() {
         Sprite viewSprite = new Sprite();
         viewSprite.setWidth(50);
-        viewSprite.setHeight(1000);
+        viewSprite.setHeight(Constants.WINDOW_HEIGHT);
         viewSprite.setVelocityX(0);
         viewSprite.setVelocityY(0);
         viewSprite.setColor(Color.RED);
         viewSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
         viewSprite.setSpriteClassId(-9); //placeholder
+        viewSprite.setDirection(Constants.LEFT);
+
+        Sprite enemyBullet = SpriteFactory.enemyBullet();
+        enemyBullet.setVelocityX(-10);
+        enemyBullet.setVelocityY(0);
+        ShootSpriteBehavior ssb1 = new ShootSpriteBehavior(-20, 40, enemyBullet);
+        ShootSpriteBehavior ssb2 = new ShootSpriteBehavior(-30, 80, enemyBullet);
+        ShootSpriteBehavior ssb3 = new ShootSpriteBehavior(-400, 120, enemyBullet);
+
+        ViewBehavior viewBehavior = new ViewBehavior();
+        viewBehavior.setShootSpriteBehavior(ssb1);
+        viewSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), ssb1));
         return viewSprite;
     }
 
-    public static Sprite wall(){
+    public static Sprite wall() {
         Sprite wallSprite = new Sprite();
         wallSprite.setWidth(1000);
         wallSprite.setHeight(1000);
@@ -162,156 +144,113 @@ public final class SpriteFactory
         return wallSprite;
     }
 
-    public static Sprite MVCPlayer()
-    {
-        Sprite playerSprite = new Sprite();
-        playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
-        playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
-        playerSprite.setWidth(50);
-        playerSprite.setHeight(100);
-        playerSprite.setVelocityX(10);
-        playerSprite.setVelocityY(5);
-        playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
-        playerSprite.setDirection(Constants.LEFT);
+    public static Sprite dummyFocusSprite() {
+        Sprite dumStupid = new Sprite();
+        dumStupid.setX(Constants.WINDOW_WIDTH / 2 - 25);
+        dumStupid.setY(Constants.WINDOW_HEIGHT - 200);
+        dumStupid.disable();
+        return dumStupid;
+    }
+
+    public static Sprite MVCPlayer() {
+        Sprite playerSprite = player();
+        playerSprite.getEventBehaviors().clear();
+        playerSprite.setVelocityY(10);
+        playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(10, 0));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.A)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(Constants.WINDOW_HEIGHT-30, KeyCode.W)));
-        playerSprite.setColor(Color.BLUE);
-        ArrayList<Image> playerImageRight;
-        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null) {
-            playerImageRight = new ArrayList<Image>();
-        } else {
-            playerImageRight = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT);
-        }
-
-        ArrayList<String> imageRightPaths = new ArrayList<String>();
-        imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame1_0.2x.png");
-        imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame2_0.2x.png");
-        imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame3_0.2x.png");
-        for(String imagePath: imageRightPaths) {
-            playerImageRight.add(new Image(Paths.get(imagePath).toUri().toString()));
-        }
-        playerSprite.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, playerImageRight);
-        playerSprite.getAnimation().setState(AnimationState.RIGHT_MOVEMENT);
-
-        ArrayList<Image> playerImageLeft;
-        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null) {
-            playerImageLeft = new ArrayList<Image>();
-        } else {
-            playerImageLeft = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
-        }
-        ArrayList<String> imageLeftPaths = new ArrayList<String>();
-        imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame1_0.2x.png");
-        imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png");
-        imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame3_0.2x.png");
-        for(String imagePath: imageLeftPaths) {
-            playerImageLeft.add(new Image(Paths.get(imagePath).toUri().toString()));
-        }
-
-
-        playerSprite.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, playerImageLeft);
-        playerSprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-
-        Sprite bulletSprite = bullet();
-
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
-
-        playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new FaceRightBehavior());
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(200, KeyCode.W)));
+      //  playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30), (int) (playerSprite.getHeight() * 0.78), bulletSprite)));
 
         return playerSprite;
     }
 
     //TODO change this
-    public static Sprite demoFloor()
-    {
-    	Sprite floor = new Sprite();
-    	for(int i=0;i<1000;i++) {
-    		floor = new Sprite();
-			floor.setWidth(Constants.WINDOW_WIDTH);
+    public static Sprite demoFloor() {
+        Sprite floor = new Sprite();
+        for (int i = 0; i < 1000; i++) {
+            floor = new Sprite();
+            floor.setWidth(Constants.WINDOW_WIDTH);
 
 //			floor.setHeight(10);
-			floor.setY(Constants.WINDOW_HEIGHT - 50);
-			floor.setX(-500+i*20);
+            floor.setY(Constants.WINDOW_HEIGHT - 50);
+            floor.setX(-500 + i * 20);
 //			floor.setColor(Color.BLACK);
-			ArrayList<Image> floorImageList;
-	        if(floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE)==null) {
-	            floorImageList = new ArrayList<Image>();
-	        } else {
-	            floorImageList = floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE);
-	        }
+            ArrayList<Image> floorImageList;
+            if (floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE) == null) {
+                floorImageList = new ArrayList<Image>();
+            } else {
+                floorImageList = floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE);
+            }
             ArrayList<String> imageCenterPaths = new ArrayList<String>();
             imageCenterPaths.add("src/main/resources/assets/levels/ground/0.2x/center_top@0.2x.png");
-            for(String imagePath: imageCenterPaths) {
+            for (String imagePath : imageCenterPaths) {
                 floorImageList.add(new Image(Paths.get(imagePath).toUri().toString()));
             }
             floor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, floorImageList);
             floor.getAnimation().setState(AnimationState.IDLE);
 
             App.model.addSprite(floor);
-    	}
+        }
         return floor;
     }
 
-    public static Sprite demoEnemy1()
-    {
-		Sprite enemy = new Sprite();
-		enemy.setWidth(50);
-		enemy.setSpriteClassId(-2);
-		enemy.setHeight(100);
-		enemy.setX(100);
-		enemy.setY(Constants.WINDOW_HEIGHT - 150);
-		enemy.setColor(Color.RED);
-		enemy.setVelocityX(-1);
-		enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-		enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-		return enemy;
+    public static Sprite demoEnemy1() {
+        Sprite enemy = new Sprite();
+        enemy.setWidth(50);
+        enemy.setSpriteClassId(-2);
+        enemy.setHeight(100);
+        enemy.setX(100);
+        enemy.setY(Constants.WINDOW_HEIGHT - 150);
+        enemy.setColor(Color.RED);
+        enemy.setVelocityX(-1);
+        enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+        enemy.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+        return enemy;
     }
 
-    public static Sprite demoEnemy2()
-    {
-		Sprite enemy1 = demoEnemy1();
-		enemy1.setX(Constants.WINDOW_WIDTH - 100);
-		enemy1.setColor(Color.RED);
-		enemy1.setVelocityX(1);
-		enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-		enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-		return enemy1;
+    public static Sprite demoEnemy2() {
+        Sprite enemy1 = demoEnemy1();
+        enemy1.setX(Constants.WINDOW_WIDTH - 100);
+        enemy1.setColor(Color.RED);
+        enemy1.setVelocityX(1);
+        enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+        enemy1.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+        return enemy1;
     }
 
-	public static Sprite endOfLevelSprite()
-	{
-		Sprite endOfLevelSprite = new Sprite();
-		endOfLevelSprite.setWidth(50);
-		endOfLevelSprite.setHeight(50);
-		endOfLevelSprite.setX(1400);
-		endOfLevelSprite.setY(Constants.WINDOW_HEIGHT - 150);
-		endOfLevelSprite.setColor(Color.GOLD);
-		endOfLevelSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.PLAYER, new LoadNextLevelBehavior());
-		return endOfLevelSprite;
-	}
+    public static Sprite endOfLevelSprite() {
+        Sprite endOfLevelSprite = new Sprite();
+        endOfLevelSprite.setWidth(50);
+        endOfLevelSprite.setHeight(50);
+        endOfLevelSprite.setX(1400);
+        endOfLevelSprite.setY(Constants.WINDOW_HEIGHT - 150);
+        endOfLevelSprite.setColor(Color.GOLD);
+        endOfLevelSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.PLAYER, new LoadNextLevelBehavior());
+        return endOfLevelSprite;
+    }
 
-	public static Sprite commander() {
-		Sprite commander = new Sprite();
-		commander.setWidth(50);
-		commander.setHeight(50);
+    public static Sprite commander() {
+        Sprite commander = new Sprite();
+        commander.setWidth(50);
+        commander.setHeight(50);
 //		commander.setVelocityX(10);
-		commander.setX(100);
-		commander.setY(Constants.WINDOW_HEIGHT - 150);
-		commander.setColor(Color.RED);
-		
-		Sprite bulletSprite = commandBullet();
-		
-		CommanderBehavior commanderBehavior = new CommanderBehavior();
-		commanderBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int)(commander.getWidth()+10),(int)(commander.getHeight()*0.78), bulletSprite));
-		commander.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
-		
-		return commander;
-	}
-	
-	public static Sprite commandBullet()
-    {
+        commander.setX(100);
+        commander.setY(Constants.WINDOW_HEIGHT - 150);
+        commander.setColor(Color.RED);
+
+        Sprite bulletSprite = commandBullet();
+
+        CommanderBehavior commanderBehavior = new CommanderBehavior();
+        commanderBehavior.setShootSpriteBehavior(new ShootSpriteBehavior((int) (commander.getWidth() + 10), (int) (commander.getHeight() * 0.78), bulletSprite));
+        commander.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
+
+        return commander;
+    }
+
+    public static Sprite commandBullet() {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
         bulletSprite.setY(80);
@@ -325,46 +264,44 @@ public final class SpriteFactory
         bulletSprite.setSpriteClassId(-3);
         return bulletSprite;
     }
-	
-	public static Sprite subordinates() {
-		Sprite subordinate = new Sprite();
-		subordinate.setWidth(40);
-		subordinate.setHeight(50);
-		subordinate.setX(400);
-		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
-		subordinate.setColor(Color.YELLOW);
-		
-		Sprite bulletSprite = bullet();
-		bulletSprite.setDirection(Constants.RIGHT);
-		
+
+    public static Sprite subordinates() {
+        Sprite subordinate = new Sprite();
+        subordinate.setWidth(40);
+        subordinate.setHeight(50);
+        subordinate.setX(400);
+        subordinate.setY(Constants.WINDOW_HEIGHT - 150);
+        subordinate.setColor(Color.YELLOW);
+
+        Sprite bulletSprite = bullet();
+        bulletSprite.setDirection(Constants.RIGHT);
+
 //		SubordinatesBehavior subordinateBehavior = new SubordinateBehavior();
 //		subordinate.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
-		subordinate.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new ShootSpriteBehavior((int)(subordinate.getWidth()+10),(int)(subordinate.getHeight()*0.78), bulletSprite));
-		return subordinate;
-	}
+        subordinate.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new ShootSpriteBehavior((int) (subordinate.getWidth() + 10), (int) (subordinate.getHeight() * 0.78), bulletSprite));
+        return subordinate;
+    }
 
-	public static Sprite observer(Sprite observable, int x, int y) 
-	{
-		Sprite observer = new Sprite();
-		observer.setWidth(50);
-		observer.setHeight(50);
-		observer.setVelocityX(5);
-		observer.setX(x);
-		observer.setY(y);
-		observer.setColor(Color.GOLD);
+    public static Sprite observer(Sprite observable, int x, int y) {
+        Sprite observer = new Sprite();
+        observer.setWidth(50);
+        observer.setHeight(50);
+        observer.setVelocityX(5);
+        observer.setX(x);
+        observer.setY(y);
+        observer.setColor(Color.GOLD);
 
-		Sprite bulletSprite = enemyBullet();
-		
-		ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int)(observer.getWidth() + 20), (int)(observer.getHeight()), bulletSprite, 20));
-		
-		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
-		
-		return observer;
-	}
+        Sprite bulletSprite = enemyBullet();
 
-	public static Sprite notifier() 
-	{
-		return demoEnemy2();
-	}
+        ObserverBehavior observerBehavior = new ObserverBehavior(observable);
+        observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int) (observer.getWidth() + 20), (int) (observer.getHeight()), bulletSprite, 20));
+
+        observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+
+        return observer;
+    }
+
+    public static Sprite notifier() {
+        return demoEnemy2();
+    }
 }

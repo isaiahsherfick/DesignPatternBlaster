@@ -25,16 +25,18 @@ public class ShootSpriteBehavior implements Behavior
         int x;
 		if (sprite.getDirection() == Constants.RIGHT)
         {
-            //System.out.println("Sprite's x: " + sprite.getX());
+            System.out.println("Sprite's x: " + sprite.getX());
+
 			x = (int)sprite.getX() + offsetX;
-            //System.out.println("bullet's x: " + x);
+            System.out.println("bullet's x: " + x);
 
         }
 		else
         {
-            //System.out.println("Sprite's x: " + sprite.getX());
-			x = (int)sprite.getX();
-            //System.out.println("bullet's x: " + x);
+            System.out.println("Sprite's x: " + sprite.getX());
+			System.out.println("Offset x: " + offsetX);
+			x = (int)sprite.getX() + offsetX;
+            System.out.println("bullet's x: " + x);
         }
         int y = (int)sprite.getY() + offsetY;
         Sprite newSprite = blueprint.copy();
@@ -42,6 +44,11 @@ public class ShootSpriteBehavior implements Behavior
         newSprite.setY(y);
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
+	}
+
+	public Behavior copy()
+	{
+		return new ShootSpriteBehavior(offsetX, offsetY, blueprint.copy());
 	}
 
 }

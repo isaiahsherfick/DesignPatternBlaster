@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import group1.constants.Constants;
 import group1.model.level.Level;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteManager;
 
 public class LevelFactory 
 {
@@ -101,7 +102,7 @@ public class LevelFactory
 		Sprite viewEnemy = SpriteFactory.viewSprite();
 		viewEnemy.setX(viewEnemy.getX() + 1000);
 		Sprite wall = SpriteFactory.wall();
-		wall.setX(-1000);
+		wall.setX(-1025);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
 
@@ -112,7 +113,9 @@ public class LevelFactory
 		sprites.add(wall);
 
 		Level MVCLevel = new Level(3,sprites, "Level_Music.mp3");
-		MVCLevel.setFocusSprite(player);
+		//nullify focus
+		MVCLevel.setFocusSprite(SpriteFactory.dummyFocusSprite());
+
 		return MVCLevel;
 	}
 }
