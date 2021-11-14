@@ -4,11 +4,13 @@ import group1.App;
 import group1.constants.Constants;
 import group1.model.sprite.Sprite;
 
-public class ShootSpriteBehavior implements Behavior {
+public class ShootSpriteBehavior implements Behavior 
+{
     private Sprite blueprint;
     int offsetX, offsetY;
 
-    public ShootSpriteBehavior(int offsetX, int offsetY, Sprite blueprint) {
+    public ShootSpriteBehavior(int offsetX, int offsetY, Sprite blueprint) 
+    {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.blueprint = blueprint;
@@ -16,16 +18,16 @@ public class ShootSpriteBehavior implements Behavior {
 
 
     @Override
-    public void performBehavior(Sprite sprite) {
+    public void performBehavior(Sprite sprite) 
+    {
         int x;
-        if (sprite.getDirection() == Constants.RIGHT) {
-
-
-            x = (int) sprite.getX() + offsetX;
-
-
-        } else {
-            x = (int) sprite.getX() + offsetX;
+        if (sprite.getDirection() == Constants.RIGHT) 
+        {
+            x = (int) (sprite.getX() + offsetX + blueprint.getWidth()/2);
+        } 
+        else 
+        {
+            x = (int)(sprite.getX() - blueprint.getWidth()/2);
         }
         int y = (int) sprite.getY() + offsetY;
         Sprite newSprite = blueprint.copy();
@@ -35,7 +37,8 @@ public class ShootSpriteBehavior implements Behavior {
         App.model.addSprite(newSprite);
     }
 
-    public Behavior copy() {
+    public Behavior copy() 
+    {
         return new ShootSpriteBehavior(offsetX, offsetY, blueprint.copy());
     }
 

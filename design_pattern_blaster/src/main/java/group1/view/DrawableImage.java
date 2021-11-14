@@ -38,14 +38,14 @@ public class DrawableImage implements Drawable {
 //		image = new Image(path);
 		//		Image image = new Image(getClass().getResource(path).toString());
 		if(g==null)
-			System.out.println("Graphics Context is null");
+			//System.out.println("Graphics Context is null");
 		if(image!=null) {
 //			g.drawImage(image, topLeft.getX(), topLeft.getY());
 //			g.drawImage(image, topLeft.getX(), topLeft.getY(), width, height);
 			g.drawImage(image, topLeft.getX(), topLeft.getY(), image.getWidth(), image.getHeight());
-			System.out.println("Image should be displayed"+image.getWidth()+", "+image.getHeight());
+			//System.out.println("Image should be displayed"+image.getWidth()+", "+image.getHeight());
 		} else {
-			System.out.println("Image is null");
+			//System.out.println("Image is null");
 		}
 	}
 

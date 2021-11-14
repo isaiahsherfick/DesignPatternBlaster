@@ -94,13 +94,13 @@ public class ObserverBehavior implements Behavior
 			System.out.println("angle: " + angle);
 			//Magnitude is projectileSpeed
 			double magnitude = (double)speed;
-			System.out.println("magnitude: " + magnitude);
+			//System.out.println("magnitude: " + magnitude);
 			//Create vector object
 			Vector moveVector = new Vector(magnitude, angle);
 			double velocityX = moveVector.getCosComponent();
-			System.out.println("velocityX: " + velocityX);
+			//System.out.println("velocityX: " + velocityX);
 			double velocityY = moveVector.getSinComponent();
-			System.out.println("velocityY: " + velocityY);
+			//System.out.println("velocityY: " + velocityY);
 
 			if (Math.toDegrees(angle) > 90)
 				velocityY *= -1;
@@ -114,7 +114,7 @@ public class ObserverBehavior implements Behavior
 			sprite.setX(sprite.getX() + velocityX);
 			if (sprite.getY() < maxY)
 			{
-				System.out.println("ObserverBehavior.java: y " + sprite.getY() + " is less than maxY " + maxY);
+				//System.out.println("ObserverBehavior.java: y " + sprite.getY() + " is less than maxY " + maxY);
 				sprite.setY(sprite.getY() + velocityY);
 			}
 			

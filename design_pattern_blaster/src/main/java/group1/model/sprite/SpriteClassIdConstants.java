@@ -14,4 +14,6 @@ public final class SpriteClassIdConstants
 	public static final int KILLZONE = -8;
 	public static final int DEFAULT_SPRITE_CLASS = -9;
 	public static final int COMMAND = -10;
+	public static final int SUBORDINATE = -11;
+	public static final int ENEMY_BULLET = -12;
 }

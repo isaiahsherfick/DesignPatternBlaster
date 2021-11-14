@@ -34,9 +34,9 @@ import java.util.ArrayList;
 
 //Creational class for making sprites
 //Right now everything is a Factory Method but we could refactor to Builder later
-public final class SpriteFactory {
-    private SpriteFactory() {
-    }
+public final class SpriteFactory 
+{
+    private SpriteFactory() {}
 
     //Player sprite: not the final version by any stretch of the imagination
     public static Sprite player()
@@ -104,7 +104,8 @@ public final class SpriteFactory {
         return playerSprite;
     }
 
-    public static Sprite bullet() {
+    public static Sprite bullet() 
+    {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
         bulletSprite.setY(80);
@@ -115,11 +116,13 @@ public final class SpriteFactory {
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
         bulletSprite.setColor(Color.ORANGE);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.SUBORDINATE, new DoNothingBehavior());
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET);
         return bulletSprite;
     }
 
-    public static Sprite enemyBullet() {
+    public static Sprite enemyBullet() 
+    {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setWidth(24);
         bulletSprite.setHeight(24);
@@ -128,11 +131,12 @@ public final class SpriteFactory {
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         bulletSprite.setColor(Color.RED);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
-        bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET);
+        bulletSprite.setSpriteClassId(SpriteClassIdConstants.ENEMY_BULLET);
         return bulletSprite;
     }
 
-    public static Sprite viewSprite() {
+    public static Sprite viewSprite() 
+    {
         Sprite viewSprite = new Sprite();
         viewSprite.setWidth(50);
         viewSprite.setHeight(Constants.WINDOW_HEIGHT);
@@ -150,7 +154,8 @@ public final class SpriteFactory {
         return viewSprite;
     }
 
-    public static Sprite wall() {
+    public static Sprite wall() 
+    {
         Sprite wallSprite = new Sprite();
         wallSprite.setWidth(1000);
         wallSprite.setHeight(1000);
@@ -162,7 +167,8 @@ public final class SpriteFactory {
         return wallSprite;
     }
 
-    public static Sprite dummyFocusSprite() {
+    public static Sprite dummyFocusSprite() 
+    {
         Sprite dumStupid = new Sprite();
         dumStupid.setX(Constants.WINDOW_WIDTH / 2 - 25);
         dumStupid.setY(Constants.WINDOW_HEIGHT - 200);
@@ -170,7 +176,8 @@ public final class SpriteFactory {
         return dumStupid;
     }
 
-    public static Sprite MVCPlayer() {
+    public static Sprite MVCPlayer() 
+    {
         Sprite playerSprite = player();
         playerSprite.getEventBehaviors().clear();
         playerSprite.setVelocityY(30);
@@ -190,9 +197,11 @@ public final class SpriteFactory {
     }
 
     //TODO change this
-    public static Sprite demoFloor() {
+    public static Sprite demoFloor() 
+     {
         Sprite floor = new Sprite();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) 
+        {
             floor = new Sprite();
             floor.setWidth(Constants.WINDOW_WIDTH);
 
@@ -201,14 +210,17 @@ public final class SpriteFactory {
             floor.setX(-500 + i * 20);
 //			floor.setColor(Color.BLACK);
             ArrayList<Image> floorImageList;
-            if (floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE) == null) {
+            if (floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE) == null) 
+			{
                 floorImageList = new ArrayList<Image>();
-            } else {
+            } else 
+			{
                 floorImageList = floor.getAnimation().getAnimationLoopForState(AnimationState.IDLE);
             }
             ArrayList<String> imageCenterPaths = new ArrayList<String>();
             imageCenterPaths.add("src/main/resources/assets/levels/ground/0.2x/center_top@0.2x.png");
-            for (String imagePath : imageCenterPaths) {
+            for (String imagePath : imageCenterPaths) 
+			{
                 floorImageList.add(new Image(Paths.get(imagePath).toUri().toString()));
             }
             floor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, floorImageList);
@@ -219,7 +231,8 @@ public final class SpriteFactory {
         return floor;
     }
 
-    public static Sprite demoEnemy1() {
+    public static Sprite demoEnemy1() 
+    {
         Sprite enemy = new Sprite();
         enemy.setWidth(50);
         enemy.setSpriteClassId(-2);
@@ -233,7 +246,8 @@ public final class SpriteFactory {
         return enemy;
     }
 
-    public static Sprite demoEnemy2() {
+    public static Sprite demoEnemy2() 
+    {
         Sprite enemy1 = demoEnemy1();
         enemy1.setX(Constants.WINDOW_WIDTH - 100);
         enemy1.setColor(Color.RED);
@@ -243,7 +257,8 @@ public final class SpriteFactory {
         return enemy1;
     }
 
-    public static Sprite endOfLevelSprite() {
+    public static Sprite endOfLevelSprite() 
+    {
         Sprite endOfLevelSprite = new Sprite();
         endOfLevelSprite.setWidth(50);
         endOfLevelSprite.setHeight(50);
@@ -254,7 +269,8 @@ public final class SpriteFactory {
         return endOfLevelSprite;
     }
 
-	public static Sprite commander(Sprite subordinate) {
+	public static Sprite commander(Sprite subordinate) 
+    {
 		Sprite commander = new Sprite();
 		commander.setWidth(50);
 		commander.setHeight(50);
@@ -290,13 +306,15 @@ public final class SpriteFactory {
         return bulletSprite;
     }
 	
-	public static Sprite subordinates() {
+	public static Sprite subordinates() 
+	{
 		Sprite subordinate = new Sprite();
 		subordinate.setWidth(40);
 		subordinate.setHeight(50);
 		subordinate.setX(400);
 		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
 		subordinate.setColor(Color.YELLOW);
+		subordinate.setSpriteClassId(SpriteClassIdConstants.SUBORDINATE);
 		
 		Sprite bulletSprite = enemyBullet();
 		bulletSprite.setHeight(100);
@@ -309,7 +327,8 @@ public final class SpriteFactory {
 		return subordinate;
 	}
 
-    public static Sprite observer(Sprite observable, int x, int y) {
+    public static Sprite observer(Sprite observable, int x, int y) 
+    {
         Sprite observer = new Sprite();
         observer.setWidth(50);
         observer.setHeight(50);
@@ -325,7 +344,7 @@ public final class SpriteFactory {
 
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
 		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-		observer.addCustomCollision(SpriteClassIdConstants.PLAYER, new DoNothingBehavior());
+		observer.setDefaultCollisionBehavior(new DoNothingBehavior());
 		
 		return observer;
 	}
@@ -339,9 +358,9 @@ public final class SpriteFactory {
 	{
 		Sprite factory = new Sprite();
 		factory.setWidth(30);
-		factory.setY(Constants.WINDOW_HEIGHT - 250);
+		factory.setHeight(200);
+		factory.setY(Constants.WINDOW_HEIGHT - 350);
 		factory.setHealth(10);
-		factory.setHeight(30);
 		factory.setColor(Color.PURPLE);
 		FactoryBehavior factoryBehavior = new FactoryBehavior(blueprint, spawnInterval);
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), factoryBehavior));
@@ -350,6 +369,5 @@ public final class SpriteFactory {
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
 
 		return factory;
-
 	}
 }

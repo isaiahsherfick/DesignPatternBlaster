@@ -10,7 +10,7 @@ public class DisableBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-		System.out.println("I am disabling");
+		//System.out.println("I am disabling");
 		sprite.disable();
 	}
 	

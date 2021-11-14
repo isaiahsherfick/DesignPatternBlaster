@@ -35,10 +35,10 @@ public class App extends Application
 			//This is the order the levels will appear in
 			//levels.add(LevelFactory.observerLevel());
 			//levels.add(LevelFactory.commanderLevel());
-			levels.add(LevelFactory.MVCLevel());
 			levels.add(LevelFactory.observerLevel());
 			levels.add(LevelFactory.commanderLevel());
 			levels.add(LevelFactory.factoryLevel());
+			levels.add(LevelFactory.MVCLevel());
 
 
 			for (Level l : levels)

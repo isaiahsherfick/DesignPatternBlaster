@@ -127,10 +127,12 @@ public class LevelManager
 			mediaPlayer.stop();
 		}
 		mediaPlayer = new MediaPlayer(song);
+		mediaPlayer.setVolume(0.25);
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 	        @Override
 	        public void run() {
 	            mediaPlayer.seek(Duration.ZERO);
+	            mediaPlayer.setVolume(0.25);
 	            mediaPlayer.play();
 	        }
 	    });

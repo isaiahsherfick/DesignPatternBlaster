@@ -26,7 +26,7 @@ public class FactoryBehavior implements Behavior
 			newEnemy.setX(sprite.getX() + offsetX);
 			newEnemy.setY(sprite.getY() + offsetY);
 			App.model.addSprite(newEnemy);
-			System.out.println("FactoryBehavior.java: Spawned the new enemy!");
+			//System.out.println("FactoryBehavior.java: Spawned the new enemy!");
 			counter = 0;
 		}
 		else

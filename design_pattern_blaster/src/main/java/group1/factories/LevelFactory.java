@@ -79,10 +79,12 @@ public class LevelFactory
 
 
 
-	public static Level commanderLevel() {
+	public static Level commanderLevel() 
+	{
 		Sprite player = SpriteFactory.player();
 		Sprite subordinates = SpriteFactory.subordinates();
 		Sprite commander = SpriteFactory.commander(subordinates);
+		commander.setY(500);
 		subordinates.setDirection(Constants.RIGHT);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		
@@ -93,7 +95,7 @@ public class LevelFactory
 		sprites.add(levelend);
 		
 		
-		Level commanderLevel = new Level(2,sprites, "Boss_Music.mp3");
+		Level commanderLevel = new Level(2,sprites, "Level_Music.mp3");
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}
@@ -127,7 +129,7 @@ public class LevelFactory
 		sprites.add(nextLevelSprite);
 		sprites.add(wall);
 
-		Level MVCLevel = new Level(3,sprites, "sfx-pop3.mp3");
+		Level MVCLevel = new Level(3,sprites, "Boss_Music.mp3");
 		//nullify focus
 		MVCLevel.setFocusSprite(SpriteFactory.dummyFocusSprite());
 

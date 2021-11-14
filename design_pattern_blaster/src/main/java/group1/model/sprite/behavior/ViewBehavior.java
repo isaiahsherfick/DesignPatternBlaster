@@ -40,7 +40,7 @@ public class ViewBehavior implements Behavior {
             public void performBehavior(Sprite sprite) {
                 timeRemaining = TIME_TO_SURVIVE;
                 sprite.disable();
-                System.out.println(timeRemaining);
+                //System.out.println(timeRemaining);
             }
 
             @Override
@@ -64,7 +64,7 @@ public class ViewBehavior implements Behavior {
             public void performBehavior(Sprite sprite) {
                 timeRemaining += 10;
                 sprite.disable();
-                System.out.println(timeRemaining);
+                //System.out.println(timeRemaining);
             }
 
             @Override
