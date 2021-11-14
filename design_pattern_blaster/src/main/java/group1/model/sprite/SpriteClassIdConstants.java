@@ -16,4 +16,5 @@ public final class SpriteClassIdConstants
 	public static final int COMMAND = -10;
 	public static final int SUBORDINATE = -11;
 	public static final int ENEMY_BULLET = -12;
+	public static final int POWER_UPS = -13;
 }

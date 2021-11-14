@@ -138,4 +138,10 @@ public class LevelFactory
 
 		return MVCLevel;
 	}
+	
+	public static Level strategyLevel() {
+		Sprite player = SpriteFactory.player();
+		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
+		Sprite takeNoDamagePowerUp = 
+	}
 }

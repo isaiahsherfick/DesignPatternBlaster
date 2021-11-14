@@ -382,4 +382,16 @@ public final class SpriteFactory
 
 		return factory;
 	}
+	
+	public static Sprite strategyEnemies(Sprite spriteToFollow) {
+		
+		Sprite strategySprite = new Sprite();
+		strategySprite.setWidth(100);
+		strategySprite.setHeight(400);
+		strategySprite.setX(1000);
+		strategySprite.setY(Constants.WINDOW_HEIGHT - strategySprite.getHeight());
+		strategySprite.setHealth(10);
+		strategySprite.setColor(Color.PURPLE);
+		
+	}
 }
