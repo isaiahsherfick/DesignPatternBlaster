@@ -1,6 +1,5 @@
 package group1.factories;
-import group1.model.sprite.behavior.ShootAtPlayerBehavior;
-import group1.model.sprite.behavior.ShootDiagonallyAtTargetBehavior;
+import group1.model.sprite.behavior.*;
 import group1.App;
 import group1.model.sprite.*;
 import javafx.scene.input.KeyCode;
@@ -19,18 +18,6 @@ import group1.constants.Constants;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
-import group1.model.sprite.behavior.Behavior;
-import group1.model.sprite.behavior.CommanderBehavior;
-import group1.model.sprite.behavior.DisableBehavior;
-import group1.model.sprite.behavior.DoNothingBehavior;
-import group1.model.sprite.behavior.FaceLeftBehavior;
-import group1.model.sprite.behavior.FaceRightBehavior;
-import group1.model.sprite.behavior.HorizontalMoveBehavior;
-import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
-import group1.model.sprite.behavior.MoveBehavior;
-import group1.model.sprite.behavior.ObserverBehavior;
-import group1.model.sprite.behavior.ShootSpriteBehavior;
-import group1.model.sprite.behavior.SpawnSpriteBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import group1.viewcontroller.ViewController;
 import javafx.application.Application;
@@ -52,9 +39,10 @@ public final class SpriteFactory {
     }
 
     //Player sprite: not the final version by any stretch of the imagination
-    public static Sprite player() {
+    public static Sprite player()
+    {
         Sprite playerSprite = new Sprite();
-        playerSprite.setX(Constants.WINDOW_WIDTH / 2 - 25);
+        playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
         playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
         playerSprite.setWidth(50);
         playerSprite.setHeight(100);
@@ -71,7 +59,6 @@ public final class SpriteFactory {
         ArrayList<Image> playerImageRight;
         if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null)
         {
-        if (playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT) == null) {
             playerImageRight = new ArrayList<Image>();
         }
         else
@@ -113,7 +100,7 @@ public final class SpriteFactory {
 
         Sprite bulletSprite = bullet();
 
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30), (int) (playerSprite.getHeight() * 0.78), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
         return playerSprite;
     }
 
@@ -156,16 +143,10 @@ public final class SpriteFactory {
         viewSprite.setSpriteClassId(-9); //placeholder
         viewSprite.setDirection(Constants.LEFT);
 
-        Sprite enemyBullet = SpriteFactory.enemyBullet();
-        enemyBullet.setVelocityX(-10);
-        enemyBullet.setVelocityY(0);
-        ShootSpriteBehavior ssb1 = new ShootSpriteBehavior(-20, 40, enemyBullet);
-        ShootSpriteBehavior ssb2 = new ShootSpriteBehavior(-30, 80, enemyBullet);
-        ShootSpriteBehavior ssb3 = new ShootSpriteBehavior(-400, 120, enemyBullet);
 
         ViewBehavior viewBehavior = new ViewBehavior();
-        viewBehavior.setShootSpriteBehavior(ssb1);
-        viewSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), ssb1));
+        viewBehavior.setShootSpriteBehavior(viewBehavior);
+        viewSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), viewBehavior));
         return viewSprite;
     }
 
@@ -192,15 +173,19 @@ public final class SpriteFactory {
     public static Sprite MVCPlayer() {
         Sprite playerSprite = player();
         playerSprite.getEventBehaviors().clear();
-        playerSprite.setVelocityY(10);
+        playerSprite.setVelocityY(30);
         playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(10, 0));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.A)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(200, KeyCode.W)));
-      //  playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30), (int) (playerSprite.getHeight() * 0.78), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(Constants.WINDOW_HEIGHT-150, KeyCode.W)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE),
+                new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30),
+                        (int) (playerSprite.getHeight() * 0.78), bullet())));
 
+        int viewBehaviorCollisionID = -9;
+        playerSprite.addCustomCollision(viewBehaviorCollisionID, new MoveSetAmountBehavior(-playerSprite.getVelocityX(),0));
         return playerSprite;
     }
 

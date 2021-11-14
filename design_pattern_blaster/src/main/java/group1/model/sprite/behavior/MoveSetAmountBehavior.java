@@ -14,9 +14,9 @@ import group1.model.sprite.Sprite;
 public class MoveSetAmountBehavior implements Behavior
 {
 
-	int x,y;
+	double x,y;
 
-	public MoveSetAmountBehavior(int x, int y){
+	public MoveSetAmountBehavior(double x, double y){
 		this.x = x;
 		this.y = y;
 	}
@@ -24,5 +24,10 @@ public class MoveSetAmountBehavior implements Behavior
 	{
 		sprite.setX(sprite.getX() + x);
 		sprite.setY(sprite.getY() + y);
+	}
+
+	@Override
+	public Behavior copy() {
+		return new MoveSetAmountBehavior(x,y);
 	}
 }

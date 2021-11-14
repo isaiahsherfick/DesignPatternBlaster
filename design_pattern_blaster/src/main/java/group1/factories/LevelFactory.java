@@ -127,7 +127,7 @@ public class LevelFactory
 		sprites.add(nextLevelSprite);
 		sprites.add(wall);
 
-		Level MVCLevel = new Level(3,sprites, "Level_Music.mp3");
+		Level MVCLevel = new Level(3,sprites, "sfx-pop3.mp3");
 		//nullify focus
 		MVCLevel.setFocusSprite(SpriteFactory.dummyFocusSprite());
 
