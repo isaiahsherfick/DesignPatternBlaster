@@ -77,7 +77,7 @@ public class ViewController implements Observer
 			mainScene.setOnKeyPressed(e ->
 			{
 				KeyInputManager keyInputManager = App.model.getKeyInputManager();
-                if (e.getCode() == KeyCode.A || e.getCode() == KeyCode.S)
+                if (e.getCode() == KeyCode.A || e.getCode() == KeyCode.D)
                 {
                     //This handles the problem of dealing with the user holding two movement keys at the same time
                     //like our old "speedrun glitch"
