@@ -22,11 +22,13 @@ import group1.model.sprite.Sprite;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.CheckHealthBehavior;
 import group1.model.sprite.behavior.CommanderBehavior;
+import group1.model.sprite.behavior.DecrementHealthBehavior;
 import group1.model.sprite.behavior.DisableBehavior;
 import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.FaceLeftBehavior;
 import group1.model.sprite.behavior.FaceRightBehavior;
 import group1.model.sprite.behavior.FactoryBehavior;
+import group1.model.sprite.behavior.FlashColorWhenDamagedBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
 import group1.model.sprite.behavior.MoveBehavior;
@@ -302,11 +304,15 @@ public final class SpriteFactory
 	public static Sprite factory(Sprite blueprint, int spawnInterval) 
 	{
 		Sprite factory = new Sprite();
-		factory.setWidth(10);
-		factory.setHeight(10);
+		factory.setWidth(30);
+		factory.setY(Constants.WINDOW_HEIGHT - 250);
+		factory.setHealth(10);
+		factory.setHeight(30);
 		factory.setColor(Color.PURPLE);
 		FactoryBehavior factoryBehavior = new FactoryBehavior(blueprint, spawnInterval);
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), factoryBehavior));
+		factory.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new FlashColorWhenDamagedBehavior(Color.RED)));
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
 		
 		return factory;
