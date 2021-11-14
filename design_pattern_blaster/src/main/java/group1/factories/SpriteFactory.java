@@ -20,11 +20,13 @@ import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.behavior.CheckHealthBehavior;
 import group1.model.sprite.behavior.CommanderBehavior;
 import group1.model.sprite.behavior.DisableBehavior;
 import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.FaceLeftBehavior;
 import group1.model.sprite.behavior.FaceRightBehavior;
+import group1.model.sprite.behavior.FactoryBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehavior;
 import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
 import group1.model.sprite.behavior.MoveBehavior;
@@ -282,11 +284,11 @@ public final class SpriteFactory
 
 		Sprite bulletSprite = enemyBullet();
 		
-		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 800, 5);
+		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 450, 5);
 		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 		
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
-		observer.setDefaultCollisionBehavior(new DisableBehavior());
+		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
 		observer.addCustomCollision(SpriteClassIdConstants.PLAYER, new DoNothingBehavior());
 		
 		return observer;
@@ -295,5 +297,19 @@ public final class SpriteFactory
 	public static Sprite notifier() 
 	{
 		return demoEnemy2();
+	}
+
+	public static Sprite factory(Sprite blueprint, int spawnInterval) 
+	{
+		Sprite factory = new Sprite();
+		factory.setWidth(10);
+		factory.setHeight(10);
+		factory.setColor(Color.PURPLE);
+		FactoryBehavior factoryBehavior = new FactoryBehavior(blueprint, spawnInterval);
+		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), factoryBehavior));
+		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+		
+		return factory;
+		
 	}
 }

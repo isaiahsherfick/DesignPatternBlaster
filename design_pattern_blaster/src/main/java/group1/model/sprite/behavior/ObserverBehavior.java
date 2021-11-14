@@ -114,6 +114,7 @@ public class ObserverBehavior implements Behavior
 			sprite.setX(sprite.getX() + velocityX);
 			if (sprite.getY() < maxY)
 			{
+				System.out.println("ObserverBehavior.java: y " + sprite.getY() + " is less than maxY " + maxY);
 				sprite.setY(sprite.getY() + velocityY);
 			}
 			

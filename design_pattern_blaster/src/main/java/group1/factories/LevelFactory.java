@@ -60,12 +60,15 @@ public class LevelFactory
 		
 		Sprite observer = SpriteFactory.observer(player, 1000, 25);
 		
+		Sprite observer2 = SpriteFactory.observer(player, 500, 25);
+		
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(player);
 		sprites.add(observer);
+		sprites.add(observer2);
 		sprites.add(nextLevelSprite);
 		
 		Level observerLevel = new Level(1,sprites, "Level_Music.mp3");
@@ -87,8 +90,20 @@ public class LevelFactory
 		sprites.add(levelend);
 		
 		
-		Level commanderLevel = new Level(3,sprites, "Boss_Music.mp3");
+		Level commanderLevel = new Level(2,sprites, "Boss_Music.mp3");
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
+	}
+	
+	public static Level factoryLevel()
+	{
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		Sprite player = SpriteFactory.player();
+		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
+		sprites.add(player);
+		sprites.add(enemyFactory);
+		Level factoryLevel = new Level(3, sprites, "Level_Music.mp3");
+		factoryLevel.setFocusSprite(player);
+		return factoryLevel;
 	}
 }
