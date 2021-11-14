@@ -6,65 +6,27 @@ import javafx.scene.input.KeyCode;
 
 public class JumpBehavior implements Behavior
 {
+    private KeyCode jumpKey;
+    private double yVelocity;
 	
-	private int maxJumpHeight;
-    private KeyCode keyToJumpWhenHeld;
-    private Double yValueBeforeJumpStarted;
-    private boolean jumping, falling;
-	
-	public JumpBehavior(int maxJumpHeight, KeyCode key)
+	public JumpBehavior(KeyCode key, double dy)
 	{
-		this.maxJumpHeight = maxJumpHeight;
-        keyToJumpWhenHeld = key;
-        yValueBeforeJumpStarted = 0.0;
-        jumping = false;
-        falling = false;
+        jumpKey = key;
+        yVelocity = dy;
 	}
-	
-	public int getMaxJumpHeight()
-	{
-		return maxJumpHeight;
-	}
-	
-	public void setMaxJumpHeight(int maxJumpHeight)
-	{
-		this.maxJumpHeight = maxJumpHeight;
-	}
+
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-        double ceiling = yValueBeforeJumpStarted - maxJumpHeight;
-		if (App.model.getKeyInputManager().isPressed(keyToJumpWhenHeld) && !jumping)
-		{
-            if (!jumping && !falling)
-            {
-                jumping = true;
-                yValueBeforeJumpStarted = sprite.getY();
-                sprite.setY(sprite.getY() - sprite.getVelocityY());
-            }
-        }
-        else if (jumping && sprite.getY() > ceiling)
+        if (App.model.getKeyInputManager().isPressed(jumpKey) && sprite.getVelocityY() == 0)
         {
-            sprite.setY(sprite.getY() - sprite.getVelocityY());
-        }
-        else if (jumping && sprite.getY() <= ceiling)
-        {
-            jumping = false;
-            falling = true;
-        }
-        if (falling && sprite.getY() < yValueBeforeJumpStarted)
-        {
-            //System.out.println("FALLING!");
-            sprite.setY(sprite.getY() + sprite.getVelocityY());
-            if (sprite.getY() >= yValueBeforeJumpStarted)
-            {
-                falling = false;
-            }
+            sprite.setY(sprite.getY() - 1);
+            sprite.setVelocityY(yVelocity);
         }
 	}
 	
 	public Behavior copy()
 	{
-		return new JumpBehavior(maxJumpHeight, keyToJumpWhenHeld);
+		return new JumpBehavior(jumpKey, yVelocity);
 	}
 }

@@ -22,8 +22,11 @@ public class LevelFactory
 		
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
+
+        Sprite floor = SpriteFactory.floor(5000, 20);
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);

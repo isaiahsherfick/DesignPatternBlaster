@@ -44,7 +44,7 @@ public final class SpriteFactory
         //playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
         playerSprite.setY(0);
         playerSprite.setWidth(50);
-        playerSprite.setHeight(100);
+        playerSprite.setHeight(Constants.PLAYER_HEIGHT);
         playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
         playerSprite.setDirection(Constants.LEFT);
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
@@ -53,10 +53,12 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.D, Constants.PLAYER_DX)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(100, KeyCode.W)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
-        playerSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new UpdateVelocityYBehavior(0));
+        //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, 20)));
+        playerSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new UpdateVelocityYBehavior(0.0));
+        //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         playerSprite.setColor(Color.BLUE);
         ArrayList<Image> playerImageRight;
         if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null)
@@ -188,7 +190,7 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.A)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(Constants.WINDOW_HEIGHT-150, KeyCode.W)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, 20)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE),
                 new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30),
                         (int) (playerSprite.getHeight() * 0.78), bullet())));

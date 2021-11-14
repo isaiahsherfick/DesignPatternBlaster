@@ -24,4 +24,5 @@ public final class Constants
     public static final double PLAYER_DX = 20; //Default speedX value for the player
 	public static final short GRAVITY = 10; //Gravity acceleration value
     public static final double FLOOR_Y = WINDOW_HEIGHT - 100;
+    public static final int PLAYER_HEIGHT = 159; //Player's height
 }
