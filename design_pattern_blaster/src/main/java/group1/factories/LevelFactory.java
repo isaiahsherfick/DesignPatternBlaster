@@ -43,17 +43,17 @@ public class LevelFactory
 	{
         Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
-		Sprite subordinates = SpriteFactory.subordinates();
-		Sprite commander = SpriteFactory.commander(subordinates);
+		Sprite subordinate = SpriteFactory.subordinate();
+		Sprite commander = SpriteFactory.commander(subordinate);
 		commander.setY(250);
-		subordinates.setDirection(Constants.RIGHT);
+		subordinate.setDirection(Constants.RIGHT);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(commander);
-		sprites.add(subordinates);
+		sprites.add(subordinate);
 		sprites.add(levelend);
 		
 		

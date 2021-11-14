@@ -42,7 +42,7 @@ public final class SpriteFactory
         Sprite playerSprite = new Sprite();
         playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
         //playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
-        playerSprite.setY(0);
+        playerSprite.setY(Constants.PLAYER_Y);
         playerSprite.setWidth(50);
         playerSprite.setHeight(Constants.PLAYER_HEIGHT);
         playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
@@ -103,7 +103,7 @@ public final class SpriteFactory
 
         Sprite bulletSprite = bullet();
 
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite)));
         return playerSprite;
     }
 
@@ -134,7 +134,7 @@ public final class SpriteFactory
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         bulletSprite.setColor(Color.RED);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
-        bulletSprite.addCustomCollision(SpriteClassIdConstants.FLOOR, new DoNothingBehavior());
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.ENEMY, new DoNothingBehavior());
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.ENEMY_BULLET);
         return bulletSprite;
     }
@@ -289,7 +289,7 @@ public final class SpriteFactory
         return bulletSprite;
     }
 	
-	public static Sprite subordinates() 
+	public static Sprite subordinate() 
 	{
 		Sprite subordinate = new Sprite();
 		subordinate.setWidth(40);
@@ -303,9 +303,9 @@ public final class SpriteFactory
 		bulletSprite.setHeight(100);
 		bulletSprite.setWidth(100);
 		bulletSprite.setVelocityY(0);
-		bulletSprite.setVelocityX(20);
+		bulletSprite.setVelocityX(10);
 
-		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(subordinate.getWidth()+110),(int)(subordinate.getHeight() - 50), bulletSprite));
+		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(0),(int)(subordinate.getHeight() - 50), bulletSprite));
 		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 		return subordinate;
 	}
@@ -313,6 +313,7 @@ public final class SpriteFactory
     public static Sprite observer(Sprite observable, int x, int y) 
     {
         Sprite observer = new Sprite();
+        observer.setSpriteClassId(SpriteClassIdConstants.ENEMY);
         observer.setWidth(50);
         observer.setHeight(50);
         observer.setVelocityX(5);

@@ -64,7 +64,6 @@ public class CollisionManager
         int layer = SpriteClassIdConstants.FLOOR;
         HitBox currentHitBox = sprite.getHitBox();
         ArrayList<Sprite> spritesInLayer = spriteManager.getSpriteListByLayer(layer);
-        System.out.println(String.format("CollisionManager.java: I've got %d floors here", spritesInLayer.size()));
         //Iterate over them 
         Iterator<Sprite> spriteIterator = spritesInLayer.iterator();
         while (spriteIterator.hasNext())
