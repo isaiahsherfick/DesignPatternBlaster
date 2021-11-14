@@ -91,7 +91,7 @@ public class ObserverBehavior implements Behavior
 			double dy = (nearestPlayerSprite.getY() - y);
 			//Calculate angle -- SOH CAH TOA
 			double angle = Math.atan(dy / dx);
-			System.out.println("angle: " + angle);
+			//System.out.println("angle: " + angle);
 			//Magnitude is projectileSpeed
 			double magnitude = (double)speed;
 			//System.out.println("magnitude: " + magnitude);
