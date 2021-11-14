@@ -53,9 +53,9 @@ public class GameEvent implements Loadable
 	{
 		return new GameEvent(PLAYER_DEATH);
 	}
-	public static GameEvent KeyReleasedEvent()
+	public static GameEvent KeyReleasedEvent(KeyCode keyCode)
 	{
-		return new GameEvent(KEY_RELEASED);
+		return new KeyReleasedEvent(keyCode);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -85,7 +85,12 @@ public class ViewController implements Observer
 			mainScene.setOnKeyReleased(e ->
 			{
 				KeyInputManager keyInputManager = App.model.getKeyInputManager();
-				keyInputManager.onKeyRelease(e.getCode());
+                if (keyInputManager.isPressed(e.getCode()))
+                {
+                    System.out.println("ViewController.java: " + e.getCode() + " released!");
+                    App.model.receiveEvent(GameEvent.KeyReleasedEvent(e.getCode()));
+				    keyInputManager.onKeyRelease(e.getCode());
+                }
 			});
 			//Set the scene for the main stage
 			mainStage.setScene(mainScene);
