@@ -138,6 +138,91 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
+    public static Sprite viewSprite(){
+        Sprite viewSprite = new Sprite();
+        viewSprite.setWidth(50);
+        viewSprite.setHeight(1000);
+        viewSprite.setVelocityX(0);
+        viewSprite.setVelocityY(0);
+        viewSprite.setColor(Color.RED);
+        viewSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
+        viewSprite.setSpriteClassId(-9); //placeholder
+        return viewSprite;
+    }
+
+    public static Sprite wall(){
+        Sprite wallSprite = new Sprite();
+        wallSprite.setWidth(1000);
+        wallSprite.setHeight(1000);
+        wallSprite.setVelocityX(0);
+        wallSprite.setVelocityY(0);
+        wallSprite.setColor(Color.BLACK);
+        wallSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
+        wallSprite.setSpriteClassId(SpriteClassIdConstants.WALL);
+        return wallSprite;
+    }
+
+    public static Sprite MVCPlayer()
+    {
+        Sprite playerSprite = new Sprite();
+        playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
+        playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
+        playerSprite.setWidth(50);
+        playerSprite.setHeight(100);
+        playerSprite.setVelocityX(10);
+        playerSprite.setVelocityY(5);
+        playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
+        playerSprite.setDirection(Constants.LEFT);
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.A)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(Constants.WINDOW_HEIGHT-30, KeyCode.W)));
+        playerSprite.setColor(Color.BLUE);
+        ArrayList<Image> playerImageRight;
+        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null) {
+            playerImageRight = new ArrayList<Image>();
+        } else {
+            playerImageRight = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT);
+        }
+
+        ArrayList<String> imageRightPaths = new ArrayList<String>();
+        imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame1_0.2x.png");
+        imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame2_0.2x.png");
+        imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame3_0.2x.png");
+        for(String imagePath: imageRightPaths) {
+            playerImageRight.add(new Image(Paths.get(imagePath).toUri().toString()));
+        }
+        playerSprite.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, playerImageRight);
+        playerSprite.getAnimation().setState(AnimationState.RIGHT_MOVEMENT);
+
+        ArrayList<Image> playerImageLeft;
+        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null) {
+            playerImageLeft = new ArrayList<Image>();
+        } else {
+            playerImageLeft = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+        }
+        ArrayList<String> imageLeftPaths = new ArrayList<String>();
+        imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame1_0.2x.png");
+        imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png");
+        imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame3_0.2x.png");
+        for(String imagePath: imageLeftPaths) {
+            playerImageLeft.add(new Image(Paths.get(imagePath).toUri().toString()));
+        }
+
+
+        playerSprite.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, playerImageLeft);
+        playerSprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+
+        Sprite bulletSprite = bullet();
+
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
+
+        playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new FaceRightBehavior());
+
+        return playerSprite;
+    }
+
     //TODO change this
     public static Sprite demoFloor()
     {

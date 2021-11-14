@@ -72,6 +72,8 @@ public class LevelFactory
 		observerLevel.setFocusSprite(player);
 		return observerLevel;
 	}
+
+
 	
 	public static Level commanderLevel() {
 		Sprite player = SpriteFactory.player();
@@ -90,5 +92,27 @@ public class LevelFactory
 		Level commanderLevel = new Level(3,sprites, "Boss_Music.mp3");
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
+	}
+
+	public static Level MVCLevel()
+	{
+		Sprite player  = SpriteFactory.MVCPlayer();
+
+		Sprite viewEnemy = SpriteFactory.viewSprite();
+		viewEnemy.setX(viewEnemy.getX() + 1000);
+		Sprite wall = SpriteFactory.wall();
+		wall.setX(-1000);
+		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
+		nextLevelSprite.setX(2000);
+
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(player);
+		sprites.add(viewEnemy);
+		sprites.add(nextLevelSprite);
+		sprites.add(wall);
+
+		Level MVCLevel = new Level(3,sprites, "Level_Music.mp3");
+		MVCLevel.setFocusSprite(player);
+		return MVCLevel;
 	}
 }
