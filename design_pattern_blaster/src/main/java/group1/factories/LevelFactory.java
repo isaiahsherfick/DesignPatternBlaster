@@ -58,7 +58,7 @@ public class LevelFactory
 	{
 		Sprite player  = SpriteFactory.player();
 		
-		Sprite observer = SpriteFactory.observer(player, 2000, 25);
+		Sprite observer = SpriteFactory.observer(player, 1000, 25);
 		
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
@@ -75,8 +75,8 @@ public class LevelFactory
 	
 	public static Level commanderLevel() {
 		Sprite player = SpriteFactory.player();
-		Sprite commander = SpriteFactory.commander();
 		Sprite subordinates = SpriteFactory.subordinates();
+		Sprite commander = SpriteFactory.commander(subordinates);
 		subordinates.setDirection(Constants.RIGHT);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		

@@ -11,6 +11,7 @@ import group1.interfaces.Drawable;
 import group1.interfaces.Loadable;
 import group1.model.collision.HitBox;
 import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.MoveBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.canvas.GraphicsContext;
@@ -334,5 +335,23 @@ public class Sprite implements Loadable
 
 	public CustomCollisionMap getCustomCollisionMap() {
 		return customCollisionMap;
+	}
+
+	public void turnTowards(Sprite otherSprite) 
+	{
+			//Turn towards the other sprite
+			if (otherSprite.getX() > x)
+            {
+				setDirection(Constants.RIGHT);
+            }
+			else
+            {
+				setDirection(Constants.LEFT);
+            }
+	}
+
+	public void addCustomCollision(int id, Behavior behavior) 
+	{
+		customCollisionMap.addCustomCollision(id, behavior);
 	}
 }
