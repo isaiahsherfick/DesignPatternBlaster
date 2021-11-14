@@ -365,9 +365,19 @@ public final class SpriteFactory
 		factory.setColor(Color.PURPLE);
 		FactoryBehavior factoryBehavior = new FactoryBehavior(blueprint, spawnInterval);
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), factoryBehavior));
+
+        //This is how to make an enemy require a certain number of bullets to kill them
+        
+        //Make them take damage from bullets
 		factory.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+        
+        //Just for visual flair - enemy will flash that color when they're damaged
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new FlashColorWhenDamagedBehavior(Color.RED)));
+
+        //Make them check their health every tick and send themselves a HealthDepletedEvent if they're <= 0
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+
+        //Make them disable on HealthDepletedEvent
         factory.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
 
 		return factory;
