@@ -15,5 +15,10 @@ public class CheckHealthBehavior implements Behavior
 			sprite.respondToEvent(GameEvent.HealthDepletedEvent());
 		}
 	}
+	
+	public Behavior copy()
+	{
+		return new CheckHealthBehavior();
+	}
 
 }

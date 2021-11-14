@@ -1,13 +1,41 @@
 package group1.factories;
-
+import group1.model.sprite.behavior.ShootAtPlayerBehavior;
+import group1.model.sprite.behavior.ShootDiagonallyAtTargetBehavior;
 import group1.App;
+import group1.model.sprite.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import group1.model.sprite.behavior.ShootAtPlayerBehavior;
+import group1.model.sprite.behavior.ShootDiagonallyAtTargetBehavior;
 import group1.constants.Constants;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
-import group1.model.sprite.SpriteClassIdConstants;
-import group1.model.sprite.behavior.*;
+import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.behavior.CommanderBehavior;
+import group1.model.sprite.behavior.DisableBehavior;
+import group1.model.sprite.behavior.DoNothingBehavior;
+import group1.model.sprite.behavior.FaceLeftBehavior;
+import group1.model.sprite.behavior.FaceRightBehavior;
+import group1.model.sprite.behavior.HorizontalMoveBehavior;
+import group1.model.sprite.behavior.HorizontalMoveBehaviorWhileKeyIsBeingHeld;
+import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.behavior.ObserverBehavior;
+import group1.model.sprite.behavior.ShootSpriteBehavior;
+import group1.model.sprite.behavior.SpawnSpriteBehavior;
 import group1.model.sprite.game_event.GameEvent;
+import group1.viewcontroller.ViewController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -41,9 +69,13 @@ public final class SpriteFactory {
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(100, KeyCode.W)));
         playerSprite.setColor(Color.BLUE);
         ArrayList<Image> playerImageRight;
+        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null)
+        {
         if (playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT) == null) {
             playerImageRight = new ArrayList<Image>();
-        } else {
+        }
+        else
+        {
             playerImageRight = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT);
         }
 
@@ -51,23 +83,28 @@ public final class SpriteFactory {
         imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame1_0.2x.png");
         imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame2_0.2x.png");
         imageRightPaths.add("src/main/resources/assets/avatar/0.2x/walk_right_frame3_0.2x.png");
-        for (String imagePath : imageRightPaths) {
+        for(String imagePath: imageRightPaths)
+        {
             playerImageRight.add(new Image(Paths.get(imagePath).toUri().toString()));
         }
         playerSprite.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, playerImageRight);
         playerSprite.getAnimation().setState(AnimationState.RIGHT_MOVEMENT);
 
         ArrayList<Image> playerImageLeft;
-        if (playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT) == null) {
+        if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+        {
             playerImageLeft = new ArrayList<Image>();
-        } else {
+        }
+        else
+        {
             playerImageLeft = playerSprite.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
         }
         ArrayList<String> imageLeftPaths = new ArrayList<String>();
         imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame1_0.2x.png");
         imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png");
         imageLeftPaths.add("src/main/resources/assets/avatar/0.2x/walk_left_frame3_0.2x.png");
-        for (String imagePath : imageLeftPaths) {
+        for(String imagePath: imageLeftPaths)
+        {
             playerImageLeft.add(new Image(Paths.get(imagePath).toUri().toString()));
         }
 
@@ -85,7 +122,7 @@ public final class SpriteFactory {
         bulletSprite.setX(100);
         bulletSprite.setY(80);
         bulletSprite.setWidth(24);
-        bulletSprite.setHeight(12);
+        bulletSprite.setHeight(24);
         bulletSprite.setVelocityX(40);
 //        bulletSprite.setDirection(Constants.LEFT);
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
@@ -232,10 +269,11 @@ public final class SpriteFactory {
         return endOfLevelSprite;
     }
 
-    public static Sprite commander() {
-        Sprite commander = new Sprite();
-        commander.setWidth(50);
-        commander.setHeight(50);
+	public static Sprite commander(Sprite subordinate) {
+		Sprite commander = new Sprite();
+		commander.setWidth(50);
+		commander.setHeight(50);
+		commander.setLayer(Constants.BACKGROUND);
 //		commander.setVelocityX(10);
         commander.setX(100);
         commander.setY(Constants.WINDOW_HEIGHT - 150);
@@ -250,37 +288,41 @@ public final class SpriteFactory {
         return commander;
     }
 
-    public static Sprite commandBullet() {
+
+	public static Sprite commandBullet()
+    {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
         bulletSprite.setY(80);
         bulletSprite.setWidth(30);
         bulletSprite.setHeight(30);
-        bulletSprite.setVelocityX(10);
+        bulletSprite.setVelocityX(2);
 //        bulletSprite.setDirection(Constants.LEFT);
-        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-        bulletSprite.setColor(Color.RED);
+        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
+        bulletSprite.setColor(Color.GREEN);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
-        bulletSprite.setSpriteClassId(-3);
+        bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
         return bulletSprite;
     }
+	
+	public static Sprite subordinates() {
+		Sprite subordinate = new Sprite();
+		subordinate.setWidth(40);
+		subordinate.setHeight(50);
+		subordinate.setX(400);
+		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
+		subordinate.setColor(Color.YELLOW);
+		
+		Sprite bulletSprite = enemyBullet();
+		bulletSprite.setHeight(100);
+		bulletSprite.setWidth(100);
+		bulletSprite.setVelocityY(0);
+		bulletSprite.setVelocityX(20);
 
-    public static Sprite subordinates() {
-        Sprite subordinate = new Sprite();
-        subordinate.setWidth(40);
-        subordinate.setHeight(50);
-        subordinate.setX(400);
-        subordinate.setY(Constants.WINDOW_HEIGHT - 150);
-        subordinate.setColor(Color.YELLOW);
-
-        Sprite bulletSprite = bullet();
-        bulletSprite.setDirection(Constants.RIGHT);
-
-//		SubordinatesBehavior subordinateBehavior = new SubordinateBehavior();
-//		subordinate.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
-        subordinate.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.BULLET, new ShootSpriteBehavior((int) (subordinate.getWidth() + 10), (int) (subordinate.getHeight() * 0.78), bulletSprite));
-        return subordinate;
-    }
+		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(subordinate.getWidth()+110),(int)(subordinate.getHeight() - 50), bulletSprite));
+		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
+		return subordinate;
+	}
 
     public static Sprite observer(Sprite observable, int x, int y) {
         Sprite observer = new Sprite();
@@ -291,17 +333,38 @@ public final class SpriteFactory {
         observer.setY(y);
         observer.setColor(Color.GOLD);
 
-        Sprite bulletSprite = enemyBullet();
+		Sprite bulletSprite = enemyBullet();
+		
+		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 450, 5);
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 
-        ObserverBehavior observerBehavior = new ObserverBehavior(observable);
-        observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior((int) (observer.getWidth() + 20), (int) (observer.getHeight()), bulletSprite, 20));
+		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+		observer.addCustomCollision(SpriteClassIdConstants.PLAYER, new DoNothingBehavior());
+		
+		return observer;
+	}
 
-        observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+	public static Sprite notifier() 
+	{
+		return demoEnemy2();
+	}
 
-        return observer;
-    }
+	public static Sprite factory(Sprite blueprint, int spawnInterval)
+	{
+		Sprite factory = new Sprite();
+		factory.setWidth(30);
+		factory.setY(Constants.WINDOW_HEIGHT - 250);
+		factory.setHealth(10);
+		factory.setHeight(30);
+		factory.setColor(Color.PURPLE);
+		FactoryBehavior factoryBehavior = new FactoryBehavior(blueprint, spawnInterval);
+		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), factoryBehavior));
+		factory.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new FlashColorWhenDamagedBehavior(Color.RED)));
+		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
 
-    public static Sprite notifier() {
-        return demoEnemy2();
-    }
+		return factory;
+
+	}
 }

@@ -36,6 +36,9 @@ public class App extends Application
 			//levels.add(LevelFactory.observerLevel());
 			//levels.add(LevelFactory.commanderLevel());
 			levels.add(LevelFactory.MVCLevel());
+			levels.add(LevelFactory.observerLevel());
+			levels.add(LevelFactory.commanderLevel());
+			levels.add(LevelFactory.factoryLevel());
 
 
 			for (Level l : levels)

@@ -61,7 +61,7 @@ public class ShootAtPlayerBehavior implements Behavior
 
         //Calculate angle -- SOH CAH TOA
         double angle = Math.atan(dy / dx);
-        System.out.println("angle: " + Math.toDegrees(angle));
+//        System.out.println("angle: " + Math.toDegrees(angle));
         
         //Magnitude is projectileSpeed
         double magnitude = (double)projectileSpeed;
@@ -81,11 +81,14 @@ public class ShootAtPlayerBehavior implements Behavior
         
         newSprite.setVelocityX(velocityX);
         newSprite.setVelocityY(velocityY);
-        System.out.println("VelocityX : " + velocityX);
-        System.out.println("VelocityY : " + velocityY);
+//        System.out.println("VelocityX : " + velocityX);
+//        System.out.println("VelocityY : " + velocityY);
 
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}
-
+	public Behavior copy()
+	{
+		return new ShootAtPlayerBehavior(offsetX, offsetY, blueprint.copy(), projectileSpeed);
+	}
 }

@@ -13,4 +13,5 @@ public final class SpriteClassIdConstants
 	public static final int SPIKES = -7;
 	public static final int KILLZONE = -8;
 	public static final int DEFAULT_SPRITE_CLASS = -9;
+	public static final int COMMAND = -10;
 }

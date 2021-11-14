@@ -13,5 +13,10 @@ public class DoNothingBehavior implements Behavior
 		//Do nothing
 		return;
 	}
+	
+	public Behavior copy()
+	{
+		return new DoNothingBehavior();
+	}
 
 }

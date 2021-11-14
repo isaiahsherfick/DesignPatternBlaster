@@ -62,4 +62,9 @@ public class JumpBehavior implements Behavior
             }
         }
 	}
+	
+	public Behavior copy()
+	{
+		return new JumpBehavior(maxJumpHeight, keyToJumpWhenHeld);
+	}
 }

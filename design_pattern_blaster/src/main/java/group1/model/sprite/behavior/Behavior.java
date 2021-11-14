@@ -13,4 +13,7 @@ public interface Behavior
 {
 	//Executes the behavior on the sprite
     public void performBehavior(Sprite sprite);
+    
+    //Clone method for behaviors
+    public Behavior copy();
 }

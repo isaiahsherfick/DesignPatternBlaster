@@ -13,5 +13,10 @@ public class DisableBehavior implements Behavior
 		System.out.println("I am disabling");
 		sprite.disable();
 	}
+	
+	public Behavior copy()
+	{
+		return new DisableBehavior();
+	}
 
 }

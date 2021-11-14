@@ -20,4 +20,9 @@ public class HorizontalMoveBehavior implements Behavior
 		}
 	}
 	
+	public Behavior copy()
+	{
+		return new HorizontalMoveBehavior();
+	}
+	
 }

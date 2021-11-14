@@ -10,13 +10,13 @@ public class CommanderBehavior implements Behavior {
 	
 	private int secondsBetweenShots;
 	private double counter = 0.0;
-	private ShootSpriteBehavior shootBehavior;
+	private Behavior shootBehavior;
 	
 	public CommanderBehavior() {
 		secondsBetweenShots = 3;
 	}
 	
-	public void setShootSpriteBehavior(ShootSpriteBehavior ssb)
+	public void setShootSpriteBehavior(Behavior ssb)
 	{
 		shootBehavior = ssb;
 	}
@@ -33,6 +33,11 @@ public class CommanderBehavior implements Behavior {
 			shootBehavior.performBehavior(sprite);
 			counter = 0.0;
 		}
+	}
+	
+	public Behavior copy()
+	{
+		return new CommanderBehavior();
 	}
 	
 }
