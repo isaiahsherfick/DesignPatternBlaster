@@ -188,9 +188,13 @@ public final class SpriteFactory
         playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(10, 0));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.A)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehaviorWhileKeyIsBeingHeld(KeyCode.D)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, 20)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.A, -1*Constants.PLAYER_DX)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.D, Constants.PLAYER_DX)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JetPackBehavior(KeyCode.W, -1)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE),
                 new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30),
                         (int) (playerSprite.getHeight() * 0.78), bullet())));
@@ -206,6 +210,20 @@ public final class SpriteFactory
         floor.setLayer(SpriteClassIdConstants.FLOOR);
         floor.setX(-1 * (int)(width/2));
         floor.setY(Constants.FLOOR_Y);
+        floor.setWidth(width);
+        floor.setHeight(height);
+        floor.setSpriteClassId(SpriteClassIdConstants.FLOOR);
+        floor.setColor(Color.BLACK);
+        floor.setDefaultCollisionBehavior(new DoNothingBehavior());
+        return floor;
+    }
+
+    public static Sprite platform(int width, int height, int x, int y)
+    {
+        Sprite floor = new Sprite();
+        floor.setLayer(SpriteClassIdConstants.FLOOR);
+        floor.setX(x);
+        floor.setY(y);
         floor.setWidth(width);
         floor.setHeight(height);
         floor.setSpriteClassId(SpriteClassIdConstants.FLOOR);
@@ -300,6 +318,7 @@ public final class SpriteFactory
 		subordinate.setSpriteClassId(SpriteClassIdConstants.SUBORDINATE);
 		
 		Sprite bulletSprite = enemyBullet();
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 		bulletSprite.setHeight(100);
 		bulletSprite.setWidth(100);
 		bulletSprite.setVelocityY(0);
@@ -323,7 +342,7 @@ public final class SpriteFactory
 
 		Sprite bulletSprite = enemyBullet();
 		
-		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 450, 5);
+		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 250, 5);
 		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));

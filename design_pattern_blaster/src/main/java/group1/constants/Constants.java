@@ -26,4 +26,5 @@ public final class Constants
     public static final double FLOOR_Y = WINDOW_HEIGHT - 100;
     public static final int PLAYER_HEIGHT = 159; //Player's height
     public static final short PLAYER_Y = WINDOW_HEIGHT / 5;
+    public static final double MAX_JETPACK_DY = -20;
 }

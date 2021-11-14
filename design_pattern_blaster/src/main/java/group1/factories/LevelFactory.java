@@ -15,6 +15,7 @@ public class LevelFactory
 	public static Level observerLevel()
 	{
         Sprite floor = SpriteFactory.floor(5000, 20);
+        Sprite ladder = SpriteFactory.platform(100, 20, 300, 500);
 		Sprite player  = SpriteFactory.player();
 		
 		Sprite observer = SpriteFactory.observer(player, 1000, 25);
@@ -27,6 +28,7 @@ public class LevelFactory
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
         sprites.add(floor);
+        sprites.add(ladder);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);
