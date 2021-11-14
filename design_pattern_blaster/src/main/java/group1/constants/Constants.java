@@ -20,4 +20,5 @@ public final class Constants
 	public static final short RIGHT = 1; //Sprite is facing RIGHT
 	public static final short NULL_SPRITE_ID =-3; //ID for null sprites
 	public static final int OBSERVER_SECONDS_BETWEEN_SHOTS = 2; //Seconds the observer enemies wait before shooting again
+    public static final double VOLUME_LEVEL = 0.0; //Volume level for the music used in LevelManager.java
 }

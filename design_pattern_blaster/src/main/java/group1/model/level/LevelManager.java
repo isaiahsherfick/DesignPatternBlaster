@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import group1.App;
+import group1.constants.Constants;
 import group1.interfaces.Saveable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -127,12 +128,12 @@ public class LevelManager
 			mediaPlayer.stop();
 		}
 		mediaPlayer = new MediaPlayer(song);
-		mediaPlayer.setVolume(0.25);
+		mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
 	        @Override
 	        public void run() {
 	            mediaPlayer.seek(Duration.ZERO);
-	            mediaPlayer.setVolume(0.25);
+	            mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
 	            mediaPlayer.play();
 	        }
 	    });

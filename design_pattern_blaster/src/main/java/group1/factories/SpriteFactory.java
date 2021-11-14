@@ -142,7 +142,7 @@ public final class SpriteFactory
         viewSprite.setHeight(Constants.WINDOW_HEIGHT);
         viewSprite.setVelocityX(0);
         viewSprite.setVelocityY(0);
-        viewSprite.setColor(Color.RED);
+        viewSprite.setColor(Color.GRAY);
         viewSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
         viewSprite.setSpriteClassId(-9); //placeholder
         viewSprite.setDirection(Constants.LEFT);
