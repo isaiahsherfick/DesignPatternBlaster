@@ -105,8 +105,11 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite player = SpriteFactory.player();
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
+        Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
+        endOfLevelSprite.setX(1500);
 		sprites.add(player);
 		sprites.add(enemyFactory);
+        sprites.add(endOfLevelSprite);
 		Level factoryLevel = new Level(3, sprites, "Level_Music.mp3");
 		factoryLevel.setFocusSprite(player);
 		return factoryLevel;

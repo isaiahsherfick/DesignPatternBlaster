@@ -357,9 +357,10 @@ public final class SpriteFactory
 	public static Sprite factory(Sprite blueprint, int spawnInterval)
 	{
 		Sprite factory = new Sprite();
-		factory.setWidth(30);
-		factory.setHeight(200);
-		factory.setY(Constants.WINDOW_HEIGHT - 350);
+		factory.setWidth(100);
+		factory.setHeight(400);
+        factory.setX(1000);
+		factory.setY(Constants.WINDOW_HEIGHT - factory.getHeight());
 		factory.setHealth(10);
 		factory.setColor(Color.PURPLE);
 		FactoryBehavior factoryBehavior = new FactoryBehavior(blueprint, spawnInterval);
