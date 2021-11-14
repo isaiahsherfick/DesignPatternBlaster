@@ -43,6 +43,6 @@ public class EventBehavior
 	}
 	public EventBehavior copy() 
 	{
-		return new EventBehavior(event, behavior);
+		return new EventBehavior(event, behavior.copy());
 	}
 }

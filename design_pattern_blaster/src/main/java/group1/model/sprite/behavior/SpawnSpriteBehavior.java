@@ -26,5 +26,10 @@ public class SpawnSpriteBehavior implements Behavior
 		newSprite.setY(y);
 		App.model.addSprite(newSprite);
 	}
+	
+	public Behavior copy()
+	{
+		return new SpawnSpriteBehavior(offsetX, offsetY, blueprint.copy());
+	}
 
 }

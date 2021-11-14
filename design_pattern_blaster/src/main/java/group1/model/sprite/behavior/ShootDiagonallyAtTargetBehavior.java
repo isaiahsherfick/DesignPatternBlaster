@@ -68,5 +68,9 @@ public class ShootDiagonallyAtTargetBehavior implements Behavior
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}
-
+	
+	public Behavior copy()
+	{
+		return new ShootDiagonallyAtTargetBehavior(offsetX, offsetY, blueprint.copy(), projectileSpeed, target);
+	}
 }

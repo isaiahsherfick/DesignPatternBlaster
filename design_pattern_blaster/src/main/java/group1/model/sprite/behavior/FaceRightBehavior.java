@@ -14,7 +14,11 @@ public class FaceRightBehavior implements Behavior
 	{
 		sprite.setDirection(Constants.RIGHT);
 		sprite.getAnimation().setState(AnimationState.RIGHT_MOVEMENT);
-
+	}
+	
+	public Behavior copy()
+	{
+		return new FaceRightBehavior();
 	}
 
 }

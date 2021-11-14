@@ -126,5 +126,10 @@ public class ObserverBehavior implements Behavior
 			}
 		}
 	}
-
+	public Behavior copy()
+	{
+		ObserverBehavior copy = new ObserverBehavior(observable, maxY, speed);
+		copy.setShootSpriteBehavior(shootBehavior.copy());
+		return copy;
+	}
 }

@@ -40,4 +40,9 @@ public class HorizontalMoveBehaviorWhileKeyIsBeingHeld implements Behavior
 			}
 		}
 	}
+	
+	public Behavior copy()
+	{
+		return new HorizontalMoveBehaviorWhileKeyIsBeingHeld(key);
+	}
 }

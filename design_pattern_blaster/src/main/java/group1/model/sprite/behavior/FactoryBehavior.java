@@ -34,5 +34,10 @@ public class FactoryBehavior implements Behavior
 			counter += App.model.getTimeDelta();
 		}
 	}
+	
+	public Behavior copy()
+	{
+		return new FactoryBehavior(blueprint.copy(), spawnInterval);
+	}
 
 }

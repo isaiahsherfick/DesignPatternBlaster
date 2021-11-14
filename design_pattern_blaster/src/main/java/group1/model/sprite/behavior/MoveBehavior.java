@@ -15,4 +15,9 @@ public class MoveBehavior implements Behavior
 		sprite.setX(sprite.getVelocityX() + sprite.getX());
 		sprite.setY(sprite.getVelocityY() + sprite.getY());
 	}
+	
+	public Behavior copy()
+	{
+		return new MoveBehavior();
+	}
 }

@@ -35,4 +35,9 @@ public class CommanderBehavior implements Behavior {
 		}
 	}
 	
+	public Behavior copy()
+	{
+		return new CommanderBehavior();
+	}
+	
 }

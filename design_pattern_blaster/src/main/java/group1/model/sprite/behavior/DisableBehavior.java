@@ -11,5 +11,10 @@ public class DisableBehavior implements Behavior
 	{
 		sprite.disable();
 	}
+	
+	public Behavior copy()
+	{
+		return new DisableBehavior();
+	}
 
 }

@@ -43,5 +43,10 @@ public class ShootSpriteBehavior implements Behavior
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}
+	
+	public Behavior copy()
+	{
+		return new ShootSpriteBehavior(offsetX, offsetY, blueprint.copy());
+	}
 
 }

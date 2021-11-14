@@ -14,4 +14,9 @@ public class LoadNextLevelBehavior implements Behavior
 		App.model.loadNextLevel();
 	}
 	
+	public Behavior copy()
+	{
+		return new LoadNextLevelBehavior();
+	}
+	
 }

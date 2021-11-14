@@ -14,5 +14,9 @@ public class FaceLeftBehavior implements Behavior
 		sprite.setDirection(Constants.LEFT);
 		sprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
 	}
-
+	
+	public Behavior copy()
+	{
+		return new FaceLeftBehavior();
+	}
 }

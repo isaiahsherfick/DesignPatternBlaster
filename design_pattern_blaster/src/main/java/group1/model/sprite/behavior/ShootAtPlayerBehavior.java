@@ -87,5 +87,8 @@ public class ShootAtPlayerBehavior implements Behavior
         newSprite.setDirection(sprite.getDirection());
         App.model.addSprite(newSprite);
 	}
-
+	public Behavior copy()
+	{
+		return new ShootAtPlayerBehavior(offsetX, offsetY, blueprint.copy(), projectileSpeed);
+	}
 }
