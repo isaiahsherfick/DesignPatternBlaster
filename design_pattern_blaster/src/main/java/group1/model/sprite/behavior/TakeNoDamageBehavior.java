@@ -3,6 +3,7 @@ package group1.model.sprite.behavior;
 import group1.App;
 import group1.constants.Constants;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.paint.Color;
 
 public class TakeNoDamageBehavior implements Behavior{
@@ -11,10 +12,14 @@ public class TakeNoDamageBehavior implements Behavior{
 	private int interval;
 	private double counter = 0.0;
 	private boolean isSet = false;
+	private Color defaultColor;
+	private int defaultHealth = 0;
 	
 	public TakeNoDamageBehavior(Sprite safeSprite) {
 		this.safeSprite = safeSprite;
 		interval = Constants.TAKE_NO_DAMANGE_INTERVAL;
+		defaultColor = safeSprite.getColor();
+		defaultHealth = safeSprite.getHealth();
 	}
 		
 	
@@ -27,18 +32,16 @@ public class TakeNoDamageBehavior implements Behavior{
 		
 //		if(isSet) {
 			counter += App.model.getTimeDelta();
-			Color defaultColor = safeSprite.getColor();
-			int currentHealth = safeSprite.getHealth();
 			
 			if (counter > interval) {
 				safeSprite.setColor(defaultColor);
+				sprite.respondToEvent(GameEvent.PowerUpEndEvent());
 //				counter = 0;
-				isSet = false;
+//				isSet = false;
 			}
 			else {
-				System.out.println("Color changiinggg "+counter);
 				safeSprite.setColor(Color.GREEN);
-				safeSprite.setHealth(currentHealth);
+				safeSprite.setHealth(defaultHealth);
 			}
 //		}
 		

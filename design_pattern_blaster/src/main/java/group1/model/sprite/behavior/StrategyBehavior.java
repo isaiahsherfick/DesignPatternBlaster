@@ -9,15 +9,30 @@ import group1.physics.Vector;
 public class StrategyBehavior implements Behavior{
 	
 	Sprite spriteToMoveTowards;
+
 	private Behavior spriteStrategy;
 	private Behavior shootBehavior;
+	private MoveTowardsBehavior moveTowardsBehavior;
 	private double counter = 0.0;
 	private int secondsBetweenShots;
+	private boolean shouldExecuteStrategy = false; 
 
-	public StrategyBehavior (Sprite sprite) {
-		spriteToMoveTowards = sprite;
+	public Sprite getSpriteToMoveTowards() {
+		return spriteToMoveTowards;
+	}
+
+	public void setSpriteToMoveTowards(Sprite spriteToMoveTowards) {
+		this.spriteToMoveTowards = spriteToMoveTowards;
 	}
 	
+	public StrategyBehavior (Sprite sprite) {
+		spriteToMoveTowards = sprite;
+		moveTowardsBehavior = new MoveTowardsBehavior(spriteToMoveTowards);
+	}
+	
+	public void setExecution(boolean value) {
+		shouldExecuteStrategy = value;
+	}
 	
 	public void setSpriteStrategy(Behavior strategy)
 	{
@@ -38,7 +53,9 @@ public class StrategyBehavior implements Behavior{
 	@Override
 	public void performBehavior(Sprite sprite) {
 		
-			spriteStrategy.performBehavior(sprite);
+		
+			if(shouldExecuteStrategy)
+				spriteStrategy.performBehavior(sprite);
 			
 			counter += App.model.getTimeDelta();
 			if (counter > secondsBetweenShots)
@@ -47,42 +64,9 @@ public class StrategyBehavior implements Behavior{
 				counter = 0.0;
 			}
 			
-			//needs to be optimized
-			sprite.turnTowards(spriteToMoveTowards);
-			double x = sprite.getX();
-			double y = sprite.getY();
-				
-			//Generate dx and dy
-			double dx = (spriteToMoveTowards.getX() - x);
-			double dy = (spriteToMoveTowards.getY() - y);
-			//Calculate angle -- SOH CAH TOA
-			double angle = Math.atan(dy / dx);
-			//System.out.println("angle: " + angle);
-			//Magnitude is projectileSpeed
-			double magnitude = (double)5;
-			//System.out.println("magnitude: " + magnitude);
-			//Create vector object
-			Vector moveVector = new Vector(magnitude, angle);
-			double velocityX = moveVector.getCosComponent();
-			//System.out.println("velocityX: " + velocityX);
-			double velocityY = moveVector.getSinComponent();
-			//System.out.println("velocityY: " + velocityY);
-
-			if (Math.toDegrees(angle) > 90)
-				velocityY *= -1;
-			if (Math.toDegrees(angle) <= 0)
-			{
-				velocityY *= -1;
-				velocityX *= -1;
-			}
+			moveTowardsBehavior.setSpriteToMoveTowards(spriteToMoveTowards);
+			moveTowardsBehavior.performBehavior(sprite);
 			
-			//Move
-			sprite.setX(sprite.getX() + velocityX);
-			if (sprite.getY() < 450)
-			{
-				//System.out.println("ObserverBehavior.java: y " + sprite.getY() + " is less than maxY " + maxY);
-				sprite.setY(sprite.getY() + velocityY);
-			}
 	}
 
 	@Override

@@ -403,9 +403,18 @@ public final class SpriteFactory
 		
 		if(powerUpID == SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP) {
 			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
-			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
-			tndb.isBehaviorSet(true);
-			strategyBehavior.setSpriteStrategy(tndb);
+			
+//			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior());
+			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior(strategyBehavior));
+			
+//			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEvent(), new PowerUpBehavior(strategyBehavior.setSpriteToMoveTowards(player)));
+
+			
+//			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
+//			tndb.isBehaviorSet(true);
+			strategyBehavior.setSpriteStrategy(new TakeNoDamageBehavior(strategySpriteEnemy));
+			
+			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
 		}
 		return strategySpriteEnemy;
 		

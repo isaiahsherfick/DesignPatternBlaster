@@ -18,6 +18,8 @@ public class GameEvent implements Loadable
 	public static int HEALTH_DEPLETED = 3;
 	public static int PLAYER_DEATH = 4;
 	public static int KEY_RELEASED = 5;
+	public static int POWER_UP = 6;
+	public static int POWER_UP_END = 7;
 	
 	private int eventType;
 	
@@ -56,6 +58,14 @@ public class GameEvent implements Loadable
 	public static GameEvent KeyReleasedEvent()
 	{
 		return new GameEvent(KEY_RELEASED);
+	}
+	public static GameEvent PowerUpEvent()
+	{
+		return new GameEvent(POWER_UP);
+	}
+	public static GameEvent PowerUpEndEvent()
+	{
+		return new GameEvent(POWER_UP_END);
 	}
 	
 	@SuppressWarnings("unchecked")
