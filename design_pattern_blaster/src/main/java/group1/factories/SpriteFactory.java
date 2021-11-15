@@ -13,9 +13,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import group1.constants.Constants;
-import group1.model.sprite.AnimationState;
-import group1.model.sprite.EventBehavior;
-import group1.model.sprite.Sprite;
 import group1.model.sprite.game_event.GameEvent;
 import group1.viewcontroller.ViewController;
 import javafx.application.Application;
@@ -32,7 +29,7 @@ import java.util.ArrayList;
 
 //Creational class for making sprites
 //Right now everything is a Factory Method but we could refactor to Builder later
-public final class SpriteFactory 
+public final class SpriteFactory
 {
     private SpriteFactory() {}
 
@@ -107,7 +104,7 @@ public final class SpriteFactory
         return playerSprite;
     }
 
-    public static Sprite bullet() 
+    public static Sprite bullet()
     {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
@@ -124,7 +121,7 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
-    public static Sprite enemyBullet() 
+    public static Sprite enemyBullet()
     {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setWidth(24);
@@ -139,7 +136,7 @@ public final class SpriteFactory
         return bulletSprite;
     }
 
-    public static Sprite viewSprite() 
+    public static Sprite viewSprite()
     {
         Sprite viewSprite = new Sprite();
         viewSprite.setWidth(50);
@@ -158,7 +155,7 @@ public final class SpriteFactory
         return viewSprite;
     }
 
-    public static Sprite wall() 
+    public static Sprite wall()
     {
         Sprite wallSprite = new Sprite();
         wallSprite.setWidth(1000);
@@ -171,7 +168,7 @@ public final class SpriteFactory
         return wallSprite;
     }
 
-    public static Sprite dummyFocusSprite() 
+    public static Sprite dummyFocusSprite()
     {
         Sprite dumStupid = new Sprite();
         dumStupid.setX(Constants.WINDOW_WIDTH / 2 - 25);
@@ -180,7 +177,7 @@ public final class SpriteFactory
         return dumStupid;
     }
 
-    public static Sprite MVCPlayer() 
+    public static Sprite MVCPlayer()
     {
         Sprite playerSprite = player();
         playerSprite.getEventBehaviors().clear();
@@ -232,7 +229,7 @@ public final class SpriteFactory
         return floor;
     }
 
-    public static Sprite demoEnemy1() 
+    public static Sprite demoEnemy1()
     {
         Sprite enemy = new Sprite();
         enemy.setWidth(50);
@@ -247,7 +244,7 @@ public final class SpriteFactory
         return enemy;
     }
 
-    public static Sprite demoEnemy2() 
+    public static Sprite demoEnemy2()
     {
         Sprite enemy1 = demoEnemy1();
         enemy1.setX(Constants.WINDOW_WIDTH - 100);
@@ -258,7 +255,7 @@ public final class SpriteFactory
         return enemy1;
     }
 
-    public static Sprite endOfLevelSprite() 
+    public static Sprite endOfLevelSprite()
     {
         Sprite endOfLevelSprite = new Sprite();
         endOfLevelSprite.setWidth(50);
@@ -270,7 +267,7 @@ public final class SpriteFactory
         return endOfLevelSprite;
     }
 
-	public static Sprite commander(Sprite subordinate) 
+	public static Sprite commander(Sprite subordinate)
     {
 		Sprite commander = new Sprite();
 		commander.setWidth(50);
@@ -306,8 +303,8 @@ public final class SpriteFactory
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
         return bulletSprite;
     }
-	
-	public static Sprite subordinate() 
+
+	public static Sprite subordinate()
 	{
 		Sprite subordinate = new Sprite();
 		subordinate.setWidth(40);
@@ -316,7 +313,7 @@ public final class SpriteFactory
 		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
 		subordinate.setColor(Color.YELLOW);
 		subordinate.setSpriteClassId(SpriteClassIdConstants.SUBORDINATE);
-		
+
 		Sprite bulletSprite = enemyBullet();
         bulletSprite.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 		bulletSprite.setHeight(100);
@@ -329,7 +326,7 @@ public final class SpriteFactory
 		return subordinate;
 	}
 
-    public static Sprite observer(Sprite observable, int x, int y) 
+    public static Sprite observer(Sprite observable, int x, int y)
     {
         Sprite observer = new Sprite();
         observer.setSpriteClassId(SpriteClassIdConstants.ENEMY);
@@ -341,18 +338,18 @@ public final class SpriteFactory
         observer.setColor(Color.GOLD);
 
 		Sprite bulletSprite = enemyBullet();
-		
+
 		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 250, 5);
 		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
 		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
 		observer.setDefaultCollisionBehavior(new DoNothingBehavior());
-		
+
 		return observer;
 	}
 
-	public static Sprite notifier() 
+	public static Sprite notifier()
 	{
 		return demoEnemy2();
 	}
@@ -370,10 +367,10 @@ public final class SpriteFactory
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), factoryBehavior));
 
         //This is how to make an enemy require a certain number of bullets to kill them
-        
+
         //Make them take damage from bullets
 		factory.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
-        
+
         //Just for visual flair - enemy will flash that color when they're damaged
 		factory.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new FlashColorWhenDamagedBehavior(Color.RED)));
 
@@ -384,5 +381,121 @@ public final class SpriteFactory
         factory.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
 
 		return factory;
+	}
+
+	public static CompositeSprite compositeEnemy() {
+		CompositeSprite compositeEnemyBlueprint = new CompositeSprite();
+		compositeEnemyBlueprint.setSpriteClassId(SpriteClassIdConstants.ENEMY);
+		compositeEnemyBlueprint.setWidth(150);
+		compositeEnemyBlueprint.setHeight(80);
+		compositeEnemyBlueprint.setVelocityX(-5);
+		compositeEnemyBlueprint.setX(720);
+		compositeEnemyBlueprint.setY(350);
+		compositeEnemyBlueprint.setHealth(1);
+		compositeEnemyBlueprint.setColor(Color.CORAL);
+
+		compositeEnemyBlueprint.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		compositeEnemyBlueprint.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+        compositeEnemyBlueprint.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+
+
+		CompositeSprite compositeEnemy = compositeEnemyBlueprint.copy();
+
+		compositeEnemyBlueprint.setWidth(70);
+		compositeEnemyBlueprint.setY(430);
+		CompositeSprite l1l1 = compositeEnemyBlueprint.copy();
+
+		// TODO: Fix copy of event behaviors and collision maps
+//		l1l1.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l1l1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l1l1.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l1l1.setX(660);
+
+		CompositeSprite l1r1 = compositeEnemyBlueprint.copy();
+//		l1r1.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l1r1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l1r1.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l1r1.setX(860);
+		compositeEnemy.setLeft(l1l1);
+		compositeEnemy.setRight(l1r1);
+
+		compositeEnemyBlueprint.setWidth(50);
+		compositeEnemyBlueprint.setY(480);
+		CompositeSprite l2l1 = compositeEnemyBlueprint.copy();
+//		l2l1.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l2l1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l2l1.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l2l1.setX(620);
+		CompositeSprite l2r1 = compositeEnemyBlueprint.copy();
+//		l2r1.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l2r1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l2r1.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l2r1.setX(720);
+		CompositeSprite l2l2 = compositeEnemyBlueprint.copy();
+//		l2l2.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l2l2.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l2l2.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l2l2.setX(820);
+		CompositeSprite l2r2 = compositeEnemyBlueprint.copy();
+//		l2r2.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l2r2.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l2r2.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l2r2.setX(920);
+		l1l1.setLeft(l2l1);
+		l1l1.setRight(l2r1);
+		l1r1.setLeft(l2l2);
+		l1r1.setRight(l2r2);
+
+		compositeEnemyBlueprint.setWidth(40);
+		compositeEnemyBlueprint.setY(530);
+		CompositeSprite l3l1 = compositeEnemyBlueprint.copy();
+//		l3l1.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3l1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3l1.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3l1.setX(600);
+		CompositeSprite l3r1 = compositeEnemyBlueprint.copy();
+//		l3r1.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3r1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3r1.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3r1.setX(650);
+		CompositeSprite l3l2 = compositeEnemyBlueprint.copy();
+//		l3l2.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3l2.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3l2.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3l2.setX(700);
+		CompositeSprite l3r2 = compositeEnemyBlueprint.copy();
+//		l3r2.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3r2.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3r2.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3r2.setX(750);
+		CompositeSprite l3l3 = compositeEnemyBlueprint.copy();
+//		l3l3.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3l3.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3l3.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3l3.setX(800);
+		CompositeSprite l3r3 = compositeEnemyBlueprint.copy();
+//		l3r3.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3r3.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3r3.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3r3.setX(850);
+		CompositeSprite l3l4 = compositeEnemyBlueprint.copy();
+//		l3l4.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3l4.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3l4.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3l4.setX(900);
+		CompositeSprite l3r4 = compositeEnemyBlueprint.copy();
+//		l3r4.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+//		l3r4.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+//		l3r4.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		l3r4.setX(950);
+		l2l1.setLeft(l3l1);
+		l2l1.setRight(l3r1);
+		l2r1.setLeft(l3l2);
+		l2r1.setRight(l3r2);
+		l2l2.setLeft(l3l3);
+		l2l2.setRight(l3r3);
+		l2r2.setLeft(l3l4);
+		l2r2.setRight(l3r4);
+		return compositeEnemy;
 	}
 }

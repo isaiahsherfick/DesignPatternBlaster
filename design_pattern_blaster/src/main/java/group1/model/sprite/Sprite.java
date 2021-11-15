@@ -21,9 +21,9 @@ import javafx.scene.paint.Color;
 
 public class Sprite implements Loadable
 {
-	private double x,y,xVelocity,yVelocity,width,height;
+	protected double x,y,xVelocity,yVelocity,width,height;
 
-	private int direction;
+	protected int direction;
 
 	//spriteId is a POSITIVE constant assigned at runtime by the spriteManager or hard coded before inserting the sprite into the manager
 	private int spriteId;
@@ -31,33 +31,33 @@ public class Sprite implements Loadable
 	//SpriteClassId is a NEGATIVE constant defined in SpriteClassIdConstants.java
 	//They encapsulate what kind of thing the sprite represents, like a bullet or an enemy
 	//Used to generalize the collision behaviors
-	private int spriteClassId;
+	protected int spriteClassId;
 
 	//Layer is an integer assigned at runtime to distinguish what order sprites are drawn in and what other sprites the sprite can collide with
-	private int layer;
+	protected int layer;
 
 	//Animation contains a list of frames with specific IDs that Behaviors can cause to be displayed
-	private Animation animation;
+	protected Animation animation;
 
 	//Health is the amount of health the sprite has.
-	private int health;
+	protected int health;
 
 	//Sprite will only be drawn / collidable if enabled is true. False by default, enabled by camera when the camera detects the sprite in the frame
-	private boolean enabled;
+	protected boolean enabled;
 
 	//Hitbox object for collision
-	private HitBox hitBox;
+	protected HitBox hitBox;
 
 	//HashMap for collisions. Custom collisions can be added for classes of sprites (negative values) or specific sprites (positive values).
-	private CustomCollisionMap customCollisionMap;
+	protected CustomCollisionMap customCollisionMap;
 
 	//List of the sprite's behaviors including ontick behaviors, onDeath, onCollision, onKeyPress, onTick, etc.
 	//This will be iterated through and we will perform a check to see if the Behavior is of a specific subclass
 	//Before calling the appropriate method call to cause the sprite to do what we want it to
-	private List<EventBehavior> eventBehaviors;
+	protected List<EventBehavior> eventBehaviors;
 
 	//Color - only used when the sprite is drawn using a primitive JFX shape, will eventually be deprecated
-	private Color color;
+	protected Color color;
 
 	public Animation getAnimation()
 	{
@@ -328,7 +328,7 @@ public class Sprite implements Loadable
 		return copy;
 	}
 
-	private void setCustomCollisionMap(CustomCollisionMap ccm)
+	protected void setCustomCollisionMap(CustomCollisionMap ccm)
 	{
 		customCollisionMap = ccm;
 	}
@@ -337,7 +337,7 @@ public class Sprite implements Loadable
 		return customCollisionMap;
 	}
 
-	public void turnTowards(Sprite otherSprite) 
+	public void turnTowards(Sprite otherSprite)
 	{
 			//Turn towards the other sprite
 			if (otherSprite.getX() > x)
@@ -350,7 +350,7 @@ public class Sprite implements Loadable
             }
 	}
 
-	public void addCustomCollision(int id, Behavior behavior) 
+	public void addCustomCollision(int id, Behavior behavior)
 	{
 		customCollisionMap.addCustomCollision(id, behavior);
 	}
