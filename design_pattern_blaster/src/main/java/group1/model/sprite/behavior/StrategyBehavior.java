@@ -14,7 +14,7 @@ public class StrategyBehavior implements Behavior{
 	private Behavior shootBehavior;
 	private MoveTowardsBehavior moveTowardsBehavior;
 	private double counter = 0.0;
-	private int secondsBetweenShots;
+	private double  secondsBetweenShots;
 	private boolean shouldExecuteStrategy = false; 
 
 	public Sprite getSpriteToMoveTowards() {
@@ -37,7 +37,8 @@ public class StrategyBehavior implements Behavior{
 	public void setSpriteStrategy(Behavior strategy)
 	{
 		spriteStrategy = strategy;
-		secondsBetweenShots = Constants.OBSERVER_SECONDS_BETWEEN_SHOTS;
+//		secondsBetweenShots = Constants.OBSERVER_SECONDS_BETWEEN_SHOTS;
+		secondsBetweenShots = 0.5;
 	}
 	
 	public Behavior getSpriteStrategy() {

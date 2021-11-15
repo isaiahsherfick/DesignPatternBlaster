@@ -383,13 +383,13 @@ public final class SpriteFactory
 		return factory;
 	}
 	
-	public static Sprite strategyEnemies(Sprite powerUpSpriteToFollow, int powerUpID) {
+	public static Sprite strategyEnemies(Sprite powerUpSpriteToFollow, int powerUpID, int x, int y) {
 		
 		Sprite strategySpriteEnemy = new Sprite();
 		strategySpriteEnemy.setWidth(50);
 		strategySpriteEnemy.setHeight(50);
-		strategySpriteEnemy.setX(1000);
-		strategySpriteEnemy.setY(25);
+		strategySpriteEnemy.setX(x);
+		strategySpriteEnemy.setY(y);
 		strategySpriteEnemy.setHealth(10);
 		strategySpriteEnemy.setColor(Color.PURPLE);
 		
@@ -416,6 +416,29 @@ public final class SpriteFactory
 			
 			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
 		}
+		
+		
+		if(powerUpID == SpriteClassIdConstants.SIZE_INCREASE_POWERUP) {
+			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
+			
+//			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior());
+			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior(strategyBehavior));
+			
+//			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEvent(), new PowerUpBehavior(strategyBehavior.setSpriteToMoveTowards(player)));
+
+			
+//			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
+//			tndb.isBehaviorSet(true);
+			strategyBehavior.setSpriteStrategy(new IncreaseSpriteSizeBehavior(bulletSprite));
+			
+			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
+		}
+		
+		
+		
+		
+		
+		
 		return strategySpriteEnemy;
 		
 	}

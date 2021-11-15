@@ -35,7 +35,7 @@ public class MoveTowardsBehavior implements Behavior{
 		double angle = Math.atan(dy / dx);
 		//System.out.println("angle: " + angle);
 		//Magnitude is projectileSpeed
-		double magnitude = (double)5;
+		double magnitude = (double)2;
 		//System.out.println("magnitude: " + magnitude);
 		//Create vector object
 		Vector moveVector = new Vector(magnitude, angle);

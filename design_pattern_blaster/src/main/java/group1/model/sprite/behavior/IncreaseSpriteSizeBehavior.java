@@ -6,7 +6,7 @@ public class IncreaseSpriteSizeBehavior implements Behavior{
 	
 	private double defaultWidth = 0;
 	private double defaultHeight = 0;
-	private int amount = 20;
+	private int amount = 25;
 	private double newWidth = 0;
 	private double newHeight = 0;
 	private Sprite sprite;
@@ -15,12 +15,16 @@ public class IncreaseSpriteSizeBehavior implements Behavior{
 		this.sprite = sprite;
 		defaultWidth = sprite.getWidth();
 		defaultHeight = sprite.getHeight();
+		
+		newWidth = defaultWidth + amount;
+		newHeight = defaultHeight + amount;
 	}
 
 	@Override
 	public void performBehavior(Sprite sprite) {
 		
-		
+		this.sprite.setWidth(newWidth);
+		this.sprite.setHeight(newHeight);
 		
 	}
 

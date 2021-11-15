@@ -153,12 +153,25 @@ public class LevelFactory
 		tndPowerUp.setY(Constants.WINDOW_HEIGHT / 2);
 		tndPowerUp.setColor(Color.RED);
 		
-		Sprite enemyStrategy = SpriteFactory.strategyEnemies(tndPowerUp, tndPowerUp.getSpriteClassId());
+		Sprite enemyStrategy1 = SpriteFactory.strategyEnemies(tndPowerUp, tndPowerUp.getSpriteClassId(), 1000, 25);
+		
+		//bullet size increase power up
+		Sprite bulletSizePowerUp = new Sprite();
+		bulletSizePowerUp.setWidth(80);
+		bulletSizePowerUp.setSpriteClassId(SpriteClassIdConstants.SIZE_INCREASE_POWERUP);
+		bulletSizePowerUp.setHeight(50);
+		bulletSizePowerUp.setX(200);
+		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 + 50);
+		bulletSizePowerUp.setColor(Color.MAGENTA);
+		
+		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
-		sprites.add(enemyStrategy);
+		sprites.add(enemyStrategy1);
+		sprites.add(enemyStrategy2);
 		sprites.add(player);
 		sprites.add(tndPowerUp);
+		sprites.add(bulletSizePowerUp);
 		
 		Level strategyLevel = new Level(5, sprites, "Level_Music.mp3");
 		strategyLevel.setFocusSprite(player);
