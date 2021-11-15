@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.SpriteManager;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.DoNothingBehavior;
@@ -56,6 +57,30 @@ public class CollisionManager
 			}
 		}
 	}
+
+    //Returns true if the sprite is colliding with another sprite which has sprite classid constant FLOOR. 
+    public boolean isCollidingWithFloor(Sprite sprite, SpriteManager spriteManager)
+    {
+        int layer = SpriteClassIdConstants.FLOOR;
+        HitBox currentHitBox = sprite.getHitBox();
+        ArrayList<Sprite> spritesInLayer = spriteManager.getSpriteListByLayer(layer);
+        //Iterate over them 
+        Iterator<Sprite> spriteIterator = spritesInLayer.iterator();
+        while (spriteIterator.hasNext())
+        {
+            Sprite spriteToCheck = spriteIterator.next();
+            {
+                HitBox hitBoxToCheck = spriteToCheck.getHitBox();
+
+                //If the hitboxes overlap
+                if (currentHitBox.overlaps(hitBoxToCheck) != HitBoxOverlapType.NO_OVERLAP)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 	private boolean checkIfDoNothingCollision(Sprite currentSprite, Sprite spriteToCheck) {
 		HashMap<Integer, Behavior> collisionBehaviorMap = currentSprite.getCustomCollisionMap().getCollisionBehaviorMap();

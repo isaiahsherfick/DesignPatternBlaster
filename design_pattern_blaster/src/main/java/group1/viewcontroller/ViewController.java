@@ -1,5 +1,6 @@
 package group1.viewcontroller;
 
+import javafx.scene.input.KeyCode;
 import group1.App;
 import group1.constants.Constants;
 import group1.interfaces.Observer;
@@ -76,6 +77,20 @@ public class ViewController implements Observer
 			mainScene.setOnKeyPressed(e ->
 			{
 				KeyInputManager keyInputManager = App.model.getKeyInputManager();
+                if (e.getCode() == KeyCode.A || e.getCode() == KeyCode.D)
+                {
+                    //This handles the problem of dealing with the user holding two movement keys at the same time
+                    //like our old "speedrun glitch"
+                    //also allows the user to still hold two keys at once for things like jumping shooting and running at the same time
+                    if (e.getCode() == KeyCode.A)
+                    {
+                        keyInputManager.onKeyRelease(KeyCode.D);
+                    }
+                    else if (e.getCode() == KeyCode.D)
+                    {
+                        keyInputManager.onKeyRelease(KeyCode.A);
+                    }
+                }
 				if (!keyInputManager.isPressed(e.getCode()))
 				{
 					App.model.receiveEvent(GameEvent.KeyPressedEvent(e.getCode()));
@@ -85,7 +100,11 @@ public class ViewController implements Observer
 			mainScene.setOnKeyReleased(e ->
 			{
 				KeyInputManager keyInputManager = App.model.getKeyInputManager();
-				keyInputManager.onKeyRelease(e.getCode());
+                if (keyInputManager.isPressed(e.getCode()))
+                {
+                    App.model.receiveEvent(GameEvent.KeyReleasedEvent(e.getCode()));
+				    keyInputManager.onKeyRelease(e.getCode());
+                }
 			});
 			//Set the scene for the main stage
 			mainStage.setScene(mainScene);

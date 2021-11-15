@@ -4,76 +4,39 @@ import java.util.ArrayList;
 
 import group1.constants.Constants;
 import group1.model.level.Level;
+import group1.model.sprite.CompositeSprite;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.SpriteManager;
 import javafx.scene.paint.Color;
 
-public class LevelFactory 
+public class LevelFactory
 {
 
 	private LevelFactory() {}
-	public static Level demoLevel1()
-	{
-		
-		Sprite player = SpriteFactory.player();
-		Sprite floor = SpriteFactory.demoFloor();
 
-		Sprite enemy1 = SpriteFactory.demoEnemy1();  
-		Sprite enemy2 = SpriteFactory.demoEnemy2();
-		
-		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
-		
-		ArrayList<Sprite> sprites = new ArrayList<>();
-		sprites.add(player);
-		sprites.add(floor);
-		sprites.add(enemy1);
-		sprites.add(enemy2);
-		sprites.add(endOfLevelSprite);
-		
-		Level level1=new Level(1, sprites);
-		
-		level1.setFocusSprite(player);
-		
-		return level1;
-	}
-	
-	public static Level demoLevel2()
-	{
-		Sprite player = SpriteFactory.player();
-		Sprite floor = SpriteFactory.demoFloor();
-
-		Sprite enemy1 = SpriteFactory.demoEnemy1();  
-		Sprite enemy2 = SpriteFactory.demoEnemy2();
-		
-		ArrayList<Sprite> sprites = new ArrayList<>();
-		sprites.add(player);
-		sprites.add(floor);
-		sprites.add(enemy1);
-		sprites.add(enemy2);
-		
-		Level level2=new Level(2, sprites);
-		level2.setFocusSprite(player);
-		return level2;
-	}
-	
 	public static Level observerLevel()
 	{
+        Sprite floor = SpriteFactory.floor(5000, 20);
+        Sprite ladder = SpriteFactory.platform(100, 20, 300, 500);
 		Sprite player  = SpriteFactory.player();
-		
+
 		Sprite observer = SpriteFactory.observer(player, 1000, 25);
 
 		Sprite observer2 = SpriteFactory.observer(player, 500, 25);
-		
+
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
-		
+
+
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
+        sprites.add(ladder);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);
 		sprites.add(nextLevelSprite);
-		
+
 		Level observerLevel = new Level(1,sprites, "Level_Music.mp3");
 		observerLevel.setFocusSprite(player);
 		return observerLevel;
@@ -81,34 +44,56 @@ public class LevelFactory
 
 
 
-	public static Level commanderLevel() 
+	public static Level commanderLevel()
 	{
+        Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
-		Sprite subordinates = SpriteFactory.subordinates();
-		Sprite commander = SpriteFactory.commander(subordinates);
-		commander.setY(500);
-		subordinates.setDirection(Constants.RIGHT);
+		Sprite subordinate = SpriteFactory.subordinate();
+		Sprite commander = SpriteFactory.commander(subordinate);
+		commander.setY(250);
+		subordinate.setDirection(Constants.RIGHT);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
-		
+
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(commander);
-		sprites.add(subordinates);
+		sprites.add(subordinate);
 		sprites.add(levelend);
-		
-		
+
+
 		Level commanderLevel = new Level(2,sprites, "Level_Music.mp3");
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}
 
+	public static Level compositeLevel()
+	{
+		Sprite floor = SpriteFactory.floor(10000, 20);
+		Sprite player = SpriteFactory.player();
+		player.setX(player.getX()-300);
+		CompositeSprite enemy = SpriteFactory.compositeEnemy();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		Sprite levelend = SpriteFactory.endOfLevelSprite();
+        sprites.add(floor);
+		sprites.add(player);
+		sprites.addAll(enemy.getChildren());
+//		sprites.add(enemy);
+		sprites.add(levelend);
+		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3");
+		compositeLevel.setFocusSprite(player);
+		return compositeLevel;
+	}
+
 	public static Level factoryLevel()
 	{
+        Sprite floor = SpriteFactory.floor(10000, 20);
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite player = SpriteFactory.player();
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
         Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
         endOfLevelSprite.setX(1500);
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(enemyFactory);
         sprites.add(endOfLevelSprite);
@@ -119,6 +104,7 @@ public class LevelFactory
 
 	public static Level MVCLevel()
 	{
+        Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player  = SpriteFactory.MVCPlayer();
 
 		Sprite viewEnemy = SpriteFactory.viewSprite();
@@ -129,6 +115,7 @@ public class LevelFactory
 		nextLevelSprite.setX(2000);
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
 		sprites.add(player);
 		sprites.add(viewEnemy);
 		sprites.add(nextLevelSprite);
@@ -143,6 +130,10 @@ public class LevelFactory
 	
 	public static Level strategyLevel() {
 		Sprite player = SpriteFactory.player();
+
+        Sprite floor = SpriteFactory.floor(5000, 20);
+		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
+		nextLevelSprite.setX(2000);
 		
 		//take no damage power up
 		Sprite tndPowerUp = new Sprite();
@@ -167,11 +158,13 @@ public class LevelFactory
 		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(floor);
 		sprites.add(enemyStrategy1);
 		sprites.add(enemyStrategy2);
 		sprites.add(player);
 		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
+		sprites.add(nextLevelSprite);
 		
 		Level strategyLevel = new Level(5, sprites, "Level_Music.mp3");
 		strategyLevel.setFocusSprite(player);

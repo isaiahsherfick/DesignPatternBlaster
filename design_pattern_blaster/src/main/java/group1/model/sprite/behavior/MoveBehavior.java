@@ -12,6 +12,7 @@ public class MoveBehavior implements Behavior
 {
 	public void performBehavior(Sprite sprite)
 	{
+        //System.out.println("MoveBehavior.java: sprite.getVelocityY() == " + sprite.getVelocityY());
 		sprite.setX(sprite.getVelocityX() + sprite.getX());
 		sprite.setY(sprite.getVelocityY() + sprite.getY());
 	}

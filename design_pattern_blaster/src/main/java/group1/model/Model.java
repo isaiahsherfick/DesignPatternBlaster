@@ -224,4 +224,9 @@ public class Model implements Observable
 	{
 		return spriteManager.getPlayerSprites();
 	}
+
+    public boolean spriteIsCollidingWithFloor(Sprite sprite)
+    {
+        return collisionManager.isCollidingWithFloor(sprite, spriteManager);
+    }
 }
