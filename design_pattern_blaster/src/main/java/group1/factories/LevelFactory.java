@@ -88,6 +88,7 @@ public class LevelFactory
 	public static Level factoryLevel()
 	{
         Sprite floor = SpriteFactory.floor(10000, 20);
+        Sprite ladder = SpriteFactory.platform(100, 20, 300, 500);
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite player = SpriteFactory.player();
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
@@ -96,6 +97,7 @@ public class LevelFactory
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(enemyFactory);
+        sprites.add(ladder);
         sprites.add(endOfLevelSprite);
 		Level factoryLevel = new Level(3, sprites, "Level_Music.mp3");
 		factoryLevel.setFocusSprite(player);
