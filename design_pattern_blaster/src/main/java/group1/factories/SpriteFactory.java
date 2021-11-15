@@ -383,15 +383,31 @@ public final class SpriteFactory
 		return factory;
 	}
 	
-	public static Sprite strategyEnemies(Sprite spriteToFollow) {
+	public static Sprite strategyEnemies(Sprite powerUpSpriteToFollow, int powerUpID) {
 		
-		Sprite strategySprite = new Sprite();
-		strategySprite.setWidth(100);
-		strategySprite.setHeight(400);
-		strategySprite.setX(1000);
-		strategySprite.setY(Constants.WINDOW_HEIGHT - strategySprite.getHeight());
-		strategySprite.setHealth(10);
-		strategySprite.setColor(Color.PURPLE);
+		Sprite strategySpriteEnemy = new Sprite();
+		strategySpriteEnemy.setWidth(50);
+		strategySpriteEnemy.setHeight(50);
+		strategySpriteEnemy.setX(1000);
+		strategySpriteEnemy.setY(25);
+		strategySpriteEnemy.setHealth(10);
+		strategySpriteEnemy.setColor(Color.PURPLE);
+		
+		Sprite bulletSprite = enemyBullet();
+		
+		StrategyBehavior strategyBehavior = new StrategyBehavior(powerUpSpriteToFollow);
+		strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), strategyBehavior));
+		strategySpriteEnemy.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		strategyBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(strategySpriteEnemy.getHeight() + 20), bulletSprite, 20));
+		
+		
+		if(powerUpID == SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP) {
+			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
+			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
+			tndb.isBehaviorSet(true);
+			strategyBehavior.setSpriteStrategy(tndb);
+		}
+		return strategySpriteEnemy;
 		
 	}
 }

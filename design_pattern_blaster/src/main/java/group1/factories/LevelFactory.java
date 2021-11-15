@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import group1.constants.Constants;
 import group1.model.level.Level;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.SpriteManager;
+import javafx.scene.paint.Color;
 
 public class LevelFactory 
 {
@@ -141,7 +143,25 @@ public class LevelFactory
 	
 	public static Level strategyLevel() {
 		Sprite player = SpriteFactory.player();
-		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
-		Sprite takeNoDamagePowerUp = 
+		
+		//take no damage power up
+		Sprite tndPowerUp = new Sprite();
+		tndPowerUp.setWidth(80);
+		tndPowerUp.setSpriteClassId(SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP);
+		tndPowerUp.setHeight(50);
+		tndPowerUp.setX(100);
+		tndPowerUp.setY(Constants.WINDOW_HEIGHT / 2);
+		tndPowerUp.setColor(Color.RED);
+		
+		Sprite enemyStrategy = SpriteFactory.strategyEnemies(tndPowerUp, tndPowerUp.getSpriteClassId());
+		
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(enemyStrategy);
+		sprites.add(player);
+		sprites.add(tndPowerUp);
+		
+		Level strategyLevel = new Level(5, sprites, "Level_Music.mp3");
+		strategyLevel.setFocusSprite(player);
+		return strategyLevel;		
 	}
 }
