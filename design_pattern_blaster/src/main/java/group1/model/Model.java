@@ -2,6 +2,7 @@ package group1.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
 import group1.interfaces.Observable;
 import group1.interfaces.Observer;
@@ -209,6 +210,10 @@ public class Model implements Observable
 
 	public double getTimeDelta(){
 		return getGameClock().getSecondsSincePreviousFrame();
+	}
+
+	public Level getCurrentLevel(){
+		return levelManager.getCurrentLevel();
 	}
 
 	public float getTimeElapsed(){

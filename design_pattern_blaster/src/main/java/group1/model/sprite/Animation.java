@@ -8,10 +8,17 @@ package group1.model.sprite;
 
 
 import group1.App;
+import group1.constants.Constants;
 import group1.interfaces.Drawable;
+import group1.model.GameCamera;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,10 +34,17 @@ public class Animation implements Drawable {
     private int frame;
     private double nextTimeToChangeFrames;
     private double loopPeriodSeconds = .25;
+    private Font HUDFont;
 
     public Animation() {
         stateToAnimationLoop = new HashMap<>();
         frame = 0;
+
+        try {
+            HUDFont = Font.loadFont(new FileInputStream("src/main/resources/group1/retro.ttf"), 72);
+        } catch (FileNotFoundException e) {
+            HUDFont = Font.getDefault();
+        }
     }
 
     public void setState(AnimationState animationState) {
@@ -85,6 +99,16 @@ public class Animation implements Drawable {
 //
 //    }
 
+    public void drawHUD(GraphicsContext g, Sprite player){
+        g.setFont(HUDFont);
+        g.setFill(Color.RED);
+
+        double xPos = player.getX() - Constants.WINDOW_WIDTH/2 + 10;
+        g.fillText("HEALTH: " + player.getHealth(), xPos, 50);
+        g.fillText("Level: " + App.model.getCurrentLevel().getLevelNumber(), xPos,100);
+
+    }
+
     @Override
     public void draw(GraphicsContext g, Sprite sprite) {
         //This method "Draw" is being called every tick
@@ -92,6 +116,11 @@ public class Animation implements Drawable {
         // the frame changes every x'th of a second
         // time delta represents the time since last frame
         // divinding it by
+
+        if (App.model.getCurrentLevel().getFocusSprite().getSpriteId() == sprite.getSpriteId()){
+            drawHUD(g,sprite);
+        }
+
         if (stateToAnimationLoop.size() > 0) {
             ArrayList<Image> frames = stateToAnimationLoop.get(this.animationState);
             Image currentFrame = frames.get(frame % frames.size());
@@ -112,6 +141,8 @@ public class Animation implements Drawable {
             g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
         }
+
+
     }
 
     //TODO this doesn't do the full copy yet - needs to copy over the map thing too

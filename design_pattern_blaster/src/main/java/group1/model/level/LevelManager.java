@@ -16,6 +16,7 @@ public class LevelManager
 
 	private ArrayList<Level> completedLevels;
 	private ArrayList<Level> unfinishedLevels;
+
 	private Level currentLevel;
 	private MediaPlayer mediaPlayer;
 
@@ -138,5 +139,8 @@ public class LevelManager
 	        }
 	    });
 		mediaPlayer.play();
+	}
+	public Level getCurrentLevel() {
+		return currentLevel;
 	}
 }
