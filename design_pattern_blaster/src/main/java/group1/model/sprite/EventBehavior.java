@@ -1,6 +1,7 @@
 package group1.model.sprite;
 
 import group1.model.sprite.behavior.Behavior;
+import group1.model.sprite.behavior.ObserverBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import group1.model.sprite.Sprite;
 
@@ -44,5 +45,9 @@ public class EventBehavior
 	public EventBehavior copy() 
 	{
 		return new EventBehavior(event, behavior.copy());
+	}
+	public Behavior getBehavior() 
+	{
+		return behavior;
 	}
 }

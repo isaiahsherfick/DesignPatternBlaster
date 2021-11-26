@@ -339,7 +339,7 @@ public final class SpriteFactory
 
 		Sprite bulletSprite = enemyBullet();
 
-		ObserverBehavior observerBehavior = new ObserverBehavior(observable, 250, 5);
+		OldObserverBehavior observerBehavior = new OldObserverBehavior(observable, 250, 5);
 		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
@@ -559,10 +559,55 @@ public final class SpriteFactory
 		return compositeEnemy;
 	}
 
-	public static Sprite observerPlayer() 
+	public static Sprite observablePlayer() 
 	{
 		Sprite player = player();
 		//Do some stuff with observer behavior
 		return player;
+	}
+
+	//Blank observer sprite which can be registered to the player at runtime by another sprite
+	public static Sprite observer() 
+	{
+        Sprite observer = new Sprite();
+        observer.setSpriteClassId(SpriteClassIdConstants.ENEMY);
+        observer.setWidth(50);
+        observer.setHeight(50);
+        observer.setVelocityX(5);
+        observer.setX(1000);
+        observer.setY(500);
+        observer.setColor(Color.GOLD);
+
+		Sprite bulletSprite = enemyBullet();
+
+		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
+
+		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+		observer.setDefaultCollisionBehavior(new DoNothingBehavior());
+
+		return observer;
+	}
+	
+	public static Sprite registerObserverButton(Sprite observable, ArrayList<Sprite> observers)
+	{
+		Sprite button = new Sprite();
+		ObservableBehavior ob = (ObservableBehavior)observable.getObservableBehavior();
+		ArrayList<ObserverBehavior> observerBehaviors = new ArrayList<>();
+		for (Sprite s : observers)
+		{
+			observerBehaviors.add((ObserverBehavior)s.getObserverBehavior());
+		}
+		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
+		return button;
+	}
+	
+	public static Sprite unregisterObserverButton(Sprite observable)
+	{
+		Sprite button = new Sprite();
+		ObservableBehavior ob = (ObservableBehavior) observable.getObservableBehavior();
+		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new UnregisterObserverBehavior(ob));
+		return button;
 	}
 }

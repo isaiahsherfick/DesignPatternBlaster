@@ -24,9 +24,9 @@ class ObservableBehaviorTest
 			observers.add(SpriteFactory.observer());
 		}
         Sprite floor = SpriteFactory.floor(5000, 20);
-		Sprite player = SpriteFactory.observerPlayer(); // Player has an onclocktick observablebehavior
+		Sprite player = SpriteFactory.observablePlayer(); // Player has an onclocktick observablebehavior
 		Sprite registerButton = SpriteFactory.registerObserverButton(player, observers); //Observable , ArrayList<Sprite> observers; custom collision with player to register the observers 
-		Sprite unregisterButton = SpriteFactory.unregisterObserversButton(player, observers); //Observable , ArrayList<Sprite> observers; custom collision with player to register the observers 
+		Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player); //Observable 
 		App.model.addSprite(floor);
 		App.model.addSprite(player);
 		App.model.addSprite(registerButton);

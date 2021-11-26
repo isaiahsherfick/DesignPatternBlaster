@@ -10,9 +10,11 @@ import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
 import group1.physics.Vector;
 
-public class ObserverBehavior implements Behavior 
+public class OldObserverBehavior implements Behavior 
 {
-	private boolean updated;
+	
+	private Sprite observable;
+	private Sprite observableReference;
 	
 	private int secondsBetweenShots;
 	
@@ -23,23 +25,28 @@ public class ObserverBehavior implements Behavior
 	
 	private Behavior shootBehavior;
 
-	public ObserverBehavior(double maxY, double speed)
+	public OldObserverBehavior(Sprite observable, double maxY, double speed)
 	{
+		this.observable = observable;
+		this.observableReference = observable.copy();
 		secondsBetweenShots = Constants.OBSERVER_SECONDS_BETWEEN_SHOTS;
 		this.maxY = maxY;
 		this.speed = speed;
-		updated = false;
 	}
 	
 	public boolean observableChangedState()
 	{
-		return updated;
-	}
-	
-	//Method called by ObservableBehavior to update the observer
-	public void update()
-	{
-		updated = true;
+		double x = observable.getX();
+		double y = observable.getY();
+		double expectedX = observableReference.getX();
+		double expectedY = observableReference.getY();
+		
+		if (x != expectedX || y != expectedY)
+		{
+			observableReference = observable.copy();
+			return true;
+		}
+		return false;
 	}
 	
 	public void setShootSpriteBehavior(Behavior ssb)
@@ -117,12 +124,11 @@ public class ObserverBehavior implements Behavior
 				shootBehavior.performBehavior(sprite);
 				counter = 0.0;
 			}
-			updated = false; //reset boolean to not get stuck 
 		}
 	}
 	public Behavior copy()
 	{
-		ObserverBehavior copy = new ObserverBehavior(maxY, speed);
+		OldObserverBehavior copy = new OldObserverBehavior(observable, maxY, speed);
 		copy.setShootSpriteBehavior(shootBehavior.copy());
 		return copy;
 	}

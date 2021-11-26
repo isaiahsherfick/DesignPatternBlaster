@@ -13,6 +13,8 @@ import group1.model.collision.HitBox;
 import group1.model.sprite.behavior.Behavior;
 import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.behavior.ObservableBehavior;
+import group1.model.sprite.behavior.ObserverBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -67,6 +69,46 @@ public class Sprite implements Loadable
 	public void setAnimation(Animation animation)
 	{
 		this.animation = animation;
+	}
+	
+	public boolean containsObserverBehavior()
+	{
+		for (EventBehavior e : eventBehaviors)
+		{
+			if (e.getBehavior() instanceof ObserverBehavior)
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean containsObservableBehavior()
+	{
+		for (EventBehavior e : eventBehaviors)
+		{
+			if (e.getBehavior() instanceof ObservableBehavior)
+				return true;
+		}
+		return false;
+	}
+	
+	public Behavior getObserverBehavior()
+	{
+		for (EventBehavior e : eventBehaviors)
+		{
+			if (e.getBehavior() instanceof ObserverBehavior)
+				return e.getBehavior();
+		}
+		return new DoNothingBehavior();
+	}
+	
+	public Behavior getObservableBehavior()
+	{
+		for (EventBehavior e : eventBehaviors)
+		{
+			if (e.getBehavior() instanceof ObservableBehavior)
+				return e.getBehavior();
+		}
+		return new DoNothingBehavior();
 	}
 
 
