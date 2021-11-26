@@ -25,7 +25,7 @@ public class GameEventTest
 		GameEvent g1 = GameEvent.CollisionEvent();
 		GameEvent g2 = GameEvent.KeyPressedEvent(KeyCode.X);
 		GameEvent g3 = GameEvent.PlayerDeathEvent();
-		GameEvent g4 = GameEvent.KeyReleasedEvent();
+		GameEvent g4 = GameEvent.KeyReleasedEvent(KeyCode.X);
 		GameEvent g5 = GameEvent.HealthDepletedEvent();
 		
 		assertEquals(g0.getEventType(), GameEvent.CLOCK_TICK);

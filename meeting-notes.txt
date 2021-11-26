@@ -1,0 +1,22 @@
+
+
+    Things to fix:
+        max x of level, min x of level -> instance variables in GameCamera
+        Transition between levels -> SplashScreen object in Level class
+        Vector math / trig
+        Main menu
+        Return player to idle state
+        Fix player / ground collision
+        crouch behavior
+        pick up / drop behavior for blocks -> low priority
+        container nodes
+        behaviors need sound
+        singleton spawn issue, enable/disable bug 
+        command animation
+        strategy player powerups
+        register/unregister observers
+        background image
+        killzone for falling death
+        heads up display@s
+        floor tiling
+
