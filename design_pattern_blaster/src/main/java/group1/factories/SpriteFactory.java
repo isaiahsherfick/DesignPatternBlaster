@@ -558,4 +558,11 @@ public final class SpriteFactory
 		l2r2.setRight(l3r4);
 		return compositeEnemy;
 	}
+
+	public static Sprite observerPlayer() 
+	{
+		Sprite player = player();
+		//Do some stuff with observer behavior
+		return player;
+	}
 }
