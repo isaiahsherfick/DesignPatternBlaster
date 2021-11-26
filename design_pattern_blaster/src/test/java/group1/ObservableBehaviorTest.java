@@ -7,7 +7,17 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import group1.factories.SpriteFactory;
+import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
+import group1.model.sprite.SpriteClassIdConstants;
+import group1.model.sprite.behavior.FaceLeftBehavior;
+import group1.model.sprite.behavior.FaceRightBehavior;
+import group1.model.sprite.behavior.UpdateVelocityXBehavior;
+import group1.model.sprite.behavior.UpdateVelocityXOnKeyPressBehavior;
+import group1.model.sprite.behavior.GravityBehavior;
+import group1.model.sprite.behavior.MoveBehavior;
+import group1.model.sprite.behavior.ObservableBehavior;
+import group1.constants.Constants;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.input.KeyCode;
 
@@ -22,9 +32,20 @@ class ObservableBehaviorTest
 		for (int i =0; i < 5; i++)
 		{
 			observers.add(SpriteFactory.observer());
+			assertTrue(observers.get(i).containsObserverBehavior());
 		}
         Sprite floor = SpriteFactory.floor(5000, 20);
-		Sprite player = SpriteFactory.observablePlayer(); // Player has an onclocktick observablebehavior
+        Sprite player = new Sprite();
+        player.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
+        player.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
+        player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.A, -1*Constants.PLAYER_DX)));
+        player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.D, Constants.PLAYER_DX)));
+        player.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
+        player.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
+        player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
+        player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new ObservableBehavior()));
+        player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
+        player.setSpriteClassId(SpriteClassIdConstants.PLAYER);
 		Sprite registerButton = SpriteFactory.registerObserverButton(player, observers); //Observable , ArrayList<Sprite> observers; custom collision with player to register the observers 
 		Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player); //Observable 
 		App.model.addSprite(floor);
@@ -61,6 +82,7 @@ class ObservableBehaviorTest
 		ys.add(y3);
 		ys.add(y4);
 		ys.add(y5);
+
 		for (int i = 0; i < 1000; i++) // Make 1000 clock ticks occur
 		{
 			App.model.receiveEvent(GameEvent.ClockTickEvent());
@@ -73,14 +95,12 @@ class ObservableBehaviorTest
 		}
 		
 		double playerX = player.getX();
-		//Move the player by holding the D key for a few frames
-		App.model.receiveEvent(GameEvent.KeyPressedEvent(KeyCode.D));
+		//Move the player 
+		player.setX(10);
 		for (int i = 0; i < 10; i++) // Make 10 clock ticks occur
 		{
 			App.model.receiveEvent(GameEvent.ClockTickEvent());
 		}
-		App.model.receiveEvent(GameEvent.KeyReleasedEvent(KeyCode.D));
-		
 		//Assert that the player did in fact move
 		assertNotEquals(playerX, player.getX());
 
@@ -94,41 +114,35 @@ class ObservableBehaviorTest
 		registerButton.collideWith(player);
 		
 		playerX = player.getX();
-		//Move the player by holding the D key for a few frames
-		App.model.receiveEvent(GameEvent.KeyPressedEvent(KeyCode.D));
+		//Move the player 
+		player.setX(20);
+		assertNotEquals(playerX, player.getX());
 		for (int i = 0; i < 10; i++) // Make 10 clock ticks occur
 		{
 			App.model.receiveEvent(GameEvent.ClockTickEvent());
 		}
-		App.model.receiveEvent(GameEvent.KeyReleasedEvent(KeyCode.D));
 		
-		//Assert that the player did in fact move
-		assertNotEquals(playerX, player.getX());
+		ArrayList<Double> previousXs = new ArrayList<>();
 
 		for (int i  =0 ; i < 5; i++)
 		{
 			 assertNotEquals(xs.get(i), observers.get(i).getX()); //Assert that the observers did move since they are now registered
-			 assertNotEquals(ys.get(i), observers.get(i).getY()); 
+			 previousXs.add(observers.get(i).getX());
 		}
 		
 		//Now make the player step on the unregister button
 		unregisterButton.collideWith(player);
 		playerX = player.getX();
-		//Move the player by holding the D key for a few frames
-		App.model.receiveEvent(GameEvent.KeyPressedEvent(KeyCode.D));
-		for (int i = 0; i < 10; i++) // Make 10 clock ticks occur
-		{
-			App.model.receiveEvent(GameEvent.ClockTickEvent());
-		}
-		App.model.receiveEvent(GameEvent.KeyReleasedEvent(KeyCode.D));
+
+		//Move the player 
+		player.setX(30);
 		
 		//Assert that the player did in fact move
 		assertNotEquals(playerX, player.getX());
 
 		for (int i  =0 ; i < 5; i++)
 		{
-			 assertEquals(xs.get(i), observers.get(i).getX()); //Assert that the observers haven't moved because even though the player moved, they aren't registered yet 
-			 assertEquals(ys.get(i), observers.get(i).getY()); 
+			 assertEquals(previousXs.get(i), observers.get(i).getX()); //Assert that the observers haven't moved because even though the player moved, they aren't registered yet 
 		}
 		
 	}

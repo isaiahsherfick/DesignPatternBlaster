@@ -562,7 +562,7 @@ public final class SpriteFactory
 	public static Sprite observablePlayer() 
 	{
 		Sprite player = player();
-		//Do some stuff with observer behavior
+		player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new ObservableBehavior()));
 		return player;
 	}
 
