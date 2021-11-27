@@ -25,7 +25,7 @@ public final class Constants
     public static final double PLAYER_DX = 15; //Default speedX value for the player
 	public static final short GRAVITY = 30; //Gravity acceleration value
     public static final double FLOOR_Y = WINDOW_HEIGHT - 100;
-    public static final int PLAYER_HEIGHT = 159; //Player's height
+    public static final int PLAYER_HEIGHT = 152; //Player's height
     public static final short PLAYER_Y = WINDOW_HEIGHT / 5; //Player's spawn Y
     public static final double MAX_JETPACK_DY = -20; //Player's terminal jetpack velocity
 	public static final double SPRITE_POOL_X = 1000;

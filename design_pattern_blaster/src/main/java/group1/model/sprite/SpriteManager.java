@@ -149,4 +149,19 @@ public class SpriteManager
 			}
 			return playerSprites;
 		}		
+
+        public ArrayList<Sprite> getFloorSprites()
+        {
+			ArrayList<Sprite> playerSprites = new ArrayList<>();
+			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			while (spriteIterator.hasNext())
+			{
+				Sprite current = spriteIterator.next();
+				if (current.getSpriteClassId() == SpriteClassIdConstants.FLOOR)
+				{
+					playerSprites.add(current);
+				}
+			}
+			return playerSprites;
+        }
 }

@@ -3,6 +3,7 @@ package group1.factories;
 import java.util.ArrayList;
 
 import group1.constants.Constants;
+import group1.model.sprite.behavior.*;
 import group1.model.level.Level;
 import group1.model.sprite.CompositeSprite;
 import group1.model.sprite.Sprite;
@@ -18,8 +19,11 @@ public class LevelFactory
 	public static Level observerLevel()
 	{
         Sprite floor = SpriteFactory.floor(5000, 20);
-        Sprite ladder = SpriteFactory.platform(100, 20, 300, 500);
+        Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
+        platform.setSpriteId(200); //set it high so we know it won't get overwritten upon insertion
 		Sprite player  = SpriteFactory.observablePlayer();
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
+        player.addCustomCollision(200, new CollideWithFloorNoClipBehavior(platform));
 
 		Sprite observer = SpriteFactory.observer(1000, 25);
 
@@ -39,7 +43,7 @@ public class LevelFactory
         sprites.add(registerButton);
         sprites.add(unregisterButton);
         sprites.add(floor);
-        sprites.add(ladder);
+        sprites.add(platform);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);
@@ -56,6 +60,7 @@ public class LevelFactory
 	{
         Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		Sprite subordinate = SpriteFactory.subordinate();
 		Sprite commander = SpriteFactory.commander(subordinate);
 		commander.setY(250);
@@ -70,7 +75,7 @@ public class LevelFactory
 		sprites.add(levelend);
 
 
-		Level commanderLevel = new Level(2,sprites, "Level_Music.mp3");
+		Level commanderLevel = new Level(3,sprites, "Level_Music.mp3");
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}
@@ -79,6 +84,7 @@ public class LevelFactory
 	{
 		Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		player.setX(player.getX()-300);
 		CompositeSprite enemy = SpriteFactory.compositeEnemy();
 		ArrayList<Sprite> sprites = new ArrayList<>();
@@ -95,6 +101,7 @@ public class LevelFactory
 	public static Level singletonLevel() {
 		Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		ArrayList<Sprite> singletonEnemies = SpriteFactory.singletonEnemies();
 		Sprite spritePool = SpriteFactory.spritePool();
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
@@ -110,19 +117,22 @@ public class LevelFactory
 
 	public static Level factoryLevel()
 	{
-        Sprite floor = SpriteFactory.floor(10000, 20);
-        Sprite ladder = SpriteFactory.platform(100, 20, 300, 500);
-		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite player = SpriteFactory.player();
+        Sprite floor = SpriteFactory.floor(10000, 20);
+        Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
+        platform.setSpriteId(2000); //set it high so we know it won't get overwritten upon insertion
+        player.addCustomCollision(2000, new CollideWithFloorNoClipBehavior(platform));
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
+		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
         Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
         endOfLevelSprite.setX(1500);
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(enemyFactory);
-        sprites.add(ladder);
+        sprites.add(platform);
         sprites.add(endOfLevelSprite);
-		Level factoryLevel = new Level(3, sprites, "Level_Music.mp3");
+		Level factoryLevel = new Level(5, sprites, "Level_Music.mp3");
 		factoryLevel.setFocusSprite(player);
 		return factoryLevel;
 	}
@@ -131,6 +141,7 @@ public class LevelFactory
 	{
         Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player  = SpriteFactory.MVCPlayer();
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 
 		Sprite viewEnemy = SpriteFactory.viewSprite();
 		viewEnemy.setX(viewEnemy.getX() + 1000);
@@ -146,7 +157,7 @@ public class LevelFactory
 		sprites.add(nextLevelSprite);
 		sprites.add(wall);
 
-		Level MVCLevel = new Level(3,sprites, "Boss_Music.mp3");
+		Level MVCLevel = new Level(6,sprites, "Boss_Music.mp3");
 		//nullify focus
 		MVCLevel.setFocusSprite(SpriteFactory.dummyFocusSprite());
 
@@ -157,6 +168,7 @@ public class LevelFactory
 		Sprite player = SpriteFactory.player();
 
         Sprite floor = SpriteFactory.floor(5000, 20);
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
 
@@ -190,8 +202,7 @@ public class LevelFactory
 		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
 		sprites.add(nextLevelSprite);
-
-		Level strategyLevel = new Level(5, sprites, "Level_Music.mp3");
+		Level strategyLevel = new Level(2, sprites, "Level_Music.mp3");
 		strategyLevel.setFocusSprite(player);
 		return strategyLevel;
 	}

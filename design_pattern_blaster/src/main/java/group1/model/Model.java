@@ -234,4 +234,9 @@ public class Model implements Observable
     {
         return collisionManager.isCollidingWithFloor(sprite, spriteManager);
     }
+
+    public ArrayList<Sprite> getFloorSprites()
+    {
+        return spriteManager.getFloorSprites();
+    }
 }

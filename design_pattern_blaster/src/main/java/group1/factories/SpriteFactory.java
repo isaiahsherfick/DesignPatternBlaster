@@ -40,6 +40,7 @@ public final class SpriteFactory
         playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
         //playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
         playerSprite.setY(Constants.PLAYER_Y);
+        playerSprite.setVelocityY(-0.1);
         playerSprite.setWidth(50);
         playerSprite.setHeight(Constants.PLAYER_HEIGHT);
         playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
@@ -51,7 +52,7 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayerGravityBehavior(Constants.GRAVITY)));
         //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, -12)));
         //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
@@ -181,7 +182,7 @@ public final class SpriteFactory
     {
         Sprite playerSprite = player();
         playerSprite.getEventBehaviors().clear();
-        playerSprite.setVelocityY(30);
+        playerSprite.setVelocityY(0.1);
         playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(10, 0));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
@@ -189,7 +190,7 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.D, Constants.PLAYER_DX)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new GravityBehavior(Constants.GRAVITY)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayerGravityBehavior(Constants.GRAVITY)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JetPackBehavior(KeyCode.W, -1)));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE),
@@ -204,7 +205,7 @@ public final class SpriteFactory
     public static Sprite floor(int width, int height)
     {
         Sprite floor = new Sprite();
-        floor.setLayer(SpriteClassIdConstants.FLOOR);
+        //floor.setLayer(SpriteClassIdConstants.FLOOR);
         floor.setX(-1 * (int)(width/2));
         floor.setY(Constants.FLOOR_Y);
         floor.setWidth(width);
@@ -218,7 +219,7 @@ public final class SpriteFactory
     public static Sprite platform(int width, int height, int x, int y)
     {
         Sprite floor = new Sprite();
-        floor.setLayer(SpriteClassIdConstants.FLOOR);
+        //floor.setLayer(SpriteClassIdConstants.FLOOR);
         floor.setX(x);
         floor.setY(y);
         floor.setWidth(width);
