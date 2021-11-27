@@ -30,6 +30,7 @@ import java.util.HashMap;
 public class Animation implements Drawable {
 
     public AnimationState animationState = AnimationState.IDLE;
+    public AnimationState previousAnimationState = AnimationState.IDLE;
     public HashMap<AnimationState, ArrayList<Image>> stateToAnimationLoop = new HashMap<>();
     private int frame;
     private double nextTimeToChangeFrames;
@@ -48,7 +49,14 @@ public class Animation implements Drawable {
     }
 
     public void setState(AnimationState animationState) {
+    	if(this.animationState!=AnimationState.IDLE) {
+    		previousAnimationState = this.animationState;
+    	}
         this.animationState = animationState;
+    }
+
+    public void setPreviousState(AnimationState previousAnimationState) {
+    	this.previousAnimationState = previousAnimationState;
     }
 
     public void setAnimationLoopForState(AnimationState animationState, ArrayList<Image> animationLoop) {
@@ -56,6 +64,12 @@ public class Animation implements Drawable {
     }
 
     public ArrayList<Image> getAnimationLoopForState(AnimationState animationState) {
+    	if(animationState == AnimationState.IDLE) {
+    		ArrayList<Image> prevLoop = stateToAnimationLoop.get(previousAnimationState);
+    		ArrayList<Image> idleStateLoop = new ArrayList<Image>();
+    		idleStateLoop.add(prevLoop.get(0));
+    		return idleStateLoop;
+    	}
         return stateToAnimationLoop.get(animationState);
     }
 
@@ -121,22 +135,21 @@ public class Animation implements Drawable {
             drawHUD(g,sprite);
         }
 
-        if (stateToAnimationLoop.size() > 0) {
-            ArrayList<Image> frames = stateToAnimationLoop.get(this.animationState);
-            Image currentFrame = frames.get(frame % frames.size());
-            if (frame == frames.size()) {
-                frame = 0;
-            } else {
-                //restrict this increase to occur every loopPeriodSeconds by marking
-                //relevant times to execute
-                float timeElapsed = App.model.getTimeElapsed();
-                if (timeElapsed > nextTimeToChangeFrames) {
-                    nextTimeToChangeFrames = timeElapsed + loopPeriodSeconds;
-                    frame++;
-                }
-
-            }
-            g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth(), currentFrame.getHeight());
+        if(stateToAnimationLoop.size() > 0) {
+        	 ArrayList<Image> frames = getAnimationLoopForState(this.animationState);
+             Image currentFrame = frames.get(frame % frames.size());
+             if (frame == frames.size()) {
+                 frame = 0;
+             } else {
+                 //restrict this increase to occur every loopPeriodSeconds by marking
+                 //relevant times to execute
+                 float timeElapsed = App.model.getTimeElapsed();
+                 if (timeElapsed > nextTimeToChangeFrames) {
+                     nextTimeToChangeFrames = timeElapsed + loopPeriodSeconds;
+                     frame++;
+                 }
+             }
+             g.drawImage(currentFrame, sprite.getX(), sprite.getY(), currentFrame.getWidth(), currentFrame.getHeight());
         } else {
             g.fillRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
