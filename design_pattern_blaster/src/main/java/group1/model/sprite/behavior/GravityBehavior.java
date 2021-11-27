@@ -37,10 +37,6 @@ public class GravityBehavior implements Behavior
         {
             double velY = sprite.getVelocityY();
             velY = velY + gravity * App.model.getTimeDelta(); // v = u + gt
-            if (velY == 0)
-            {
-                velY = gravity;
-            }
             sprite.setVelocityY(velY);
         }
         else
