@@ -54,7 +54,7 @@ public final class SpriteFactory
         //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, -12)));
         //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayerMoveBehavior()));
         playerSprite.setColor(Color.BLUE);
         ArrayList<Image> playerImageRight;
         if(playerSprite.getAnimation().getAnimationLoopForState(AnimationState.RIGHT_MOVEMENT)==null)
