@@ -1,8 +1,6 @@
 package group1.model.sprite.behavior;
 import group1.App;
 import group1.model.sprite.Sprite;
-
-//Same as normal move behavior except it incrementally checks for collision with floors and stops movement if it's detected
 public class PlayerMoveBehavior implements Behavior 
 {
 	public void performBehavior(Sprite sprite)
@@ -19,28 +17,32 @@ public class PlayerMoveBehavior implements Behavior
         {
             while (dy < 0)
             {
-                y += -1;
-                dy += 1;
+                System.out.println(dy);
                 //If we're colliding with the floor
                 if (App.model.spriteIsCollidingWithFloor(sprite))
                 {
+                    System.out.println("PlayerMoveBehavior.java: STOPPING!");
                     //Stop falling / jumping
                     dy = 0;
                 }
+                y += -1;
+                dy += 1;
             }
         }
         else
         {
             while (dy > 0)
             {
-                y += 1;
-                dy += -1;
+                System.out.println(dy);
                 //If we're colliding with the floor
                 if (App.model.spriteIsCollidingWithFloor(sprite))
                 {
+                    System.out.println("PlayerMoveBehavior.java: STOPPING!");
                     //Stop falling / jumping
                     dy = 0;
                 }
+                y += 1;
+                dy += -1;
             }
         }
         //Move on the y
