@@ -589,6 +589,29 @@ public final class SpriteFactory
 
 		return observer;
 	}
+
+	public static Sprite observer(double x, double y) 
+	{
+        Sprite observer = new Sprite();
+        observer.setSpriteClassId(SpriteClassIdConstants.ENEMY);
+        observer.setWidth(50);
+        observer.setHeight(50);
+        observer.setVelocityX(5);
+        observer.setX(x);
+        observer.setY(y);
+        observer.setColor(Color.GOLD);
+
+		Sprite bulletSprite = enemyBullet();
+
+		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
+		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
+
+		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
+		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
+		observer.setDefaultCollisionBehavior(new DoNothingBehavior());
+
+		return observer;
+	}
 	
 	public static Sprite registerObserverButton(Sprite observable, ArrayList<Sprite> observers)
 	{
@@ -602,10 +625,41 @@ public final class SpriteFactory
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
 		return button;
 	}
+
+	public static Sprite registerObserverButton(Sprite observable, ArrayList<Sprite> observers, double x, double y, double width, double height)
+	{
+		Sprite button = new Sprite();
+        button.setX(x);
+        button.setY(Constants.FLOOR_Y - height);
+        button.setWidth(width);
+        button.setHeight(height);
+		ObservableBehavior ob = (ObservableBehavior)observable.getObservableBehavior();
+		ArrayList<ObserverBehavior> observerBehaviors = new ArrayList<>();
+		for (Sprite s : observers)
+		{
+			observerBehaviors.add((ObserverBehavior)s.getObserverBehavior());
+		}
+		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
+		return button;
+	}
 	
 	public static Sprite unregisterObserverButton(Sprite observable)
 	{
 		Sprite button = new Sprite();
+        button.setColor(Color.RED);
+		ObservableBehavior ob = (ObservableBehavior) observable.getObservableBehavior();
+		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new UnregisterObserverBehavior(ob));
+		return button;
+	}
+
+	public static Sprite unregisterObserverButton(Sprite observable, double x, double y, double width, double height)
+	{
+		Sprite button = new Sprite();
+        button.setX(x);
+        button.setY(Constants.FLOOR_Y - height);
+        button.setWidth(width);
+        button.setHeight(height);
+        button.setColor(Color.BLUE);
 		ObservableBehavior ob = (ObservableBehavior) observable.getObservableBehavior();
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new UnregisterObserverBehavior(ob));
 		return button;

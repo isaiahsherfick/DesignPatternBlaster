@@ -19,17 +19,25 @@ public class LevelFactory
 	{
         Sprite floor = SpriteFactory.floor(5000, 20);
         Sprite ladder = SpriteFactory.platform(100, 20, 300, 500);
-		Sprite player  = SpriteFactory.player();
+		Sprite player  = SpriteFactory.observablePlayer();
 
-		Sprite observer = SpriteFactory.observer(player, 1000, 25);
+		Sprite observer = SpriteFactory.observer(1000, 25);
 
-		Sprite observer2 = SpriteFactory.observer(player, 500, 25);
+		Sprite observer2 = SpriteFactory.observer(500, 25);
+        ArrayList<Sprite> observers = new ArrayList<>();
+        observers.add(observer);
+        observers.add(observer2);
+
+        Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 20, 20, 40, 20);
+        Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 1000, 20, 40, 20);
 
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
 
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
+        sprites.add(registerButton);
+        sprites.add(unregisterButton);
         sprites.add(floor);
         sprites.add(ladder);
 		sprites.add(player);
