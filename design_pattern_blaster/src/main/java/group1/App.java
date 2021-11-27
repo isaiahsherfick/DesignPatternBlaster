@@ -38,6 +38,7 @@ public class App extends Application
 			levels.add(LevelFactory.commanderLevel());
 			levels.add(LevelFactory.compositeLevel());
 			levels.add(LevelFactory.factoryLevel());
+			levels.add(LevelFactory.singletonLevel());
 			levels.add(LevelFactory.MVCLevel());
 
 			for (Level l : levels)

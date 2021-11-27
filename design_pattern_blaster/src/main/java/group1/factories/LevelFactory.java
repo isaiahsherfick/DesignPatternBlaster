@@ -86,12 +86,27 @@ public class LevelFactory
         sprites.add(floor);
 		sprites.add(player);
 		sprites.addAll(enemy.getChildren());
-//		sprites.add(enemy);
 		sprites.add(levelend);
 		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3");
 		compositeLevel.setFocusSprite(player);
 		return compositeLevel;
 	}
+
+	public static Level singletonLevel() {
+		Sprite floor = SpriteFactory.floor(10000, 20);
+		Sprite player = SpriteFactory.player();
+		ArrayList<Sprite> singletonEnemies = SpriteFactory.singletonEnemies();
+		Sprite spritePool = SpriteFactory.spritePool();
+		Sprite levelend = SpriteFactory.endOfLevelSprite();
+		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+        sprites.add(floor);
+		sprites.add(player);
+		sprites.add(spritePool);
+		sprites.addAll(singletonEnemies);
+		sprites.add(levelend);
+		Level singletonLevel = new Level(5,sprites, "Level_Music.mp3");
+		singletonLevel.setFocusSprite(player);
+		return singletonLevel;	}
 
 	public static Level factoryLevel()
 	{
@@ -137,14 +152,14 @@ public class LevelFactory
 
 		return MVCLevel;
 	}
-	
+
 	public static Level strategyLevel() {
 		Sprite player = SpriteFactory.player();
 
         Sprite floor = SpriteFactory.floor(5000, 20);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
-		
+
 		//take no damage power up
 		Sprite tndPowerUp = new Sprite();
 		tndPowerUp.setWidth(80);
@@ -153,9 +168,9 @@ public class LevelFactory
 		tndPowerUp.setX(100);
 		tndPowerUp.setY(Constants.WINDOW_HEIGHT / 2);
 		tndPowerUp.setColor(Color.RED);
-		
+
 		Sprite enemyStrategy1 = SpriteFactory.strategyEnemies(tndPowerUp, tndPowerUp.getSpriteClassId(), 1000, 25);
-		
+
 		//bullet size increase power up
 		Sprite bulletSizePowerUp = new Sprite();
 		bulletSizePowerUp.setWidth(80);
@@ -164,9 +179,9 @@ public class LevelFactory
 		bulletSizePowerUp.setX(200);
 		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 + 50);
 		bulletSizePowerUp.setColor(Color.MAGENTA);
-		
+
 		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
-		
+
 		ArrayList<Sprite> sprites = new ArrayList<>();
         sprites.add(floor);
 		sprites.add(enemyStrategy1);
@@ -175,9 +190,9 @@ public class LevelFactory
 		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
 		sprites.add(nextLevelSprite);
-		
+
 		Level strategyLevel = new Level(5, sprites, "Level_Music.mp3");
 		strategyLevel.setFocusSprite(player);
-		return strategyLevel;		
+		return strategyLevel;
 	}
 }

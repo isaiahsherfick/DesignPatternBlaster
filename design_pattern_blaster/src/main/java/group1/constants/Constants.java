@@ -1,6 +1,6 @@
 package group1.constants;
 
-public final class Constants 
+public final class Constants
 {
 	public static final int WINDOW_HEIGHT = 700; //Height of the main stage, App.java
 	public static final int WINDOW_WIDTH = 1200; //Width of the main stage, App.java
@@ -28,4 +28,6 @@ public final class Constants
     public static final int PLAYER_HEIGHT = 159; //Player's height
     public static final short PLAYER_Y = WINDOW_HEIGHT / 5; //Player's spawn Y
     public static final double MAX_JETPACK_DY = -20; //Player's terminal jetpack velocity
+	public static final double SPRITE_POOL_X = 1000;
+	public static final int DEFAULT_POOL_SPAWN_INDEX = 0;
 }

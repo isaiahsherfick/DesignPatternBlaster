@@ -383,7 +383,7 @@ public final class SpriteFactory
 		return factory;
 	}
 	public static Sprite strategyEnemies(Sprite powerUpSpriteToFollow, int powerUpID, int x, int y) {
-
+		
 		Sprite strategySpriteEnemy = new Sprite();
 		strategySpriteEnemy.setWidth(50);
 		strategySpriteEnemy.setHeight(50);
@@ -401,43 +401,43 @@ public final class SpriteFactory
         strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
 		strategySpriteEnemy.setColor(Color.PURPLE);
 		Sprite bulletSprite = enemyBullet();
-
+		
 		StrategyBehavior strategyBehavior = new StrategyBehavior(powerUpSpriteToFollow);
 		strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), strategyBehavior));
 		strategySpriteEnemy.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
 		strategyBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(strategySpriteEnemy.getHeight() + 20), bulletSprite, 20));
-
-
+		
+		
 		if(powerUpID == SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP) {
 			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
-
+			
 //			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior());
 			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior(strategyBehavior));
-
+			
 //			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEvent(), new PowerUpBehavior(strategyBehavior.setSpriteToMoveTowards(player)));
 
-
+			
 //			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
 //			tndb.isBehaviorSet(true);
 			strategyBehavior.setSpriteStrategy(new TakeNoDamageBehavior(strategySpriteEnemy));
-
+			
 			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
 		}
-
-
+		
+		
 		if(powerUpID == SpriteClassIdConstants.SIZE_INCREASE_POWERUP) {
 			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
-
+			
 //			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior());
 			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior(strategyBehavior));
-
+			
 //			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEvent(), new PowerUpBehavior(strategyBehavior.setSpriteToMoveTowards(player)));
 
-
+			
 //			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
 //			tndb.isBehaviorSet(true);
 			strategyBehavior.setSpriteStrategy(new IncreaseSpriteSizeBehavior(bulletSprite));
-
+			
 			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
 		}
 		return strategySpriteEnemy;
@@ -514,7 +514,8 @@ public final class SpriteFactory
 		return compositeEnemy;
 	}
 
-	public static Sprite observablePlayer()
+<<<<<<< Updated upstream
+	public static Sprite observablePlayer() 
 	{
 		Sprite player = player();
 		player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new ObservableBehavior()));
@@ -522,7 +523,7 @@ public final class SpriteFactory
 	}
 
 	//Blank observer sprite which can be registered to the player at runtime by another sprite
-	public static Sprite observer()
+	public static Sprite observer() 
 	{
         Sprite observer = new Sprite();
         observer.setSpriteClassId(SpriteClassIdConstants.ENEMY);
@@ -544,30 +545,7 @@ public final class SpriteFactory
 
 		return observer;
 	}
-
-	public static Sprite observer(double x, double y)
-	{
-        Sprite observer = new Sprite();
-        observer.setSpriteClassId(SpriteClassIdConstants.ENEMY);
-        observer.setWidth(50);
-        observer.setHeight(50);
-        observer.setVelocityX(5);
-        observer.setX(x);
-        observer.setY(y);
-        observer.setColor(Color.GOLD);
-
-		Sprite bulletSprite = enemyBullet();
-
-		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
-		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
-
-		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
-		observer.addCustomCollision(SpriteClassIdConstants.BULLET, new DisableBehavior());
-		observer.setDefaultCollisionBehavior(new DoNothingBehavior());
-
-		return observer;
-	}
-
+	
 	public static Sprite registerObserverButton(Sprite observable, ArrayList<Sprite> observers)
 	{
 		Sprite button = new Sprite();
@@ -580,46 +558,14 @@ public final class SpriteFactory
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
 		return button;
 	}
-
-	public static Sprite registerObserverButton(Sprite observable, ArrayList<Sprite> observers, double x, double y, double width, double height)
-	{
-		Sprite button = new Sprite();
-        button.setX(x);
-        button.setY(Constants.FLOOR_Y - height);
-        button.setWidth(width);
-        button.setHeight(height);
-		ObservableBehavior ob = (ObservableBehavior)observable.getObservableBehavior();
-		ArrayList<ObserverBehavior> observerBehaviors = new ArrayList<>();
-		for (Sprite s : observers)
-		{
-			observerBehaviors.add((ObserverBehavior)s.getObserverBehavior());
-		}
-		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
-		return button;
-	}
-
+	
 	public static Sprite unregisterObserverButton(Sprite observable)
 	{
 		Sprite button = new Sprite();
-        button.setColor(Color.RED);
 		ObservableBehavior ob = (ObservableBehavior) observable.getObservableBehavior();
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new UnregisterObserverBehavior(ob));
 		return button;
-	}
-
-	public static Sprite unregisterObserverButton(Sprite observable, double x, double y, double width, double height)
-	{
-		Sprite button = new Sprite();
-        button.setX(x);
-        button.setY(Constants.FLOOR_Y - height);
-        button.setWidth(width);
-        button.setHeight(height);
-        button.setColor(Color.BLUE);
-		ObservableBehavior ob = (ObservableBehavior) observable.getObservableBehavior();
-		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new UnregisterObserverBehavior(ob));
-		return button;
-	}
-
+=======
 	public static Sprite spritePool() {
 		Sprite pool = new Sprite();
         pool.setSpriteClassId(SpriteClassIdConstants.KILLZONE);
@@ -627,7 +573,7 @@ public final class SpriteFactory
         pool.setHeight(100);
         pool.setVelocityX(5);
         pool.setLayer(1);
-        pool.setX(Constants.SPRITE_POOL_X);
+        pool.setX(1000);
         pool.setY(Constants.FLOOR_Y);
         pool.setColor(Color.AQUA);
 //        SingletonPoolBehavior spb = new SingletonPoolBehavior();
@@ -663,19 +609,16 @@ public final class SpriteFactory
 
         Sprite enemy1 = singletonEnemy.copy();
 		enemy1.setX(1025);
-		SingletonPoolBehavior spb = new SingletonPoolBehavior();
-		spb.setSpawnIndex(0);
-		enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), spb));
+		enemy1.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new SingletonPoolBehavior()));
 		Sprite enemy2 = singletonEnemy.copy();
 		enemy2.setX(1125);
-		spb = new SingletonPoolBehavior();
-		spb.setSpawnIndex(1);
-		enemy2.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), spb));
+		enemy2.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new SingletonPoolBehavior()));
 
 		ArrayList<Sprite> enemyList = new ArrayList<Sprite>();
 		enemyList.add(enemy1);
 		enemyList.add(enemy2);
 
 		return enemyList;
+>>>>>>> Stashed changes
 	}
 }
