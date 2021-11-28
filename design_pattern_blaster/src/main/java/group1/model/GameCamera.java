@@ -6,8 +6,9 @@ import group1.model.sprite.Sprite;
 
 public class GameCamera
 {
-	private double x, y;
+	private double x, y, xMinClampPos, xMaxClampPos; 
 	private Sprite focusSprite;
+	
 	private boolean isMoving = false;
 
 	public boolean isMoving() {
@@ -35,8 +36,18 @@ public class GameCamera
 
 	//move camera keeping focus sprite at the center. We shall only be moving camera with respect to the x axis
 	public void moveCamera() {
-		if(isMoving)
-			x = -focusSprite.getX() + Constants.WINDOW_WIDTH/2;
+		double temp = -focusSprite.getX() + Constants.WINDOW_WIDTH/2;
+		if(isMoving) {
+			x = temp;
+			if(temp >= xMinClampPos) {
+				x = xMinClampPos;
+			}
+			
+			if(temp <= -xMaxClampPos) {
+				x = -xMaxClampPos;
+			}
+			
+		}
 	}
 
 	//set isMoving to false to stop camera movement
@@ -61,4 +72,21 @@ public class GameCamera
 	public void setYPos(double y) {
 		this.y = y;
 	}
+
+	public double getxMinClampPos() {
+		return xMinClampPos;
+	}
+
+	public void setxMinClampPos(double xMinClampPos) {
+		this.xMinClampPos = xMinClampPos;
+	}
+
+	public double getxMaxClampPos() {
+		return xMaxClampPos;
+	}
+
+	public void setxMaxClampPos(double xMaxClampPos) {
+		this.xMaxClampPos = xMaxClampPos;
+	}
+	
 }

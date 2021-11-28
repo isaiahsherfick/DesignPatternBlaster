@@ -122,6 +122,8 @@ public class LevelManager
 		App.model.clearSprites();
 		currentLevel = unfinishedLevels.get(0);
 		App.model.loadLevel(currentLevel);
+		App.model.getGameCamera().setxMinClampPos(currentLevel.getMinXBoundary());
+		App.model.getGameCamera().setxMaxClampPos(currentLevel.getMaxXBoundary());
 		//System.out.println("Loaded level#" + currentLevel.getLevelNumber());
 		Media song = currentLevel.getSong();
 		if (mediaPlayer != null)

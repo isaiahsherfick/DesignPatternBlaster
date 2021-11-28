@@ -48,8 +48,9 @@ public class LevelFactory
 		sprites.add(observer);
 		sprites.add(observer2);
 		sprites.add(nextLevelSprite);
-
-		Level observerLevel = new Level(1,sprites, "Level_Music.mp3");
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
+		Level observerLevel = new Level(1,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		observerLevel.setFocusSprite(player);
 		return observerLevel;
 	}
@@ -74,8 +75,9 @@ public class LevelFactory
 		sprites.add(subordinate);
 		sprites.add(levelend);
 
-
-		Level commanderLevel = new Level(3,sprites, "Level_Music.mp3");
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
+		Level commanderLevel = new Level(3,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}
@@ -93,7 +95,9 @@ public class LevelFactory
 		sprites.add(player);
 		sprites.addAll(enemy.getChildren());
 		sprites.add(levelend);
-		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3");
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
+		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		compositeLevel.setFocusSprite(player);
 		return compositeLevel;
 	}
@@ -111,7 +115,9 @@ public class LevelFactory
 		sprites.add(spritePool);
 		sprites.addAll(singletonEnemies);
 		sprites.add(levelend);
-		Level singletonLevel = new Level(5,sprites, "Level_Music.mp3");
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
+		Level singletonLevel = new Level(5,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		singletonLevel.setFocusSprite(player);
 		return singletonLevel;	}
 
@@ -132,7 +138,9 @@ public class LevelFactory
 		sprites.add(enemyFactory);
         sprites.add(platform);
         sprites.add(endOfLevelSprite);
-		Level factoryLevel = new Level(5, sprites, "Level_Music.mp3");
+        double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+        double maxXBoundary = Math.abs(endOfLevelSprite.getX() - Constants.WINDOW_WIDTH + endOfLevelSprite.getWidth());
+		Level factoryLevel = new Level(5, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		factoryLevel.setFocusSprite(player);
 		return factoryLevel;
 	}
@@ -156,11 +164,11 @@ public class LevelFactory
 		sprites.add(viewEnemy);
 		sprites.add(nextLevelSprite);
 		sprites.add(wall);
-
-		Level MVCLevel = new Level(6,sprites, "Boss_Music.mp3");
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
+		Level MVCLevel = new Level(6,sprites, "Boss_Music.mp3", minXBoundary, maxXBoundary);
 		//nullify focus
 		MVCLevel.setFocusSprite(SpriteFactory.dummyFocusSprite());
-
 		return MVCLevel;
 	}
 
@@ -202,7 +210,9 @@ public class LevelFactory
 		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
 		sprites.add(nextLevelSprite);
-		Level strategyLevel = new Level(2, sprites, "Level_Music.mp3");
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
+		Level strategyLevel = new Level(2, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		strategyLevel.setFocusSprite(player);
 		return strategyLevel;
 	}

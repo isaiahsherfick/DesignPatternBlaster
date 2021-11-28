@@ -15,6 +15,7 @@ public class Level
 	private Sprite focusSprite = new NullSprite();
 	
 	private ArrayList<Sprite> sprites;
+	private double minXBoundary, maxXBoundary, minYBoundary, maxYBoundary;
 
     private Media song;
 	
@@ -51,6 +52,19 @@ public class Level
 			sprites.add(i.next());
 		}
         this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
+	}
+	
+	public Level(int levelNumber, ArrayList<Sprite> spritesToAdd, String pathToSongFile, double minXBoundary, double maxXBoundary) {
+		this.levelNumber = levelNumber;
+		sprites = new ArrayList<>();
+		Iterator<Sprite> i = spritesToAdd.iterator();
+		while (i.hasNext())
+		{
+			sprites.add(i.next());
+		}
+        this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
+        this.setMinXBoundary(minXBoundary);
+        this.setMaxXBoundary(maxXBoundary);
 	}
 	
 	public void setFocusSprite(Sprite sprite)
@@ -96,4 +110,40 @@ public class Level
 	{
 		return sprites;
 	}
+
+	public double getMinXBoundary() {
+		return minXBoundary;
+	}
+
+	public void setMinXBoundary(double minXBoundary) {
+		this.minXBoundary = minXBoundary;
+		App.model.getGameCamera().setxMinClampPos(minXBoundary);
+	}
+
+	public double getMaxXBoundary() {
+		return maxXBoundary;
+	}
+
+	public void setMaxXBoundary(double maxXBoundary) {
+		this.maxXBoundary = maxXBoundary;
+		App.model.getGameCamera().setxMaxClampPos(maxXBoundary);
+	}
+
+	public double getMinYBoundary() {
+		return minYBoundary;
+	}
+
+	public void setMinYBoundary(double minYBoundary) {
+		this.minYBoundary = minYBoundary;
+	}
+
+	public double getMaxYBoundary() {
+		return maxYBoundary;
+	}
+
+	public void setMaxYBoundary(double maxYBoundary) {
+		this.maxYBoundary = maxYBoundary;
+	}
+
+	
 }
