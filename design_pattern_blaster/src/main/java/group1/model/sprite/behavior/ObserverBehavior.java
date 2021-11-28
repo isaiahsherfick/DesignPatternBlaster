@@ -72,7 +72,6 @@ public class ObserverBehavior implements Behavior
 	public void performBehavior(Sprite sprite) 
 	{
 		counter += App.model.getTimeDelta();
-        // System.out.println(sprite.getAnimation().getState());
 
 		if (observableChangedState())
 		{
@@ -125,7 +124,7 @@ public class ObserverBehavior implements Behavior
 		}
         else
         {
-            sprite.getAnimation().setState(AnimationState.IDLE);
+            sprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
         }
 	}
 	public Behavior copy()

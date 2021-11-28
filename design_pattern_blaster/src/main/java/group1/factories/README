@@ -13,3 +13,9 @@
     house factory methods for the various levels in our game. App.java then
     uses these methods to quickly construct the levels we want to put into
     the level manager and start up the game with.
+
+
+    NOTE: When adding animations to a sprite, setting anything to the IDLE
+    state does not seem to work. Instead, use another of the enums in
+    AnimationState to represent the idle behavior if you are switching to
+    it programmatically (as in the observer behavior)
