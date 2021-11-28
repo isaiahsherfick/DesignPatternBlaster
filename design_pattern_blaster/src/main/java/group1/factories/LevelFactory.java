@@ -15,52 +15,52 @@ public class LevelFactory
 {
 
 	private LevelFactory() {}
-	
+
 	public static Level observerLevelFlashScreen() {
 		Sprite screen = SpriteFactory.observerFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level observerLevelFlashScreen = new Level(0,sprites);
+		Level observerLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
 		return observerLevelFlashScreen;
 	}
-	
+
 	public static Level strategyLevelFlashScreen() {
 		Sprite screen = SpriteFactory.strategyFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level strategyLevelFlashScreen = new Level(0,sprites);
+		Level strategyLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
 		return strategyLevelFlashScreen;
 	}
-	
+
 	public static Level commanderLevelFlashScreen() {
 		Sprite screen = SpriteFactory.commanderFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level commanderLevelFlashScreen = new Level(0,sprites);
+		Level commanderLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
 		return commanderLevelFlashScreen;
 	}
-	
+
 	public static Level compositeLevelFlashScreen() {
 		Sprite screen = SpriteFactory.compositeFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level compositeLevelFlashScreen = new Level(0,sprites);
+		Level compositeLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
 		return compositeLevelFlashScreen;
 	}
-	
+
 	public static Level factoryLevelFlashScreen() {
 		Sprite screen = SpriteFactory.factoryFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level factoryLevelFlashScreen = new Level(0,sprites);
+		Level factoryLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
 		return factoryLevelFlashScreen;
 	}
-	
+
 	public static Level MVCLevelFlashScreen() {
 		Sprite screen = SpriteFactory.MVCFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level MVCLevelFlashScreen = new Level(0,sprites);
+		Level MVCLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
 		return MVCLevelFlashScreen;
 	}
 
