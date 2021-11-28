@@ -535,6 +535,26 @@ public final class SpriteFactory
         observer.setY(500);
         observer.setColor(Color.GOLD);
 
+        //Setting up animation
+
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/enemies/observer/Observer_EyeClosed.png").toUri().toString());
+        Image activeFrame = new Image(Paths.get("src/main/resources/assets/enemies/observer/Observer_EyeOpen_BluePupil.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> observerImageIdle = new ArrayList<>();
+        ArrayList<Image> observerImageActive = new ArrayList<>();
+        observerImageIdle.add(idleFrame);
+        observerImageActive.add(activeFrame);
+
+        //Add them to animation object
+        observer.getAnimation().setAnimationLoopForState(AnimationState.IDLE, observerImageIdle);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, observerImageActive);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImageActive);
+
+        //Set the observer to be idle
+        observer.getAnimation().setState(AnimationState.IDLE);
+
 		Sprite bulletSprite = enemyBullet();
 
 		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
@@ -558,6 +578,25 @@ public final class SpriteFactory
         observer.setY(y);
         observer.setColor(Color.GOLD);
 
+        //Setting up animation
+
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/enemies/observer/Observer_EyeClosed.png").toUri().toString());
+        Image activeFrame = new Image(Paths.get("src/main/resources/assets/enemies/observer/Observer_EyeOpen_BluePupil.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> observerImageIdle = new ArrayList<>();
+        ArrayList<Image> observerImageActive = new ArrayList<>();
+        observerImageIdle.add(idleFrame);
+        observerImageActive.add(activeFrame);
+
+        //Add them to animation object
+        observer.getAnimation().setAnimationLoopForState(AnimationState.IDLE, observerImageIdle);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, observerImageActive);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImageActive);
+
+        //Set the observer to be idle
+        observer.getAnimation().setState(AnimationState.IDLE);
 		Sprite bulletSprite = enemyBullet();
 
 		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);

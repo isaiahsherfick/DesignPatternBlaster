@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.simple.JSONObject;
 
 import group1.App;
+import group1.model.sprite.*;
 import group1.constants.Constants;
 import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
@@ -71,9 +72,12 @@ public class ObserverBehavior implements Behavior
 	public void performBehavior(Sprite sprite) 
 	{
 		counter += App.model.getTimeDelta();
+        // System.out.println(sprite.getAnimation().getState());
 
 		if (observableChangedState())
 		{
+            //TODO fix all this stuff
+            sprite.getAnimation().setState(AnimationState.RIGHT_MOVEMENT);
 			Sprite nearestPlayerSprite = getNearestPlayerSprite(sprite);
 			sprite.turnTowards(nearestPlayerSprite);
 			double x = sprite.getX();
@@ -119,6 +123,10 @@ public class ObserverBehavior implements Behavior
 			}
 			updated = false; //reset boolean to not get stuck 
 		}
+        else
+        {
+            sprite.getAnimation().setState(AnimationState.IDLE);
+        }
 	}
 	public Behavior copy()
 	{

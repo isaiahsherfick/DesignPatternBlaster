@@ -55,6 +55,11 @@ public class Animation implements Drawable {
         this.animationState = animationState;
     }
 
+    public AnimationState getState()
+    {
+        return this.animationState;
+    }
+
     public void setPreviousState(AnimationState previousAnimationState) {
     	this.previousAnimationState = previousAnimationState;
     }

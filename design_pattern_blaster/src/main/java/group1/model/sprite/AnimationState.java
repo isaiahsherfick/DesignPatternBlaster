@@ -9,5 +9,5 @@ package group1.model.sprite;
 public enum AnimationState {
     IDLE,
     RIGHT_MOVEMENT,
-    LEFT_MOVEMENT
+    LEFT_MOVEMENT,
 }
