@@ -19,7 +19,7 @@ public class PowerUpBehavior implements Behavior{
 //        	if(eventIterator.next().equals(behavior))
 //		}
 		strategyBehavior.setExecution(true);
-		strategyBehavior.setSpriteToMoveTowards(App.model.getLevelManager().getLevel(5).getFocusSprite());
+		strategyBehavior.setSpriteToMoveTowards(App.model.getLevelManager().getLevel(2).getFocusSprite());
 	}
 
 	@Override
