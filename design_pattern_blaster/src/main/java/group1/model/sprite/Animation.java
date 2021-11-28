@@ -69,13 +69,16 @@ public class Animation implements Drawable {
     }
 
     public ArrayList<Image> getAnimationLoopForState(AnimationState animationState) {
+    	if(stateToAnimationLoop.containsKey(animationState)) {
+    		return stateToAnimationLoop.get(animationState);
+    	}
     	if(animationState == AnimationState.IDLE) {
     		ArrayList<Image> prevLoop = stateToAnimationLoop.get(previousAnimationState);
     		ArrayList<Image> idleStateLoop = new ArrayList<Image>();
     		idleStateLoop.add(prevLoop.get(0));
     		return idleStateLoop;
     	}
-        return stateToAnimationLoop.get(animationState);
+    	return new ArrayList<Image>();
     }
 
     public void setLoopPeriodSeconds(double loopPeriodSeconds) {
