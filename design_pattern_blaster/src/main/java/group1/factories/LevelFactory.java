@@ -18,25 +18,26 @@ public class LevelFactory
 
 	public static Level observerLevel()
 	{
-        Sprite floor = SpriteFactory.floor(5000, 20);
+        Sprite floor = SpriteFactory.floor(10000, 20);
+        floor.setX(0);
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
         platform.setSpriteId(200); //set it high so we know it won't get overwritten upon insertion
 		Sprite player  = SpriteFactory.observablePlayer();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
         player.addCustomCollision(200, new CollideWithFloorNoClipBehavior(platform));
 
-		Sprite observer = SpriteFactory.observer(1000, 25);
+		Sprite observer = SpriteFactory.observer(3000, 25);
 
-		Sprite observer2 = SpriteFactory.observer(500, 25);
+		Sprite observer2 = SpriteFactory.observer(2500, 25);
         ArrayList<Sprite> observers = new ArrayList<>();
         observers.add(observer);
         observers.add(observer2);
 
-        Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 20, 20, 40, 20);
-        Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 1000, 20, 40, 20);
+        Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
+        Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
 
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
-		nextLevelSprite.setX(2000);
+		nextLevelSprite.setX(8000);
 
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
