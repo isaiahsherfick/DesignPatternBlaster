@@ -1,5 +1,9 @@
 package group1.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import group1.App;
 import group1.constants.Constants;
 import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
@@ -8,8 +12,9 @@ public class GameCamera
 {
 	private double x, y, xMinClampPos, xMaxClampPos; 
 	private Sprite focusSprite;
-	
+	private Iterator<Sprite> spriteIterator;
 	private boolean isMoving = false;
+	ArrayList<Sprite> allSprites = new ArrayList<>();
 
 	public boolean isMoving() {
 		return isMoving;
@@ -46,8 +51,24 @@ public class GameCamera
 			if(temp <= -xMaxClampPos) {
 				x = -xMaxClampPos;
 			}
-			
+			checkSpriteStatus();
 		}
+	}
+	
+	public void checkSpriteStatus() {
+			allSprites = App.model.getLevelManager().getCurrentLevel().getAllSpritesOnLevel();
+			spriteIterator = allSprites.iterator();
+			while (spriteIterator.hasNext())
+			{
+				double diff = Math.abs(getXPos() - spriteIterator.next().getX());
+				
+				if(diff > Constants.WINDOW_WIDTH) {
+					//disable sprites
+				}
+				else {
+					//enable sprites
+				}
+			}
 	}
 
 	//set isMoving to false to stop camera movement

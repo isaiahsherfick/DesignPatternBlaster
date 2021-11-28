@@ -60,6 +60,10 @@ public class Sprite implements Loadable
 
 	//Color - only used when the sprite is drawn using a primitive JFX shape, will eventually be deprecated
 	protected Color color;
+	
+	protected boolean alive;
+	
+	protected boolean visible;
 
 	public Animation getAnimation()
 	{
@@ -125,6 +129,8 @@ public class Sprite implements Loadable
 		layer = 0;
 		direction = Constants.LEFT;
 		enabled = true;
+		alive = false;
+		visible = false;
 		color = Color.RED;
 	}
 
@@ -324,6 +330,22 @@ public class Sprite implements Loadable
 	public void setSpriteId(int newId)
 	{
 		spriteId = newId;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 	public void draw(GraphicsContext g)
