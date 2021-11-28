@@ -15,6 +15,55 @@ public class LevelFactory
 {
 
 	private LevelFactory() {}
+	
+	public static Level observerLevelFlashScreen() {
+		Sprite screen = SpriteFactory.observerFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level observerLevelFlashScreen = new Level(0,sprites);
+		return observerLevelFlashScreen;
+	}
+	
+	public static Level strategyLevelFlashScreen() {
+		Sprite screen = SpriteFactory.strategyFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level strategyLevelFlashScreen = new Level(0,sprites);
+		return strategyLevelFlashScreen;
+	}
+	
+	public static Level commanderLevelFlashScreen() {
+		Sprite screen = SpriteFactory.commanderFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level commanderLevelFlashScreen = new Level(0,sprites);
+		return commanderLevelFlashScreen;
+	}
+	
+	public static Level compositeLevelFlashScreen() {
+		Sprite screen = SpriteFactory.compositeFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level compositeLevelFlashScreen = new Level(0,sprites);
+		return compositeLevelFlashScreen;
+	}
+	
+	public static Level factoryLevelFlashScreen() {
+		Sprite screen = SpriteFactory.factoryFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level factoryLevelFlashScreen = new Level(0,sprites);
+		return factoryLevelFlashScreen;
+	}
+	
+	public static Level MVCLevelFlashScreen() {
+		Sprite screen = SpriteFactory.MVCFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level MVCLevelFlashScreen = new Level(0,sprites);
+		return MVCLevelFlashScreen;
+	}
+
 
 	public static Level observerLevel()
 	{
@@ -64,7 +113,9 @@ public class LevelFactory
 		Sprite player = SpriteFactory.player();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		Sprite subordinate = SpriteFactory.subordinate();
-		Sprite commander = SpriteFactory.commander(subordinate);
+		Sprite invisibleSubordinate = SpriteFactory.InvisibleSubordinate();
+		invisibleSubordinate.setDirection(Constants.RIGHT);
+		Sprite commander = SpriteFactory.commander(invisibleSubordinate);
 		commander.setY(250);
 		subordinate.setDirection(Constants.RIGHT);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
@@ -74,6 +125,7 @@ public class LevelFactory
 		sprites.add(player);
 		sprites.add(commander);
 		sprites.add(subordinate);
+		sprites.add(invisibleSubordinate);
 		sprites.add(levelend);
 
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);

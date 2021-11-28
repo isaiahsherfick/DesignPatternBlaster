@@ -33,12 +33,23 @@ public class App extends Application
 
 			ArrayList<Level> levels = new ArrayList<>();
 			//This is the order the levels will appear in
+
+			levels.add(LevelFactory.observerLevelFlashScreen());
 			levels.add(LevelFactory.observerLevel());
+			
+			levels.add(LevelFactory.strategyLevelFlashScreen());
 			levels.add(LevelFactory.strategyLevel());
+			
+			levels.add(LevelFactory.commanderLevelFlashScreen());
 			levels.add(LevelFactory.commanderLevel());
+			
+			levels.add(LevelFactory.compositeLevelFlashScreen());
 			levels.add(LevelFactory.compositeLevel());
-			levels.add(LevelFactory.factoryLevel());
-			levels.add(LevelFactory.singletonLevel());
+			
+			levels.add(LevelFactory.factoryLevelFlashScreen());
+			levels.add(LevelFactory.compositeLevel());
+			
+			levels.add(LevelFactory.MVCLevelFlashScreen());
 			levels.add(LevelFactory.MVCLevel());
 
 			for (Level l : levels)

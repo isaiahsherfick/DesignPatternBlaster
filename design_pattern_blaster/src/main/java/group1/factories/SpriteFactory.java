@@ -305,6 +305,30 @@ public final class SpriteFactory
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
         return bulletSprite;
     }
+	
+	public static Sprite InvisibleSubordinate()
+	{
+		Sprite subordinate = new Sprite();
+		subordinate.setWidth(40);
+		subordinate.setHeight(50);
+		subordinate.setX(100);
+		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
+		subordinate.setColor(Color.TRANSPARENT);
+		subordinate.setSpriteClassId(SpriteClassIdConstants.SUBORDINATE);
+
+		Sprite bulletSprite = enemyBullet();
+		bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
+		bulletSprite.setHeight(30);
+		bulletSprite.setWidth(30);
+		bulletSprite.setVelocityY(0);
+		bulletSprite.setVelocityX(10);
+		bulletSprite.setColor(Color.GREEN);
+
+		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(20),(int)(subordinate.getHeight() - 70), bulletSprite));
+		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
+		return subordinate;
+	}
+
 
 	public static Sprite subordinate()
 	{
@@ -323,7 +347,7 @@ public final class SpriteFactory
 		bulletSprite.setVelocityY(0);
 		bulletSprite.setVelocityX(10);
 
-		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(0),(int)(subordinate.getHeight() - 50), bulletSprite));
+		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(0),(int)(subordinate.getHeight() - 110), bulletSprite));
 		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 		return subordinate;
 	}
@@ -719,4 +743,228 @@ public final class SpriteFactory
 
 		return enemyList;
 	}
+	
+	 public static Sprite observerFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+	    	
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+	        
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+	        
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+	    	
+	    }
+
+	 public static Sprite strategyFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+	    	
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+	        
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+	        
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+	    	
+	    }
+	 
+	 public static Sprite commanderFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+	    	
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+	        
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+	        
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+	    	
+	    }
+	 
+	 public static Sprite compositeFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+	    	
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+	        
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+	        
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+	    	
+	    }
+	 
+	 public static Sprite factoryFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+	    	
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+	        
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+	        
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+	    	
+	    }
+	 
+	 public static Sprite MVCFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+	    	
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+	        
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+	        
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+	    	
+	    }
+	 
+	
 }
