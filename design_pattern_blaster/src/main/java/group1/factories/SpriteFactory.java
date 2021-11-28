@@ -572,11 +572,12 @@ public final class SpriteFactory
         observerImageActive.add(activeFrame);
 
         //Add them to animation object
-        observer.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImageIdle);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.IDLE, observerImageIdle);
         observer.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, observerImageActive);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImageActive);
 
         //Set the observer to be idle
-        observer.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+        observer.getAnimation().setState(AnimationState.IDLE);
 
 		Sprite bulletSprite = enemyBullet();
 
@@ -614,11 +615,12 @@ public final class SpriteFactory
         observerImageActive.add(activeFrame);
 
         //Add them to animation object
+        observer.getAnimation().setAnimationLoopForState(AnimationState.IDLE, observerImageIdle);
         observer.getAnimation().setAnimationLoopForState(AnimationState.RIGHT_MOVEMENT, observerImageActive);
-        observer.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImageIdle);
+        observer.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImageActive);
 
         //Set the observer to be idle
-        observer.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+        observer.getAnimation().setState(AnimationState.IDLE);
 		Sprite bulletSprite = enemyBullet();
 
 		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
