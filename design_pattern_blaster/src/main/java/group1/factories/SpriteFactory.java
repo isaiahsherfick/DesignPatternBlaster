@@ -444,14 +444,8 @@ public final class SpriteFactory
 		if(powerUpID == SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP) {
 			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
 
-//			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior());
 			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior(strategyBehavior));
 
-//			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEvent(), new PowerUpBehavior(strategyBehavior.setSpriteToMoveTowards(player)));
-
-
-//			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
-//			tndb.isBehaviorSet(true);
 			strategyBehavior.setSpriteStrategy(new TakeNoDamageBehavior(strategySpriteEnemy));
 
 			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
@@ -461,20 +455,40 @@ public final class SpriteFactory
 		if(powerUpID == SpriteClassIdConstants.SIZE_INCREASE_POWERUP) {
 			powerUpSpriteToFollow.addCustomCollision(strategySpriteEnemy.getSpriteClassId(), new DisableBehavior());
 
-//			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior());
 			strategySpriteEnemy.addCustomCollision(powerUpID, new PowerUpBehavior(strategyBehavior));
 
-//			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEvent(), new PowerUpBehavior(strategyBehavior.setSpriteToMoveTowards(player)));
 
 
-//			TakeNoDamageBehavior tndb = new TakeNoDamageBehavior(strategySpriteEnemy);
-//			tndb.isBehaviorSet(true);
 			strategyBehavior.setSpriteStrategy(new IncreaseSpriteSizeBehavior(bulletSprite));
 
 			strategySpriteEnemy.addEventBehavior(new EventBehavior(GameEvent.PowerUpEndEvent(), new PowerUpEndBehavior(strategyBehavior)));
 		}
 		return strategySpriteEnemy;
     }
+	
+	public static Sprite bulletPowerUp() {
+		Sprite bulletSizePowerUp = new Sprite();
+		bulletSizePowerUp.setWidth(80);
+		bulletSizePowerUp.setSpriteClassId(SpriteClassIdConstants.SIZE_INCREASE_POWERUP);
+		bulletSizePowerUp.setHeight(50);
+		bulletSizePowerUp.setX(200);
+		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 - 200);
+		bulletSizePowerUp.setColor(Color.MAGENTA);
+		
+		//Getting images
+        Image image1 = new Image(Paths.get("src/main/resources/assets/strategies/bullet/bullet1.png").toUri().toString());
+        Image image2 = new Image(Paths.get("src/main/resources/assets/strategies/bullet/bullet_glow1.png").toUri().toString());
+        
+        ArrayList<Image> imageIdle = new ArrayList<>();
+        imageIdle.add(image1);
+        imageIdle.add(image2);
+        
+      //Add them to animation object
+        bulletSizePowerUp.getAnimation().setAnimationLoopForState(AnimationState.IDLE, imageIdle);
+        bulletSizePowerUp.getAnimation().setState(AnimationState.IDLE);
+        
+        return bulletSizePowerUp;
+	}
 
 	public static CompositeSprite compositeEnemy() {
 		CompositeSprite compositeEnemyBlueprint = new CompositeSprite();

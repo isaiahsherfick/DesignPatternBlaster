@@ -234,33 +234,35 @@ public class LevelFactory
 		nextLevelSprite.setX(2000);
 
 		//take no damage power up
-		Sprite tndPowerUp = new Sprite();
-		tndPowerUp.setWidth(80);
-		tndPowerUp.setSpriteClassId(SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP);
-		tndPowerUp.setHeight(50);
-		tndPowerUp.setX(100);
-		tndPowerUp.setY(Constants.WINDOW_HEIGHT / 2);
-		tndPowerUp.setColor(Color.RED);
-
-		Sprite enemyStrategy1 = SpriteFactory.strategyEnemies(tndPowerUp, tndPowerUp.getSpriteClassId(), 1000, 25);
+//		Sprite tndPowerUp = new Sprite();
+//		tndPowerUp.setWidth(80);
+//		tndPowerUp.setSpriteClassId(SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP);
+//		tndPowerUp.setHeight(50);
+//		tndPowerUp.setX(100);
+//		tndPowerUp.setY(Constants.WINDOW_HEIGHT / 2);
+//		tndPowerUp.setColor(Color.RED);
+//
+//		Sprite enemyStrategy1 = SpriteFactory.strategyEnemies(tndPowerUp, tndPowerUp.getSpriteClassId(), 1000, 25);
 
 		//bullet size increase power up
-		Sprite bulletSizePowerUp = new Sprite();
-		bulletSizePowerUp.setWidth(80);
-		bulletSizePowerUp.setSpriteClassId(SpriteClassIdConstants.SIZE_INCREASE_POWERUP);
-		bulletSizePowerUp.setHeight(50);
-		bulletSizePowerUp.setX(200);
-		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 + 50);
-		bulletSizePowerUp.setColor(Color.MAGENTA);
+//		Sprite bulletSizePowerUp = new Sprite();
+//		bulletSizePowerUp.setWidth(80);
+//		bulletSizePowerUp.setSpriteClassId(SpriteClassIdConstants.SIZE_INCREASE_POWERUP);
+//		bulletSizePowerUp.setHeight(50);
+//		bulletSizePowerUp.setX(200);
+//		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 + 50);
+//		bulletSizePowerUp.setColor(Color.MAGENTA);
+		
+		Sprite bulletSizePowerUp = SpriteFactory.bulletPowerUp();
 
 		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
         sprites.add(floor);
-		sprites.add(enemyStrategy1);
+//		sprites.add(enemyStrategy1);
 		sprites.add(enemyStrategy2);
 		sprites.add(player);
-		sprites.add(tndPowerUp);
+//		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
 		sprites.add(nextLevelSprite);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
