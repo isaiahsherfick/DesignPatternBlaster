@@ -18,4 +18,5 @@ public final class SpriteClassIdConstants
 	public static final int ENEMY_BULLET = -12;
 	public static final int TAKE_NO_DAMAGE_POWERUP = -13;
 	public static final int SIZE_INCREASE_POWERUP = -14;
+	public static final int PICKUP_NEW_GUN = -15;
 }

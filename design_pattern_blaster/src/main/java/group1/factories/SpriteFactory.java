@@ -489,6 +489,32 @@ public final class SpriteFactory
         
         return bulletSizePowerUp;
 	}
+	
+	public static Sprite pickNewGun() {
+		Sprite newGun = new Sprite();
+		newGun.setWidth(80);
+		newGun.setSpriteClassId(SpriteClassIdConstants.PICKUP_NEW_GUN);
+		newGun.setHeight(50);
+		newGun.setX(900);
+		newGun.setY(Constants.WINDOW_HEIGHT / 2 - 50);
+		newGun.setColor(Color.MAGENTA);
+		
+		//Getting images
+        Image image1 = new Image(Paths.get("src/main/resources/assets/strategies/gun/gun1.png").toUri().toString());
+        Image image2 = new Image(Paths.get("src/main/resources/assets/strategies/gun/gun_glow1.png").toUri().toString());
+        
+        ArrayList<Image> imageIdle = new ArrayList<>();
+        imageIdle.add(image1);
+        imageIdle.add(image2);
+        
+      //Add them to animation object
+        newGun.getAnimation().setAnimationLoopForState(AnimationState.IDLE, imageIdle);
+        newGun.getAnimation().setState(AnimationState.IDLE);
+        
+        return newGun;
+		
+		
+	}
 
 	public static CompositeSprite compositeEnemy() {
 		CompositeSprite compositeEnemyBlueprint = new CompositeSprite();

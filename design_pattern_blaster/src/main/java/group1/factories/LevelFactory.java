@@ -232,7 +232,9 @@ public class LevelFactory
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
-
+		Sprite platform = SpriteFactory.platform(100, 20, 700, 500);
+        platform.setSpriteId(220); //set it high so we know it won't get overwritten upon insertion
+        player.addCustomCollision(220, new CollideWithFloorNoClipBehavior(platform));
 		//take no damage power up
 //		Sprite tndPowerUp = new Sprite();
 //		tndPowerUp.setWidth(80);
@@ -257,14 +259,21 @@ public class LevelFactory
 
 		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
 
+		//new gun
+		
+		Sprite newGun = SpriteFactory.pickNewGun();
+		player.addCustomCollision(SpriteClassIdConstants.PICKUP_NEW_GUN, new PickNewGunBehavior(player));
+		newGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
 		ArrayList<Sprite> sprites = new ArrayList<>();
         sprites.add(floor);
 //		sprites.add(enemyStrategy1);
 		sprites.add(enemyStrategy2);
+		sprites.add(platform);
 		sprites.add(player);
 //		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
 		sprites.add(nextLevelSprite);
+		sprites.add(newGun);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level strategyLevel = new Level(2, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
