@@ -36,6 +36,9 @@ public class Animation implements Drawable {
     private double nextTimeToChangeFrames;
     private double loopPeriodSeconds = .25;
     private Font HUDFont;
+    private String nextStringDisplay = "PLACEHOLDER";
+    private double nextStringXCoord = 0;
+    private double nextStringYCoord = 0;
 
     public Animation() {
         stateToAnimationLoop = new HashMap<>();
@@ -46,6 +49,12 @@ public class Animation implements Drawable {
         } catch (FileNotFoundException e) {
             HUDFont = Font.getDefault();
         }
+    }
+
+    public void primeAnimationForStringDisplay(String nextStringDisplay, double x, double y){
+        this.nextStringDisplay = nextStringDisplay;
+        this.nextStringXCoord = x;
+        this.nextStringYCoord = y;
     }
 
     public void setState(AnimationState animationState) {
@@ -141,6 +150,12 @@ public class Animation implements Drawable {
 
         if (App.model.getCurrentLevel().getFocusSprite().getSpriteId() == sprite.getSpriteId()){
             drawHUD(g,sprite);
+        }
+
+        if(!nextStringDisplay.equals("PLACEHOLDER")){
+            g.setFont(HUDFont);
+            g.setFill(Color.RED);
+            g.fillText(nextStringDisplay,nextStringXCoord,nextStringYCoord);
         }
 
         if(stateToAnimationLoop.size() > 0) {

@@ -3,12 +3,19 @@ package group1.model.sprite.behavior;
 import group1.App;
 import group1.constants.Constants;
 import group1.factories.SpriteFactory;
+import group1.model.sprite.AnimationState;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
+import group1.viewcontroller.ViewController;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ViewBehavior implements Behavior {
@@ -85,6 +92,14 @@ public class ViewBehavior implements Behavior {
         bullet.setVelocityY(0);
         bullet.setWidth(30);
         bullet.setColor(Color.LIME);
+        /**
+        Image avatar = new Image(Paths.get("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png").toUri().toString());
+        ArrayList<Image> avatarAppearance = new ArrayList<>();
+        avatarAppearance.add(avatar);
+        bullet.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
+        bullet.getAnimation().setState(AnimationState.IDLE);
+        System.out.println(bullet.getAnimation().getAnimationLoopForState(AnimationState.IDLE));
+         **/
         Behavior restoreTimeBehavior = new Behavior() {
             @Override
             public void performBehavior(Sprite sprite) {
@@ -129,6 +144,8 @@ public class ViewBehavior implements Behavior {
 
         counter += App.model.getTimeDelta();
         timeRemaining -= App.model.getTimeDelta();
+        double rounded = getRounded(timeRemaining);
+        sprite.getAnimation().primeAnimationForStringDisplay("Time Left: " + rounded, 0, 50);
         if(timeRemaining <=0){
             sprite.disable();
         }
@@ -137,6 +154,13 @@ public class ViewBehavior implements Behavior {
             shootBehavior.performBehavior(sprite);
             counter = 0.0;
         }
+    }
+
+    private double getRounded(double value) {
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        double rounded = bd.doubleValue();
+        return rounded;
     }
 
     @Override

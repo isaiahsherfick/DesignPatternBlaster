@@ -141,15 +141,20 @@ public final class SpriteFactory
     public static Sprite viewSprite()
     {
         Sprite viewSprite = new Sprite();
-        viewSprite.setWidth(50);
-        viewSprite.setHeight(Constants.WINDOW_HEIGHT);
+        //viewSprite.setWidth(50);
+        //viewSprite.setHeight(Constants.WINDOW_HEIGHT);
         viewSprite.setVelocityX(0);
         viewSprite.setVelocityY(0);
+        viewSprite.setX(viewSprite.getX()+60);
         viewSprite.setColor(Color.GRAY);
         viewSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
         viewSprite.setSpriteClassId(-9); //placeholder
         viewSprite.setDirection(Constants.LEFT);
-
+        Image avatar = new Image(Paths.get("src/main/resources/assets/MVC/MVCRequestSender.png").toUri().toString());
+        ArrayList<Image> avatarAppearance = new ArrayList<>();
+        avatarAppearance.add(avatar);
+        viewSprite.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
+        viewSprite.getAnimation().setState(AnimationState.IDLE);
 
         ViewBehavior viewBehavior = new ViewBehavior();
         viewBehavior.setShootSpriteBehavior(viewBehavior);
@@ -184,7 +189,9 @@ public final class SpriteFactory
         Sprite playerSprite = player();
         playerSprite.getEventBehaviors().clear();
         playerSprite.setVelocityY(0.1);
-        playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(10, 0));
+        playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(20, 0));
+       // playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.CEILING, new MoveSetAmountBehavior(0, 50));
+
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.A, -1*Constants.PLAYER_DX)));
