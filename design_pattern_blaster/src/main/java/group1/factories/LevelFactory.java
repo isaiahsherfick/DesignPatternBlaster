@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import group1.constants.Constants;
 import group1.model.sprite.behavior.*;
+import group1.model.sprite.game_event.GameEvent;
 import group1.model.level.Level;
 import group1.model.sprite.CompositeSprite;
+import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.SpriteManager;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 public class LevelFactory
@@ -90,6 +93,14 @@ public class LevelFactory
 
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
+
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
         sprites.add(registerButton);
         sprites.add(unregisterButton);
         sprites.add(floor);
@@ -121,6 +132,14 @@ public class LevelFactory
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
+
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(commander);
@@ -135,6 +154,27 @@ public class LevelFactory
 		return commanderLevel;
 	}
 
+//	public static Level compositeLevel()
+//	{
+//		Sprite floor = SpriteFactory.floor(10000, 20);
+//		Sprite player = SpriteFactory.player();
+//        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
+//		player.setX(player.getX()-300);
+//		CompositeSprite enemy = SpriteFactory.compositeEnemy();
+//		ArrayList<Sprite> sprites = new ArrayList<>();
+//		Sprite levelend = SpriteFactory.endOfLevelSprite();
+//        sprites.add(floor);
+//		sprites.add(player);
+//		sprites.addAll(enemy.getChildren());
+//		sprites.add(levelend);
+//		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+//		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
+//		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
+//		compositeLevel.setFocusSprite(player);
+//		return compositeLevel;
+//	}
+
+
 	public static Level compositeLevel()
 	{
 		Sprite floor = SpriteFactory.floor(10000, 20);
@@ -143,9 +183,16 @@ public class LevelFactory
 		player.setX(player.getX()-300);
 		CompositeSprite enemy = SpriteFactory.compositeEnemy();
 		ArrayList<Sprite> sprites = new ArrayList<>();
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
         sprites.add(floor);
 		sprites.add(player);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
 		sprites.addAll(enemy.getChildren());
 		sprites.add(levelend);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
@@ -163,6 +210,13 @@ public class LevelFactory
 		Sprite spritePool = SpriteFactory.spritePool();
 		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(spritePool);
@@ -186,6 +240,13 @@ public class LevelFactory
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
         Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
         endOfLevelSprite.setX(1500);
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(enemyFactory);
@@ -212,6 +273,13 @@ public class LevelFactory
 		nextLevelSprite.setX(2000);
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(viewEnemy);
@@ -254,17 +322,24 @@ public class LevelFactory
 //		bulletSizePowerUp.setX(200);
 //		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 + 50);
 //		bulletSizePowerUp.setColor(Color.MAGENTA);
-		
+
 		Sprite bulletSizePowerUp = SpriteFactory.bulletPowerUp();
 
 		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
 
 		//new gun
-		
+
 		Sprite newGun = SpriteFactory.pickNewGun();
 		player.addCustomCollision(SpriteClassIdConstants.PICKUP_NEW_GUN, new PickNewGunBehavior(player));
 		newGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
 		ArrayList<Sprite> sprites = new ArrayList<>();
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		sprites.add(computerIcon);
+		sprites.add(popup);
+		sprites.add(interactTrigger);
         sprites.add(floor);
 //		sprites.add(enemyStrategy1);
 		sprites.add(enemyStrategy2);

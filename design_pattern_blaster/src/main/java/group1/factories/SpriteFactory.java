@@ -312,7 +312,7 @@ public final class SpriteFactory
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
         return bulletSprite;
     }
-	
+
 	public static Sprite InvisibleSubordinate()
 	{
 		Sprite subordinate = new Sprite();
@@ -465,7 +465,7 @@ public final class SpriteFactory
 		}
 		return strategySpriteEnemy;
     }
-	
+
 	public static Sprite bulletPowerUp() {
 		Sprite bulletSizePowerUp = new Sprite();
 		bulletSizePowerUp.setWidth(80);
@@ -474,22 +474,22 @@ public final class SpriteFactory
 		bulletSizePowerUp.setX(200);
 		bulletSizePowerUp.setY(Constants.WINDOW_HEIGHT / 2 - 200);
 		bulletSizePowerUp.setColor(Color.MAGENTA);
-		
+
 		//Getting images
         Image image1 = new Image(Paths.get("src/main/resources/assets/strategies/bullet/bullet1.png").toUri().toString());
         Image image2 = new Image(Paths.get("src/main/resources/assets/strategies/bullet/bullet_glow1.png").toUri().toString());
-        
+
         ArrayList<Image> imageIdle = new ArrayList<>();
         imageIdle.add(image1);
         imageIdle.add(image2);
-        
+
       //Add them to animation object
         bulletSizePowerUp.getAnimation().setAnimationLoopForState(AnimationState.IDLE, imageIdle);
         bulletSizePowerUp.getAnimation().setState(AnimationState.IDLE);
-        
+
         return bulletSizePowerUp;
 	}
-	
+
 	public static Sprite pickNewGun() {
 		Sprite newGun = new Sprite();
 		newGun.setWidth(80);
@@ -498,22 +498,22 @@ public final class SpriteFactory
 		newGun.setX(900);
 		newGun.setY(Constants.WINDOW_HEIGHT / 2 - 50);
 		newGun.setColor(Color.MAGENTA);
-		
+
 		//Getting images
         Image image1 = new Image(Paths.get("src/main/resources/assets/strategies/gun/gun1.png").toUri().toString());
         Image image2 = new Image(Paths.get("src/main/resources/assets/strategies/gun/gun_glow1.png").toUri().toString());
-        
+
         ArrayList<Image> imageIdle = new ArrayList<>();
         imageIdle.add(image1);
         imageIdle.add(image2);
-        
+
       //Add them to animation object
         newGun.getAnimation().setAnimationLoopForState(AnimationState.IDLE, imageIdle);
         newGun.getAnimation().setState(AnimationState.IDLE);
-        
+
         return newGun;
-		
-		
+
+
 	}
 
 	public static CompositeSprite compositeEnemy() {
@@ -586,6 +586,144 @@ public final class SpriteFactory
 		l2r2.setRight(l3r4);
 		return compositeEnemy;
 	}
+
+	public static Sprite computerIcon()
+	{
+		Sprite computerIcon = new Sprite();
+		computerIcon.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
+        computerIcon.setX(50);
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/0.5x/computer_icon_0.5x.png").toUri().toString());
+        computerIcon.setY(Constants.FLOOR_Y-idleFrame.getHeight());
+
+        //Put them in arraylists
+        ArrayList<Image> computerImageIdle = new ArrayList<>();
+        computerImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        computerIcon.getAnimation().setAnimationLoopForState(AnimationState.IDLE, computerImageIdle);
+
+        //Set the observer to be idle
+        computerIcon.getAnimation().setState(AnimationState.IDLE);
+        return computerIcon;
+    }
+
+	public static Sprite compositePopupInteractE(Sprite messageFromHQ)
+	{
+		Sprite interactPopup = new Sprite();
+		interactPopup.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
+        interactPopup.setWidth(160);
+        interactPopup.setHeight(160);
+        interactPopup.setX(30);
+        interactPopup.setLayer(49);
+        interactPopup.setY(Constants.FLOOR_Y-240);
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/0.2x/press_to_interact_popup_0.2x.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> popupImageIdle = new ArrayList<>();
+        popupImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        interactPopup.getAnimation().setAnimationLoopForState(AnimationState.IDLE, popupImageIdle);
+        interactPopup.disable();
+
+        ArrayList<Sprite> boxes = new ArrayList<Sprite>();
+
+        Sprite purpleBox = new Sprite();
+        purpleBox.setLayer(51);
+        Image purpleFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/Purple_1x.png").toUri().toString());
+        ArrayList<Image> purpleImageIdle = new ArrayList<>();
+        purpleImageIdle.add(purpleFrame);
+        purpleBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, purpleImageIdle);
+        boxes.add(purpleBox);
+
+        Sprite aquaBox = new Sprite();
+        purpleBox.setLayer(52);
+        Image aquaFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/Aqua_1x.png").toUri().toString());
+        ArrayList<Image> aquaImageIdle = new ArrayList<>();
+        aquaImageIdle.add(aquaFrame);
+        aquaBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, aquaImageIdle);
+        boxes.add(aquaBox);
+
+        Sprite orangeSquareBox = new Sprite();
+        orangeSquareBox.setLayer(53);
+        Image orangeSquareFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/OrangeSquare_1x.png").toUri().toString());
+        ArrayList<Image> orangeSquareImageIdle = new ArrayList<>();
+        orangeSquareImageIdle.add(orangeSquareFrame);
+        orangeSquareBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, orangeSquareImageIdle);
+        boxes.add(orangeSquareBox);
+
+        Sprite blueSquareBox = new Sprite();
+        blueSquareBox.setLayer(53);
+        Image blueSquareFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/BlueSquare_1x.png").toUri().toString());
+        ArrayList<Image> blueSquareImageIdle = new ArrayList<>();
+        blueSquareImageIdle.add(blueSquareFrame);
+        blueSquareBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, blueSquareImageIdle);
+        boxes.add(blueSquareBox);
+
+        Sprite greenSquareBox = new Sprite();
+        greenSquareBox.setLayer(52);
+        Image greenSquareFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/GreenSquare_1x.png").toUri().toString());
+        ArrayList<Image> greenSquareImageIdle = new ArrayList<>();
+        greenSquareImageIdle.add(greenSquareFrame);
+        greenSquareBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, greenSquareImageIdle);
+        boxes.add(greenSquareBox);
+
+        Sprite bluePortraitBox = new Sprite();
+        bluePortraitBox.setLayer(53);
+        Image bluePortraitFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/BluePortrait_1x.png").toUri().toString());
+        ArrayList<Image> bluePortraitImageIdle = new ArrayList<>();
+        bluePortraitImageIdle.add(bluePortraitFrame);
+        bluePortraitBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, bluePortraitImageIdle);
+        boxes.add(bluePortraitBox);
+
+        Sprite orangePortraitBox = new Sprite();
+        orangePortraitBox.setLayer(53);
+        Image orangePortraitFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/OrangePortrait_1x.png").toUri().toString());
+        ArrayList<Image> orangePortraitImageIdle = new ArrayList<>();
+        orangePortraitImageIdle.add(orangePortraitFrame);
+        orangePortraitBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, orangePortraitImageIdle);
+        boxes.add(orangePortraitBox);
+
+        Sprite blueLandscapeBox = new Sprite();
+        blueLandscapeBox.setLayer(53);
+        Image blueLandscapeFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/BlueLandscape_1x.png").toUri().toString());
+        ArrayList<Image> blueLandscapeImageIdle = new ArrayList<>();
+        blueLandscapeImageIdle.add(blueLandscapeFrame);
+        blueLandscapeBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, blueLandscapeImageIdle);
+        boxes.add(blueLandscapeBox);
+
+        interactPopup.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new DisableBehavior()));
+        CompositePuzzlePopupBehavior cppb =  new CompositePuzzlePopupBehavior(boxes, messageFromHQ);
+        interactPopup.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.E), cppb));
+        interactPopup.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.X), cppb));
+        //Set the observer to be idle
+        interactPopup.getAnimation().setState(AnimationState.IDLE);
+        return interactPopup;
+	}
+
+	public static Sprite compositeMessageFromHQ()
+	{
+		Sprite computer = new Sprite();
+		computer.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
+        computer.setX(-1000);
+//        computer.setY(Constants.FLOOR_Y+80);
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/message_from_hq_1x.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> computerImageIdle = new ArrayList<>();
+        computerImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        computer.getAnimation().setAnimationLoopForState(AnimationState.IDLE, computerImageIdle);
+
+        //Set the observer to be idle
+        computer.getAnimation().setState(AnimationState.IDLE);
+        return computer;
+    }
+
 
 	public static Sprite observablePlayer()
 	{
@@ -790,14 +928,14 @@ public final class SpriteFactory
 
 		return enemyList;
 	}
-	
+
 	 public static Sprite observerFlashScreen() {
 	    	Sprite screen = new Sprite();
 	    	screen.setX(-400);
 	    	screen.setY(-200);
 	    	screen.setWidth(500);
 	    	screen.setHeight(500);
-	    	
+
 	    	ArrayList<Image> observerImage;
 	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
 	        {
@@ -807,7 +945,7 @@ public final class SpriteFactory
 	        {
 	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
 	        }
-	        
+
 	        ArrayList<String> observerPaths = new ArrayList<String>();
 	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen1.png");
 	        observerPaths.add("src/main/resources/group1/view/ObserverFlashScreen/ObserverFlashScreen2.png");
@@ -821,11 +959,11 @@ public final class SpriteFactory
 
 	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
 	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-	        
+
 	        ScreenBehavior screenBehavior = new ScreenBehavior();
 	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
 	        return screen;
-	    	
+
 	    }
 
 	 public static Sprite strategyFlashScreen() {
@@ -834,7 +972,7 @@ public final class SpriteFactory
 	    	screen.setY(-200);
 	    	screen.setWidth(500);
 	    	screen.setHeight(500);
-	    	
+
 	    	ArrayList<Image> observerImage;
 	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
 	        {
@@ -844,7 +982,7 @@ public final class SpriteFactory
 	        {
 	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
 	        }
-	        
+
 	        ArrayList<String> observerPaths = new ArrayList<String>();
 	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen1.png");
 	        observerPaths.add("src/main/resources/group1/view/StrategyFlashScreen/StrategyFlashScreen2.png");
@@ -858,20 +996,20 @@ public final class SpriteFactory
 
 	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
 	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-	        
+
 	        ScreenBehavior screenBehavior = new ScreenBehavior();
 	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
 	        return screen;
-	    	
+
 	    }
-	 
+
 	 public static Sprite commanderFlashScreen() {
 	    	Sprite screen = new Sprite();
 	    	screen.setX(-400);
 	    	screen.setY(-200);
 	    	screen.setWidth(500);
 	    	screen.setHeight(500);
-	    	
+
 	    	ArrayList<Image> observerImage;
 	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
 	        {
@@ -881,7 +1019,7 @@ public final class SpriteFactory
 	        {
 	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
 	        }
-	        
+
 	        ArrayList<String> observerPaths = new ArrayList<String>();
 	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen1.png");
 	        observerPaths.add("src/main/resources/group1/view/CommanderFlashScreen/CommanderFlashScreen2.png");
@@ -895,20 +1033,20 @@ public final class SpriteFactory
 
 	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
 	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-	        
+
 	        ScreenBehavior screenBehavior = new ScreenBehavior();
 	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
 	        return screen;
-	    	
+
 	    }
-	 
+
 	 public static Sprite compositeFlashScreen() {
 	    	Sprite screen = new Sprite();
 	    	screen.setX(-400);
 	    	screen.setY(-200);
 	    	screen.setWidth(500);
 	    	screen.setHeight(500);
-	    	
+
 	    	ArrayList<Image> observerImage;
 	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
 	        {
@@ -918,7 +1056,7 @@ public final class SpriteFactory
 	        {
 	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
 	        }
-	        
+
 	        ArrayList<String> observerPaths = new ArrayList<String>();
 	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen1.png");
 	        observerPaths.add("src/main/resources/group1/view/CompositeFlashScreen/CompositeFlashScreen2.png");
@@ -932,20 +1070,20 @@ public final class SpriteFactory
 
 	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
 	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-	        
+
 	        ScreenBehavior screenBehavior = new ScreenBehavior();
 	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
 	        return screen;
-	    	
+
 	    }
-	 
+
 	 public static Sprite factoryFlashScreen() {
 	    	Sprite screen = new Sprite();
 	    	screen.setX(-400);
 	    	screen.setY(-200);
 	    	screen.setWidth(500);
 	    	screen.setHeight(500);
-	    	
+
 	    	ArrayList<Image> observerImage;
 	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
 	        {
@@ -955,7 +1093,7 @@ public final class SpriteFactory
 	        {
 	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
 	        }
-	        
+
 	        ArrayList<String> observerPaths = new ArrayList<String>();
 	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen1.png");
 	        observerPaths.add("src/main/resources/group1/view/FactoryFlashScreen/FactoryFlashScreen2.png");
@@ -969,20 +1107,20 @@ public final class SpriteFactory
 
 	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
 	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-	        
+
 	        ScreenBehavior screenBehavior = new ScreenBehavior();
 	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
 	        return screen;
-	    	
+
 	    }
-	 
+
 	 public static Sprite MVCFlashScreen() {
 	    	Sprite screen = new Sprite();
 	    	screen.setX(-400);
 	    	screen.setY(-200);
 	    	screen.setWidth(500);
 	    	screen.setHeight(500);
-	    	
+
 	    	ArrayList<Image> observerImage;
 	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
 	        {
@@ -992,7 +1130,7 @@ public final class SpriteFactory
 	        {
 	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
 	        }
-	        
+
 	        ArrayList<String> observerPaths = new ArrayList<String>();
 	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen1.png");
 	        observerPaths.add("src/main/resources/group1/view/MVCFlashScreen/MVCFlashScreen2.png");
@@ -1006,12 +1144,48 @@ public final class SpriteFactory
 
 	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
 	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
-	        
+
 	        ScreenBehavior screenBehavior = new ScreenBehavior();
 	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
 	        return screen;
-	    	
+
 	    }
-	 
-	
+
+	public static Sprite interactTrigger(Sprite popup) {
+		Sprite button = new Sprite();
+        button.setX(-20);
+        button.setY(Constants.FLOOR_Y - 100);
+        button.setWidth(200);
+        button.setHeight(100);
+        button.setColor(Color.TRANSPARENT);
+		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new DisplayPopupWhileInteract(popup));
+		return button;
+	}
+
+	public static Sprite compositePuzzleScreen()
+	{
+		Sprite puzzlePopup = new Sprite();
+		puzzlePopup.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
+//        puzzlePopup.setWidth(160);
+//        puzzlePopup.setHeight(160);
+        puzzlePopup.setX(-200);
+        puzzlePopup.setLayer(50);
+        puzzlePopup.setY(Constants.FLOOR_Y-240);
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/1x/message_from_hq_1x.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> popupImageIdle = new ArrayList<>();
+        popupImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        puzzlePopup.getAnimation().setAnimationLoopForState(AnimationState.IDLE, popupImageIdle);
+        puzzlePopup.disable();
+
+        puzzlePopup.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.X), new DisableBehavior()));
+        //Set the observer to be idle
+        puzzlePopup.getAnimation().setState(AnimationState.IDLE);
+        return puzzlePopup;
+	}
+
 }
