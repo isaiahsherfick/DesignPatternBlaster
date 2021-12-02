@@ -184,6 +184,18 @@ public final class SpriteFactory
         return dumStupid;
     }
 
+    public static Sprite Timer()
+    {
+        Sprite timer = new Sprite();
+        //Upper left corner
+        timer.setX(0);
+        timer.setY(50);
+        timer.setWidth(0);
+        timer.setHeight(0);
+        timer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(),new TimerBehavior()));
+        return timer;
+    }
+
     public static Sprite MVCPlayer()
     {
         Sprite playerSprite = player();
