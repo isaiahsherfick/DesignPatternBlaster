@@ -174,8 +174,7 @@ public final class SpriteFactory
     {
         Sprite timer = new Sprite();
         //Upper left corner
-        //x and y coordinates determine offset from 0,0 (true x position follows camera)
-        timer.setX(5); //for some reason 0 is not the true upper left
+        timer.setX(- 20); //for some reason 0 is not the true upper left
         timer.setY(150);
         timer.setWidth(0);
         timer.setHeight(0);

@@ -11,7 +11,6 @@ import javafx.scene.media.Media;
 public class Level 
 {
 	private int levelNumber;
-	private double levelScore = 0;
 	
 	private Sprite focusSprite = new NullSprite();
 	
@@ -144,14 +143,6 @@ public class Level
 
 	public void setMaxYBoundary(double maxYBoundary) {
 		this.maxYBoundary = maxYBoundary;
-	}
-
-	public void setLevelScore(double score){
-		this.levelScore = score;
-	}
-
-	public void getLevelScore(double score){
-		this.levelScore = score;
 	}
 
 	
