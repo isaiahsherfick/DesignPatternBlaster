@@ -113,8 +113,6 @@ public class LevelFactory
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level observerLevel = new Level(1,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		observerLevel.setFocusSprite(player);
-
-
 		return observerLevel;
 	}
 
