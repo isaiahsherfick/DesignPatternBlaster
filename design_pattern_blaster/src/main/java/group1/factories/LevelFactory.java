@@ -109,10 +109,12 @@ public class LevelFactory
 		sprites.add(observer);
 		sprites.add(observer2);
 		sprites.add(nextLevelSprite);
+		sprites.add(SpriteFactory.Timer(true));
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level observerLevel = new Level(1,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 		observerLevel.setFocusSprite(player);
+
 
 
 		return observerLevel;
@@ -148,6 +150,7 @@ public class LevelFactory
 		sprites.add(subordinate);
 		sprites.add(invisibleSubordinate);
 		sprites.add(levelend);
+		sprites.add(SpriteFactory.Timer(true));
 
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
@@ -197,6 +200,7 @@ public class LevelFactory
 		sprites.add(interactTrigger);
 		sprites.addAll(enemy.getChildren());
 		sprites.add(levelend);
+		sprites.add(SpriteFactory.Timer(true));
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
 		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -224,6 +228,7 @@ public class LevelFactory
 		sprites.add(spritePool);
 		sprites.addAll(singletonEnemies);
 		sprites.add(levelend);
+		sprites.add(SpriteFactory.Timer(true));
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
 		Level singletonLevel = new Level(5,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -254,6 +259,7 @@ public class LevelFactory
 		sprites.add(enemyFactory);
         sprites.add(platform);
         sprites.add(endOfLevelSprite);
+		sprites.add(SpriteFactory.Timer(true));
         double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
         double maxXBoundary = Math.abs(endOfLevelSprite.getX() - Constants.WINDOW_WIDTH + endOfLevelSprite.getWidth());
 		Level factoryLevel = new Level(5, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);

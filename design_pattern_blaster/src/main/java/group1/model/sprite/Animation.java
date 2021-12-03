@@ -133,7 +133,7 @@ public class Animation implements Drawable {
     public void drawHUD(GraphicsContext g, Sprite player){
         g.setFont(HUDFont);
         g.setFill(Color.RED);
-        double xPos = -App.model.getGameCamera().getXPos();
+        double xPos = -App.model.getGameCamera().getXPos() + 5; //margin
 //        double xPos = player.getX() - Constants.WINDOW_WIDTH/2 + 10;
         g.fillText("HEALTH: " + player.getHealth(), xPos, 50);
         g.fillText("Level: " + App.model.getCurrentLevel().getLevelNumber(), xPos,100);
