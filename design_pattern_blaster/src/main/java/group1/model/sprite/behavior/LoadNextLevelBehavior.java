@@ -29,8 +29,8 @@ public class LoadNextLevelBehavior implements Behavior
 				double scoreForLevel = Double.parseDouble(scoreString);
 				App.model.getCurrentLevel().setLevelScore(scoreForLevel);
 			}
-		} catch(NumberFormatException parseException) {
-			parseException.printStackTrace();
+		} catch(NumberFormatException | IndexOutOfBoundsException scoreException) {
+			scoreException.printStackTrace();
 		}
 		App.model.loadNextLevel();
 	}
