@@ -92,8 +92,8 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite)));
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
-
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new ReloadLevelBehavior()));
+        playerSprite.addCustomCollision(SpriteClassIdConstants.ENEMY_BULLET, new DecrementHealthBehavior());
 
         return playerSprite;
     }
@@ -192,6 +192,7 @@ public final class SpriteFactory
     public static Sprite MVCPlayer()
     {
         Sprite playerSprite = player();
+        playerSprite.setHealth(Integer.MAX_VALUE);
         playerSprite.getEventBehaviors().clear();
         playerSprite.setVelocityY(0.1);
         playerSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(20, 0));
