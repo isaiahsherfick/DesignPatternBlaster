@@ -132,7 +132,7 @@ public class Animation implements Drawable {
 
     public void drawHUD(GraphicsContext g, Sprite player){
         g.setFont(HUDFont);
-        g.setFill(Color.RED);
+        g.setFill(Color.BLUEVIOLET);
         double xPos = -App.model.getGameCamera().getXPos() + 5; //margin
 //        double xPos = player.getX() - Constants.WINDOW_WIDTH/2 + 10;
         g.fillText("HEALTH: " + player.getHealth(), xPos, 50);
@@ -152,7 +152,7 @@ public class Animation implements Drawable {
             drawHUD(g,sprite);
         }
 
-        if(!nextStringDisplay.equals("PLACEHOLDER")){
+        if(!nextStringDisplay.equals("0")){
             g.setFont(HUDFont);
             g.setFill(Color.RED);
             g.fillText(nextStringDisplay,nextStringXCoord,nextStringYCoord);

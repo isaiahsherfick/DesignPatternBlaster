@@ -44,12 +44,13 @@ public class App extends Application
 			levels.add(LevelFactory.commanderLevel());
 
 			levels.add(LevelFactory.compositeLevelFlashScreen());
-			levels.add(LevelFactory.factoryLevel());
+			levels.add(LevelFactory.compositeLevel());
+
 
 			levels.add(LevelFactory.singletonLevel());
 
 			levels.add(LevelFactory.factoryLevelFlashScreen());
-			levels.add(LevelFactory.compositeLevel());
+			levels.add(LevelFactory.factoryLevel());
 
 			levels.add(LevelFactory.MVCLevelFlashScreen());
 			levels.add(LevelFactory.MVCLevel());

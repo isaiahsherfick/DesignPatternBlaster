@@ -30,4 +30,11 @@ public final class Constants
     public static final double MAX_JETPACK_DY = -20; //Player's terminal jetpack velocity
 	public static final double SPRITE_POOL_X = 1000;
 	public static final int DEFAULT_POOL_SPAWN_INDEX = 0;
+	public static final int OBSERVER_LEVEL_NUMBER = 1;
+	public static final int STRATEGY_LEVEL_NUMBER = 2;
+	public static final int COMMANDER_LEVEL_NUMBER = 3;
+	public static final int COMPOSITE_LEVEL_NUMBER = 4;
+	public static final int SINGLETON_LEVEL_NUMBER = 5;
+	public static final int FACTORY_LEVEL_NUMBER = 6;
+	public static final int MVC_LEVEL_NUMBER = 7;
 }

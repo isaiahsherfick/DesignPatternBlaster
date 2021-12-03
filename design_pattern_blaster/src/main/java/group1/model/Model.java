@@ -239,4 +239,8 @@ public class Model implements Observable
     {
         return spriteManager.getFloorSprites();
     }
+
+    public void reloadLevel() {
+		levelManager.reloadLevel();
+    }
 }

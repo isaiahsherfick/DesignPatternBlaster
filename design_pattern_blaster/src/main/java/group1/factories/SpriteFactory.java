@@ -31,6 +31,7 @@ public final class SpriteFactory
         playerSprite.setHeight(Constants.PLAYER_HEIGHT);
         playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
         playerSprite.setDirection(Constants.LEFT);
+        playerSprite.setHealth(10);
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.A, -1*Constants.PLAYER_DX)));
@@ -89,6 +90,11 @@ public final class SpriteFactory
         Sprite bulletSprite = bullet();
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite)));
+
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+
+
         return playerSprite;
     }
 
