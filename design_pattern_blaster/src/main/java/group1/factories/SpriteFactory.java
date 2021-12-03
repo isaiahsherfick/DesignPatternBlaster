@@ -1,16 +1,30 @@
 package group1.factories;
-import group1.App;
 import group1.model.sprite.behavior.*;
+import group1.App;
 import group1.model.sprite.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
-
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import group1.constants.Constants;
 import group1.model.sprite.game_event.GameEvent;
+import group1.viewcontroller.ViewController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+
+import javax.swing.text.View;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 
 //Creational class for making sprites
@@ -170,15 +184,15 @@ public final class SpriteFactory
         return dumStupid;
     }
 
-    public static Sprite Timer(boolean scoreFunctionality)
+    public static Sprite Timer()
     {
         Sprite timer = new Sprite();
         //Upper left corner
-        timer.setX(- 20); //for some reason 0 is not the true upper left
-        timer.setY(150);
+        timer.setX(0);
+        timer.setY(50);
         timer.setWidth(0);
         timer.setHeight(0);
-        timer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(),new TimeScoreBehavior(scoreFunctionality)));
+        timer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(),new TimerBehavior()));
         return timer;
     }
 
