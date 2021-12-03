@@ -88,9 +88,7 @@ public class LevelFactory
         Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
         Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
 
-		Sprite scoreDisplay = SpriteFactory.Timer(true);
-		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
-
+		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(8000);
 
 
@@ -111,7 +109,7 @@ public class LevelFactory
 		sprites.add(observer);
 		sprites.add(observer2);
 		sprites.add(nextLevelSprite);
-		sprites.add(scoreDisplay);
+		sprites.add(SpriteFactory.Timer(true));
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level observerLevel = new Level(1,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -135,8 +133,7 @@ public class LevelFactory
 		Sprite commander = SpriteFactory.commander(invisibleSubordinate);
 		commander.setY(250);
 		subordinate.setDirection(Constants.RIGHT);
-		Sprite scoreDisplay = SpriteFactory.Timer(true);
-		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
+		Sprite levelend = SpriteFactory.endOfLevelSprite();
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite computerIcon = SpriteFactory.computerIcon();
@@ -153,7 +150,7 @@ public class LevelFactory
 		sprites.add(subordinate);
 		sprites.add(invisibleSubordinate);
 		sprites.add(levelend);
-		sprites.add(scoreDisplay);
+		sprites.add(SpriteFactory.Timer(true));
 
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
@@ -195,8 +192,7 @@ public class LevelFactory
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
 		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
-		Sprite scoreDisplay = SpriteFactory.Timer(true);
-		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
+		Sprite levelend = SpriteFactory.endOfLevelSprite();
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(computerIcon);
@@ -204,7 +200,7 @@ public class LevelFactory
 		sprites.add(interactTrigger);
 		sprites.addAll(enemy.getChildren());
 		sprites.add(levelend);
-		sprites.add(scoreDisplay);
+		sprites.add(SpriteFactory.Timer(true));
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
 		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -218,8 +214,7 @@ public class LevelFactory
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		ArrayList<Sprite> singletonEnemies = SpriteFactory.singletonEnemies();
 		Sprite spritePool = SpriteFactory.spritePool();
-		Sprite scoreDisplay = SpriteFactory.Timer(true);
-		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
+		Sprite levelend = SpriteFactory.endOfLevelSprite();
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
@@ -233,7 +228,7 @@ public class LevelFactory
 		sprites.add(spritePool);
 		sprites.addAll(singletonEnemies);
 		sprites.add(levelend);
-		sprites.add(scoreDisplay);
+		sprites.add(SpriteFactory.Timer(true));
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
 		Level singletonLevel = new Level(5,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -243,7 +238,6 @@ public class LevelFactory
 	public static Level factoryLevel()
 	{
 		Sprite player = SpriteFactory.player();
-
         Sprite floor = SpriteFactory.floor(10000, 20);
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
         platform.setSpriteId(2000); //set it high so we know it won't get overwritten upon insertion
@@ -251,8 +245,7 @@ public class LevelFactory
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
-		Sprite scoreDisplay = SpriteFactory.Timer(true);
-		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
+        Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite();
         endOfLevelSprite.setX(1500);
 		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
@@ -313,8 +306,7 @@ public class LevelFactory
 
         Sprite floor = SpriteFactory.floor(5000, 20);
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
-		Sprite scoreDisplay = SpriteFactory.Timer(true);
-		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
+		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(2000);
 		Sprite platform = SpriteFactory.platform(100, 20, 700, 500);
         platform.setSpriteId(220); //set it high so we know it won't get overwritten upon insertion

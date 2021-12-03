@@ -29,7 +29,7 @@ public class TimeScoreBehavior implements Behavior {
         double roundedTime = getRounded(timeElapsed);
         int roundedScore = (int) Math.max(minScore, maxScore - (decreasePerSecond* timeElapsed));
         if (!scoreFunctionality)
-            sprite.getAnimation().primeAnimationForStringDisplay("Time: " + roundedTime, -App.model.getGameCamera().getXPos() + sprite.getX(), sprite.getY());
+            sprite.getAnimation().primeAnimationForStringDisplay("Time Elapsed: " + roundedTime, -App.model.getGameCamera().getXPos() + sprite.getX(), sprite.getY());
         else
             sprite.getAnimation().primeAnimationForStringDisplay("Score: " + roundedScore, -App.model.getGameCamera().getXPos() + sprite.getX(), sprite.getY());
 

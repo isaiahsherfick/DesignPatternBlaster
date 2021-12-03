@@ -36,7 +36,7 @@ public class Animation implements Drawable {
     private double nextTimeToChangeFrames;
     private double loopPeriodSeconds = .25;
     private Font HUDFont;
-    private String nextStringDisplay = "0";
+    private String nextStringDisplay = "PLACEHOLDER";
     private double nextStringXCoord = 0;
     private double nextStringYCoord = 0;
 
@@ -179,10 +179,6 @@ public class Animation implements Drawable {
         }
 
 
-    }
-
-    public String getNextStringDisplay() {
-        return nextStringDisplay;
     }
 
     //TODO this doesn't do the full copy yet - needs to copy over the map thing too
