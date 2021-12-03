@@ -275,6 +275,18 @@ public final class SpriteFactory
         return endOfLevelSprite;
     }
 
+    public static Sprite endOfLevelSprite(Sprite scoreSprite)
+    {
+        Sprite endOfLevelSprite = new Sprite();
+        endOfLevelSprite.setWidth(50);
+        endOfLevelSprite.setHeight(50);
+        endOfLevelSprite.setX(1400);
+        endOfLevelSprite.setY(Constants.WINDOW_HEIGHT - 150);
+        endOfLevelSprite.setColor(Color.GOLD);
+        endOfLevelSprite.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.PLAYER, new LoadNextLevelBehavior(scoreSprite));
+        return endOfLevelSprite;
+    }
+
 	public static Sprite commander(Sprite subordinate)
     {
 		Sprite commander = new Sprite();
