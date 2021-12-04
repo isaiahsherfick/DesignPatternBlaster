@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import group1.constants.Constants;
 import group1.model.sprite.game_event.GameEvent;
@@ -243,6 +244,8 @@ public final class SpriteFactory
         floor.setSpriteClassId(SpriteClassIdConstants.FLOOR);
         floor.setColor(Color.GRAY);
         floor.setDefaultCollisionBehavior(new DoNothingBehavior());
+        ArrayList<Image> asset = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/DefaultPlatform.png").toUri().toString())));
+        floor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, asset);
         return floor;
     }
 
@@ -1260,5 +1263,26 @@ public final class SpriteFactory
         observerPlatform.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), opb));
 
 		return observerPlatform;
+	}
+	
+	public static Sprite informationalSign(int x, int y, String imagePath)
+	{
+		Sprite sign = new Sprite();
+		sign.setX(x);
+		sign.setY(y);
+		sign.setLayer(-20);
+		ArrayList<Image> informationAsset = new ArrayList<>(Arrays.asList(new Image(Paths.get(imagePath).toUri().toString())));
+		sign.getAnimation().setAnimationLoopForState(AnimationState.IDLE, informationAsset);
+		return sign;
+	}
+	public static Sprite dummyInformationalSign(int x, int y)
+	{
+		Sprite sign = new Sprite();
+		sign.setX(x);
+		sign.setLayer(-20);
+		sign.setY(y);
+		sign.setWidth(350);
+		sign.setHeight(200);
+		return sign;
 	}
 }

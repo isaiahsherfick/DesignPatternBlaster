@@ -22,7 +22,6 @@ public class LevelFactory
 	private LevelFactory() {}
 
 	public static Level observerLevelFlashScreen() 
-    
     {
 		Sprite screen = SpriteFactory.observerFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
@@ -32,7 +31,6 @@ public class LevelFactory
 	}
 
 	public static Level strategyLevelFlashScreen() 
-    
     {
 		Sprite screen = SpriteFactory.strategyFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
@@ -84,15 +82,9 @@ public class LevelFactory
         floor.setX(0);
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
         platform.setSpriteId(100); //set it high so we know it won't get overwritten upon insertion
-		Sprite player  = SpriteFactory.observablePlayer();
+        Sprite player = SpriteFactory.observablePlayer();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
         player.addCustomCollision(100, new CollideWithFloorNoClipBehavior(platform));
-        
-        /////////////////////////////////////////////////////
-        //////////////REMOVE////////////////////////////////
-        player.setX(4900);
-        /////////////////////////////////////////////////////
-        //////////////REMOVE////////////////////////////////
 
 		Sprite observer = SpriteFactory.observer(3000, 25);
 
@@ -102,10 +94,13 @@ public class LevelFactory
         observers.add(observer2);
 
         Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
+        Sprite registerInformationSign = SpriteFactory.informationalSign((int)registerButton.getX() - 175, (int)registerButton.getY() - 300, "src/main/resources/assets/signs/RegisterObserverInformationSign.png");
         Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
+        Sprite unregisterInformationSign = SpriteFactory.informationalSign((int)unregisterButton.getX() - 175, (int)unregisterButton.getY() - 300, "src/main/resources/assets/signs/UnregisterObserverInformationSign.png");
         
         Sprite observerPlatform = SpriteFactory.observerPlatformRight(300, 20, 5100, (int)Constants.FLOOR_Y + 1, 6000, 4);
-        Sprite observerPlatform2 = SpriteFactory.observerPlatformRight(300, 20, 6300, 499, 7850, 4);
+        Sprite platformInformationSign = SpriteFactory.dummyInformationalSign((int)observerPlatform.getX() - 175, (int)observerPlatform.getY() - 300);
+        Sprite observerPlatform2 = SpriteFactory.observerPlatformRight(300, 20, 6700, 499, 7850, 4);
         ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform));
         Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 5100, 40, 40, 20);
         observerPlatform.setSpriteId(150);
@@ -142,6 +137,9 @@ public class LevelFactory
 		sprites.add(observer2);
 		sprites.add(nextLevelSprite);
 		sprites.add(scoreDisplay);
+		sprites.add(registerInformationSign);
+		sprites.add(unregisterInformationSign);
+		sprites.add(platformInformationSign);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level observerLevel = new Level(Constants.OBSERVER_LEVEL_NUMBER,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -151,8 +149,6 @@ public class LevelFactory
 
 		return observerLevel;
 	}
-
-
 
 	public static Level commanderLevel()
 	{
@@ -191,27 +187,6 @@ public class LevelFactory
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}
-
-//	public static Level compositeLevel()
-//	{
-//		Sprite floor = SpriteFactory.floor(10000, 20);
-//		Sprite player = SpriteFactory.player();
-//        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
-//		player.setX(player.getX()-300);
-//		CompositeSprite enemy = SpriteFactory.compositeEnemy();
-//		ArrayList<Sprite> sprites = new ArrayList<>();
-//		Sprite levelend = SpriteFactory.endOfLevelSprite();
-//        sprites.add(floor);
-//		sprites.add(player);
-//		sprites.addAll(enemy.getChildren());
-//		sprites.add(levelend);
-//		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
-//		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
-//		Level compositeLevel = new Level(4,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
-//		compositeLevel.setFocusSprite(player);
-//		return compositeLevel;
-//	}
-
 
 	public static Level compositeLevel()
 	{
