@@ -29,14 +29,13 @@ public class SpriteManager
 			if (s.getSpriteId() > highestSpriteId)
 			{
 				highestSpriteId = s.getSpriteId();
-				spriteMap.put(s.getSpriteId(), s);
 			}
 			else
 			{
 				highestSpriteId++;
 				s.setSpriteId(highestSpriteId);
-				spriteMap.put(s.getSpriteId(),s);
 			}
+			spriteMap.put(s.getSpriteId(), s);
 		}
 		
 		public Sprite getSprite(int spriteId) 

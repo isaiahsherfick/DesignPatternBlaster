@@ -15,6 +15,7 @@ public class CollideWithFloorNoClipBehavior implements Behavior
         //Only perform the stop if the player is falling
         if (sprite.getVelocityY() > 0)
         {
+            //System.out.println("CollideWithFloorNoClipBehavior.java: Setting sprite's Y to " + floor.getY() + "!");
             sprite.setY(floor.getY() - sprite.getHeight() - 1);
             sprite.setVelocityY(0);
         }
