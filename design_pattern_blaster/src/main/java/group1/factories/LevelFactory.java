@@ -285,7 +285,8 @@ public class LevelFactory
 		Sprite wall = SpriteFactory.wall();
 		wall.setX(-1025);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
-		nextLevelSprite.setX(2000);
+		nextLevelSprite.setX(viewEnemy.getX()+90);
+
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite computerIcon = SpriteFactory.computerIcon();

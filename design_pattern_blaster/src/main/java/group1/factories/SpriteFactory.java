@@ -127,6 +127,7 @@ public final class SpriteFactory
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
         bulletSprite.addCustomCollision(SpriteClassIdConstants.ENEMY, new DoNothingBehavior());
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.ENEMY_BULLET);
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.INTERACTABLE, new DoNothingBehavior());
         return bulletSprite;
     }
 
@@ -138,11 +139,12 @@ public final class SpriteFactory
         viewSprite.setVelocityX(0);
         viewSprite.setVelocityY(0);
         viewSprite.setX(viewSprite.getX()+60);
+        viewSprite.setY(viewSprite.getY()+5);
         viewSprite.setColor(Color.GRAY);
         viewSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
         viewSprite.setSpriteClassId(-9); //placeholder
         viewSprite.setDirection(Constants.LEFT);
-        Image avatar = new Image(Paths.get("src/main/resources/assets/MVC/MVCRequestSender.png").toUri().toString());
+        Image avatar = new Image(Paths.get("src/main/resources/assets/MVC/MVCRequestSender 0.png").toUri().toString());
         ArrayList<Image> avatarAppearance = new ArrayList<>();
         avatarAppearance.add(avatar);
         viewSprite.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
