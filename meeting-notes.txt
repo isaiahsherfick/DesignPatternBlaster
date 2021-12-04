@@ -20,3 +20,42 @@
         heads up display@s
         floor tiling
 
+---------------------------------------------------------------------------------------------
+01 Dec 2021
+---------------------------------------------------------------------------------------------
+
+    Open questions / necessary features:
+   
+    Observer platform feature
+    Player death / respawn / helpful splash screen 
+    Game over screen
+    Puzzle in composite level
+    Score -> Amount of time level was completed in
+    Quiz
+    Message from HQ for each level
+    level enhancements
+    colored doors in strategy level
+    wall behavior / stop collision
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
