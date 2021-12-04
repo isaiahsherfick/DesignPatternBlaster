@@ -23,13 +23,13 @@ class ObserverPlatformTest
 		Sprite player = SpriteFactory.testPlayer();
 		player.setVelocityY(20);
 		player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new ObservableBehavior()));
-		Sprite observerPlatformRight = SpriteFactory.observerPlatformRight(300, 50, 100, 1000, 1600, 10.0);
+		Sprite observerPlatformRight = SpriteFactory.observerPlatformRight(300, 50, 100, 1000, 1600, 2);
 		ArrayList<Sprite> observers = new ArrayList<>(Arrays.asList(observerPlatformRight));
 		Sprite registerButton = SpriteFactory.registerObserverButton(player, observers);
 		int platformId = 2000;
 		observerPlatformRight.setSpriteId(platformId);
 		player.addCustomCollision(platformId, new CollideWithFloorNoClipBehavior(observerPlatformRight));
-		ArrayList<Sprite> sprites = new ArrayList<>(Arrays.asList(player, observerPlatformRight));
+		ArrayList<Sprite> sprites = new ArrayList<>(Arrays.asList(player, observerPlatformRight, registerButton));
 		player.setX(100);
 		player.setY(0); //The player is directly above the platform
 		for (Sprite s : sprites)
@@ -41,6 +41,24 @@ class ObserverPlatformTest
 		{
 			App.model.receiveEvent(GameEvent.ClockTickEvent());
 		}
-		assertEquals(expected, player.getY());
+		assertEquals(expected, player.getY()); //Assert that the player landed on the platform
+		player.setY(player.getY() - 200); //Move the player back up
+		registerButton.collideWith(player); //Register the platform
+		double platformX = observerPlatformRight.getX();
+		for (int i = 0; i < 5; i++)
+		{
+			player.setX(player.getX() + 1);
+			App.model.receiveEvent(GameEvent.ClockTickEvent());
+			assertEquals(platformX + 2, observerPlatformRight.getX()); //Assert that the platform is moving when it detects the player's movement
+			platformX = observerPlatformRight.getX();
+		}
+		
+		player.setVelocityY(0);
+		player.setVelocityX(0);
+		for (int i = 0; i < 100; i++)
+		{
+			App.model.receiveEvent(GameEvent.ClockTickEvent());
+			assertEquals(platformX, observerPlatformRight.getX()); //Assert that it doesn't move when the player is stationary
+		}
 	}
 }
