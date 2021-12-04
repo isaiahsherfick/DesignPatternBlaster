@@ -50,6 +50,11 @@ public class ViewController implements Observer
 	static {
 		backgroundImage = new Image(Paths.get("src/main/resources/assets/levels/background_city_blue.png").toUri().toString(), 0, 0, false, false);
 	}
+
+	public Stage getMainStage() {
+		return mainStage;
+	}
+
 	private Stage mainStage;
 
 	public ViewController(Stage stage)

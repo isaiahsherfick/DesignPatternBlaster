@@ -14,7 +14,9 @@ import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.SpriteManager;
 import group1.model.sprite.game_event.GameEvent;
+import group1.viewcontroller.ViewController;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 
 //Model class which serves as a mediator between the various managers in our backend
@@ -92,6 +94,18 @@ public class Model implements Observable
 			Observer o = iterator.next();
 			o.update();
 		}
+	}
+
+	public Stage getMainStage(){
+		Iterator<Observer> iterator = observers.iterator();
+		while (iterator.hasNext()){
+			Observer o = iterator.next();
+			if (o instanceof ViewController){
+				ViewController vc = (ViewController) o;
+				return vc.getMainStage();
+			}
+		}
+		return null;
 	}
 
 
