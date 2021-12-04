@@ -11,7 +11,7 @@ import group1.model.sprite.NullSprite;
 import group1.model.sprite.Sprite;
 import group1.physics.Vector;
 
-public class ObserverBehavior implements Behavior 
+public class ObserverBehavior implements ObserverBehaviorI 
 {
 	private boolean updated;
 	

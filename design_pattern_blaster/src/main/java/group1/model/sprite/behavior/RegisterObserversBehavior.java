@@ -7,9 +7,9 @@ import group1.model.sprite.Sprite;
 public class RegisterObserversBehavior implements Behavior
 {
 	private ObservableBehavior observable;
-	private ArrayList<ObserverBehavior> observers;
+	private ArrayList<ObserverBehaviorI> observers;
 	
-	public RegisterObserversBehavior(ObservableBehavior observable, ArrayList<ObserverBehavior> observers)
+	public RegisterObserversBehavior(ObservableBehavior observable, ArrayList<ObserverBehaviorI> observers)
 	{
 		this.observable = observable;
 		this.observers = observers;
