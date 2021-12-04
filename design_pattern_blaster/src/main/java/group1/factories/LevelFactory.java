@@ -15,11 +15,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 public class LevelFactory
+
 {
 
 	private LevelFactory() {}
 
-	public static Level observerLevelFlashScreen() {
+	public static Level observerLevelFlashScreen() 
+    
+    {
 		Sprite screen = SpriteFactory.observerFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
@@ -27,7 +30,9 @@ public class LevelFactory
 		return observerLevelFlashScreen;
 	}
 
-	public static Level strategyLevelFlashScreen() {
+	public static Level strategyLevelFlashScreen() 
+    
+    {
 		Sprite screen = SpriteFactory.strategyFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
@@ -35,7 +40,8 @@ public class LevelFactory
 		return strategyLevelFlashScreen;
 	}
 
-	public static Level commanderLevelFlashScreen() {
+	public static Level commanderLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.commanderFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
@@ -43,7 +49,8 @@ public class LevelFactory
 		return commanderLevelFlashScreen;
 	}
 
-	public static Level compositeLevelFlashScreen() {
+	public static Level compositeLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.compositeFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
@@ -51,7 +58,8 @@ public class LevelFactory
 		return compositeLevelFlashScreen;
 	}
 
-	public static Level factoryLevelFlashScreen() {
+	public static Level factoryLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.factoryFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
@@ -59,7 +67,8 @@ public class LevelFactory
 		return factoryLevelFlashScreen;
 	}
 
-	public static Level MVCLevelFlashScreen() {
+	public static Level MVCLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.MVCFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
