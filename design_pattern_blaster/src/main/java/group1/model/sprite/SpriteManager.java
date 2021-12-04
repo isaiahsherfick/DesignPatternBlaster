@@ -90,6 +90,7 @@ public class SpriteManager
 		public void clearAllSprites() 
 		{
 			spriteMap.clear();
+			highestSpriteId = 0;
 		}
 		
 		public void loadLevel(Level level) 
