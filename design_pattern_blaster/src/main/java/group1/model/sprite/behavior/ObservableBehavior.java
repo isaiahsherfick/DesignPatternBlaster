@@ -10,7 +10,7 @@ public class ObservableBehavior implements Behavior
 	
 	private Double previousX;
 	private Double previousY;
-	private ArrayList<ObserverBehavior> observers;
+	private ArrayList<ObserverBehaviorI> observers;
 	
 	public ObservableBehavior()
 	{
@@ -22,9 +22,9 @@ public class ObservableBehavior implements Behavior
 		observers.add(observer);
 	}
 	
-	public void registerObservers(ArrayList<ObserverBehavior> observers)
+	public void registerObservers(ArrayList<ObserverBehaviorI> observers)
 	{
-		for (ObserverBehavior o : observers)
+		for (ObserverBehaviorI o : observers)
 		{
 			this.observers.add(o);
 		}
@@ -47,7 +47,7 @@ public class ObservableBehavior implements Behavior
 		//If the sprite has moved
 		if (previousX != sprite.getX() || previousY != sprite.getY())
 		{
-			Iterator<ObserverBehavior> iter = observers.iterator();
+			Iterator<ObserverBehaviorI> iter = observers.iterator();
 			while (iter.hasNext())
 			{
 				//Update the observers

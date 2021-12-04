@@ -15,6 +15,7 @@ import group1.model.sprite.behavior.DoNothingBehavior;
 import group1.model.sprite.behavior.MoveBehavior;
 import group1.model.sprite.behavior.ObservableBehavior;
 import group1.model.sprite.behavior.ObserverBehavior;
+import group1.model.sprite.behavior.ObserverBehaviorI;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -99,7 +100,7 @@ public class Sprite implements Loadable
 	{
 		for (EventBehavior e : eventBehaviors)
 		{
-			if (e.getBehavior() instanceof ObserverBehavior)
+			if (e.getBehavior() instanceof ObserverBehaviorI)
 				return e.getBehavior();
 		}
 		return new DoNothingBehavior();

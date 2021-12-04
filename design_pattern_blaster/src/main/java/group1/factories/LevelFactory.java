@@ -1,6 +1,7 @@
 package group1.factories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import group1.constants.Constants;
 import group1.model.sprite.behavior.*;
@@ -15,68 +16,83 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 public class LevelFactory
+
 {
 
 	private LevelFactory() {}
 
-	public static Level observerLevelFlashScreen() {
+	public static Level observerLevelFlashScreen() 
+    
+    {
 		Sprite screen = SpriteFactory.observerFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level observerLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+		Level observerLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return observerLevelFlashScreen;
 	}
 
-	public static Level strategyLevelFlashScreen() {
+	public static Level strategyLevelFlashScreen() 
+    
+    {
 		Sprite screen = SpriteFactory.strategyFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level strategyLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+		Level strategyLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return strategyLevelFlashScreen;
 	}
 
-	public static Level commanderLevelFlashScreen() {
+	public static Level commanderLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.commanderFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level commanderLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+		Level commanderLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return commanderLevelFlashScreen;
 	}
 
-	public static Level compositeLevelFlashScreen() {
+	public static Level compositeLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.compositeFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level compositeLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+		Level compositeLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return compositeLevelFlashScreen;
 	}
 
-	public static Level factoryLevelFlashScreen() {
+	public static Level factoryLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.factoryFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level factoryLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+		Level factoryLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return factoryLevelFlashScreen;
 	}
 
-	public static Level MVCLevelFlashScreen() {
+	public static Level MVCLevelFlashScreen() 
+    {
 		Sprite screen = SpriteFactory.MVCFlashScreen();
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
-		Level MVCLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+		Level MVCLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return MVCLevelFlashScreen;
 	}
 
 
 	public static Level observerLevel()
 	{
-        Sprite floor = SpriteFactory.floor(10000, 20);
+        Sprite floor = SpriteFactory.floor(5000, 20);
         floor.setX(0);
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
-        platform.setSpriteId(200); //set it high so we know it won't get overwritten upon insertion
+        platform.setSpriteId(100); //set it high so we know it won't get overwritten upon insertion
 		Sprite player  = SpriteFactory.observablePlayer();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
-        player.addCustomCollision(200, new CollideWithFloorNoClipBehavior(platform));
+        player.addCustomCollision(100, new CollideWithFloorNoClipBehavior(platform));
+        
+        /////////////////////////////////////////////////////
+        //////////////REMOVE////////////////////////////////
+        player.setX(4900);
+        /////////////////////////////////////////////////////
+        //////////////REMOVE////////////////////////////////
 
 		Sprite observer = SpriteFactory.observer(3000, 25);
 
@@ -87,6 +103,17 @@ public class LevelFactory
 
         Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
         Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
+        
+        Sprite observerPlatform = SpriteFactory.observerPlatformRight(300, 20, 5100, (int)Constants.FLOOR_Y + 1, 6000, 4);
+        Sprite observerPlatform2 = SpriteFactory.observerPlatformRight(300, 20, 6300, 499, 7850, 4);
+        ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform));
+        Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 5100, 40, 40, 20);
+        observerPlatform.setSpriteId(150);
+        observerPlatform2.setSpriteId(151);
+
+        player.addCustomCollision(150, new CollideWithFloorNoClipBehavior(observerPlatform));
+        player.addCustomCollision(151, new CollideWithFloorNoClipBehavior(observerPlatform2));
+        
 
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
@@ -107,6 +134,9 @@ public class LevelFactory
         sprites.add(unregisterButton);
         sprites.add(floor);
         sprites.add(platform);
+		sprites.add(observerPlatform);
+		sprites.add(observerPlatform2);
+		sprites.add(registerButton2);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);
@@ -311,15 +341,14 @@ public class LevelFactory
 
 	public static Level strategyLevel() {
 		Sprite player = SpriteFactory.player();
-
         Sprite floor = SpriteFactory.floor(5000, 20);
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
 		nextLevelSprite.setX(2000);
 		Sprite platform = SpriteFactory.platform(100, 20, 700, 500);
-        platform.setSpriteId(220); //set it high so we know it won't get overwritten upon insertion
-        player.addCustomCollision(220, new CollideWithFloorNoClipBehavior(platform));
+        platform.setSpriteId(500); //set it high so we know it won't get overwritten upon insertion
+        player.addCustomCollision(500, new CollideWithFloorNoClipBehavior(platform));
 		//take no damage power up
 //		Sprite tndPowerUp = new Sprite();
 //		tndPowerUp.setWidth(80);
@@ -360,13 +389,13 @@ public class LevelFactory
         sprites.add(floor);
 //		sprites.add(enemyStrategy1);
 		sprites.add(enemyStrategy2);
-		sprites.add(platform);
 		sprites.add(player);
 //		sprites.add(tndPowerUp);
 		sprites.add(bulletSizePowerUp);
 		sprites.add(nextLevelSprite);
 		sprites.add(newGun);
 		sprites.add(scoreDisplay);
+		sprites.add(platform);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level strategyLevel = new Level(Constants.STRATEGY_LEVEL_NUMBER, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
