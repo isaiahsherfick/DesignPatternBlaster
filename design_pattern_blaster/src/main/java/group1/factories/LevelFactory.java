@@ -316,6 +316,9 @@ public class LevelFactory
 		wall.setX(-1025);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite();
 		nextLevelSprite.setX(viewEnemy.getX()+90);
+		nextLevelSprite.getEventBehaviors().clear();
+		nextLevelSprite.addCustomCollision(SpriteClassIdConstants.PLAYER, new WonGameBehavior());
+
 
 
 		ArrayList<Sprite> sprites = new ArrayList<>();

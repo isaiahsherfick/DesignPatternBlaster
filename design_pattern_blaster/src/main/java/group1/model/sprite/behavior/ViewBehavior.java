@@ -113,12 +113,6 @@ public class ViewBehavior implements Behavior {
         bullet.setDefaultCollisionBehavior(new DoNothingBehavior());
         bullet.addCustomCollision(SpriteClassIdConstants.PLAYER, new DisableBehavior());
 
-        Image avatar = new Image(Paths.get("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png").toUri().toString());
-        ArrayList<Image> avatarAppearance = new ArrayList<>();
-        avatarAppearance.add(avatar);
-        bullet.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
-        bullet.getAnimation().setState(AnimationState.IDLE);
-        System.out.println(bullet.getAnimation().getAnimationLoopForState(AnimationState.IDLE));
 
         Behavior restoreTimeBehavior = new Behavior() {
             @Override
@@ -140,11 +134,11 @@ public class ViewBehavior implements Behavior {
     private Sprite randomRequest() {
         double randomNum = Math.random();
 
-        //equal 1/3 chance for now
-        if(randomNum<.333)
-            return restoreHealthRequest();
-        if(randomNum <= .6666667)
+        //roughly 45/25/25 distribution
+        if(randomNum<.45)
             return increaseHealthRequest();
+        if(randomNum <= .725)
+            return decreaseHealthRequest();
 
         return decreaseHealthRequest();
 
@@ -181,7 +175,7 @@ public class ViewBehavior implements Behavior {
             new ReloadLevelBehavior().performBehavior(sprite);
         }
         if (counter > secondsBetweenShots) {
-            shootBehavior = new ShootSpriteBehavior(60,getRandomNumber(50,Constants.WINDOW_HEIGHT-100),randomRequest());
+            shootBehavior = new ShootSpriteBehavior(60,getRandomNumber(50,Constants.WINDOW_HEIGHT-120),randomRequest());
             shootBehavior.performBehavior(sprite);
             counter = 0.0;
         }
