@@ -860,7 +860,7 @@ public final class SpriteFactory
 		ArrayList<ObserverBehaviorI> observerBehaviors = new ArrayList<>();
 		for (Sprite s : observers)
 		{
-			observerBehaviors.add((ObserverBehavior)s.getObserverBehavior());
+			observerBehaviors.add((ObserverBehaviorI)s.getObserverBehavior());
 		}
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
 		return button;
@@ -1250,8 +1250,9 @@ public final class SpriteFactory
         observerPlatform.setY(y);
         observerPlatform.setWidth(width);
         observerPlatform.setHeight(height);
-        observerPlatform.setSpriteClassId(SpriteClassIdConstants.FLOOR);
         observerPlatform.setDefaultCollisionBehavior(new DoNothingBehavior());
+        observerPlatform.setSpriteClassId(SpriteClassIdConstants.FLOOR);
+        observerPlatform.setColor(Color.GREY);
 
         HorizontalObserverPlatformBehavior opb = new HorizontalObserverPlatformBehavior(maxX, xVelocity);
         observerPlatform.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), opb));

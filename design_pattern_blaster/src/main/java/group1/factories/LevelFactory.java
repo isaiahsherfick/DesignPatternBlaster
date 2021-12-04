@@ -1,6 +1,7 @@
 package group1.factories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import group1.constants.Constants;
 import group1.model.sprite.behavior.*;
@@ -96,6 +97,13 @@ public class LevelFactory
 
         Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
         Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
+        
+        Sprite observerPlatform = SpriteFactory.observerPlatformRight(300, 20, 500, 450, 1600, 5);
+        ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform));
+        Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 2000, 20, 40, 20);
+        observerPlatform.setSpriteId(150);
+        player.addCustomCollision(150, new CollideWithFloorNoClipBehavior(observerPlatform));
+        
 
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
@@ -116,6 +124,8 @@ public class LevelFactory
         sprites.add(unregisterButton);
         sprites.add(floor);
         sprites.add(platform);
+		sprites.add(observerPlatform);
+		sprites.add(registerButton2);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);
