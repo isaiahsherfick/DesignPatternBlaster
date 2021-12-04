@@ -10,7 +10,7 @@ public class CheckHealthBehavior implements Behavior
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-		if (sprite.getHealth() <= 0)
+		if (sprite.getHealth() <= 0 || sprite.getY() > 1500)
 		{
 			sprite.respondToEvent(GameEvent.HealthDepletedEvent());
 		}
