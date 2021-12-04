@@ -80,13 +80,19 @@ public class LevelFactory
 
 	public static Level observerLevel()
 	{
-        Sprite floor = SpriteFactory.floor(10000, 20);
+        Sprite floor = SpriteFactory.floor(5000, 20);
         floor.setX(0);
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
         platform.setSpriteId(100); //set it high so we know it won't get overwritten upon insertion
 		Sprite player  = SpriteFactory.observablePlayer();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
         player.addCustomCollision(100, new CollideWithFloorNoClipBehavior(platform));
+        
+        /////////////////////////////////////////////////////
+        //////////////REMOVE////////////////////////////////
+        player.setX(4900);
+        /////////////////////////////////////////////////////
+        //////////////REMOVE////////////////////////////////
 
 		Sprite observer = SpriteFactory.observer(3000, 25);
 
@@ -98,11 +104,15 @@ public class LevelFactory
         Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
         Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
         
-        Sprite observerPlatform = SpriteFactory.observerPlatformRight(300, 20, 500, 450, 1600, 5);
+        Sprite observerPlatform = SpriteFactory.observerPlatformRight(300, 20, 5100, (int)Constants.FLOOR_Y + 1, 6000, 4);
+        Sprite observerPlatform2 = SpriteFactory.observerPlatformRight(300, 20, 6300, 499, 7850, 4);
         ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform));
-        Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 2000, 20, 40, 20);
+        Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 5100, 40, 40, 20);
         observerPlatform.setSpriteId(150);
+        observerPlatform2.setSpriteId(151);
+
         player.addCustomCollision(150, new CollideWithFloorNoClipBehavior(observerPlatform));
+        player.addCustomCollision(151, new CollideWithFloorNoClipBehavior(observerPlatform2));
         
 
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
@@ -125,6 +135,7 @@ public class LevelFactory
         sprites.add(floor);
         sprites.add(platform);
 		sprites.add(observerPlatform);
+		sprites.add(observerPlatform2);
 		sprites.add(registerButton2);
 		sprites.add(player);
 		sprites.add(observer);

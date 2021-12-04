@@ -18,7 +18,7 @@ public class HorizontalObserverPlatformBehavior implements ObserverBehaviorI
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-		if (updated)
+		if (updated && sprite.getX() < maxX)
 		{
 			sprite.setX(sprite.getX() + xVelocity);
 			updated = false;
