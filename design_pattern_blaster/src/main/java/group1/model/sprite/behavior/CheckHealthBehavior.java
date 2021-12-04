@@ -20,5 +20,4 @@ public class CheckHealthBehavior implements Behavior
 	{
 		return new CheckHealthBehavior();
 	}
-
 }
