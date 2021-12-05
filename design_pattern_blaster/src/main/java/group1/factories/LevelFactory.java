@@ -330,14 +330,12 @@ public class LevelFactory
 		Sprite player = SpriteFactory.player();
 
         Sprite floor = SpriteFactory.floor(10000, 20);
-        Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
-        platform.setSpriteId(2000); //set it high so we know it won't get overwritten upon insertion
-        player.addCustomCollision(2000, new CollideWithFloorNoClipBehavior(platform));
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		ArrayList<Sprite> sprites = new ArrayList<>();
-		Sprite enemyFactory = SpriteFactory.factory(SpriteFactory.observer(player, 1000, 25), 2);
+		Sprite enemyFactory = SpriteFactory.factory(1000, (int)(Constants.FLOOR_Y - 900), SpriteFactory.observer(player, 1000, 25), 5);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
+        Sprite observerPlatformInformationSign = SpriteFactory.informationalSign(600, 300, "src/main/resources/assets/signs/ObserverPlatformAbstractFactorySign.png");
         endOfLevelSprite.setX(1500);
 		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
@@ -347,10 +345,10 @@ public class LevelFactory
 		sprites.add(popup);
 		sprites.add(interactTrigger);
         sprites.add(floor);
-		sprites.add(player);
 		sprites.add(enemyFactory);
-        sprites.add(platform);
+		sprites.add(player);
         sprites.add(endOfLevelSprite);
+        sprites.add(observerPlatformInformationSign);
 		sprites.add(SpriteFactory.Timer(true));
         double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
         double maxXBoundary = Math.abs(endOfLevelSprite.getX() - Constants.WINDOW_WIDTH + endOfLevelSprite.getWidth());
