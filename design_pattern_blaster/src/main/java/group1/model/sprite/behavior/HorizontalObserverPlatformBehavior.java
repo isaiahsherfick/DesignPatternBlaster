@@ -1,5 +1,6 @@
 package group1.model.sprite.behavior;
 
+import group1.model.sprite.AnimationState;
 import group1.model.sprite.Sprite;
 
 public class HorizontalObserverPlatformBehavior implements ObserverBehaviorI
@@ -21,8 +22,10 @@ public class HorizontalObserverPlatformBehavior implements ObserverBehaviorI
 		if (updated && sprite.getX() < maxX)
 		{
 			sprite.setX(sprite.getX() + xVelocity);
+			sprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
 			updated = false;
 		}
+		sprite.getAnimation().setState(AnimationState.IDLE);
 	}
 
 	@Override

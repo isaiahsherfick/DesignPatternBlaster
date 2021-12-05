@@ -23,7 +23,7 @@ class ObserverPlatformTest
 		Sprite player = SpriteFactory.testPlayer();
 		player.setVelocityY(20);
 		player.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new ObservableBehavior()));
-		Sprite observerPlatformRight = SpriteFactory.observerPlatformRight(300, 50, 100, 1000, 1600, 2);
+		Sprite observerPlatformRight = SpriteFactory.observerPlatformHorizontal(300, 50, 100, 1000, 1600, 2);
 		ArrayList<Sprite> observers = new ArrayList<>(Arrays.asList(observerPlatformRight));
 		Sprite registerButton = SpriteFactory.registerObserverButton(player, observers);
 		int platformId = 2000;

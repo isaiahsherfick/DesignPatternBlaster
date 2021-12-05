@@ -1350,7 +1350,7 @@ public final class SpriteFactory
         return playerSprite;
 	}
 
-	public static Sprite observerPlatformRight(int width, int height, int x, int y, int maxX, double xVelocity) 
+	public static Sprite observerPlatformHorizontal(int width, int height, int x, int y, int maxX, double xVelocity) 
 	{
 		Sprite observerPlatform = new Sprite();
         observerPlatform.setX(x);
@@ -1359,7 +1359,10 @@ public final class SpriteFactory
         observerPlatform.setHeight(height);
         observerPlatform.setDefaultCollisionBehavior(new DoNothingBehavior());
         observerPlatform.setSpriteClassId(SpriteClassIdConstants.FLOOR);
-        observerPlatform.setColor(Color.GREY);
+        ArrayList<Image> idle = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/ObserverPlatformEyeClosed.png").toUri().toString())));
+        ArrayList<Image> open = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/ObserverPlatformEyeOpen.png").toUri().toString())));
+        observerPlatform.getAnimation().setAnimationLoopForState(AnimationState.IDLE, idle);
+        observerPlatform.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, idle);
 
         HorizontalObserverPlatformBehavior opb = new HorizontalObserverPlatformBehavior(maxX, xVelocity);
         observerPlatform.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), opb));

@@ -122,9 +122,9 @@ public class LevelFactory
         Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
         Sprite unregisterInformationSign = SpriteFactory.informationalSign((int)unregisterButton.getX() - 175, (int)unregisterButton.getY() - 300, "src/main/resources/assets/signs/UnregisterObserverInformationSign.png");
         
-        Sprite observerPlatform = SpriteFactory.observerPlatformRight(300, 20, 5100, (int)Constants.FLOOR_Y + 1, 6000, 4);
+        Sprite observerPlatform = SpriteFactory.observerPlatformHorizontal(300, 20, 5100, (int)Constants.FLOOR_Y + 1, 6000, 4);
         Sprite platformInformationSign = SpriteFactory.dummyInformationalSign((int)observerPlatform.getX() - 175, (int)observerPlatform.getY() - 300);
-        Sprite observerPlatform2 = SpriteFactory.observerPlatformRight(300, 20, 6700, 499, 7850, 4);
+        Sprite observerPlatform2 = SpriteFactory.observerPlatformHorizontal(300, 20, 6700, 499, 7850, 4);
         ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform));
         Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 5100, 40, 40, 20);
         observerPlatform.setSpriteId(150);
