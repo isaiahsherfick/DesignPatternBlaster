@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import group1.constants.Constants;
 import group1.model.sprite.game_event.GameEvent;
@@ -473,7 +474,7 @@ public final class SpriteFactory
 	{
 		return demoEnemy2();
 	}
-	public static Sprite factory(int x, int y, Sprite blueprint, int spawnInterval)
+	public static Sprite factory(int x, int y, HashMap<Integer, Sprite> blueprintFamily, int spawnInterval)
 	{
 		Sprite factory = new Sprite();
 		factory.setWidth(600);
@@ -486,6 +487,8 @@ public final class SpriteFactory
         
         ArrayList<Image> factoryAsset = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/FactorySmoke.png").toUri().toString())));
         factory.getAnimation().setAnimationLoopForState(AnimationState.IDLE, factoryAsset);
+        
+        factory.addEventBehavior(new EventBehavior(GameEvent.InteractEvent(), new AbstractFactoryBehavior(blueprintFamily)));
 
 		return factory;
 	}
@@ -681,6 +684,23 @@ public final class SpriteFactory
         computerIcon.getAnimation().setState(AnimationState.IDLE);
         return computerIcon;
     }
+	
+	public static Sprite interactPopupE(Sprite attachedSprite)
+	{
+		Sprite interactPopup = new Sprite();
+		interactPopup.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
+        interactPopup.setWidth(160);
+        interactPopup.setHeight(160);
+        interactPopup.setX(30);
+        interactPopup.setLayer(49);
+        interactPopup.setY(Constants.FLOOR_Y-240);
+        interactPopup.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.E), new InteractPopupBehavior(attachedSprite)));
+        interactPopup.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new DisableBehavior()));
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/0.2x/press_to_interact_popup_0.2x.png").toUri().toString());
+        interactPopup.getAnimation().setAnimationLoopForState(AnimationState.IDLE, new ArrayList<>(Arrays.asList(idleFrame)));
+        interactPopup.disable();
+        return interactPopup;
+	}
 
 	public static Sprite compositePopupInteractE(Sprite messageFromHQ)
 	{

@@ -10,21 +10,28 @@ public class AbstractFactoryBehavior implements Behavior
 {
 	private HashMap<Integer, Sprite> blueprintFamily; //Maps xOffset from the factory to Sprite
 	
+	private boolean spawned;
+	
 	public AbstractFactoryBehavior(HashMap<Integer, Sprite> blueprintMap)
 	{
 		blueprintFamily = blueprintMap;
+		spawned = false;
 	}
 	
 	
 	@Override
 	public void performBehavior(Sprite sprite) 
 	{
-		for (Entry<Integer, Sprite> e : blueprintFamily.entrySet())
+		if (!spawned)
 		{
-			int offsetX = e.getKey();
-			Sprite blueprint = e.getValue();
-			blueprint.setX(sprite.getX() + offsetX);
-			App.model.addSprite(blueprint);
+			spawned = true;
+			for (Entry<Integer, Sprite> e : blueprintFamily.entrySet())
+			{
+				int offsetX = e.getKey();
+				Sprite blueprint = e.getValue();
+				blueprint.setX(sprite.getX() + offsetX);
+				App.model.addSprite(blueprint);
+			}
 		}
 	}
 	@Override

@@ -2,6 +2,7 @@ package group1.factories;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import group1.constants.Constants;
 import group1.model.sprite.behavior.*;
@@ -327,13 +328,21 @@ public class LevelFactory
 
 	public static Level factoryLevel()
 	{
-		Sprite player = SpriteFactory.player();
+		Sprite player = SpriteFactory.observablePlayer();
 
         Sprite floor = SpriteFactory.floor(1300, 20);
         floor.setX(0);
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		ArrayList<Sprite> sprites = new ArrayList<>();
-		Sprite enemyFactory = SpriteFactory.factory(1000, (int)(Constants.FLOOR_Y - 900), SpriteFactory.observer(player, 1000, 25), 5);
+		HashMap<Integer, Sprite> observerPlatformFamily = new HashMap<>();
+        Sprite observerPlatform = SpriteFactory.observerPlatformHorizontal(300, 20, 1750, (int)Constants.FLOOR_Y +5, 3500, 4);
+        observerPlatform.setSpriteId(2000);
+        player.addCustomCollision(2000, new CollideWithFloorNoClipBehavior(observerPlatform));
+        ArrayList<Sprite> observers = new ArrayList<>(Arrays.asList(observerPlatform));
+        Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 1000, floor.getY() - 20, 40, 20);
+        observerPlatformFamily.put(200, observerPlatform);
+        observerPlatformFamily.put(-200, registerButton);
+		Sprite observerPlatformFactory = SpriteFactory.factory(1000, (int)(Constants.FLOOR_Y - 900), observerPlatformFamily, 5);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
         Sprite observerPlatformInformationSign = SpriteFactory.informationalSign(600, 300, "src/main/resources/assets/signs/ObserverPlatformAbstractFactorySign.png");
@@ -343,11 +352,17 @@ public class LevelFactory
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
 		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		Sprite observerPlatformFactoryPopup = SpriteFactory.interactPopupE(observerPlatformFactory);
+		observerPlatformFactoryPopup.setX(observerPlatformFactory.getX());
+		Sprite interactTrigger2 = SpriteFactory.interactTrigger(observerPlatformFactoryPopup);
+		interactTrigger2.setX(observerPlatformFactory.getX()-50);
 		sprites.add(computerIcon);
 		sprites.add(popup);
 		sprites.add(interactTrigger);
+		sprites.add(interactTrigger2);
+		sprites.add(observerPlatformFactoryPopup);
         sprites.add(floor);
-		sprites.add(enemyFactory);
+		sprites.add(observerPlatformFactory);
 		sprites.add(player);
         sprites.add(endOfLevelSprite);
         sprites.add(observerPlatformInformationSign);

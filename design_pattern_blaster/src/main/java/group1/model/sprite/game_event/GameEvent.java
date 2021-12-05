@@ -20,6 +20,7 @@ public class GameEvent implements Loadable
 	public static int KEY_RELEASED = 5;
 	public static int POWER_UP = 6;
 	public static int POWER_UP_END = 7;
+	public static int INTERACT = 8;
 	
 	private int eventType;
 	
@@ -66,6 +67,10 @@ public class GameEvent implements Loadable
 	public static GameEvent PowerUpEndEvent()
 	{
 		return new GameEvent(POWER_UP_END);
+	}
+	public static GameEvent InteractEvent()
+	{
+		return new GameEvent(INTERACT);
 	}
 	
 	@SuppressWarnings("unchecked")
