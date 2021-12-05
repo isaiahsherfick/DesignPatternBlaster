@@ -17,7 +17,7 @@ public class TimeScoreBehavior implements Behavior {
     private boolean scoreFunctionality = true;
     private int maxScore = 10000;
     private int minScore = 500;
-    private int timeBeforeMinScore = 30;
+    private int timeBeforeMinScore = 120;
     private int decreasePerSecond = (maxScore - minScore)/(timeBeforeMinScore-1);
 
     public TimeScoreBehavior(boolean scoreFunctionality) {
