@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class ViewBehavior implements Behavior {
     private final double secondsBetweenShots;
 
     private double health = 100;
-    private final double MAX_HEALTH = 100;
+
 
     private final static int BULLET_SPEED = -5;
     private HashMap<Integer,ArrayList<Image>> healthToSpriteMap;
@@ -35,7 +34,7 @@ public class ViewBehavior implements Behavior {
 
 
     public ViewBehavior() {
-        secondsBetweenShots = 1;
+        secondsBetweenShots = .75;
         healthToSpriteMap = new HashMap<>();
         for (int i = 0; i<=100; i+=10){
             String filePath = "src/main/resources/assets/MVC/MVCRequestSender " + i + ".png";
@@ -47,9 +46,9 @@ public class ViewBehavior implements Behavior {
 
     }
 
-    private Sprite restoreHealthRequest(){
+    private Sprite killPlayerRequest(){
         Sprite bullet = SpriteFactory.enemyBullet();
-        bullet.setVelocityX(BULLET_SPEED);
+        bullet.setVelocityX(BULLET_SPEED * 1.5);
         bullet.setVelocityY(0);
         bullet.setWidth(30);
         bullet.setColor(Color.DARKRED);
@@ -58,7 +57,7 @@ public class ViewBehavior implements Behavior {
         Behavior restoreTimeBehavior = new Behavior() {
             @Override
             public void performBehavior(Sprite sprite) {
-                health = MAX_HEALTH;
+                health = 0;
                 sprite.disable();
                 //System.out.println(timeRemaining);
             }
@@ -76,17 +75,17 @@ public class ViewBehavior implements Behavior {
     }
     private Sprite increaseHealthRequest(){
         Sprite bullet = SpriteFactory.enemyBullet();
-        bullet.setVelocityX(BULLET_SPEED * 1.25);
+        bullet.setVelocityX(BULLET_SPEED );
         bullet.setVelocityY(0);
         bullet.setWidth(30);
-        bullet.setColor(Color.ORANGE);
+        bullet.setColor(Color.LIMEGREEN);
         bullet.setDefaultCollisionBehavior(new DoNothingBehavior());
 
         Behavior restoreTimeBehavior = new Behavior() {
             @Override
             public void performBehavior(Sprite sprite) {
                 if(health < 100)
-                    health+=100;
+                    health+=10;
                 sprite.disable();
                 //System.out.println(timeRemaining);
             }
@@ -106,10 +105,10 @@ public class ViewBehavior implements Behavior {
 
     private Sprite decreaseHealthRequest(){
         Sprite bullet = SpriteFactory.enemyBullet();
-        bullet.setVelocityX(BULLET_SPEED * .75);
+        bullet.setVelocityX(BULLET_SPEED * 2.5 );
         bullet.setVelocityY(0);
         bullet.setWidth(30);
-        bullet.setColor(Color.LIME);
+        bullet.setColor(Color.ORANGE);
         bullet.setDefaultCollisionBehavior(new DoNothingBehavior());
         bullet.addCustomCollision(SpriteClassIdConstants.PLAYER, new DisableBehavior());
 
@@ -134,13 +133,13 @@ public class ViewBehavior implements Behavior {
     private Sprite randomRequest() {
         double randomNum = Math.random();
 
-        //roughly 45/25/25 distribution
-        if(randomNum<.45)
-            return increaseHealthRequest();
-        if(randomNum <= .725)
+        //roughly 60/30/10 distribution
+        if(randomNum<.6)
             return decreaseHealthRequest();
+        if(randomNum <= .9)
+            return killPlayerRequest();
 
-        return decreaseHealthRequest();
+        return increaseHealthRequest();
 
 
     }
@@ -169,10 +168,11 @@ public class ViewBehavior implements Behavior {
 
 
         if(health <=0){
-            sprite.disable();
+            new ReloadLevelBehavior().performBehavior(sprite);
+
         }
         if (timeRemaining <=0){
-            new ReloadLevelBehavior().performBehavior(sprite);
+            sprite.disable();
         }
         if (counter > secondsBetweenShots) {
             shootBehavior = new ShootSpriteBehavior(60,getRandomNumber(50,Constants.WINDOW_HEIGHT-120),randomRequest());
