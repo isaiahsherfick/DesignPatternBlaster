@@ -329,14 +329,16 @@ public class LevelFactory
 	{
 		Sprite player = SpriteFactory.player();
 
-        Sprite floor = SpriteFactory.floor(10000, 20);
+        Sprite floor = SpriteFactory.floor(1300, 20);
+        floor.setX(0);
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite enemyFactory = SpriteFactory.factory(1000, (int)(Constants.FLOOR_Y - 900), SpriteFactory.observer(player, 1000, 25), 5);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
         Sprite observerPlatformInformationSign = SpriteFactory.informationalSign(600, 300, "src/main/resources/assets/signs/ObserverPlatformAbstractFactorySign.png");
-        endOfLevelSprite.setX(1500);
+        Sprite factoryMotivationsSign = SpriteFactory.informationalSign(1300, 300, "src/main/resources/assets/signs/FactoryMotivations.png");
+        endOfLevelSprite.setX(10000);
 		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
@@ -349,6 +351,7 @@ public class LevelFactory
 		sprites.add(player);
         sprites.add(endOfLevelSprite);
         sprites.add(observerPlatformInformationSign);
+        sprites.add(factoryMotivationsSign);
 		sprites.add(SpriteFactory.Timer(true));
         double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
         double maxXBoundary = Math.abs(endOfLevelSprite.getX() - Constants.WINDOW_WIDTH + endOfLevelSprite.getWidth());
