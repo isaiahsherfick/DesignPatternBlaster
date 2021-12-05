@@ -25,7 +25,10 @@ public class HorizontalObserverPlatformBehavior implements ObserverBehaviorI
 			sprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
 			updated = false;
 		}
-		sprite.getAnimation().setState(AnimationState.IDLE);
+		else 
+		{
+			sprite.getAnimation().setState(AnimationState.IDLE);
+		}
 	}
 
 	@Override

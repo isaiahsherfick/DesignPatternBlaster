@@ -31,7 +31,7 @@ public final class SpriteFactory
         playerSprite.setWidth(50);
         playerSprite.setHeight(Constants.PLAYER_HEIGHT);
         playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
-        playerSprite.setDirection(Constants.LEFT);
+        playerSprite.setDirection(Constants.RIGHT);
         playerSprite.setHealth(10);
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
@@ -828,7 +828,7 @@ public final class SpriteFactory
         observer.setHeight(50);
         observer.setVelocityX(5);
         observer.setX(1000);
-        observer.setY(500);
+        observer.setY(300);
         observer.setColor(Color.GOLD);
 
         //Setting up animation
@@ -852,8 +852,9 @@ public final class SpriteFactory
         observer.getAnimation().setState(AnimationState.IDLE);
 
 		Sprite bulletSprite = enemyBullet();
+		bulletSprite.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 
-		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
+		StationaryObserverBehavior observerBehavior = new StationaryObserverBehavior();
 		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
@@ -894,8 +895,9 @@ public final class SpriteFactory
         //Set the observer to be idle
         observer.getAnimation().setState(AnimationState.IDLE);
 		Sprite bulletSprite = enemyBullet();
+		bulletSprite.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 
-		ObserverBehavior observerBehavior = new ObserverBehavior(250, 5);
+		StationaryObserverBehavior observerBehavior = new StationaryObserverBehavior();
 		observerBehavior.setShootSpriteBehavior(new ShootAtPlayerBehavior(0, (int)(observer.getHeight() + 20), bulletSprite, 20));
 
 		observer.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), observerBehavior));
@@ -922,7 +924,7 @@ public final class SpriteFactory
 	{
 		Sprite button = new Sprite();
         button.setX(x);
-        button.setY(Constants.FLOOR_Y - height);
+        button.setY(y);
         button.setWidth(width);
         button.setHeight(height);
 		ObservableBehavior ob = (ObservableBehavior)observable.getObservableBehavior();
@@ -948,7 +950,7 @@ public final class SpriteFactory
 	{
 		Sprite button = new Sprite();
         button.setX(x);
-        button.setY(Constants.FLOOR_Y - height);
+        button.setY(y);
         button.setWidth(width);
         button.setHeight(height);
         button.setColor(Color.BLUE);
@@ -1362,7 +1364,7 @@ public final class SpriteFactory
         ArrayList<Image> idle = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/ObserverPlatformEyeClosed.png").toUri().toString())));
         ArrayList<Image> open = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/ObserverPlatformEyeOpen.png").toUri().toString())));
         observerPlatform.getAnimation().setAnimationLoopForState(AnimationState.IDLE, idle);
-        observerPlatform.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, idle);
+        observerPlatform.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, open);
 
         HorizontalObserverPlatformBehavior opb = new HorizontalObserverPlatformBehavior(maxX, xVelocity);
         observerPlatform.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), opb));

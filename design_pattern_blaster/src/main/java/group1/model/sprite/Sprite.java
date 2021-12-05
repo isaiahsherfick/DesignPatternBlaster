@@ -80,7 +80,7 @@ public class Sprite implements Loadable
 	{
 		for (EventBehavior e : eventBehaviors)
 		{
-			if (e.getBehavior() instanceof ObserverBehavior)
+			if (e.getBehavior() instanceof ObserverBehaviorI)
 				return true;
 		}
 		return false;

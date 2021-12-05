@@ -102,7 +102,7 @@ public class LevelFactory
 
 	public static Level observerLevel()
 	{
-        Sprite floor = SpriteFactory.floor(5000, 20);
+        Sprite floor = SpriteFactory.floor(1650, 20);
         floor.setX(0);
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
         platform.setSpriteId(100); //set it high so we know it won't get overwritten upon insertion
@@ -110,34 +110,60 @@ public class LevelFactory
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
         player.addCustomCollision(100, new CollideWithFloorNoClipBehavior(platform));
 
-		Sprite observer = SpriteFactory.observer(3000, 25);
+		Sprite observer = SpriteFactory.observer(1250, 250);
+		Sprite observer3 = SpriteFactory.observer(1050, 250);
+		Sprite observer4 = SpriteFactory.observer(1150, 250);
+		Sprite observer5 = SpriteFactory.observer(1350, 250);
+		Sprite observer6 = SpriteFactory.observer(1450, 250);
 
-		Sprite observer2 = SpriteFactory.observer(2500, 25);
-        ArrayList<Sprite> observers = new ArrayList<>();
-        observers.add(observer);
-        observers.add(observer2);
+		Sprite observer2 = SpriteFactory.observer(2000, 250);
+        ArrayList<Sprite> observers = new ArrayList<>(Arrays.asList(observer,observer3,observer4,observer5,observer6));
 
-        Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 2500, 20, 40, 20);
+        Sprite registerButton = SpriteFactory.registerObserverButton(player, observers, 1000, floor.getY() - 20, 40, 20);
         Sprite registerInformationSign = SpriteFactory.informationalSign((int)registerButton.getX() - 175, (int)registerButton.getY() - 300, "src/main/resources/assets/signs/RegisterObserverInformationSign.png");
-        Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 4000, 20, 40, 20);
+        Sprite unregisterButton = SpriteFactory.unregisterObserverButton(player, 1550, floor.getY() - 20, 40, 20);
         Sprite unregisterInformationSign = SpriteFactory.informationalSign((int)unregisterButton.getX() - 175, (int)unregisterButton.getY() - 300, "src/main/resources/assets/signs/UnregisterObserverInformationSign.png");
         
-        Sprite observerPlatform = SpriteFactory.observerPlatformHorizontal(300, 20, 5100, (int)Constants.FLOOR_Y + 1, 6000, 4);
-        Sprite platformInformationSign = SpriteFactory.dummyInformationalSign((int)observerPlatform.getX() - 175, (int)observerPlatform.getY() - 300);
-        Sprite observerPlatform2 = SpriteFactory.observerPlatformHorizontal(300, 20, 6700, 499, 7850, 4);
-        ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform));
-        Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 5100, 40, 40, 20);
+        Sprite observerPlatform = SpriteFactory.observerPlatformHorizontal(300, 20, 1750, (int)Constants.FLOOR_Y + 1, 3500, 4);
+        Sprite observerPlatform2 = SpriteFactory.observerPlatformHorizontal(300, 20, 4200, 610, 10000, 4);
+        Sprite platform2 = SpriteFactory.platform(100, 20, 2500, 499);
+        Sprite platform3 = SpriteFactory.platform(100, 20, 3650, 502);
+        Sprite unregisterButton2 = SpriteFactory.unregisterObserverButton(player, platform3.getX(), platform3.getY() - 20, 40, 20);
+        Sprite platform4 = SpriteFactory.platform(100, 20, 4000, 375);
+        Sprite platform5 = SpriteFactory.platform(100, 20, 4400, 503);
+		Sprite observer7 = SpriteFactory.observer(2200, 25);
+		Sprite observer8 = SpriteFactory.observer(2400, 25);
+        ArrayList<Sprite> platList = new ArrayList<>(Arrays.asList(observerPlatform,observer2,observer7,observer8));
+        Sprite registerButton2 = SpriteFactory.registerObserverButton(player, platList, 1850, floor.getY() - 20, 40, 20);
+        observerPlatform2.setSpriteId(149);
         observerPlatform.setSpriteId(150);
-        observerPlatform2.setSpriteId(151);
+        platform2.setSpriteId(151);
+        platform3.setSpriteId(153);
+        platform4.setSpriteId(154);
+        platform5.setSpriteId(155);
 
+        player.addCustomCollision(149, new CollideWithFloorNoClipBehavior(observerPlatform2));
         player.addCustomCollision(150, new CollideWithFloorNoClipBehavior(observerPlatform));
-        player.addCustomCollision(151, new CollideWithFloorNoClipBehavior(observerPlatform2));
+        player.addCustomCollision(151, new CollideWithFloorNoClipBehavior(platform2));
+        player.addCustomCollision(153, new CollideWithFloorNoClipBehavior(platform3));
+        player.addCustomCollision(154, new CollideWithFloorNoClipBehavior(platform4));
+        player.addCustomCollision(155, new CollideWithFloorNoClipBehavior(platform5));
+
+		Sprite observer9 = SpriteFactory.observer(4200, 150);
+		Sprite observer10 = SpriteFactory.observer(4300, 150);
+		Sprite observer11 = SpriteFactory.observer(4400, 150);
+		Sprite observer12 = SpriteFactory.observer(4600, 150);
+		Sprite observer13 = SpriteFactory.observer(4700, 150);
+		Sprite observer14 = SpriteFactory.observer(4800, 150);
+		Sprite observer15 = SpriteFactory.observer(4900, 150);
+        ArrayList<Sprite> platList2 = new ArrayList<>(Arrays.asList(observerPlatform2,observer9, observer10, observer11, observer12, observer13, observer14, observer15));
+        Sprite registerButton3 = SpriteFactory.registerObserverButton(player, platList2, platform5.getX(), platform5.getY() - 20, 40, 20);
         
 
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
 
-		nextLevelSprite.setX(8000);
+		nextLevelSprite.setX(6000);
 
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
@@ -153,17 +179,35 @@ public class LevelFactory
         sprites.add(unregisterButton);
         sprites.add(floor);
         sprites.add(platform);
+        sprites.add(observerPlatform2);
 		sprites.add(observerPlatform);
-		sprites.add(observerPlatform2);
+		sprites.add(platform2);
+		sprites.add(platform3);
+		sprites.add(platform4);
+		sprites.add(platform5);
 		sprites.add(registerButton2);
+		sprites.add(registerButton3);
 		sprites.add(player);
 		sprites.add(observer);
 		sprites.add(observer2);
+		sprites.add(observer3);
+		sprites.add(observer4);
+		sprites.add(observer5);
+		sprites.add(observer6);
+		sprites.add(observer7);
+		sprites.add(observer8);
+		sprites.add(observer9);
+		sprites.add(observer10);
+		sprites.add(observer11);
+		sprites.add(observer12);
+		sprites.add(observer13);
+		sprites.add(observer14);
+		sprites.add(observer15);
 		sprites.add(nextLevelSprite);
 		sprites.add(scoreDisplay);
 		sprites.add(registerInformationSign);
 		sprites.add(unregisterInformationSign);
-		sprites.add(platformInformationSign);
+		sprites.add(unregisterButton2);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth());
 		Level observerLevel = new Level(Constants.OBSERVER_LEVEL_NUMBER,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
