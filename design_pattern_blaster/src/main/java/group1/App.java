@@ -46,7 +46,7 @@ public class App extends Application
 			levels.add(LevelFactory.compositeLevelFlashScreen());
 			levels.add(LevelFactory.compositeLevel());
 
-
+			levels.add(LevelFactory.singletonLevelFlashScreen());
 			levels.add(LevelFactory.singletonLevel());
 
 			levels.add(LevelFactory.factoryLevelFlashScreen());

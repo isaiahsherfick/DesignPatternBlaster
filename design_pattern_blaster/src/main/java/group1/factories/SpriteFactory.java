@@ -111,6 +111,7 @@ public final class SpriteFactory
         bulletSprite.setColor(Color.ORANGE);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
         bulletSprite.addCustomCollision(SpriteClassIdConstants.SUBORDINATE, new DoNothingBehavior());
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.INVOKER, new DisableBehavior());
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET);
         return bulletSprite;
     }
@@ -300,18 +301,66 @@ public final class SpriteFactory
 		commander.setWidth(50);
 		commander.setHeight(50);
 		commander.setLayer(Constants.BACKGROUND);
-//		commander.setVelocityX(10);
-        commander.setX(100);
+        commander.setX(300);
         commander.setY(Constants.WINDOW_HEIGHT - 150);
         commander.setColor(Color.RED);
 
         Sprite commandBullet = commandBullet();
 
         CommanderBehavior commanderBehavior = new CommanderBehavior();
-        commanderBehavior.setShootSpriteBehavior(new ShootDiagonallyAtTargetBehavior((int) (commander.getWidth() + 10), (int) (commander.getHeight() * 0.78), commandBullet, 10, subordinate));
+        commanderBehavior.setShootSpriteBehavior(new ShootDiagonallyAtTargetBehavior2((int) (commander.getWidth() + 10), (int) (commander.getHeight() * 0.78), commandBullet, 10, subordinate));
         commander.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
 
+      //Setting up animation
+
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/enemies/commander/Commander3.png").toUri().toString());
+
+        
+        //Put them in arraylists
+        ArrayList<Image> commanderImageIdle = new ArrayList<>();
+        commanderImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        commander.getAnimation().setAnimationLoopForState(AnimationState.IDLE, commanderImageIdle);
+
+        //Set the observer to be idle
+        commander.getAnimation().setState(AnimationState.IDLE);        
         return commander;
+    }
+	
+	public static Sprite commander2(Sprite subordinate)
+    {
+		Sprite commander = new Sprite();
+		commander.setWidth(50);
+		commander.setHeight(50);
+		commander.setLayer(Constants.BACKGROUND);
+        commander.setX(550);
+        commander.setY(Constants.WINDOW_HEIGHT - 470);
+        commander.setColor(Color.RED);
+
+        Sprite commandBullet = commandBullet();
+
+        CommanderBehavior2 commanderBehavior = new CommanderBehavior2();
+        commanderBehavior.setShootSpriteBehavior(new ShootDiagonallyAtTargetBehavior2((int) (commander.getWidth() +10), (int) (commander.getHeight() * 0.78), commandBullet, 10, subordinate));
+        commander.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), commanderBehavior));
+        
+      //Setting up animation
+
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/enemies/commander/Commander3.png").toUri().toString());
+        
+        //Put them in arraylists
+        ArrayList<Image> commanderImageIdle = new ArrayList<>();
+        commanderImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        commander.getAnimation().setAnimationLoopForState(AnimationState.IDLE, commanderImageIdle);
+
+        //Set the observer to be idle
+        commander.getAnimation().setState(AnimationState.IDLE);
+        return commander;
+        
     }
 
 
@@ -326,20 +375,24 @@ public final class SpriteFactory
 //        bulletSprite.setDirection(Constants.LEFT);
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         bulletSprite.setColor(Color.GREEN);
-        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+        bulletSprite.addCustomCollision(0, null);
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
+        
+        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
         return bulletSprite;
     }
 
-	public static Sprite InvisibleSubordinate()
+	public static Sprite invoker()
 	{
 		Sprite subordinate = new Sprite();
 		subordinate.setWidth(40);
-		subordinate.setHeight(50);
-		subordinate.setX(100);
-		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
-		subordinate.setColor(Color.TRANSPARENT);
-		subordinate.setSpriteClassId(SpriteClassIdConstants.SUBORDINATE);
+		subordinate.setHeight(300);
+		subordinate.setX(1400);
+		subordinate.setY(Constants.WINDOW_HEIGHT - 400);
+//		subordinate.setColor(Color.TRANSPARENT);
+		subordinate.setColor(Color.ORANGE);
+		subordinate.setSpriteClassId(SpriteClassIdConstants.INVOKER);
+		subordinate.setHealth(25);
 
 		Sprite bulletSprite = enemyBullet();
 		bulletSprite.setSpriteClassId(SpriteClassIdConstants.COMMAND);
@@ -349,19 +402,22 @@ public final class SpriteFactory
 		bulletSprite.setVelocityX(10);
 		bulletSprite.setColor(Color.GREEN);
 
-		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(20),(int)(subordinate.getHeight() - 70), bulletSprite));
-		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
+		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior2((int)(20),(int)(subordinate.getHeight() - 70), bulletSprite));
+		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		subordinate.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new FlashColorWhenDamagedBehavior(Color.RED)));
+		subordinate.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+        subordinate.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
 		return subordinate;
 	}
 
 
-	public static Sprite subordinate()
+	public static Sprite subordinate(Sprite player)
 	{
 		Sprite subordinate = new Sprite();
 		subordinate.setWidth(40);
 		subordinate.setHeight(50);
-		subordinate.setX(400);
-		subordinate.setY(Constants.WINDOW_HEIGHT - 150);
+		subordinate.setX(1000);
+		subordinate.setY(Constants.WINDOW_HEIGHT - 200);
 		subordinate.setColor(Color.YELLOW);
 		subordinate.setSpriteClassId(SpriteClassIdConstants.SUBORDINATE);
 
@@ -371,8 +427,16 @@ public final class SpriteFactory
 		bulletSprite.setWidth(100);
 		bulletSprite.setVelocityY(0);
 		bulletSprite.setVelocityX(10);
+		bulletSprite.addCustomCollision(SpriteClassIdConstants.COMMAND, new DoNothingBehavior());
+		
+		Image idleFrame = new Image(Paths.get("src/main/resources/assets/enemies/commander/Subordinate2.png").toUri().toString());
+		ArrayList<Image> subordinateImageIdle = new ArrayList<>();
+		subordinateImageIdle.add(idleFrame);
+		subordinate.getAnimation().setAnimationLoopForState(AnimationState.IDLE, subordinateImageIdle);
+		subordinate.getAnimation().setState(AnimationState.IDLE);
 
-		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootSpriteBehavior((int)(0),(int)(subordinate.getHeight() - 110), bulletSprite));
+
+		subordinate.addCustomCollision(SpriteClassIdConstants.COMMAND, new ShootAtTargetBehavior((int)(10),(int)(-20), bulletSprite,player));
 		subordinate.addCustomCollision(SpriteClassIdConstants.BULLET, new DoNothingBehavior());
 		return subordinate;
 	}
@@ -1094,6 +1158,44 @@ public final class SpriteFactory
 	        return screen;
 
 	    }
+	 
+	 public static Sprite singletonFlashScreen() {
+	    	Sprite screen = new Sprite();
+	    	screen.setX(-400);
+	    	screen.setY(-200);
+	    	screen.setWidth(500);
+	    	screen.setHeight(500);
+
+	    	ArrayList<Image> observerImage;
+	        if(screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT)==null)
+	        {
+	        	observerImage = new ArrayList<Image>();
+	        }
+	        else
+	        {
+	        	observerImage = screen.getAnimation().getAnimationLoopForState(AnimationState.LEFT_MOVEMENT);
+	        }
+
+	        ArrayList<String> observerPaths = new ArrayList<String>();
+	        observerPaths.add("src/main/resources/group1/view/SingletonFlashScreen/SingletonFlashScreen1.png");
+	        observerPaths.add("src/main/resources/group1/view/SingletonFlashScreen/SingletonFlashScreen2.png");
+	        observerPaths.add("src/main/resources/group1/view/SingletonFlashScreen/SingletonFlashScreen3.png");
+	        observerPaths.add("src/main/resources/group1/view/SingletonFlashScreen/SingletonFlashScreen4.png");
+	        observerPaths.add("src/main/resources/group1/view/SingletonFlashScreen/SingletonFlashScreen5.png");
+	        for(String observerPath: observerPaths)
+	        {
+	        	observerImage.add(new Image(Paths.get(observerPath).toUri().toString()));
+	        }
+
+	        screen.getAnimation().setAnimationLoopForState(AnimationState.LEFT_MOVEMENT, observerImage);
+	        screen.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
+
+	        ScreenBehavior screenBehavior = new ScreenBehavior();
+	        screen.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), screenBehavior));
+	        return screen;
+
+	    }
+	 
 
 	 public static Sprite factoryFlashScreen() {
 	    	Sprite screen = new Sprite();

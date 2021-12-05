@@ -6,14 +6,14 @@ import group1.App;
 import group1.constants.Constants;
 import group1.model.sprite.Sprite;
 
-public class CommanderBehavior implements Behavior {
+public class CommanderBehavior2 implements Behavior {
 	
 	private int secondsBetweenShots;
 	private double counter = 0.0;
 	private Behavior shootBehavior;
 	
-	public CommanderBehavior() {
-		secondsBetweenShots = 5;
+	public CommanderBehavior2() {
+		secondsBetweenShots = 4;
 	}
 	
 	public void setShootSpriteBehavior(Behavior ssb)
@@ -37,7 +37,7 @@ public class CommanderBehavior implements Behavior {
 	
 	public Behavior copy()
 	{
-		return new CommanderBehavior();
+		return new CommanderBehavior2();
 	}
 	
 }

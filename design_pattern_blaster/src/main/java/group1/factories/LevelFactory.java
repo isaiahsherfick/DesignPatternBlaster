@@ -24,6 +24,7 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 		Level observerLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level observerLevelFlashScreen = new Level(0,sprites);
 		return observerLevelFlashScreen;
 	}
 
@@ -32,6 +33,7 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 		Level strategyLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level strategyLevelFlashScreen = new Level(0,sprites);
 		return strategyLevelFlashScreen;
 	}
 
@@ -40,6 +42,7 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 		Level commanderLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level commanderLevelFlashScreen = new Level(0,sprites);
 		return commanderLevelFlashScreen;
 	}
 
@@ -48,7 +51,17 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 		Level compositeLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level compositeLevelFlashScreen = new Level(0,sprites);
 		return compositeLevelFlashScreen;
+	}
+	
+	public static Level singletonLevelFlashScreen() {
+		Sprite screen = SpriteFactory.singletonFlashScreen();
+		ArrayList<Sprite> sprites = new ArrayList<>();
+		sprites.add(screen);
+		Level singletonLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level singletonLevelFlashScreen = new Level(0,sprites);
+		return singletonLevelFlashScreen;
 	}
 
 	public static Level factoryLevelFlashScreen() {
@@ -56,6 +69,7 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 		Level factoryLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level factoryLevelFlashScreen = new Level(0,sprites);
 		return factoryLevelFlashScreen;
 	}
 
@@ -64,6 +78,7 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 		Level MVCLevelFlashScreen = new Level(0,sprites,"Level_Music.mp3");
+//		Level MVCLevelFlashScreen = new Level(0,sprites);
 		return MVCLevelFlashScreen;
 	}
 
@@ -129,14 +144,22 @@ public class LevelFactory
         Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
-		Sprite subordinate = SpriteFactory.subordinate();
-		Sprite invisibleSubordinate = SpriteFactory.InvisibleSubordinate();
-		invisibleSubordinate.setDirection(Constants.RIGHT);
-		Sprite commander = SpriteFactory.commander(invisibleSubordinate);
-		commander.setY(250);
-		subordinate.setDirection(Constants.RIGHT);
+		
+        Sprite subordinate = SpriteFactory.subordinate(player);
+		Sprite invokerSubordinate = SpriteFactory.invoker();
+		invokerSubordinate.setDirection(Constants.LEFT);
+		Sprite commander = SpriteFactory.commander(invokerSubordinate);
+		commander.setY(150);
+		commander.setX(500);
+		Sprite commander2 = SpriteFactory.commander2(invokerSubordinate);
+		commander2.setX(900);
+		commander2.setY(150);
+		subordinate.setDirection(Constants.LEFT);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
+		levelend.setX(2000);
+		
+		player.addCustomCollision(SpriteClassIdConstants.INVOKER, new CollideWithWallBehavior(invokerSubordinate,50));
 
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite computerIcon = SpriteFactory.computerIcon();
@@ -151,13 +174,17 @@ public class LevelFactory
 		sprites.add(player);
 		sprites.add(commander);
 		sprites.add(subordinate);
-		sprites.add(invisibleSubordinate);
+		sprites.add(invokerSubordinate);
 		sprites.add(levelend);
+		sprites.add(commander2);
 		sprites.add(scoreDisplay);
 
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
+
 		Level commanderLevel = new Level(Constants.COMMANDER_LEVEL_NUMBER,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
+
+
 		commanderLevel.setFocusSprite(player);
 		return commanderLevel;
 	}

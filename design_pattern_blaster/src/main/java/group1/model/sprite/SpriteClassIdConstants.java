@@ -21,4 +21,5 @@ public final class SpriteClassIdConstants
 	public static final int PICKUP_NEW_GUN = -15;
 	public static final int INTERACTABLE = -16;
 	public static final int POPUP = -17;
+	public static final int INVOKER = -18;
 }
