@@ -347,7 +347,7 @@ public class LevelFactory
 		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
         Sprite observerPlatformInformationSign = SpriteFactory.informationalSign(600, 300, "src/main/resources/assets/signs/ObserverPlatformAbstractFactorySign.png");
         Sprite factoryMotivationsSign = SpriteFactory.informationalSign(1300, 300, "src/main/resources/assets/signs/FactoryMotivations.png");
-        endOfLevelSprite.setX(10000);
+        endOfLevelSprite.setX(3600);
 		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);

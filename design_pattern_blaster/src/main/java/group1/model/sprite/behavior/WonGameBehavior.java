@@ -67,7 +67,7 @@ public class WonGameBehavior implements Behavior {
 
         }
 
-        Label testKnowledge = new Label("Now take the quiz to proof your mastery!");
+        Label testKnowledge = new Label("Now take the quiz to prove your mastery!");
         testKnowledge.setAlignment(Pos.CENTER);
         testKnowledge.setTextAlignment(TextAlignment.CENTER);
         dialogVbox.getChildren().add(testKnowledge);
