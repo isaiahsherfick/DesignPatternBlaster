@@ -3,6 +3,7 @@ package group1.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import group1.App;
 import javafx.scene.input.KeyCode;
 
 public class KeyInputManager
@@ -16,6 +17,7 @@ public class KeyInputManager
 	
 	public void onKeyPress(KeyCode key)
 	{
+
 		keyPressedMap.put(key,true);
 	}
 	
@@ -31,5 +33,9 @@ public class KeyInputManager
 			return keyPressedMap.get(key);
 		}
 		return false;
+	}
+
+	public void releaseAll(){
+		keyPressedMap.clear();
 	}
 }

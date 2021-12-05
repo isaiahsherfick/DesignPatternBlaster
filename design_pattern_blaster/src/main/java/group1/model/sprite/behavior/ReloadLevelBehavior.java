@@ -26,9 +26,11 @@ public class ReloadLevelBehavior implements Behavior {
 
     @Override
     public void performBehavior(Sprite sprite) {
-
+        App.model.getKeyInputManager().releaseAll();
         Stage mainStage = App.model.getMainStage();
         if (mainStage != null) {
+           // App.model.setWaiting(true);
+
 			App.model.clearSprites();
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -56,7 +58,9 @@ public class ReloadLevelBehavior implements Behavior {
 			dialog.show();
 
             dialog.setOnCloseRequest(e -> {
+                App.model.getKeyInputManager().releaseAll();
                 App.model.reloadLevel();
+
             });
 
 
