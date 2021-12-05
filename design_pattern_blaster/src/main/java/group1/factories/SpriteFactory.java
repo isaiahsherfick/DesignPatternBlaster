@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import group1.constants.Constants;
 import group1.model.sprite.game_event.GameEvent;
@@ -128,6 +129,7 @@ public final class SpriteFactory
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
         bulletSprite.addCustomCollision(SpriteClassIdConstants.ENEMY, new DoNothingBehavior());
         bulletSprite.setSpriteClassId(SpriteClassIdConstants.ENEMY_BULLET);
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.INTERACTABLE, new DoNothingBehavior());
         return bulletSprite;
     }
 
@@ -139,11 +141,12 @@ public final class SpriteFactory
         viewSprite.setVelocityX(0);
         viewSprite.setVelocityY(0);
         viewSprite.setX(viewSprite.getX()+60);
+        viewSprite.setY(viewSprite.getY()+5);
         viewSprite.setColor(Color.GRAY);
         viewSprite.setDefaultCollisionBehavior(new DoNothingBehavior());
         viewSprite.setSpriteClassId(-9); //placeholder
         viewSprite.setDirection(Constants.LEFT);
-        Image avatar = new Image(Paths.get("src/main/resources/assets/MVC/MVCRequestSender.png").toUri().toString());
+        Image avatar = new Image(Paths.get("src/main/resources/assets/MVC/MVCRequestSender 0.png").toUri().toString());
         ArrayList<Image> avatarAppearance = new ArrayList<>();
         avatarAppearance.add(avatar);
         viewSprite.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
@@ -242,6 +245,8 @@ public final class SpriteFactory
         floor.setSpriteClassId(SpriteClassIdConstants.FLOOR);
         floor.setColor(Color.GRAY);
         floor.setDefaultCollisionBehavior(new DoNothingBehavior());
+        ArrayList<Image> asset = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/DefaultPlatform.png").toUri().toString())));
+        floor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, asset);
         return floor;
     }
 
@@ -904,10 +909,10 @@ public final class SpriteFactory
 	{
 		Sprite button = new Sprite();
 		ObservableBehavior ob = (ObservableBehavior)observable.getObservableBehavior();
-		ArrayList<ObserverBehavior> observerBehaviors = new ArrayList<>();
+		ArrayList<ObserverBehaviorI> observerBehaviors = new ArrayList<>();
 		for (Sprite s : observers)
 		{
-			observerBehaviors.add((ObserverBehavior)s.getObserverBehavior());
+			observerBehaviors.add((ObserverBehaviorI)s.getObserverBehavior());
 		}
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
 		return button;
@@ -921,10 +926,10 @@ public final class SpriteFactory
         button.setWidth(width);
         button.setHeight(height);
 		ObservableBehavior ob = (ObservableBehavior)observable.getObservableBehavior();
-		ArrayList<ObserverBehavior> observerBehaviors = new ArrayList<>();
+		ArrayList<ObserverBehaviorI> observerBehaviors = new ArrayList<>();
 		for (Sprite s : observers)
 		{
-			observerBehaviors.add((ObserverBehavior)s.getObserverBehavior());
+			observerBehaviors.add((ObserverBehaviorI)s.getObserverBehavior());
 		}
 		button.addCustomCollision(SpriteClassIdConstants.PLAYER, new RegisterObserversBehavior(ob, observerBehaviors));
 		return button;
@@ -1308,4 +1313,78 @@ public final class SpriteFactory
         return puzzlePopup;
 	}
 
+	//TestPlayer has no gravity behavior or animations
+	public static Sprite testPlayer() 
+	{
+        Sprite playerSprite = new Sprite();
+        playerSprite.setX(Constants.WINDOW_WIDTH/2 -25);
+        //playerSprite.setY(Constants.WINDOW_HEIGHT - 200);
+        playerSprite.setY(Constants.PLAYER_Y);
+        playerSprite.setVelocityY(-0.1);
+        playerSprite.setWidth(50);
+        playerSprite.setHeight(Constants.PLAYER_HEIGHT);
+        playerSprite.setSpriteClassId(SpriteClassIdConstants.PLAYER);
+        playerSprite.setDirection(Constants.LEFT);
+        playerSprite.setHealth(10);
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.D), new FaceRightBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.A, -1*Constants.PLAYER_DX)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new UpdateVelocityXOnKeyPressBehavior(KeyCode.D, Constants.PLAYER_DX)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.A), new UpdateVelocityXBehavior(0)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.D), new UpdateVelocityXBehavior(0)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayerMoveBehavior()));
+        //playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayerGravityBehavior(Constants.GRAVITY)));
+        //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, -12)));
+        //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
+        playerSprite.setColor(Color.BLUE);
+
+        Sprite bulletSprite = bullet();
+
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite)));
+
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new ReloadLevelBehavior()));
+        playerSprite.addCustomCollision(SpriteClassIdConstants.ENEMY_BULLET, new DecrementHealthBehavior());
+
+        return playerSprite;
+	}
+
+	public static Sprite observerPlatformRight(int width, int height, int x, int y, int maxX, double xVelocity) 
+	{
+		Sprite observerPlatform = new Sprite();
+        observerPlatform.setX(x);
+        observerPlatform.setY(y);
+        observerPlatform.setWidth(width);
+        observerPlatform.setHeight(height);
+        observerPlatform.setDefaultCollisionBehavior(new DoNothingBehavior());
+        observerPlatform.setSpriteClassId(SpriteClassIdConstants.FLOOR);
+        observerPlatform.setColor(Color.GREY);
+
+        HorizontalObserverPlatformBehavior opb = new HorizontalObserverPlatformBehavior(maxX, xVelocity);
+        observerPlatform.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), opb));
+
+		return observerPlatform;
+	}
+	
+	public static Sprite informationalSign(int x, int y, String imagePath)
+	{
+		Sprite sign = new Sprite();
+		sign.setX(x);
+		sign.setY(y);
+		sign.setLayer(-20);
+		ArrayList<Image> informationAsset = new ArrayList<>(Arrays.asList(new Image(Paths.get(imagePath).toUri().toString())));
+		sign.getAnimation().setAnimationLoopForState(AnimationState.IDLE, informationAsset);
+		return sign;
+	}
+	public static Sprite dummyInformationalSign(int x, int y)
+	{
+		Sprite sign = new Sprite();
+		sign.setX(x);
+		sign.setLayer(-20);
+		sign.setY(y);
+		sign.setWidth(350);
+		sign.setHeight(200);
+		return sign;
+	}
 }

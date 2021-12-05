@@ -6,7 +6,6 @@ import group1.factories.SpriteFactory;
 import group1.model.sprite.AnimationState;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
-import group1.viewcontroller.ViewController;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -14,38 +13,51 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class ViewBehavior implements Behavior {
 
     private final double secondsBetweenShots;
 
-    private double timeRemaining = 30;
-    private final double TIME_TO_SURVIVE = 60;
+    private double health = 100;
+
 
     private final static int BULLET_SPEED = -5;
+    private HashMap<Integer,ArrayList<Image>> healthToSpriteMap;
 
     private double counter = 0.0;
+    private double timeRemaining = 30;
 
     private Behavior shootBehavior;
 
+
+
     public ViewBehavior() {
-        secondsBetweenShots = 1;
+        secondsBetweenShots = .75;
+        healthToSpriteMap = new HashMap<>();
+        for (int i = 0; i<=100; i+=10){
+            String filePath = "src/main/resources/assets/MVC/MVCRequestSender " + i + ".png";
+            Image avatar = new Image(Paths.get(filePath).toUri().toString());
+            ArrayList<Image> avatarAppearance = new ArrayList<>(List.of(avatar));
+            healthToSpriteMap.put(i,avatarAppearance);
+        }
+
 
     }
 
-    private Sprite restoreTimeRequest(){
+    private Sprite killPlayerRequest(){
         Sprite bullet = SpriteFactory.enemyBullet();
-        bullet.setVelocityX(BULLET_SPEED);
+        bullet.setVelocityX(BULLET_SPEED * 1.5);
         bullet.setVelocityY(0);
         bullet.setWidth(30);
         bullet.setColor(Color.DARKRED);
+        bullet.setDefaultCollisionBehavior(new DoNothingBehavior());
+
         Behavior restoreTimeBehavior = new Behavior() {
             @Override
             public void performBehavior(Sprite sprite) {
-                timeRemaining = TIME_TO_SURVIVE;
+                health = 0;
                 sprite.disable();
                 //System.out.println(timeRemaining);
             }
@@ -56,54 +68,55 @@ public class ViewBehavior implements Behavior {
             }
         };
         bullet.addCustomCollision(SpriteClassIdConstants.WALL, restoreTimeBehavior);
+        bullet.addCustomCollision(SpriteClassIdConstants.PLAYER, new DisableBehavior());
 
         return bullet;
 
     }
-    private Sprite increaseTimeRequest(){
+    private Sprite increaseHealthRequest(){
         Sprite bullet = SpriteFactory.enemyBullet();
-        bullet.setVelocityX(BULLET_SPEED * 1.25);
+        bullet.setVelocityX(BULLET_SPEED );
+        bullet.setVelocityY(0);
+        bullet.setWidth(30);
+        bullet.setColor(Color.LIMEGREEN);
+        bullet.setDefaultCollisionBehavior(new DoNothingBehavior());
+
+        Behavior restoreTimeBehavior = new Behavior() {
+            @Override
+            public void performBehavior(Sprite sprite) {
+                if(health < 100)
+                    health+=10;
+                sprite.disable();
+                //System.out.println(timeRemaining);
+            }
+
+            @Override
+            public Behavior copy() {
+                return null;
+            }
+        };
+        bullet.addCustomCollision(SpriteClassIdConstants.WALL, restoreTimeBehavior);
+        bullet.addCustomCollision(SpriteClassIdConstants.PLAYER, new DisableBehavior());
+
+
+        return bullet;
+
+    }
+
+    private Sprite decreaseHealthRequest(){
+        Sprite bullet = SpriteFactory.enemyBullet();
+        bullet.setVelocityX(BULLET_SPEED * 2.5 );
         bullet.setVelocityY(0);
         bullet.setWidth(30);
         bullet.setColor(Color.ORANGE);
+        bullet.setDefaultCollisionBehavior(new DoNothingBehavior());
+        bullet.addCustomCollision(SpriteClassIdConstants.PLAYER, new DisableBehavior());
+
+
         Behavior restoreTimeBehavior = new Behavior() {
             @Override
             public void performBehavior(Sprite sprite) {
-                timeRemaining += 10;
-                sprite.disable();
-                //System.out.println(timeRemaining);
-            }
-
-            @Override
-            public Behavior copy() {
-                return null;
-            }
-        };
-        bullet.addCustomCollision(SpriteClassIdConstants.WALL, restoreTimeBehavior);
-
-
-        return bullet;
-
-    }
-
-    private Sprite decreaseTimeRequest(){
-        Sprite bullet = SpriteFactory.enemyBullet();
-        bullet.setVelocityX(BULLET_SPEED * .75);
-        bullet.setVelocityY(0);
-        bullet.setWidth(30);
-        bullet.setColor(Color.LIME);
-        /**
-        Image avatar = new Image(Paths.get("src/main/resources/assets/avatar/0.2x/walk_left_frame2_0.2x.png").toUri().toString());
-        ArrayList<Image> avatarAppearance = new ArrayList<>();
-        avatarAppearance.add(avatar);
-        bullet.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
-        bullet.getAnimation().setState(AnimationState.IDLE);
-        System.out.println(bullet.getAnimation().getAnimationLoopForState(AnimationState.IDLE));
-         **/
-        Behavior restoreTimeBehavior = new Behavior() {
-            @Override
-            public void performBehavior(Sprite sprite) {
-                timeRemaining -= 10;
+                health -= 10;
                 sprite.disable();
             }
 
@@ -120,13 +133,13 @@ public class ViewBehavior implements Behavior {
     private Sprite randomRequest() {
         double randomNum = Math.random();
 
-        //equal 1/3 chance for now
-        if(randomNum<.333)
-            return restoreTimeRequest();
-        if(randomNum <= .6666667)
-            return increaseTimeRequest();
+        //roughly 60/30/10 distribution
+        if(randomNum<.6)
+            return decreaseHealthRequest();
+        if(randomNum <= .9)
+            return killPlayerRequest();
 
-        return decreaseTimeRequest();
+        return increaseHealthRequest();
 
 
     }
@@ -144,13 +157,25 @@ public class ViewBehavior implements Behavior {
 
         counter += App.model.getTimeDelta();
         timeRemaining -= App.model.getTimeDelta();
+
         double rounded = getRounded(timeRemaining);
+
         sprite.getAnimation().primeAnimationForStringDisplay("Time Left: " + rounded, 0, 50);
-        if(timeRemaining <=0){
+
+        ArrayList<Image> avatarAppearance = healthToSpriteMap.get((int) Math.ceil(health));
+        sprite.getAnimation().setAnimationLoopForState(AnimationState.IDLE, avatarAppearance);
+        sprite.getAnimation().setState(AnimationState.IDLE);
+
+
+        if(health <=0){
+            new ReloadLevelBehavior().performBehavior(sprite);
+
+        }
+        if (timeRemaining <=0){
             sprite.disable();
         }
         if (counter > secondsBetweenShots) {
-            shootBehavior = new ShootSpriteBehavior(60,getRandomNumber(50,Constants.WINDOW_HEIGHT-50),randomRequest());
+            shootBehavior = new ShootSpriteBehavior(60,getRandomNumber(50,Constants.WINDOW_HEIGHT-120),randomRequest());
             shootBehavior.performBehavior(sprite);
             counter = 0.0;
         }

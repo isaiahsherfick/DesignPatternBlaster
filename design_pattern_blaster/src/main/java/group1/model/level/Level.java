@@ -150,8 +150,8 @@ public class Level
 		this.levelScore = score;
 	}
 
-	public void getLevelScore(double score){
-		this.levelScore = score;
+	public double getLevelScore(){
+		return levelScore;
 	}
 
 	
