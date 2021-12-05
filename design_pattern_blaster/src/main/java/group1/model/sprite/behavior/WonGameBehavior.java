@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +79,6 @@ public class WonGameBehavior implements Behavior {
             dialog.close();
             displayQuiz(mainStage);
         });
-
         dialogVbox.getChildren().add(closeButton);
         Scene dialogScene = new Scene(dialogVbox);
         dialog.setScene(dialogScene);
@@ -94,14 +94,32 @@ public class WonGameBehavior implements Behavior {
         ScrollPane quiz = new ScrollPane();
         VBox questions = new VBox();
 
-        VBox question1 = newQuestion("What color is sky?",
-                List.of("Blue","Green","Orange","Brown","Silver"),
-                0);
-        VBox question2 = newQuestion("The answer to this question is not blue or green so what is it?", List.of("Blue","Green","Red"),2,"src/main/resources/assets/enemies/observer/Observer_EyeOpen_BluePupil.png");
-        VBox question3 = newQuestion("Why are we here?", List.of("Just to suffer"),0, "src/main/resources/assets/enemies/observer/Observer_EyeClosed.png");
-        VBox question4 = newQuestion("What is the meaning of adulation?", List.of("Strong respect","Extreme sorrow"),0);
 
-        questions.getChildren().addAll(question1,question2,question3,question4);
+        VBox question1 = newQuestion("In the Observer level, what was the observable?",
+                List.of("eyeball enemy","moving platform","red button","player","blue button"),
+                3);
+        VBox question2 = newQuestion("Based on your experience in the strategy level, can an object generally contain two strategy objects of the same type?",
+                List.of("Yes","No"),1);
+        VBox question3 = newQuestion("What is the essence of the Command Pattern?",
+                List.of("To establish a hierarchy between objects","Encapsulate requests as objects, allowing storage, parameterization, undo/redo, and prioritization",
+                        "To create an enumeration of established commands in a system so as to prevent an explosion of classes by restricting the public interfaces of the main entry points",
+                        "Encapsulate requests as objects so that you can reuse similar requests, thus saving memory"),1);
+        VBox question4 = newQuestion("Which of the following is a real world analog to the Composite Pattern?",
+                List.of("Sin Waves","Jigsaw Puzzle","Grocery bag inside of a grocery bag","A glass of water"),
+                2);
+        VBox question5 = newQuestion("On the factory level, why are you only able to spawn one observer platform?",
+                List.of("Because part of the motivation for Factory Patterns is to only fulfill a construction request when necessary",
+                        "Because the factory workers are attached to the first instance of the object and will not be freed until it is",
+                        "Because Factories only ever spawn a single instance of a given class, with no exceptions",
+                        "Because the construction request can only be allocated a set amount of memory"),
+                0);
+        VBox question6 = newQuestion("Given your task in the MVC Level, what is the Controller's job? (You were the controller)",
+                List.of("Avoid interpreting the view's requests to lower stress on model",
+                        "To control the view in accordance to the predictions of the model",
+                        "Prevent the user from viewing data in the model",
+                        "Serve as a bridge between the view and the model, filtering out invalid requests and performing business logic"),
+                3);
+        questions.getChildren().addAll(question1,question2,question3,question4, question5,question6);
         questions.setMaxWidth(500);
         quiz.setContent(questions);
         quiz.setPannable(false);
@@ -127,20 +145,25 @@ public class WonGameBehavior implements Behavior {
 
         Button checkAnswer= new Button("Check Answer");
         checkAnswer.setStyle("-fx-background-color: slateblue; -fx-text-fill: white;");
+        checkAnswer.setFocusTraversable(false);
         checkAnswer.setFont(new Font("Cambria", 18));
         layout.getChildren().add(labelfirst);
 
+        ToggleGroup tg = new ToggleGroup();
 
-        ToggleGroup toggleGroup= new ToggleGroup();
+
         checkAnswer.setDisable(true);
         for (int i =0; i<answers.size(); i++){
             RadioButton rb = new RadioButton(answers.get(i));
-            rb.setToggleGroup(toggleGroup);
+
             rb.setOnAction(e->checkAnswer.setDisable(false));
             rb.setFont(new Font("Cambria", 18));
             layout.getChildren().add(rb);
+            rb.setWrapText(true);
+            rb.setToggleGroup(tg);
 
             if( i == correctAnswerIndex) {
+
                 checkAnswer.setOnAction(e ->
                         {
                             if (rb.isSelected()) {
@@ -184,16 +207,23 @@ public class WonGameBehavior implements Behavior {
         Button checkAnswer= new Button("Check Answer");
         checkAnswer.setStyle("-fx-background-color: slateblue; -fx-text-fill: white;");
         checkAnswer.setFont(new Font("Cambria", 18));
+        checkAnswer.setFocusTraversable(false);
+
         layout.getChildren().add(labelfirst);
 
 
-        ToggleGroup toggleGroup= new ToggleGroup();
+        ToggleGroup toggleGroup = new ToggleGroup();
+
         checkAnswer.setDisable(true);
+
         for (int i =0; i<answers.size(); i++){
             RadioButton rb = new RadioButton(answers.get(i));
             rb.setToggleGroup(toggleGroup);
+
+
             rb.setOnAction(e->checkAnswer.setDisable(false));
             rb.setFont(new Font("Cambria", 18));
+            rb.setWrapText(true);
             layout.getChildren().add(rb);
 
             if( i == correctAnswerIndex) {
