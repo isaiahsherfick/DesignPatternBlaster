@@ -103,21 +103,21 @@ public class LevelManager {
         App.model.getGameCamera().setxMinClampPos(currentLevel.getMinXBoundary());
         App.model.getGameCamera().setxMaxClampPos(currentLevel.getMaxXBoundary());
         //System.out.println("Loaded level#" + currentLevel.getLevelNumber());
-//        Media song = currentLevel.getSong();
-//        if (mediaPlayer != null) {
-//            mediaPlayer.stop();
-//        }
-//        mediaPlayer = new MediaPlayer(song);
-//        mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
-//        mediaPlayer.setOnEndOfMedia(new Runnable() {
-//            @Override
-//            public void run() {
-//                mediaPlayer.seek(Duration.ZERO);
-//                mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
-//                mediaPlayer.play();
-//            }
-//        });
-//        mediaPlayer.play();
+        Media song = currentLevel.getSong();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer = new MediaPlayer(song);
+        mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
+                mediaPlayer.play();
+            }
+        });
+        mediaPlayer.play();
     }
 
     public void reloadLevel() {
@@ -128,21 +128,21 @@ public class LevelManager {
         App.model.getGameCamera().setxMinClampPos(currentLevel.getMinXBoundary());
         App.model.getGameCamera().setxMaxClampPos(currentLevel.getMaxXBoundary());
         //System.out.println("Loaded level#" + currentLevel.getLevelNumber());
-//        Media song = currentLevel.getSong();
-//        if (mediaPlayer != null) {
-//            mediaPlayer.stop();
-//        }
-//        mediaPlayer = new MediaPlayer(song);
-//        mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
-//        mediaPlayer.setOnEndOfMedia(new Runnable() {
-//            @Override
-//            public void run() {
-//                mediaPlayer.seek(Duration.ZERO);
-//                mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
-//                mediaPlayer.play();
-//            }
-//        });
-//        mediaPlayer.play();
+        Media song = currentLevel.getSong();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+        mediaPlayer = new MediaPlayer(song);
+        mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
+                mediaPlayer.play();
+            }
+        });
+        mediaPlayer.play();
     }
 
     private void resetCurrentLevel() {
