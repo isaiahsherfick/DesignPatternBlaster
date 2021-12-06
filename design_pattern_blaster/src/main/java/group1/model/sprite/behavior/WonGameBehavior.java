@@ -58,11 +58,13 @@ public class WonGameBehavior implements Behavior {
         dialogVbox.getChildren().add(label);
         List<String> stageNames = List.of("Observer","Strategy","Command","Composite","Factory");
         int stageNamesIndex = 0;
-        for(Level l: App.model.getLevelManager().getCompletedLevelsList()){
-            Label score = new Label(stageNames.get(stageNamesIndex) + ": " + l.getLevelScore());
+        List<Level> completedLevels = App.model.getLevelManager().getCompletedLevelsList();
+        for(int i =1; i<completedLevels.size(); i+=2){
+            Label score = new Label(stageNames.get(stageNamesIndex) + ": " + completedLevels.get(i).getLevelScore());
             score.setAlignment(Pos.CENTER);
             score.setTextAlignment(TextAlignment.CENTER);
             dialogVbox.getChildren().add(score);
+
             stageNamesIndex++;
 
         }

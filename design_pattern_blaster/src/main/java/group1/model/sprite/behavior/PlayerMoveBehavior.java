@@ -12,7 +12,7 @@ public class PlayerMoveBehavior implements Behavior
 		if(sprite.getVelocityX()==0) {
 			sprite.getAnimation().setState(AnimationState.IDLE);
 		}
-		System.out.println(sprite.getX() + " " + sprite.getY());
+
 	}
 
 	public Behavior copy()
