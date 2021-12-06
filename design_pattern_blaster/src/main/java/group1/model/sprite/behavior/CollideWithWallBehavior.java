@@ -15,7 +15,7 @@ public class CollideWithWallBehavior implements Behavior {
 	@Override
 	public void performBehavior(Sprite sprite) {
 		// TODO Auto-generated method stub
-		if(sprite.getVelocityX()>0) {
+		if(sprite.getVelocityX()>0 || sprite.getX()>object.getX()) {
 			sprite.setX(object.getX() - sprite.getWidth() - offset);
             sprite.setVelocityX(0);
 		}

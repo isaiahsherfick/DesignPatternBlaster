@@ -22,4 +22,5 @@ public final class SpriteClassIdConstants
 	public static final int INTERACTABLE = -16;
 	public static final int POPUP = -17;
 	public static final int INVOKER = -18;
+	public static final int INVOKER2 = -19;
 }

@@ -52,7 +52,7 @@ public class Level
 		{
 			sprites.add(i.next());
 		}
-        this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
+//        this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
 	}
 	
 	public Level(int levelNumber, ArrayList<Sprite> spritesToAdd, String pathToSongFile, double minXBoundary, double maxXBoundary) {
@@ -63,7 +63,7 @@ public class Level
 		{
 			sprites.add(i.next());
 		}
-        this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
+//        this.song = new Media((App.class.getResource(pathToSongFile)).toExternalForm());
         this.setMinXBoundary(minXBoundary);
         this.setMaxXBoundary(maxXBoundary);
 	}

@@ -51,7 +51,6 @@ public class LevelFactory
 		sprites.add(screen);
 
 //		Level commanderLevelFlashScreen = new Level(0,sprites);
-
 		Level commanderLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return commanderLevelFlashScreen;
 	}
@@ -84,7 +83,6 @@ public class LevelFactory
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		sprites.add(screen);
 //		Level factoryLevelFlashScreen = new Level(0,sprites);
-
 		Level factoryLevelFlashScreen = new Level(0,sprites,"Menu_Music.mp3");
 		return factoryLevelFlashScreen;
 	}
@@ -223,33 +221,81 @@ public class LevelFactory
 	{
         Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
-        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
+		player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		
         Sprite subordinate = SpriteFactory.subordinate(player);
 		Sprite invokerSubordinate = SpriteFactory.invoker();
 		invokerSubordinate.setDirection(Constants.LEFT);
+		
 		Sprite commander = SpriteFactory.commander(invokerSubordinate);
 		commander.setY(150);
 		commander.setX(500);
+		
 		Sprite commander2 = SpriteFactory.commander2(invokerSubordinate);
 		commander2.setX(900);
 		commander2.setY(150);
+
 		subordinate.setDirection(Constants.LEFT);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
-		levelend.setX(2000);
+		levelend.setX(4000);
+		Sprite wall = SpriteFactory.wall();
+		wall.setX(-1025);
 		
+		Sprite commandWall = SpriteFactory.commandWall();
+		
+		Sprite subordinate2 = SpriteFactory.subordinate(player);
+		subordinate2.setX(2800);
+		Sprite invokerSubordinate2 = SpriteFactory.invoker2();
+		invokerSubordinate2.setDirection(Constants.LEFT);
+		invokerSubordinate2.setX(3600);
+		
+		Sprite commander3 = SpriteFactory.commander(invokerSubordinate2);
+		commander3.setX(2800);
+		commander3.setY(150);
+		
+		Sprite commander4 = SpriteFactory.commander(invokerSubordinate2);
+		commander4.setX(3300);
+		commander4.setY(150);
+		
+		player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		player.addCustomCollision(SpriteClassIdConstants.INVOKER, new CollideWithWallBehavior(invokerSubordinate,50));
+		player.addCustomCollision(SpriteClassIdConstants.INVOKER2, new CollideWithWallBehavior(invokerSubordinate2,50));
+		player.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(20, 0));
+		player.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.COMMAND, new DoNothingBehavior());
+		
+		
+//		Sprite subordinate2 = SpriteFactory.subordinate(player);
+//		subordinate2.setX(2500);
+//		Sprite invokerSubordinate2 = SpriteFactory.invoker();
+//		invokerSubordinate2.setX(2800);
+//		invokerSubordinate2.setDirection(Constants.LEFT);
+//		
+//		Sprite commander3 = SpriteFactory.commander(invokerSubordinate);
+//		commander3.setY(150);
+//		commander3.setX(2500);
+//		
+//		Sprite commander4 = SpriteFactory.commander2(invokerSubordinate);
+//		commander4.setX(2800);
+//		commander4.setY(150);
 
+//		subordinate2.setDirection(Constants.LEFT);
+		
+		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
 		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+		
+		Sprite computerIcon2 = SpriteFactory.computerIcon();
+		
+		computerIcon2.setX(2100);
+		
 		sprites.add(computerIcon);
 		sprites.add(popup);
 		sprites.add(interactTrigger);
-
+		sprites.add(wall);
         sprites.add(floor);
 		sprites.add(player);
 		sprites.add(commander);
@@ -258,6 +304,12 @@ public class LevelFactory
 		sprites.add(levelend);
 		sprites.add(commander2);
 		sprites.add(scoreDisplay);
+		sprites.add(computerIcon2);
+		sprites.add(commandWall);
+		sprites.add(subordinate2);
+		sprites.add(invokerSubordinate2);
+		sprites.add(commander4);
+		sprites.add(commander3);
 
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
