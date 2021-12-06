@@ -20,11 +20,14 @@ public class GameEvent implements Loadable
 	public static int KEY_RELEASED = 5;
 	public static int POWER_UP = 6;
 	public static int POWER_UP_END = 7;
-	public static int INTERACT = 10;
+<<<<<<< Updated upstream
+	public static int INTERACT = 8;
 	
+=======
 	public static int MOUSE_DRAG = 8;
 	public static int MOUSE_DRAG_RELEASE = 9;
 
+>>>>>>> Stashed changes
 	private int eventType;
 
 	//Use the factory methods!
@@ -71,11 +74,13 @@ public class GameEvent implements Loadable
 	{
 		return new GameEvent(POWER_UP_END);
 	}
+<<<<<<< Updated upstream
 	public static GameEvent InteractEvent()
 	{
 		return new GameEvent(INTERACT);
 	}
 	
+=======
 	public static GameEvent MouseDragEvent()
 	{
 		return new GameEvent(MOUSE_DRAG);
@@ -88,6 +93,7 @@ public class GameEvent implements Loadable
 
 
 
+>>>>>>> Stashed changes
 	@SuppressWarnings("unchecked")
 	public JSONObject save()
 	{

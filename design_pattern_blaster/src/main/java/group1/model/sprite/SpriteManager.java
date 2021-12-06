@@ -13,18 +13,18 @@ import group1.App;
 import group1.model.level.Level;
 import group1.model.sprite.game_event.GameEvent;
 
-public class SpriteManager 
+public class SpriteManager
 {
 		private HashMap<Integer, Sprite> spriteMap;
 		private int highestSpriteId;
-		
+
 		public SpriteManager()
 		{
 			this.spriteMap = new HashMap<>();
 			highestSpriteId = -1;
 		}
-		
-		public void addSprite(Sprite s) 
+
+		public void addSprite(Sprite s)
 		{
 			if (s.getSpriteId() > highestSpriteId)
 			{
@@ -37,13 +37,13 @@ public class SpriteManager
 			}
 			spriteMap.put(s.getSpriteId(), s);
 		}
-		
-		public Sprite getSprite(int spriteId) 
+
+		public Sprite getSprite(int spriteId)
 		{
 			return spriteMap.get(spriteId);
 		}
-		
-		public void modifySprite(Sprite newSprite) 
+
+		public void modifySprite(Sprite newSprite)
 		{
 			//If the sprite exists already
 			if (spriteMap.containsKey(newSprite.getSpriteId()))
@@ -52,9 +52,9 @@ public class SpriteManager
 				spriteMap.put(newSprite.getSpriteId(), newSprite);
 			}
 		}
-		
+
 		//Receive a game event, send it to all the sprites
-		public void updateSprites(GameEvent g) 
+		public void updateSprites(GameEvent g)
 		{
 			HashMap<Integer,Sprite> copy = spriteMapCopy();
 			Iterator<Sprite> spriteIterator = copy.values().iterator();
@@ -63,7 +63,7 @@ public class SpriteManager
 				spriteIterator.next().respondToEvent(g);
 			}
 		}
-		
+
 		private HashMap<Integer,Sprite> spriteMapCopy()
 		{
 			HashMap<Integer, Sprite> copy = new HashMap<>();
@@ -75,7 +75,7 @@ public class SpriteManager
 			}
 			return copy;
 		}
-		
+
 		public ArrayList<Sprite> getSpriteList()
 		{
 			ArrayList<Sprite> allSprites = new ArrayList<>();
@@ -86,14 +86,14 @@ public class SpriteManager
 			}
 			return allSprites;
 		}
-		
-		public void clearAllSprites() 
+
+		public void clearAllSprites()
 		{
 			spriteMap.clear();
 			highestSpriteId = 0;
 		}
-		
-		public void loadLevel(Level level) 
+
+		public void loadLevel(Level level)
 		{
 			ArrayList<Sprite> allSprites = new ArrayList<>();
 			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
@@ -103,8 +103,25 @@ public class SpriteManager
 			}
 		}
 
+
+        //Returns all ENABLED sprites with SpriteClassId
+		public ArrayList<Sprite> getSpriteListByClassId(int spriteClassId)
+		{
+			ArrayList<Sprite> spritesWithTargetClassId = new ArrayList<>();
+			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
+			while (spriteIterator.hasNext())
+			{
+				Sprite current = spriteIterator.next();
+				if (current.getSpriteClassId() == (spriteClassId) && current.isEnabled())
+				{
+					spritesWithTargetClassId.add(current);
+				}
+			}
+			return spritesWithTargetClassId;
+		}
+
         //Returns all ENABLED sprites in layer
-		public ArrayList<Sprite> getSpriteListByLayer(int layer) 
+		public ArrayList<Sprite> getSpriteListByLayer(int layer)
 		{
 			ArrayList<Sprite> spritesInTargetLayer = new ArrayList<>();
 			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
@@ -119,7 +136,7 @@ public class SpriteManager
 			return spritesInTargetLayer;
 		}
 
-		public Set<Integer> getLayerSet() 
+		public Set<Integer> getLayerSet()
 		{
 			SortedSet<Integer> layers = new TreeSet<>();
 			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
@@ -130,12 +147,12 @@ public class SpriteManager
 			return layers;
 		}
 
-		public int getNumberOfSprites() 
+		public int getNumberOfSprites()
 		{
 			return spriteMap.size();
 		}
 
-		public ArrayList<Sprite> getPlayerSprites() 
+		public ArrayList<Sprite> getPlayerSprites()
 		{
 			ArrayList<Sprite> playerSprites = new ArrayList<>();
 			Iterator<Sprite> spriteIterator = spriteMap.values().iterator();
@@ -148,7 +165,7 @@ public class SpriteManager
 				}
 			}
 			return playerSprites;
-		}		
+		}
 
         public ArrayList<Sprite> getFloorSprites()
         {

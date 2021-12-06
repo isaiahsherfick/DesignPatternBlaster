@@ -1,9 +1,11 @@
 package group1.viewcontroller;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import group1.App;
 import group1.constants.Constants;
 import group1.interfaces.Observer;
+import group1.model.DragAndDropManager;
 import group1.model.KeyInputManager;
 import group1.model.sprite.Animation;
 import group1.model.sprite.AnimationState;
@@ -13,9 +15,12 @@ import group1.model.sprite.behavior.MoveBehavior;
 import group1.model.sprite.game_event.GameEvent;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -38,6 +43,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
+
 
 public class ViewController implements Observer
 {
@@ -111,6 +117,61 @@ public class ViewController implements Observer
 				    keyInputManager.onKeyRelease(e.getCode());
                 }
 			});
+
+//			mainScene.setOnMousePressed(e -> {
+//				DragAndDropManager dragAndDropManager = App.model.getDragAndDropManager();
+//				if(!dragAndDropManager.getDragStatus()) {
+//					Point2D point = new Point2D(e.getX()-App.model.getGameCamera().getXPos(),e.getY()-App.model.getGameCamera().getYPos());
+//					System.out.println("e.getX:"+point.getX());
+//					System.out.println("e.soemthingX:"+point.getY());
+//					System.out.println(dragAndDropManager.draggableSpriteExists(point));
+//					if(dragAndDropManager.draggableSpriteExists(point)) {
+//						dragAndDropManager.setPrevDragPosition(point);
+//						dragAndDropManager.setDragStartPosition(point);
+//						dragAndDropManager.setDragPosition(point);
+//						dragAndDropManager.setDragStatus(true);
+//					}
+//				}
+//				else {
+//					dragAndDropManager.setDragPosition(new Point2D(e.getX()-App.model.getGameCamera().getXPos(),e.getY()-App.model.getGameCamera().getYPos()));
+//				}
+//                App.model.receiveEvent(GameEvent.MouseDragEvent());
+//			});
+			mainScene.setOnMouseDragged(e -> {
+				DragAndDropManager dragAndDropManager = App.model.getDragAndDropManager();
+				if(!dragAndDropManager.getDragStatus()) {
+					Point2D point = new Point2D(e.getX()-App.model.getGameCamera().getXPos(),e.getY()-App.model.getGameCamera().getYPos());
+//					System.out.println("e.getX:"+point.getX());
+//					System.out.println("e.soemthingX:"+point.getY());
+//					System.out.println(dragAndDropManager.draggableSpriteExists(point));
+					if(dragAndDropManager.draggableSpriteExists(point)) {
+						dragAndDropManager.setPrevDragPosition(point);
+						dragAndDropManager.setDragStartPosition(point);
+						dragAndDropManager.setDragPosition(point);
+						dragAndDropManager.setDragStatus(true);
+					}
+				}
+				else {
+					dragAndDropManager.setDragPosition(new Point2D(e.getX()-App.model.getGameCamera().getXPos(),e.getY()-App.model.getGameCamera().getYPos()));
+				}
+                App.model.receiveEvent(GameEvent.MouseDragEvent());
+			});
+
+//			mainScene.setOnDragDone(e -> {
+
+			mainScene.setOnMouseReleased(e -> {
+				DragAndDropManager dragAndDropManager = App.model.getDragAndDropManager();
+				if(dragAndDropManager.getDragStatus()) {
+					dragAndDropManager.reset();
+//					System.out.println("Drag let go.,....................................");
+//					dragAndDropManager.setDragStatus(false);
+				}
+				else {
+//					System.out.println("Drag Released but flag false already..............");
+//					dragAndDropManager.setDragPosition(new Point2D(e.getX()-App.model.getGameCamera().getXPos(),e.getY()-App.model.getGameCamera().getYPos()));
+				}
+                App.model.receiveEvent(GameEvent.MouseReleaseEvent());
+			});
 			//Set the scene for the main stage
 			mainStage.setScene(mainScene);
 		}
@@ -168,5 +229,9 @@ public class ViewController implements Observer
 			}
 		}
 		gameCanvas.getGraphicsContext2D().translate(-App.model.getGameCamera().getXPos(), -App.model.getGameCamera().getYPos());	//again translate camera with everything new which got rendered
+	}
+
+	public Scene getScene() {
+		return this.getScene();
 	}
 }

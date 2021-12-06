@@ -45,7 +45,7 @@ public class App extends Application
 
 			levels.add(LevelFactory.factoryLevelFlashScreen());
 			levels.add(LevelFactory.factoryLevel());
-			
+
 			levels.add(LevelFactory.strategyLevelFlashScreen());
 			levels.add(LevelFactory.strategyLevel());
 

@@ -225,16 +225,21 @@ public class LevelFactory
 	{
         Sprite floor = SpriteFactory.floor(10000, 20);
 		Sprite player = SpriteFactory.player();
+<<<<<<< Updated upstream
 		player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
+		
+=======
+        player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 
+>>>>>>> Stashed changes
         Sprite subordinate = SpriteFactory.subordinate(player);
 		Sprite invokerSubordinate = SpriteFactory.invoker();
 		invokerSubordinate.setDirection(Constants.LEFT);
-
+		
 		Sprite commander = SpriteFactory.commander(invokerSubordinate);
 		commander.setY(150);
 		commander.setX(500);
-
+		
 		Sprite commander2 = SpriteFactory.commander2(invokerSubordinate);
 		commander2.setX(900);
 		commander2.setY(150);
@@ -242,62 +247,71 @@ public class LevelFactory
 		subordinate.setDirection(Constants.LEFT);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
+<<<<<<< Updated upstream
 		levelend.setX(4000);
 		Sprite wall = SpriteFactory.wall();
 		wall.setX(-1025);
-
+		
 		Sprite commandWall = SpriteFactory.commandWall();
-
+		
 		Sprite subordinate2 = SpriteFactory.subordinate(player);
 		subordinate2.setX(2800);
 		Sprite invokerSubordinate2 = SpriteFactory.invoker2();
 		invokerSubordinate2.setDirection(Constants.LEFT);
 		invokerSubordinate2.setX(3600);
-
+		
 		Sprite commander3 = SpriteFactory.commander(invokerSubordinate2);
 		commander3.setX(2800);
 		commander3.setY(150);
-
+		
 		Sprite commander4 = SpriteFactory.commander(invokerSubordinate2);
 		commander4.setX(3300);
 		commander4.setY(150);
-
+		
 		player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
+=======
 		levelend.setX(2000);
 
+>>>>>>> Stashed changes
 		player.addCustomCollision(SpriteClassIdConstants.INVOKER, new CollideWithWallBehavior(invokerSubordinate,50));
 		player.addCustomCollision(SpriteClassIdConstants.INVOKER2, new CollideWithWallBehavior(invokerSubordinate2,50));
 		player.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(20, 0));
 		player.getCustomCollisionMap().addCustomCollision(SpriteClassIdConstants.COMMAND, new DoNothingBehavior());
-
-
+		
+		
 //		Sprite subordinate2 = SpriteFactory.subordinate(player);
 //		subordinate2.setX(2500);
 //		Sprite invokerSubordinate2 = SpriteFactory.invoker();
 //		invokerSubordinate2.setX(2800);
 //		invokerSubordinate2.setDirection(Constants.LEFT);
-//
+//		
 //		Sprite commander3 = SpriteFactory.commander(invokerSubordinate);
 //		commander3.setY(150);
 //		commander3.setX(2500);
-//
+//		
 //		Sprite commander4 = SpriteFactory.commander2(invokerSubordinate);
 //		commander4.setX(2800);
 //		commander4.setY(150);
 
 //		subordinate2.setDirection(Constants.LEFT);
-
-
+		
+		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 //		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.messageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
 		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
-//TODO: change parameters for the command level here.
-		Sprite computerIcon2 = SpriteFactory.computerIcon(messageFromHQ, messageFromHQ, sprites, messageFromHQ);
-
+<<<<<<< Updated upstream
+		
+		Sprite computerIcon2 = SpriteFactory.computerIcon();
+		
 		computerIcon2.setX(2100);
-
+		
+		sprites.add(computerIcon);
+=======
+//		sprites.add(computerIcon);
+>>>>>>> Stashed changes
+		sprites.add(popup);
 		sprites.add(interactTrigger);
 		sprites.add(wall);
         sprites.add(floor);
@@ -336,10 +350,9 @@ public class LevelFactory
 		Sprite pressToInteractPopup = SpriteFactory.popupInteractE();
 		Sprite messageFromHQ = SpriteFactory.messageFromHQ();
 		ArrayList<Sprite> puzzleSprites = SpriteFactory.compositePuzzle();
+		Sprite computerIcon = SpriteFactory.computerIcon(pressToInteractPopup, messageFromHQ, puzzleSprites);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
-//		levelend.disable();
-		Sprite computerIcon = SpriteFactory.computerIcon(pressToInteractPopup, messageFromHQ, puzzleSprites, levelend);
         sprites.add(floor);
 		sprites.add(pressToInteractPopup);
 		sprites.add(computerIcon);
@@ -425,18 +438,34 @@ public class LevelFactory
 		interactTrigger3.setX(platformFactory.getX() - 50);
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite endOfLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
+<<<<<<< Updated upstream
         Sprite observerPlatformInformationSign = SpriteFactory.informationalSign(600, 300, "src/main/resources/assets/signs/ObserverPlatformAbstractFactorySign.png");
         Sprite factoryMotivationsSign = SpriteFactory.informationalSign(1300, 300, "src/main/resources/assets/signs/FactoryMotivations.png");
         Sprite factoryAdvantageSign = SpriteFactory.informationalSign(2500, 300, "src/main/resources/assets/signs/FactoryAdvantage.png");
         Sprite singletonExampleSign = SpriteFactory.informationalSign(3000, 100, "src/main/resources/assets/signs/SingletonExplanation.png");
         endOfLevelSprite.setX(4200);
         endOfLevelSprite.setY(200);
+		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.compositeMessageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
 		Sprite observerPlatformFactoryPopup = SpriteFactory.interactPopupE(observerPlatformFactory);
 		observerPlatformFactoryPopup.setX(observerPlatformFactory.getX());
 		Sprite interactTrigger2 = SpriteFactory.interactTrigger(observerPlatformFactoryPopup);
 		interactTrigger2.setX(observerPlatformFactory.getX()-50);
+		sprites.add(computerIcon);
+=======
+        endOfLevelSprite.setX(1500);
+//		Sprite computerIcon = SpriteFactory.computerIcon();
+		Sprite messageFromHQ = SpriteFactory.messageFromHQ();
+		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
+		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
+//		sprites.add(computerIcon);
+>>>>>>> Stashed changes
+		sprites.add(popup);
 		sprites.add(factoryAdvantageSign);
 		sprites.add(singletonExampleSign);
+		sprites.add(interactTrigger);
 		sprites.add(interactTrigger2);
 		sprites.add(interactTrigger3);
 		sprites.add(observerPlatformFactoryPopup);
@@ -510,11 +539,11 @@ public class LevelFactory
         //Add them to animation object
         nextLevelSprite.getAnimation().setAnimationLoopForState(AnimationState.IDLE, enemyImageIdle);
         //Set the observer to be idle
-        nextLevelSprite.getAnimation().setState(AnimationState.IDLE);
+        nextLevelSprite.getAnimation().setState(AnimationState.IDLE);	
 		Sprite platform1 = SpriteFactory.platform(100, 20, 1000, 500);
         platform1.setSpriteId(500); //set it high so we know it won't get overwritten upon insertion
         player.addCustomCollision(500, new CollideWithFloorNoClipBehavior(platform1));
-
+        
         //bottom
         Sprite platform2 = SpriteFactory.floorPlatform(700, 20, (int)nextLevelSprite.getX() - 600, 300);
         platform2.setSpriteId(501);
@@ -523,11 +552,11 @@ public class LevelFactory
         Sprite platform3 = SpriteFactory.floorPlatform(700, 20, (int)nextLevelSprite.getX() - 600, (int)(300 - player.getHeight()));
         platform3.setSpriteId(502);
         player.addCustomCollision(502, new CollideWithFloorNoClipBehavior(platform3));
-
+        
         Sprite platform4 = SpriteFactory.platform(100, 20, 1200, (int)(platform1.getY() - player.getHeight()));
         platform4.setSpriteId(503);
         player.addCustomCollision(503, new CollideWithFloorNoClipBehavior(platform4));
-
+        
         Sprite redDoor1 = SpriteFactory.door(80, player.getHeight() + platform2.getHeight(), platform3.getX(), platform3.getY(), Color.RED, "src/main/resources/assets/strategies/door/red_door.png");
 //        Sprite greenDoor1 = SpriteFactory.door(0, player.getHeight() + platform2.getHeight(), Constants.WINDOW_X + platform3.getWidth(), platform3.getY(), Color.GREEN, "src/main/resources/assets/strategies/door/green_door.png");
 		//take no damage power up
@@ -560,7 +589,7 @@ public class LevelFactory
 		PickNewGunBehavior pngb1 = new PickNewGunBehavior(player, newRedGun.getColor());
 		player.addCustomCollision(SpriteClassIdConstants.GUN, pngb1);
 		newRedGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
-
+		
 		ColorBasedCollisionBehavior cb1 = new ColorBasedCollisionBehavior();
 		cb1.setCurrentDoorColor(redDoor1.getColor());
 		redDoor1.addCustomCollision(SpriteClassIdConstants.BULLET, cb1);
@@ -570,22 +599,27 @@ public class LevelFactory
 //		PickNewGunBehavior pngb2 = new PickNewGunBehavior(player, newGreenGun.getColor());
 //		player.addCustomCollision(SpriteClassIdConstants.GUN, pngb2);
 //		newGreenGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
-
+		
 		Sprite enemyRed = SpriteFactory.planeEnemies(30, 30, redDoor1.getX() + redDoor1.getWidth() + 150, platform2.getY() - player.getHeight()/2, 3, redDoor1.getX() + redDoor1.getWidth() + 100, nextLevelSprite.getX() - 50);
 		nextLevelSprite.setY(enemyRed.getY());
 //		ColorBasedCollisionBehavior cb2 = new ColorBasedCollisionBehavior();
 //		cb2.setCurrentDoorColor(greenDoor1.getColor());
 //		greenDoor1.addCustomCollision(SpriteClassIdConstants.BULLET, cb2);
 //		pngb2.setColorBasedCollisionBehavior(cb1);
-
-
+		
+		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 //		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.messageFromHQ();
 		Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
 		Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
-
+<<<<<<< Updated upstream
+		sprites.add(computerIcon);
+		
+=======
+//		sprites.add(computerIcon);
 		sprites.add(popup);
+>>>>>>> Stashed changes
 		sprites.add(interactTrigger);
         sprites.add(floor);
 //		sprites.add(enemyStrategy1);

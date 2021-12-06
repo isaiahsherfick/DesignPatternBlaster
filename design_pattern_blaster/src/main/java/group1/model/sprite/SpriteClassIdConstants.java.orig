@@ -18,7 +18,13 @@ public final class SpriteClassIdConstants
 	public static final int ENEMY_BULLET = -12;
 	public static final int TAKE_NO_DAMAGE_POWERUP = -13;
 	public static final int SIZE_INCREASE_POWERUP = -14;
-	public static final int PICKUP_NEW_GUN = -15;
+	public static final int GUN = -15;
 	public static final int INTERACTABLE = -16;
 	public static final int POPUP = -17;
+	public static final int INVOKER = -18;
+<<<<<<< Updated upstream
+	public static final int INVOKER2 = -19;
+=======
+	public static final int DRAGGABLE = -19;
+>>>>>>> Stashed changes
 }

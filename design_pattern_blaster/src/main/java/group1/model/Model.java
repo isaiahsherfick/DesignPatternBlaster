@@ -25,33 +25,36 @@ public class Model implements Observable
 {
 	//List of observers
 	private ArrayList<Observer> observers;
-	
+
 	//Manages all sprites in the game including updating their state on each tick
 	private SpriteManager spriteManager;
 
 
 	//Manages the levels in the game, sends the list of sprites in a given level to the sprite manager
 	private LevelManager levelManager;
-	
-	//Responsible for ticking 
+
+	//Responsible for ticking
 	private GameTimer gameClock;
-	
-	//Responsible for knowing the bounds of the screen. Capable of saying if a sprite is in the shot or not - used in SpriteManager to enable sprites 
+
+	//Responsible for knowing the bounds of the screen. Capable of saying if a sprite is in the shot or not - used in SpriteManager to enable sprites
 	//As they enter the screen
 	private GameCamera gameCamera;
-	
+
 	//Responsible for saving/loading the game to a file. Only the levels which have been completed are saved as well as the mode chosen by the player. (Easy/Hard).
 	private SaveAndLoadManager saveAndLoadManager;
-	
+
 	//Responsible for handling all collisions in the game. Receives a list of sprites from the sprite manager and checks for collisions within each layer.
 	private CollisionManager collisionManager;
-	
+
 	//Responsible for managing the Player objects in the game and attaching sprites to them. Will be simple until multiplayer is added.
 	private PlayerManager playerManager;
-	
+
 	//Responsible for managing the key presses
 	private KeyInputManager keyInputManager;
-	
+
+	//Responsible for managing drag and drop
+	private DragAndDropManager dragAndDropManager;
+
 	//Default constructor
 	public Model()
 	{
@@ -64,26 +67,27 @@ public class Model implements Observable
 		collisionManager = new CollisionManager();
 		playerManager = new PlayerManager();
 		keyInputManager = new KeyInputManager();
+		dragAndDropManager = new DragAndDropManager();
 	}
-	
+
 	public boolean isPressed(KeyCode k)
 	{
 		return keyInputManager.isPressed(k);
 	}
-	
-	
+
+
 	//Register an observer to the model
 	public void registerObserver(Observer o)
 	{
 		observers.add(o);
 	}
-	
+
 	//Unregister an observer to the model
 	public void unregisterObserver(Observer o)
 	{
 		observers.remove(o);
 	}
-	
+
 	//Notify each observer watching the model
 	public void notifyObservers()
 	{
@@ -110,19 +114,19 @@ public class Model implements Observable
 
 
 	//Return the number of observers registered to the model, mainly for testing
-	public int getNumberOfObservers() 
+	public int getNumberOfObservers()
 	{
 		return observers.size();
 	}
 
 	//Return a reference to the sprite manager
-	public SpriteManager getSpriteManager() 
+	public SpriteManager getSpriteManager()
 	{
 		return spriteManager;
 	}
 
 	//Return a reference to the level manager
-	public LevelManager getLevelManager() 
+	public LevelManager getLevelManager()
 	{
 		return levelManager;
 	}
@@ -134,25 +138,25 @@ public class Model implements Observable
 	}
 
 	//Return a reference to the game camera
-	public GameCamera getGameCamera() 
+	public GameCamera getGameCamera()
 	{
 		return gameCamera;
 	}
 
 	//Return a reference to the s/l manager -- probably not needed
-//	public SaveAndLoadManager getSaveAndLoadManager() 
+//	public SaveAndLoadManager getSaveAndLoadManager()
 //	{
 //		return saveAndLoadManager;
 //	}
 
 	//Return a reference to the collision manager
-	public CollisionManager getCollisionManager() 
+	public CollisionManager getCollisionManager()
 	{
 		return collisionManager;
 	}
 
 	//Return a reference to the player manager
-	public PlayerManager getPlayerManager() 
+	public PlayerManager getPlayerManager()
 	{
 		return playerManager;
 	}
@@ -168,24 +172,24 @@ public class Model implements Observable
 		notifyObservers();
 	}
 
-	public void addSprite(Sprite s1) 
+	public void addSprite(Sprite s1)
 	{
 		spriteManager.addSprite(s1);
 		notifyObservers();
 	}
 
-	public KeyInputManager getKeyInputManager() 
+	public KeyInputManager getKeyInputManager()
 	{
 		return keyInputManager;
 	}
 
-	public void startGameClock() 
+	public void startGameClock()
 	{
 		gameClock.start();
 		gameClock.play();
 		setCameraToFollowPlayer();
 	}
-	
+
 	//set which sprite the camera should follow by comparing the class id's
 	public void setCameraToFollowPlayer() {
 		boolean found = false;
@@ -199,12 +203,12 @@ public class Model implements Observable
 			gameCamera.moveCamera();
 	}
 
-	public void clearSprites() 
+	public void clearSprites()
 	{
 		spriteManager.clearAllSprites();
 	}
 
-	public void loadLevel(Level currentLevel) 
+	public void loadLevel(Level currentLevel)
 	{
 		ArrayList<Sprite> sprites = currentLevel.getAllSpritesOnLevel();
 		Iterator<Sprite> iterator = sprites.iterator();
@@ -214,7 +218,7 @@ public class Model implements Observable
 		}
 		gameCamera.setFocusSprite(currentLevel.getFocusSprite());
 	}
-	
+
 	public void startGame()
 	{
 		startGameClock();
@@ -234,12 +238,12 @@ public class Model implements Observable
 		return gameClock.getTotalTime();
 	}
 
-	public void loadNextLevel() 
+	public void loadNextLevel()
 	{
 		levelManager.loadNextLevel();
 	}
 
-	public ArrayList<Sprite> getPlayerSprites() 
+	public ArrayList<Sprite> getPlayerSprites()
 	{
 		return spriteManager.getPlayerSprites();
 	}
@@ -257,4 +261,8 @@ public class Model implements Observable
     public void reloadLevel() {
 		levelManager.reloadLevel();
     }
+
+	public DragAndDropManager getDragAndDropManager() {
+		return dragAndDropManager;
+	}
 }
