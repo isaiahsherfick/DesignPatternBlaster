@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Stack;
 
 import group1.constants.Constants;
 import group1.model.sprite.game_event.GameEvent;
@@ -535,7 +536,7 @@ public final class SpriteFactory
 	{
 		return demoEnemy2();
 	}
-	public static Sprite factory(int x, int y, HashMap<Integer, Sprite> blueprintFamily, int spawnInterval)
+	public static Sprite factory(int x, int y, HashMap<Integer, Sprite> blueprintFamily)
 	{
 		Sprite factory = new Sprite();
 		factory.setWidth(600);
@@ -550,6 +551,25 @@ public final class SpriteFactory
         factory.getAnimation().setAnimationLoopForState(AnimationState.IDLE, factoryAsset);
         
         factory.addEventBehavior(new EventBehavior(GameEvent.InteractEvent(), new AbstractFactoryBehavior(blueprintFamily)));
+
+		return factory;
+	}
+
+	public static Sprite stackFactory(int x, int y, Stack<Sprite> spriteStack) 
+	{
+		Sprite factory = new Sprite();
+		factory.setWidth(600);
+		factory.setHeight(900);
+		factory.setX(x);
+		factory.setY(y);
+		factory.setHealth(10);
+		factory.setColor(Color.PURPLE);
+		factory.setLayer(-2);
+        
+        ArrayList<Image> factoryAsset = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/FactorySmoke.png").toUri().toString())));
+        factory.getAnimation().setAnimationLoopForState(AnimationState.IDLE, factoryAsset);
+        
+        factory.addEventBehavior(new EventBehavior(GameEvent.InteractEvent(), new StackFactoryBehavior(spriteStack)));
 
 		return factory;
 	}
