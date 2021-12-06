@@ -112,7 +112,7 @@ public class ObserverLevel
 
         Sprite bulletSprite = bulletNoInsertIntoSpriteManager();
 
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 10), (int)(playerSprite.getHeight() *0.78), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth() + 10), (int)(playerSprite.getHeight() *0.78), bulletSprite, bulletSprite.getColor())));
         App.model.addSprite(playerSprite);
 	}
 

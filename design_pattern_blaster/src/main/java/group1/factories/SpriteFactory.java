@@ -89,9 +89,9 @@ public final class SpriteFactory
         playerSprite.getAnimation().setPreviousState(AnimationState.RIGHT_MOVEMENT);
         playerSprite.getAnimation().setState(AnimationState.LEFT_MOVEMENT);
 
-        Sprite bulletSprite = bullet();
+        Sprite bulletSprite = bullet(Color.ORANGE);
 
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite, bulletSprite.getColor())));
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new ReloadLevelBehavior()));
@@ -100,7 +100,7 @@ public final class SpriteFactory
         return playerSprite;
     }
 
-    public static Sprite bullet()
+    public static Sprite bullet(Color color)
     {
         Sprite bulletSprite = new Sprite();
         bulletSprite.setX(100);
@@ -110,7 +110,7 @@ public final class SpriteFactory
         bulletSprite.setVelocityX(40);
 //        bulletSprite.setDirection(Constants.LEFT);
         bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
-        bulletSprite.setColor(Color.ORANGE);
+        bulletSprite.setColor(color);
         bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
         bulletSprite.addCustomCollision(SpriteClassIdConstants.SUBORDINATE, new DoNothingBehavior());
         bulletSprite.addCustomCollision(SpriteClassIdConstants.INVOKER, new DisableBehavior());
@@ -214,7 +214,7 @@ public final class SpriteFactory
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE),
                 new ShootSpriteBehavior((int) (playerSprite.getWidth() + 30),
-                        (int) (playerSprite.getHeight() * 0.78), bullet())));
+                        (int) (playerSprite.getHeight() * 0.78), bullet(Color.ORANGE), Color.ORANGE)));
 
         int viewBehaviorCollisionID = -9;
         playerSprite.addCustomCollision(viewBehaviorCollisionID, new MoveSetAmountBehavior(-playerSprite.getVelocityX(),0));
@@ -248,6 +248,19 @@ public final class SpriteFactory
         floor.setDefaultCollisionBehavior(new DoNothingBehavior());
         ArrayList<Image> asset = new ArrayList<>(Arrays.asList(new Image(Paths.get("src/main/resources/assets/scenery/DefaultPlatform.png").toUri().toString())));
         floor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, asset);
+        return floor;
+    }
+    public static Sprite floorPlatform(int width, int height, int x, int y)
+    {
+        Sprite floor = new Sprite();
+        //floor.setLayer(SpriteClassIdConstants.FLOOR);
+        floor.setX(x);
+        floor.setY(y);
+        floor.setWidth(width);
+        floor.setHeight(height);
+        floor.setSpriteClassId(SpriteClassIdConstants.FLOOR);
+        floor.setColor(Color.GRAY);
+        floor.setDefaultCollisionBehavior(new DoNothingBehavior());
         return floor;
     }
 
@@ -540,6 +553,34 @@ public final class SpriteFactory
 
 		return factory;
 	}
+	
+	public static Sprite planeEnemies(int width, int height, double x, double y, double velocity, double minLimit, double maxLimit) {
+		Sprite enemy = new Sprite();
+		enemy.setWidth(width);
+		enemy.setHeight(height);
+		enemy.setVelocityX(velocity);
+		enemy.setX(x);
+		enemy.setY(y);
+		enemy.setHealth(5);
+		enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBetweenLimitsBehavior(minLimit, maxLimit, enemy.getX())));
+		enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+
+        //Make them disable on HealthDepletedEvent
+		enemy.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+		enemy.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		Image activeFrame = new Image(Paths.get("src/main/resources/assets/enemies/observer/Observer_EyeOpen_BluePupil.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> enemyImageIdle = new ArrayList<>();
+        enemyImageIdle.add(activeFrame);
+
+        //Add them to animation object
+        enemy.getAnimation().setAnimationLoopForState(AnimationState.IDLE, enemyImageIdle);
+        //Set the observer to be idle
+        enemy.getAnimation().setState(AnimationState.IDLE);		
+		return enemy;
+	}
+	
 	public static Sprite strategyEnemies(Sprite powerUpSpriteToFollow, int powerUpID, int x, int y) {
 
 		Sprite strategySpriteEnemy = new Sprite();
@@ -615,18 +656,18 @@ public final class SpriteFactory
         return bulletSizePowerUp;
 	}
 
-	public static Sprite pickNewGun() {
+	public static Sprite newGun(int width, int height, Color color, double x, double y, String imgPath1, String imgPath2) {
 		Sprite newGun = new Sprite();
-		newGun.setWidth(80);
-		newGun.setSpriteClassId(SpriteClassIdConstants.PICKUP_NEW_GUN);
-		newGun.setHeight(50);
-		newGun.setX(900);
-		newGun.setY(Constants.WINDOW_HEIGHT / 2 - 50);
-		newGun.setColor(Color.MAGENTA);
+		newGun.setWidth(width);
+		newGun.setSpriteClassId(SpriteClassIdConstants.GUN);
+		newGun.setHeight(height);
+		newGun.setX(x);
+		newGun.setY(y);
+		newGun.setColor(color);
 
 		//Getting images
-        Image image1 = new Image(Paths.get("src/main/resources/assets/strategies/gun/gun1.png").toUri().toString());
-        Image image2 = new Image(Paths.get("src/main/resources/assets/strategies/gun/gun_glow1.png").toUri().toString());
+        Image image1 = new Image(Paths.get(imgPath1).toUri().toString());
+        Image image2 = new Image(Paths.get(imgPath2).toUri().toString());
 
         ArrayList<Image> imageIdle = new ArrayList<>();
         imageIdle.add(image1);
@@ -639,6 +680,21 @@ public final class SpriteFactory
         return newGun;
 
 
+	}
+	
+	public static Sprite door(double width, double height, double x, double y, Color color, String imgPath) {
+		Sprite newDoor = new Sprite();
+		newDoor.setX(x);
+		newDoor.setY(y);
+		newDoor.setWidth(width);
+		newDoor.setHeight(height);
+		newDoor.setColor(color);
+		Image image1 = new Image(Paths.get(imgPath).toUri().toString());
+		ArrayList<Image> imageIdle = new ArrayList<>();
+        imageIdle.add(image1);
+        newDoor.getAnimation().setAnimationLoopForState(AnimationState.IDLE, imageIdle);
+        newDoor.getAnimation().setState(AnimationState.IDLE);
+		return newDoor;
 	}
 
 	public static CompositeSprite compositeEnemy() {
@@ -1396,9 +1452,9 @@ public final class SpriteFactory
         //Likewise, MoveBehavior must come AFTER all behaviors that affect velocity
         playerSprite.setColor(Color.BLUE);
 
-        Sprite bulletSprite = bullet();
+        Sprite bulletSprite = bullet(Color.ORANGE);
 
-        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite)));
+        playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite, bulletSprite.getColor())));
 
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
         playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new ReloadLevelBehavior()));

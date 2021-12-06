@@ -37,9 +37,6 @@ public class App extends Application
 			levels.add(LevelFactory.observerLevelFlashScreen());
 			levels.add(LevelFactory.observerLevel());
 
-			levels.add(LevelFactory.strategyLevelFlashScreen());
-			levels.add(LevelFactory.strategyLevel());
-
 			levels.add(LevelFactory.commanderLevelFlashScreen());
 			levels.add(LevelFactory.commanderLevel());
 
@@ -48,6 +45,9 @@ public class App extends Application
 
 			levels.add(LevelFactory.factoryLevelFlashScreen());
 			levels.add(LevelFactory.factoryLevel());
+			
+			levels.add(LevelFactory.strategyLevelFlashScreen());
+			levels.add(LevelFactory.strategyLevel());
 
 			levels.add(LevelFactory.MVCLevelFlashScreen());
 			levels.add(LevelFactory.MVCLevel());
