@@ -496,11 +496,12 @@ public class LevelFactory
 
 	public static Level strategyLevel() {
 		Sprite player = SpriteFactory.player();
-        Sprite floor = SpriteFactory.floor(5000, 20);
+        Sprite floor = SpriteFactory.floor(10000, 20);
+        player.setY(floor.getY() - player.getHeight() - 50);
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
 		Sprite scoreDisplay = SpriteFactory.Timer(true);
 		Sprite nextLevelSprite = SpriteFactory.endOfLevelSprite(scoreDisplay);
-		nextLevelSprite.setX(2000);
+		nextLevelSprite.setX(4000);
 		Image activeFrame = new Image(Paths.get("src/main/resources/assets/strategies/jetpack/jetpack.png").toUri().toString());
 
         //Put them in arraylists
@@ -511,26 +512,25 @@ public class LevelFactory
         nextLevelSprite.getAnimation().setAnimationLoopForState(AnimationState.IDLE, enemyImageIdle);
         //Set the observer to be idle
         nextLevelSprite.getAnimation().setState(AnimationState.IDLE);
-		Sprite platform1 = SpriteFactory.platform(100, 20, 1000, 500);
+		Sprite platform1 = SpriteFactory.platform(100, 20, 1000, 450);
         platform1.setSpriteId(500); //set it high so we know it won't get overwritten upon insertion
         player.addCustomCollision(500, new CollideWithFloorNoClipBehavior(platform1));
 
         //bottom
-        Sprite platform2 = SpriteFactory.floorPlatform(700, 20, (int)nextLevelSprite.getX() - 600, 300);
+        Sprite platform2 = SpriteFactory.floorPlatform(700, 20, Constants.WINDOW_X - 100, 300);
         platform2.setSpriteId(501);
         player.addCustomCollision(501, new CollideWithFloorNoClipBehavior(platform2));
         //up
-        Sprite platform3 = SpriteFactory.floorPlatform(700, 20, (int)nextLevelSprite.getX() - 600, (int)(300 - player.getHeight()));
+        Sprite platform3 = SpriteFactory.floorPlatform(700, 20, Constants.WINDOW_X - 100, (int)(300 - player.getHeight()) - 20);
         platform3.setSpriteId(502);
         player.addCustomCollision(502, new CollideWithFloorNoClipBehavior(platform3));
 
-        Sprite platform4 = SpriteFactory.platform(100, 20, 1200, (int)(platform1.getY() - player.getHeight()));
+        Sprite platform4 = SpriteFactory.platform(100, 20, (int)(platform2.getX() + platform2.getWidth() + 250), (int)(platform1.getY() - player.getHeight()));
         platform4.setSpriteId(503);
         player.addCustomCollision(503, new CollideWithFloorNoClipBehavior(platform4));
 
-        Sprite redDoor1 = SpriteFactory.door(80, player.getHeight() + platform2.getHeight(), platform3.getX(), platform3.getY(), Color.RED, "src/main/resources/assets/strategies/door/red_door.png");
-//        Sprite greenDoor1 = SpriteFactory.door(0, player.getHeight() + platform2.getHeight(), Constants.WINDOW_X + platform3.getWidth(), platform3.getY(), Color.GREEN, "src/main/resources/assets/strategies/door/green_door.png");
-		//take no damage power up
+        Sprite redDoor1 = SpriteFactory.door(80, player.getHeight() + platform2.getHeight(), platform3.getX() + platform3.getWidth(), platform2.getY() - player.getHeight() - 10, Color.RED, "src/main/resources/assets/strategies/door/red_door.png");
+        //take no damage power up
 //		Sprite tndPowerUp = new Sprite();
 //		tndPowerUp.setWidth(80);
 //		tndPowerUp.setSpriteClassId(SpriteClassIdConstants.TAKE_NO_DAMAGE_POWERUP);
@@ -552,33 +552,70 @@ public class LevelFactory
 
 		Sprite bulletSizePowerUp = SpriteFactory.bulletPowerUp();
 
-		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
+//		Sprite enemyStrategy2 = SpriteFactory.strategyEnemies(bulletSizePowerUp, bulletSizePowerUp.getSpriteClassId(), 1000, 80);
 		//new gun
 
 //		Sprite newGun = SpriteFactory.pickNewGun(80, 50, Constants.WINDOW_X + 80, platform2.getY() - player.getHeight()/2);
 		Sprite newRedGun = SpriteFactory.newGun(80, 50, Color.RED, platform1.getX(), platform1.getY() - 50, "src/main/resources/assets/strategies/gun/gun1.png", "src/main/resources/assets/strategies/gun/gun_glow1.png");
-		PickNewGunBehavior pngb1 = new PickNewGunBehavior(player, newRedGun.getColor());
-		player.addCustomCollision(SpriteClassIdConstants.GUN, pngb1);
+		newRedGun.setSpriteClassId(SpriteClassIdConstants.GUN_RED);
+		player.addCustomCollision(SpriteClassIdConstants.GUN_RED, new PickNewGunBehavior(player, newRedGun.getColor()));
 		newRedGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
 
-		ColorBasedCollisionBehavior cb1 = new ColorBasedCollisionBehavior();
-		cb1.setCurrentDoorColor(redDoor1.getColor());
-		redDoor1.addCustomCollision(SpriteClassIdConstants.BULLET, cb1);
-		pngb1.setColorBasedCollisionBehavior(cb1);
+		redDoor1.addCustomCollision(SpriteClassIdConstants.BULLET_RED, new DisableBehavior());
 
 //		Sprite newGreenGun = SpriteFactory.newGun(80, 50, Color.GREEN, Constants.WINDOW_X + 80, platform2.getY() - player.getHeight()/2, "src/main/resources/assets/strategies/gun/gun_green.png", "src/main/resources/assets/strategies/gun/gun_green_glow.png");
-//		PickNewGunBehavior pngb2 = new PickNewGunBehavior(player, newGreenGun.getColor());
-//		player.addCustomCollision(SpriteClassIdConstants.GUN, pngb2);
-//		newGreenGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
+		Sprite newGreenGun = SpriteFactory.newGun(80, 50, Color.GREEN, Constants.WINDOW_X + 20, platform2.getY()  - player.getHeight()/2, "src/main/resources/assets/strategies/gun/gun_green.png", "src/main/resources/assets/strategies/gun/gun_green_glow.png");
+		newGreenGun.setSpriteClassId(SpriteClassIdConstants.GUN_GREEN);
+		player.addCustomCollision(SpriteClassIdConstants.GUN_GREEN, new PickNewGunBehavior(player, newGreenGun.getColor()));
+		newGreenGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
 
-		Sprite enemyRed = SpriteFactory.planeEnemies(30, 30, redDoor1.getX() + redDoor1.getWidth() + 150, platform2.getY() - player.getHeight()/2, 3, redDoor1.getX() + redDoor1.getWidth() + 100, nextLevelSprite.getX() - 50);
+		Sprite enemyRed = SpriteFactory.planeEnemies(30, 30, newGreenGun.getX() + 50 , platform2.getY() - player.getHeight()/2 - 20, 3, newGreenGun.getX() + newGreenGun.getWidth(), redDoor1.getX() - 100, SpriteClassIdConstants.BULLET_RED);
+		enemyRed.addCustomCollision(SpriteClassIdConstants.BULLET_GREEN, new DisableBehavior());
 		nextLevelSprite.setY(enemyRed.getY());
-//		ColorBasedCollisionBehavior cb2 = new ColorBasedCollisionBehavior();
-//		cb2.setCurrentDoorColor(greenDoor1.getColor());
-//		greenDoor1.addCustomCollision(SpriteClassIdConstants.BULLET, cb2);
-//		pngb2.setColorBasedCollisionBehavior(cb1);
+		
+		//room 2
+		Sprite platform5 = SpriteFactory.floorPlatform(700, 20, 1500, (int)(floor.getY() - (player.getHeight()) - 20));
+        platform5.setSpriteId(504);
+        player.addCustomCollision(504, new CollideWithFloorNoClipBehavior(platform5));
+        Sprite greenDoor1 = SpriteFactory.door(80, player.getHeight() + platform2.getHeight(), platform5.getX(), (int)(floor.getY() - player.getHeight() - platform2.getHeight() + 5), Color.GREEN, "src/main/resources/assets/strategies/door/green_door.png");
+		greenDoor1.addCustomCollision(SpriteClassIdConstants.BULLET_GREEN, new DisableBehavior());		
 
+		Sprite platform6 = SpriteFactory.platform(100, 20, 1300, 540);
+        platform6.setSpriteId(506); //set it high so we know it won't get overwritten upon insertion
+        player.addCustomCollision(506, new CollideWithFloorNoClipBehavior(platform6));
 
+		
+        Sprite wall1 = SpriteFactory.wall();
+        wall1.setColor(Color.GRAY);
+        wall1.setWidth(50);
+        wall1.setHeight(Math.abs(platform5.getY() - floor.getY()));
+        wall1.setX(platform5.getX() + platform5.getWidth());
+        wall1.setY(platform5.getY());
+        player.addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(20,0));
+        
+		Sprite newYellowGun = SpriteFactory.newGun(80, 50, Color.YELLOW, wall1.getX() - 80, floor.getY()  - player.getHeight()/2, "src/main/resources/assets/strategies/gun/gun_yellow.png", "src/main/resources/assets/strategies/gun/gun_yellow_glow.png");
+		newYellowGun.setSpriteClassId(SpriteClassIdConstants.GUN_YELLOW);
+		player.addCustomCollision(SpriteClassIdConstants.GUN_YELLOW, new PickNewGunBehavior(player, newYellowGun.getColor()));
+		newYellowGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
+		
+		Sprite platform7 = SpriteFactory.platform(100, 20, (int)(wall1.getX() + 130), 520);
+        platform7.setSpriteId(507); //set it high so we know it won't get overwritten upon 
+        player.addCustomCollision(507, new CollideWithFloorNoClipBehavior(platform7));
+        
+        //room 3
+        //bottom
+        Sprite platform8 = SpriteFactory.floorPlatform(700, 20, (int)nextLevelSprite.getX() - 600, 300);
+        platform8.setSpriteId(508);
+        player.addCustomCollision(508, new CollideWithFloorNoClipBehavior(platform8));
+        //up
+        Sprite platform9 = SpriteFactory.floorPlatform(700, 20, (int)nextLevelSprite.getX() - 600, (int)(300 - player.getHeight()));
+        platform9.setSpriteId(509);
+        player.addCustomCollision(509, new CollideWithFloorNoClipBehavior(platform9));
+        
+        Sprite yellowDoor1 = SpriteFactory.door(80, player.getHeight() + platform8.getHeight(), platform8.getX() - 80, platform9.getY(), Color.YELLOW, "src/main/resources/assets/strategies/door/yellow_door.png");
+        yellowDoor1.addCustomCollision(SpriteClassIdConstants.BULLET_YELLOW, new DisableBehavior());
+        player.addCustomCollision(SpriteClassIdConstants.DOOR, new MoveSetAmountBehavior(20,0));
+        
 		ArrayList<Sprite> sprites = new ArrayList<>();
 //		Sprite computerIcon = SpriteFactory.computerIcon();
 		Sprite messageFromHQ = SpriteFactory.messageFromHQ();
@@ -600,11 +637,19 @@ public class LevelFactory
 		sprites.add(platform2);
 		sprites.add(platform3);
 		sprites.add(platform4);
+		sprites.add(platform5);
+		sprites.add(greenDoor1);
+		sprites.add(platform6);
+		sprites.add(platform7);
+		sprites.add(yellowDoor1);
+		sprites.add(platform8);
+		sprites.add(platform9);
 		sprites.add(redDoor1);
-		sprites.add(player);
 		sprites.add(enemyRed);
-//		sprites.add(newGreenGun);
-//		sprites.add(greenDoor1);
+		sprites.add(newGreenGun);
+		sprites.add(wall1);
+		sprites.add(newYellowGun);
+		sprites.add(player);
 		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
 		double maxXBoundary = Math.abs(nextLevelSprite.getX() - Constants.WINDOW_WIDTH + nextLevelSprite.getWidth() + 30);
 		Level strategyLevel = new Level(Constants.STRATEGY_LEVEL_NUMBER, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);

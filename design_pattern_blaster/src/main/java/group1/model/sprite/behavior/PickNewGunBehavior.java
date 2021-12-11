@@ -22,21 +22,23 @@ public class PickNewGunBehavior implements Behavior{
 	ArrayList<String> imageLeftPaths;
 	ArrayList<Image> playerImageRight;
 	ArrayList<Image> playerImageLeft;
-	Color gunColor, currentColor;
-	private ColorBasedCollisionBehavior colorBasedCollision;
+	Color gunColor;// currentColor;
+//	private ColorBasedCollisionBehavior colorBasedCollision;
 	String imgPath = "";
 	
 	public PickNewGunBehavior(Sprite playerSprite, Color gunColor) {
 		this.playerSprite = playerSprite;
 		this.gunColor = gunColor;
+//		this.colorBasedCollision = colorBasedCollision;
 	}
 
 	@Override
 	public void performBehavior(Sprite sprite) {
 
-			currentColor = gunColor;
+//			currentColor = gunColor;
 			//			sprite.respondToEvent(GameEvent.PickedNewGunEvent());
-			colorBasedCollision.setCurrentGunColor(currentColor);
+//		ColorBasedCollisionBehavior colorBasedCollision = new ColorBasedColisionBehavior();
+//			colorBasedCollision.setCurrentGunColor(gunColor);
             playerImageRight = new ArrayList<Image>();
             playerSprite.getEventBehaviors().clear();
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.A), new FaceLeftBehavior()));
@@ -49,17 +51,28 @@ public class PickNewGunBehavior implements Behavior{
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayerGravityBehavior(Constants.GRAVITY)));
             //Order is starting to matter for this process - JumpBehavior must come AFTER GravityBehavior
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new JumpBehavior(KeyCode.W, -12)));
-            Sprite bulletSprite = SpriteFactory.bullet(gunColor);
+            Sprite bulletSprite = null;
+            if(gunColor == Color.RED) {
+            	imgPath = "0.2x_red_gun";
+            	bulletSprite = PickNewGunBehavior.bullet(Color.RED);
+            	bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET_RED);
+            }
+            else if(gunColor == Color.GREEN) {
+            	imgPath = "0.2x_green_gun";
+            	bulletSprite = PickNewGunBehavior.bullet(Color.GREEN);
+            	bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET_GREEN);
+            }
+            else if(gunColor == Color.YELLOW) {
+            	imgPath = "0.2x_yellow_gun";
+            	bulletSprite = PickNewGunBehavior.bullet(Color.YELLOW);
+            	bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET_YELLOW);
+            }
+        
+            
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite, gunColor)));
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new ReloadLevelBehavior()));
             playerSprite.addCustomCollision(SpriteClassIdConstants.ENEMY_BULLET, new DecrementHealthBehavior());
-            if(currentColor == Color.RED) {
-            	imgPath = "0.2x_red_gun";
-            }
-            else if(currentColor == Color.GREEN) {
-            	imgPath = "0.2x_green_gun";
-            }
-            
+            playerSprite.addCustomCollision(SpriteClassIdConstants.DOOR, new MoveSetAmountBehavior(20,0));            
 		imageRightPaths = new ArrayList<String>();
         imageRightPaths.add("src/main/resources/assets/avatar/"+imgPath+"/walk_right_frame1_0.2x.png");
         imageRightPaths.add("src/main/resources/assets/avatar/"+imgPath+"/walk_right_frame2_0.2x.png");
@@ -89,9 +102,27 @@ public class PickNewGunBehavior implements Behavior{
 		
 	}
 	
-	public void setColorBasedCollisionBehavior(ColorBasedCollisionBehavior colorBasedCollision) {
-		this.colorBasedCollision = colorBasedCollision;
-	}
+//	public void setColorBasedCollisionBehavior(ColorBasedCollisionBehavior colorBasedCollision) {
+//		this.colorBasedCollision = colorBasedCollision;
+//	}
+	
+	public static Sprite bullet(Color color)
+    {
+        Sprite bulletSprite = new Sprite();
+        bulletSprite.setX(100);
+        bulletSprite.setY(80);
+        bulletSprite.setWidth(24);
+        bulletSprite.setHeight(24);
+        bulletSprite.setVelocityX(40);
+//        bulletSprite.setDirection(Constants.LEFT);
+        bulletSprite.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new HorizontalMoveBehavior()));
+        bulletSprite.setColor(color);
+        bulletSprite.setDefaultCollisionBehavior(new DisableBehavior());
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.SUBORDINATE, new DoNothingBehavior());
+        bulletSprite.addCustomCollision(SpriteClassIdConstants.INVOKER, new DisableBehavior());
+//        bulletSprite.setSpriteClassId(SpriteClassIdConstants.BULLET);
+        return bulletSprite;
+    }
 
 	@Override
 	public Behavior copy() {

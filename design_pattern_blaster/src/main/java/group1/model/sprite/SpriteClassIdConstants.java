@@ -30,4 +30,5 @@ public final class SpriteClassIdConstants
 	public static final int GUN_RED = -24;
 	public static final int GUN_GREEN = -25;
 	public static final int GUN_YELLOW = -26;
+	public static final int DOOR = -27;
 }

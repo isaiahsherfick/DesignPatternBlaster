@@ -575,20 +575,20 @@ public final class SpriteFactory
 		return factory;
 	}
 
-	public static Sprite planeEnemies(int width, int height, double x, double y, double velocity, double minLimit, double maxLimit) {
+	public static Sprite planeEnemies(int width, int height, double x, double y, double velocity, double minLimit, double maxLimit, int bulletClassId) {
 		Sprite enemy = new Sprite();
 		enemy.setWidth(width);
 		enemy.setHeight(height);
 		enemy.setVelocityX(velocity);
 		enemy.setX(x);
 		enemy.setY(y);
-		enemy.setHealth(5);
+		enemy.setHealth(1);
 		enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new MoveBetweenLimitsBehavior(minLimit, maxLimit, enemy.getX())));
 		enemy.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
 
         //Make them disable on HealthDepletedEvent
 		enemy.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
-		enemy.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		enemy.addCustomCollision(bulletClassId, new DecrementHealthBehavior(1));
 		Image activeFrame = new Image(Paths.get("src/main/resources/assets/enemies/observer/Observer_EyeOpen_BluePupil.png").toUri().toString());
 
         //Put them in arraylists
@@ -710,6 +710,7 @@ public final class SpriteFactory
 		newDoor.setWidth(width);
 		newDoor.setHeight(height);
 		newDoor.setColor(color);
+		newDoor.setSpriteClassId(SpriteClassIdConstants.DOOR);
 		Image image1 = new Image(Paths.get(imgPath).toUri().toString());
 		ArrayList<Image> imageIdle = new ArrayList<>();
         imageIdle.add(image1);
