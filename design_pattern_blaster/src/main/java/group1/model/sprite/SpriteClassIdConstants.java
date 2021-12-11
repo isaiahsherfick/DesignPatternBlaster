@@ -24,4 +24,10 @@ public final class SpriteClassIdConstants
 	public static final int INVOKER = -18;
 	public static final int INVOKER2 = -19;
 	public static final int DRAGGABLE = -20;
+	public static final int BULLET_GREEN = -21;
+	public static final int BULLET_RED = -22;
+	public static final int BULLET_YELLOW = -23;
+	public static final int GUN_RED = -24;
+	public static final int GUN_GREEN = -25;
+	public static final int GUN_YELLOW = -26;
 }
