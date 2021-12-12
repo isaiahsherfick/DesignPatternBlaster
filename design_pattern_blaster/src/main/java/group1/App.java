@@ -32,6 +32,7 @@ public class App extends Application {
         levels.add(LevelFactory.observerLevelFlashScreen());
         levels.add(LevelFactory.observerLevel());
 
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Command.mp4"));
         levels.add(LevelFactory.commanderLevelFlashScreen());
         levels.add(LevelFactory.commanderLevel());
 

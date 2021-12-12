@@ -21,7 +21,7 @@ public final class Constants
 	public static final short NULL_SPRITE_ID =-3; //ID for null sprites
 	public static final int OBSERVER_SECONDS_BETWEEN_SHOTS = 2; //Seconds the observer enemies wait before shooting again
     public static final int TAKE_NO_DAMANGE_INTERVAL = 5; //seconds for which enemy sprites will take no damage
-    public static final double VOLUME_LEVEL = .3; //Volume level for the music used in LevelManager.java
+    public static final double VOLUME_LEVEL = .1; //Volume level for the music used in LevelManager.java
     public static final double PLAYER_DX = 15; //Default speedX value for the player
 	public static final short GRAVITY = 30; //Gravity acceleration value
     public static final double FLOOR_Y = WINDOW_HEIGHT - 100;

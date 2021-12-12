@@ -3,6 +3,8 @@ package group1.model.sprite.behavior;
 import group1.App;
 import group1.constants.Constants;
 import group1.model.sprite.Sprite;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -34,6 +36,12 @@ public class PlayVideoBehavior implements Behavior {
             MediaView mediaView = new MediaView(mediaPlayer);
             mediaPlayer.setAutoPlay(true);
 
+
+            DoubleProperty mvw = mediaView.fitWidthProperty();
+            DoubleProperty mvh = mediaView.fitHeightProperty();
+            mvw.bind(Bindings.selectDouble(mediaView.sceneProperty(), "width"));
+            mvh.bind(Bindings.selectDouble(mediaView.sceneProperty(), "height"));
+            mediaView.setPreserveRatio(true);
             App.model.getKeyInputManager().releaseAll();
             Stage mainStage = App.model.getMainStage();
 
