@@ -4,9 +4,11 @@ import group1.App;
 import group1.constants.Constants;
 import group1.model.level.Level;
 import group1.model.sprite.CompositeSprite;
+import group1.model.sprite.EventBehavior;
 import group1.model.sprite.Sprite;
 import group1.model.sprite.SpriteClassIdConstants;
 import group1.model.sprite.behavior.*;
+import group1.model.sprite.game_event.GameEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -28,36 +30,12 @@ public class LevelFactory {
     }
 
     public static Level videoPlayer(String filepath) {
-        Media media = new Media(new File(filepath).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mediaView = new MediaView(mediaPlayer);
-        //mediaPlayer.setAutoPlay(true);
 
-        App.model.getKeyInputManager().releaseAll();
-        Stage mainStage = App.model.getMainStage();
+        Sprite placeholder = new Sprite();
 
+        placeholder.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new PlayVideoBehavior(filepath)));
 
-
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(mainStage);
-		Group root = new Group();
-		root.getChildren().add(mediaView);
-
-        Scene dialogScene = new Scene(root, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-        dialog.setScene(dialogScene);
-
-        dialog.show();
-
-
-        dialog.setOnCloseRequest(e -> {
-            App.model.getKeyInputManager().releaseAll();
-            App.model.loadNextLevel();
-            mediaPlayer.stop();
-
-        });
-
-		return new Level(0,new ArrayList<>());
+		return new Level(0,new ArrayList<>(List.of(placeholder)));
 
     }
 
