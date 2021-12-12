@@ -244,13 +244,14 @@ public class LevelFactory {
         commander2.setX(900);
         commander2.setY(150);
 
-        subordinate.setDirection(Constants.LEFT);
-        Sprite scoreDisplay = SpriteFactory.Timer(true);
-        Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
-        levelend.setX(4000);
-        Sprite wall = SpriteFactory.wall();
-        wall.setX(-1025);
-
+		subordinate.setDirection(Constants.LEFT);
+		Sprite scoreDisplay = SpriteFactory.Timer(true);
+		Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
+		levelend.setX(4000);
+		Sprite wall = SpriteFactory.wall();
+		wall.setX(-1025);
+		
+		Sprite registerInformationSign = SpriteFactory.informationalSign(100, (int)floor.getY( )-220, "src/main/resources/assets/signs/CommandInformationSign.png");
         Sprite commandWall = SpriteFactory.commandWall();
 
         Sprite subordinate2 = SpriteFactory.subordinate(player);
@@ -306,33 +307,35 @@ public class LevelFactory {
         sprites.add(interactTrigger);
         sprites.add(wall);
         sprites.add(floor);
-        sprites.add(player);
-        sprites.add(commander);
-        sprites.add(subordinate);
-        sprites.add(invokerSubordinate);
-        sprites.add(levelend);
-        sprites.add(commander2);
-        sprites.add(scoreDisplay);
-        sprites.add(computerIcon2);
-        sprites.add(commandWall);
-        sprites.add(subordinate2);
-        sprites.add(invokerSubordinate2);
-        sprites.add(commander4);
-        sprites.add(commander3);
+		sprites.add(player);
+		sprites.add(commander);
+		sprites.add(subordinate);
+		sprites.add(invokerSubordinate);
+		sprites.add(levelend);
+		sprites.add(commander2);
+		sprites.add(scoreDisplay);
+		sprites.add(computerIcon2);
+		sprites.add(commandWall);
+		sprites.add(subordinate2);
+		sprites.add(invokerSubordinate2);
+		sprites.add(commander4);
+		sprites.add(commander3);
+		sprites.add(registerInformationSign);
 
-        double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH / 2);
-        double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
+		double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH/2);
+		double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
 
-        Level commanderLevel = new Level(Constants.COMMANDER_LEVEL_NUMBER, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
+		Level commanderLevel = new Level(Constants.COMMANDER_LEVEL_NUMBER,sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
 
 
-        commanderLevel.setFocusSprite(player);
-        return commanderLevel;
-    }
+		commanderLevel.setFocusSprite(player);
+		return commanderLevel;
+	}
 
-    public static Level compositeLevel() {
-        Sprite floor = SpriteFactory.floor(10000, 20);
-        Sprite player = SpriteFactory.player();
+	public static Level compositeLevel()
+	{
+		Sprite floor = SpriteFactory.floor(10000, 20);
+		Sprite player = SpriteFactory.player();
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
         player.setX(player.getX() - 300);
         CompositeSprite enemy = SpriteFactory.compositeEnemy();

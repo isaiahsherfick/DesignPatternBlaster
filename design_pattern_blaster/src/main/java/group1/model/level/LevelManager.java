@@ -103,6 +103,7 @@ public class LevelManager {
         App.model.getGameCamera().setxMinClampPos(currentLevel.getMinXBoundary());
         App.model.getGameCamera().setxMaxClampPos(currentLevel.getMaxXBoundary());
         //System.out.println("Loaded level#" + currentLevel.getLevelNumber());
+        
         Media song = currentLevel.getSong();
         if (mediaPlayer != null) {
             mediaPlayer.stop();
