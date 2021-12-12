@@ -5,7 +5,6 @@ import group1.model.sprite.Sprite;
 public class MoveBetweenLimitsBehavior implements Behavior{
 	
 	double minX, maxX, currentPos;
-	int val = 1;
 	boolean isMoveLeft = false, isMoveRight = false;
 
 	public MoveBetweenLimitsBehavior(double minX, double maxX, double currentPos) {

@@ -72,7 +72,8 @@ public class PickNewGunBehavior implements Behavior{
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.SPACE), new ShootSpriteBehavior((int)(playerSprite.getWidth()+30), (int)(playerSprite.getHeight() * 0.5), bulletSprite, gunColor)));
             playerSprite.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new ReloadLevelBehavior()));
             playerSprite.addCustomCollision(SpriteClassIdConstants.ENEMY_BULLET, new DecrementHealthBehavior());
-            playerSprite.addCustomCollision(SpriteClassIdConstants.DOOR, new MoveSetAmountBehavior(20,0));            
+            playerSprite.addCustomCollision(SpriteClassIdConstants.DOOR, new MoveSetAmountBehavior(-20,0));
+            playerSprite.addCustomCollision(SpriteClassIdConstants.WALL, new MoveSetAmountBehavior(-20,0));
 		imageRightPaths = new ArrayList<String>();
         imageRightPaths.add("src/main/resources/assets/avatar/"+imgPath+"/walk_right_frame1_0.2x.png");
         imageRightPaths.add("src/main/resources/assets/avatar/"+imgPath+"/walk_right_frame2_0.2x.png");
