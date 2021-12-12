@@ -28,27 +28,27 @@ public class App extends Application {
         ArrayList<Level> levels = new ArrayList<>();
         //This is the order the levels will appear in
 
-        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Observer.mp4"));
         levels.add(LevelFactory.observerLevelFlashScreen());
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Observer.mp4"));
         levels.add(LevelFactory.observerLevel());
 
-        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Command.mp4"));
         levels.add(LevelFactory.commanderLevelFlashScreen());
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Command.mp4"));
         levels.add(LevelFactory.commanderLevel());
 
         levels.add(LevelFactory.compositeLevelFlashScreen());
         levels.add(LevelFactory.compositeLevel());
 
-        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Factory.mp4"));
 
         levels.add(LevelFactory.factoryLevelFlashScreen());
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Factory.mp4"));
         levels.add(LevelFactory.factoryLevel());
 
         levels.add(LevelFactory.strategyLevelFlashScreen());
         levels.add(LevelFactory.strategyLevel());
 
-        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/MVC.mp4"));
         levels.add(LevelFactory.MVCLevelFlashScreen());
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/MVC.mp4"));
         levels.add(LevelFactory.MVCLevel());
 
         for (Level l : levels) {

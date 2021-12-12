@@ -116,6 +116,7 @@ public class LevelFactory {
         Sprite platform = SpriteFactory.platform(100, 20, 300, 500);
         platform.setSpriteId(100); //set it high so we know it won't get overwritten upon insertion
         Sprite player = SpriteFactory.observablePlayer();
+        player.setHealth(30);
         player.addCustomCollision(SpriteClassIdConstants.FLOOR, new CollideWithFloorNoClipBehavior(floor));
         player.addCustomCollision(100, new CollideWithFloorNoClipBehavior(platform));
 
