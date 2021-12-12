@@ -175,7 +175,7 @@ public class ViewBehavior implements Behavior {
             sprite.disable();
         }
         if (counter > secondsBetweenShots) {
-        	int num = getRandomNumber(50,Constants.WINDOW_HEIGHT-50);
+        	int num = getRandomNumber(50,Constants.WINDOW_HEIGHT-120);
         	Sprite newSprite = randomRequest();
             shootBehavior = new ShootSpriteBehavior(60,num,newSprite, newSprite.getColor());
             shootBehavior.performBehavior(sprite);
