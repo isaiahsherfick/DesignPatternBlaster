@@ -37,6 +37,7 @@ public class App extends Application {
         levels.add(LevelFactory.commanderLevel());
 
         levels.add(LevelFactory.compositeLevelFlashScreen());
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/composite_pattern_video.mp4"));
         levels.add(LevelFactory.compositeLevel());
 
         levels.add(LevelFactory.factoryLevelFlashScreen());
