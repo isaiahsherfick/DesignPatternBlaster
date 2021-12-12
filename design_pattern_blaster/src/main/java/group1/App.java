@@ -34,6 +34,7 @@ public class App extends Application
 			ArrayList<Level> levels = new ArrayList<>();
 			//This is the order the levels will appear in
 
+			//levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Observer.mp4"));
 			levels.add(LevelFactory.observerLevelFlashScreen());
 			levels.add(LevelFactory.observerLevel());
 

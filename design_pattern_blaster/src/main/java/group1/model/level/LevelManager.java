@@ -107,17 +107,21 @@ public class LevelManager {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
-        mediaPlayer = new MediaPlayer(song);
-        mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.seek(Duration.ZERO);
-                mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
-                mediaPlayer.play();
-            }
-        });
-        mediaPlayer.play();
+        try {
+            mediaPlayer = new MediaPlayer(song);
+            mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
+            mediaPlayer.setOnEndOfMedia(new Runnable() {
+                @Override
+                public void run() {
+                    mediaPlayer.seek(Duration.ZERO);
+                    mediaPlayer.setVolume(Constants.VOLUME_LEVEL);
+                    mediaPlayer.play();
+                }
+            });
+            mediaPlayer.play();
+        }catch (NullPointerException ignored){
+
+        }
     }
 
     public void reloadLevel() {
