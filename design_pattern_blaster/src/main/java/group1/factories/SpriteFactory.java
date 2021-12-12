@@ -761,7 +761,255 @@ public final class SpriteFactory
 	/*
 	 * COMPOSITE SPRITES - 891
 	 */
-	public static CompositeSprite compositeEnemy() {
+	 public static CompositeSprite compositeEnemy() {
+		CompositeSprite compositeEnemyBlueprint = new CompositeSprite();
+		compositeEnemyBlueprint.setSpriteClassId(SpriteClassIdConstants.ENEMY);
+		compositeEnemyBlueprint.setWidth(640);
+		compositeEnemyBlueprint.setHeight(80);
+		compositeEnemyBlueprint.setVelocityX(-5);
+		compositeEnemyBlueprint.setX(1140);
+		compositeEnemyBlueprint.setY(80);
+		compositeEnemyBlueprint.setHealth(1);
+		compositeEnemyBlueprint.setColor(Color.VIOLET);
+		int depth = 0;
+		int width = 0;
+		int baseWidth = 600;
+		int baseX = 900;
+		int xCenter = 960;
+		int baseY = 80;
+		int heightDiff = 80;
+
+		compositeEnemyBlueprint.addCustomCollision(SpriteClassIdConstants.BULLET, new DecrementHealthBehavior(1));
+		compositeEnemyBlueprint.addEventBehavior(new EventBehavior(GameEvent.ClockTickEvent(), new CheckHealthBehavior()));
+        compositeEnemyBlueprint.addEventBehavior(new EventBehavior(GameEvent.HealthDepletedEvent(), new DisableBehavior()));
+
+
+
+		CompositeSprite compositeEnemy = compositeEnemyBlueprint.copy();
+
+		baseWidth = 330;
+		baseY +=heightDiff;
+//		baseX = xCenter - (depth*depth)*baseWidth/2;
+		compositeEnemyBlueprint.setWidth(baseWidth);
+		compositeEnemyBlueprint.setY(baseY);
+		compositeEnemyBlueprint.setColor(Color.INDIGO);
+		CompositeSprite l1l1 = compositeEnemyBlueprint.copy();
+		l1l1.setX(1010);
+		CompositeSprite l1r1 = compositeEnemyBlueprint.copy();
+		l1r1.setX(1010+560);
+		compositeEnemy.setLeft(l1l1);
+		compositeEnemy.setRight(l1r1);
+
+		baseWidth -=40;
+		baseY+=heightDiff;
+		compositeEnemyBlueprint.setWidth(155);
+		compositeEnemyBlueprint.setY(baseY);
+		compositeEnemyBlueprint.setColor(Color.CORNFLOWERBLUE);
+
+		CompositeSprite l2l1 = compositeEnemyBlueprint.copy();
+		l2l1.setX(960);
+		CompositeSprite l2r1 = compositeEnemyBlueprint.copy();
+		l2r1.setX(960+280);
+		CompositeSprite l2l2 = compositeEnemyBlueprint.copy();
+		l2l2.setX(960+(280*2));
+		CompositeSprite l2r2 = compositeEnemyBlueprint.copy();
+		l2r2.setX(960+(280*3));
+		l1l1.setLeft(l2l1);
+		l1l1.setRight(l2r1);
+		l1r1.setLeft(l2l2);
+		l1r1.setRight(l2r2);
+
+		baseWidth -=40;
+		baseY+=heightDiff;
+		compositeEnemyBlueprint.setWidth(95);
+		compositeEnemyBlueprint.setY(baseY);
+		compositeEnemyBlueprint.setColor(Color.FORESTGREEN);
+		CompositeSprite l3l1 = compositeEnemyBlueprint.copy();
+		l3l1.setX(920);
+		CompositeSprite l3r1 = compositeEnemyBlueprint.copy();
+		l3r1.setX(1060);
+		CompositeSprite l3l2 = compositeEnemyBlueprint.copy();
+		l3l2.setX(1200);
+		CompositeSprite l3r2 = compositeEnemyBlueprint.copy();
+		l3r2.setX(1340);
+		CompositeSprite l3l3 = compositeEnemyBlueprint.copy();
+		l3l3.setX(1480);
+		CompositeSprite l3r3 = compositeEnemyBlueprint.copy();
+		l3r3.setX(1620);
+		CompositeSprite l3l4 = compositeEnemyBlueprint.copy();
+		l3l4.setX(1760);
+		CompositeSprite l3r4 = compositeEnemyBlueprint.copy();
+		l3r4.setX(1900);
+		l2l1.setLeft(l3l1);
+		l2l1.setRight(l3r1);
+		l2r1.setLeft(l3l2);
+		l2r1.setRight(l3r2);
+		l2l2.setLeft(l3l3);
+		l2l2.setRight(l3r3);
+		l2r2.setLeft(l3l4);
+		l2r2.setRight(l3r4);
+
+		baseWidth -=40; //80
+		baseY+=heightDiff;
+		compositeEnemyBlueprint.setWidth(55);
+		compositeEnemyBlueprint.setY(baseY);
+		compositeEnemyBlueprint.setColor(Color.ORANGE);
+		CompositeSprite l4l1 = compositeEnemyBlueprint.copy();
+		l4l1.setX(905);
+		CompositeSprite l4r1 = compositeEnemyBlueprint.copy();
+		l4r1.setX(975);
+		CompositeSprite l4l2 = compositeEnemyBlueprint.copy();
+		l4l2.setX(1045);
+		CompositeSprite l4r2 = compositeEnemyBlueprint.copy();
+		l4r2.setX(1115);
+		CompositeSprite l4l3 = compositeEnemyBlueprint.copy();
+		l4l3.setX(1185);
+		CompositeSprite l4r3 = compositeEnemyBlueprint.copy();
+		l4r3.setX(1255);
+		CompositeSprite l4l4 = compositeEnemyBlueprint.copy();
+		l4l4.setX(1325);
+		CompositeSprite l4r4 = compositeEnemyBlueprint.copy();
+		l4r4.setX(1395);
+		CompositeSprite l4l5 = compositeEnemyBlueprint.copy();
+		l4l5.setX(1465);
+		CompositeSprite l4r5 = compositeEnemyBlueprint.copy();
+		l4r5.setX(1535);
+		CompositeSprite l4l6 = compositeEnemyBlueprint.copy();
+		l4l6.setX(1605);
+		CompositeSprite l4r6 = compositeEnemyBlueprint.copy();
+		l4r6.setX(1675);
+		CompositeSprite l4l7 = compositeEnemyBlueprint.copy();
+		l4l7.setX(1745);
+		CompositeSprite l4r7 = compositeEnemyBlueprint.copy();
+		l4r7.setX(1815);
+		CompositeSprite l4l8 = compositeEnemyBlueprint.copy();
+		l4l8.setX(1885);
+		CompositeSprite l4r8 = compositeEnemyBlueprint.copy();
+		l4r8.setX(1955);
+
+		l3l1.setLeft(l4l1);
+		l3l1.setRight(l4r1);
+		l3r1.setLeft(l4l2);
+		l3r1.setRight(l4r2);
+		l3l2.setLeft(l4l3);
+		l3l2.setRight(l4r3);
+		l3r2.setLeft(l4l4);
+		l3r2.setRight(l4r4);
+		l3l3.setLeft(l4l5);
+		l3l3.setRight(l4r5);
+		l3r3.setLeft(l4l6);
+		l3r3.setRight(l4r6);
+		l3l4.setLeft(l4l7);
+		l3l4.setRight(l4r7);
+		l3r4.setLeft(l4l8);
+		l3r4.setRight(l4r8);
+
+		baseWidth -=50; //40
+		baseY+=heightDiff;
+		compositeEnemyBlueprint.setWidth(30);//baseWidth);
+		compositeEnemyBlueprint.setY(baseY);
+		compositeEnemyBlueprint.setColor(Color.CRIMSON);
+		CompositeSprite l5l1 = compositeEnemyBlueprint.copy();
+		l5l1.setX(900);
+		CompositeSprite l5r1 = compositeEnemyBlueprint.copy();
+		l5r1.setX(935);
+		CompositeSprite l5l2 = compositeEnemyBlueprint.copy();
+		l5l2.setX(970);
+		CompositeSprite l5r2 = compositeEnemyBlueprint.copy();
+		l5r2.setX(1005);
+		CompositeSprite l5l3 = compositeEnemyBlueprint.copy();
+		l5l3.setX(1040);
+		CompositeSprite l5r3 = compositeEnemyBlueprint.copy();
+		l5r3.setX(1075);
+		CompositeSprite l5l4 = compositeEnemyBlueprint.copy();
+		l5l4.setX(1110);
+		CompositeSprite l5r4 = compositeEnemyBlueprint.copy();
+		l5r4.setX(1145);
+		CompositeSprite l5l5 = compositeEnemyBlueprint.copy();
+		l5l5.setX(1180);
+		CompositeSprite l5r5 = compositeEnemyBlueprint.copy();
+		l5r5.setX(1215);
+		CompositeSprite l5l6 = compositeEnemyBlueprint.copy();
+		l5l6.setX(1250);
+		CompositeSprite l5r6 = compositeEnemyBlueprint.copy();
+		l5r6.setX(1285);
+		CompositeSprite l5l7 = compositeEnemyBlueprint.copy();
+		l5l7.setX(1320);
+		CompositeSprite l5r7 = compositeEnemyBlueprint.copy();
+		l5r7.setX(1355);
+		CompositeSprite l5l8 = compositeEnemyBlueprint.copy();
+		l5l8.setX(1390);
+		CompositeSprite l5r8 = compositeEnemyBlueprint.copy();
+		l5r8.setX(1425);
+		CompositeSprite l5l9 = compositeEnemyBlueprint.copy();
+		l5l9.setX(1460);
+		CompositeSprite l5r9 = compositeEnemyBlueprint.copy();
+		l5r9.setX(1495);
+		CompositeSprite l5l10 = compositeEnemyBlueprint.copy();
+		l5l10.setX(1530);
+		CompositeSprite l5r10 = compositeEnemyBlueprint.copy();
+		l5r10.setX(1565);
+		CompositeSprite l5l11 = compositeEnemyBlueprint.copy();
+		l5l11.setX(1600);
+		CompositeSprite l5r11 = compositeEnemyBlueprint.copy();
+		l5r11.setX(1635);
+		CompositeSprite l5l12 = compositeEnemyBlueprint.copy();
+		l5l12.setX(1670);
+		CompositeSprite l5r12 = compositeEnemyBlueprint.copy();
+		l5r12.setX(1705);
+		CompositeSprite l5l13 = compositeEnemyBlueprint.copy();
+		l5l13.setX(1740);
+		CompositeSprite l5r13 = compositeEnemyBlueprint.copy();
+		l5r13.setX(1775);
+		CompositeSprite l5l14 = compositeEnemyBlueprint.copy();
+		l5l14.setX(1810);
+		CompositeSprite l5r14 = compositeEnemyBlueprint.copy();
+		l5r14.setX(1845);
+		CompositeSprite l5l15 = compositeEnemyBlueprint.copy();
+		l5l15.setX(1880);
+		CompositeSprite l5r15 = compositeEnemyBlueprint.copy();
+		l5r15.setX(1915);
+		CompositeSprite l5l16 = compositeEnemyBlueprint.copy();
+		l5l16.setX(1950);
+		CompositeSprite l5r16 = compositeEnemyBlueprint.copy();
+		l5r16.setX(1985);
+		l4l1.setLeft(l5l1);
+		l4l1.setRight(l5r1);
+		l4r1.setLeft(l5l2);
+		l4r1.setRight(l5r2);
+		l4l2.setLeft(l5l3);
+		l4l2.setRight(l5r3);
+		l4r2.setLeft(l5l4);
+		l4r2.setRight(l5r4);
+		l4l3.setLeft(l5l5);
+		l4l3.setRight(l5r5);
+		l4r3.setLeft(l5l6);
+		l4r3.setRight(l5r6);
+		l4l4.setLeft(l5l7);
+		l4l4.setRight(l5r7);
+		l4r4.setLeft(l5l8);
+		l4r4.setRight(l5r8);
+		l4l5.setLeft(l5l9);
+		l4l5.setRight(l5r9);
+		l4r5.setLeft(l5l10);
+		l4r5.setRight(l5r10);
+		l4l6.setLeft(l5l11);
+		l4l6.setRight(l5r11);
+		l4r6.setLeft(l5l12);
+		l4r6.setRight(l5r12);
+		l4l7.setLeft(l5l13);
+		l4l7.setRight(l5r13);
+		l4r7.setLeft(l5l14);
+		l4r7.setRight(l5r14);
+		l4l8.setLeft(l5l15);
+		l4l8.setRight(l5r15);
+		l4r8.setLeft(l5l16);
+		l4r8.setRight(l5r16);
+
+		return compositeEnemy;
+	 }
+/*
+	 public static CompositeSprite compositeEnemy() {
 		CompositeSprite compositeEnemyBlueprint = new CompositeSprite();
 		compositeEnemyBlueprint.setSpriteClassId(SpriteClassIdConstants.ENEMY);
 		compositeEnemyBlueprint.setWidth(150);
@@ -830,9 +1078,9 @@ public final class SpriteFactory
 		l2r2.setLeft(l3l4);
 		l2r2.setRight(l3r4);
 		return compositeEnemy;
-	}
+	}*/
 
-	public static Sprite computerIcon(Sprite popupPressToInteract, Sprite messageFromHQ, ArrayList<Sprite> puzzleSprites, Sprite levelend)
+	public static Sprite computerIcon(Sprite popupPressToInteract, Sprite messageFromHQ, ArrayList<Sprite> puzzleSprites, Sprite puzzleCompletedPopup, Sprite levelend)
 	{
 		Sprite computerIcon = new Sprite();
 		computerIcon.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
@@ -840,7 +1088,8 @@ public final class SpriteFactory
         //Getting images
         Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/0.5x/computer_icon_0.5x.png").toUri().toString());
         computerIcon.setY(Constants.FLOOR_Y-idleFrame.getHeight());
-
+        computerIcon.setWidth(idleFrame.getWidth());
+        computerIcon.setHeight(idleFrame.getHeight());
         //Put them in arraylists
         ArrayList<Image> computerImageIdle = new ArrayList<>();
         computerImageIdle.add(idleFrame);
@@ -853,10 +1102,6 @@ public final class SpriteFactory
         hitBox.setHeight(idleFrame.getHeight()+100);
         hitBox.setX(computerIcon.getX()-100);
         hitBox.setY(Constants.FLOOR_Y-idleFrame.getHeight()-100);
-//        hitBox.setX(hitBox.getTopLeftX()-40);
-//        hitBox.setY(hitBox.getTopLeftY()-100);
-//        hitBox.setWidth(400);
-//        hitBox.setHeight(200);
         computerIcon.addCustomCollision(-1, new PressKeyToInteractPopupBehavior(popupPressToInteract));
         computerIcon.addEventBehavior(new EventBehavior(GameEvent.KeyPressedEvent(KeyCode.E),new MessageFromHQPopupBehavior(messageFromHQ, puzzleSprites))); //TODO: Change this. This was very last minute. Add a new behavior later.
         //Set the observer to be idle
@@ -1002,6 +1247,33 @@ public final class SpriteFactory
         return interactPopup;
     }
 
+
+	public static Sprite puzzleCompletedPopup()
+	{
+		Sprite puzzleCompletePopup = new Sprite();
+		puzzleCompletePopup.setSpriteClassId(SpriteClassIdConstants.INTERACTABLE);
+        puzzleCompletePopup.setWidth(160);
+        puzzleCompletePopup.setHeight(160);
+        puzzleCompletePopup.setX(15);
+        puzzleCompletePopup.setLayer(60);
+        puzzleCompletePopup.setY(Constants.FLOOR_Y-400);
+        //Getting images
+        Image idleFrame = new Image(Paths.get("src/main/resources/assets/composite/0.5x/puzzle_completed_popup_0.5x.png").toUri().toString());
+
+        //Put them in arraylists
+        ArrayList<Image> popupImageIdle = new ArrayList<>();
+        popupImageIdle.add(idleFrame);
+
+        //Add them to animation object
+        puzzleCompletePopup.getAnimation().setAnimationLoopForState(AnimationState.IDLE, popupImageIdle);
+        puzzleCompletePopup.disable();
+
+        //Set the observer to be idle
+        puzzleCompletePopup.getAnimation().setState(AnimationState.IDLE);
+        puzzleCompletePopup.addEventBehavior(new EventBehavior(GameEvent.KeyReleasedEvent(KeyCode.X), new CloseMessageFromHQBehavior(puzzleCompletePopup)));
+        return puzzleCompletePopup;
+    }
+
 	public static Sprite messageFromHQ()
 	{
 		Sprite computer = new Sprite();
@@ -1027,7 +1299,7 @@ public final class SpriteFactory
     }
 
 
-	public static ArrayList<Sprite> compositePuzzle()
+	public static ArrayList<Sprite> compositePuzzle(Sprite puzzleCompletedPopup, Sprite levelend)
 	{
 		ArrayList<Sprite> boxes = new ArrayList<Sprite>();
 
@@ -1127,7 +1399,7 @@ public final class SpriteFactory
         blueLandscapeBox.getAnimation().setAnimationLoopForState(AnimationState.IDLE, blueLandscapeImageIdle);
         boxes.add(blueLandscapeBox);
 
-        purpleBox.addEventBehavior(new EventBehavior(GameEvent.MouseReleaseEvent(), new CheckPuzzleCompletionBehavior(boxes)));
+        purpleBox.addEventBehavior(new EventBehavior(GameEvent.MouseReleaseEvent(), new CheckPuzzleCompletionBehavior(boxes, puzzleCompletedPopup, levelend)));
 
         for(Sprite b: boxes) {
         	b.setSpriteClassId(SpriteClassIdConstants.DRAGGABLE);

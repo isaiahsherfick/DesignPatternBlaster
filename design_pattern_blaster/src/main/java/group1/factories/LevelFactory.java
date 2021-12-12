@@ -250,7 +250,7 @@ public class LevelFactory {
 		levelend.setX(4000);
 		Sprite wall = SpriteFactory.wall();
 		wall.setX(-1025);
-		
+
 		Sprite registerInformationSign = SpriteFactory.informationalSign(100, (int)floor.getY( )-220, "src/main/resources/assets/signs/CommandInformationSign.png");
         Sprite commandWall = SpriteFactory.commandWall();
 
@@ -300,7 +300,7 @@ public class LevelFactory {
         Sprite popup = SpriteFactory.compositePopupInteractE(messageFromHQ);
         Sprite interactTrigger = SpriteFactory.interactTrigger(popup);
 //TODO: change parameters for the command level here.
-        Sprite computerIcon2 = SpriteFactory.computerIcon(messageFromHQ, messageFromHQ, sprites, messageFromHQ);
+        Sprite computerIcon2 = SpriteFactory.computerIcon(messageFromHQ, messageFromHQ, sprites,messageFromHQ, messageFromHQ);
 
         computerIcon2.setX(2100);
 
@@ -342,20 +342,51 @@ public class LevelFactory {
         ArrayList<Sprite> sprites = new ArrayList<>();
         Sprite pressToInteractPopup = SpriteFactory.popupInteractE();
         Sprite messageFromHQ = SpriteFactory.messageFromHQ();
-        ArrayList<Sprite> puzzleSprites = SpriteFactory.compositePuzzle();
+        Sprite puzzleCompletedPopup = SpriteFactory.puzzleCompletedPopup();
         Sprite scoreDisplay = SpriteFactory.Timer(true);
+
+        Sprite platform1 = SpriteFactory.platform(100, 20, 600, 500);
+        Sprite platform2 = SpriteFactory.platform(100, 20, 680, 400);
+        Sprite platform3 = SpriteFactory.platform(100, 20, 760, 300);
+        Sprite platform4 = SpriteFactory.platform(100, 20, 840, 200);
+        platform1.setSpriteId(151);
+        platform2.setSpriteId(153);
+        platform3.setSpriteId(154);
+        platform4.setSpriteId(155);
+        player.addCustomCollision(platform1.getSpriteId(), new CollideWithFloorNoClipBehavior(platform1));
+        player.addCustomCollision(platform2.getSpriteId(), new CollideWithFloorNoClipBehavior(platform2));
+        player.addCustomCollision(platform3.getSpriteId(), new CollideWithFloorNoClipBehavior(platform3));
+        player.addCustomCollision(platform4.getSpriteId(), new CollideWithFloorNoClipBehavior(platform4));
+
+        Sprite wall = SpriteFactory.wall();
+        wall.setX(800);
+        wall.setWidth(100);
+        wall.setHeight(400);
+        wall.setHealth(10);
+        wall.setY(Constants.FLOOR_Y-400);
+        wall.setColor(Color.TRANSPARENT);
+        player.addCustomCollision(SpriteClassIdConstants.WALL, new NoPassThroughBehavior(wall));
+
         Sprite levelend = SpriteFactory.endOfLevelSprite(scoreDisplay);
-//		levelend.disable();
-        Sprite computerIcon = SpriteFactory.computerIcon(pressToInteractPopup, messageFromHQ, puzzleSprites, levelend);
+        levelend.setX(2100);
+        ArrayList<Sprite> puzzleSprites = SpriteFactory.compositePuzzle(puzzleCompletedPopup,levelend);
+		levelend.disable();
+        Sprite computerIcon = SpriteFactory.computerIcon(pressToInteractPopup, messageFromHQ, puzzleSprites, puzzleCompletedPopup, levelend);
         sprites.add(floor);
         sprites.add(pressToInteractPopup);
         sprites.add(computerIcon);
         sprites.addAll(enemy.getChildren());
+        sprites.add(platform1);
+        sprites.add(platform2);
+        sprites.add(platform3);
+        sprites.add(platform4);
         sprites.add(levelend);
         sprites.add(player);
+//        sprites.add(wall);
         sprites.add(scoreDisplay);
         sprites.add(messageFromHQ);
         sprites.addAll(puzzleSprites);
+        sprites.add(puzzleCompletedPopup);
         double minXBoundary = Math.abs(player.getX() - Constants.WINDOW_WIDTH / 2);
         double maxXBoundary = Math.abs(levelend.getX() - Constants.WINDOW_WIDTH + levelend.getWidth());
         Level compositeLevel = new Level(Constants.COMMANDER_LEVEL_NUMBER, sprites, "Level_Music.mp3", minXBoundary, maxXBoundary);
@@ -606,15 +637,15 @@ public class LevelFactory {
         newYellowGun.addCustomCollision(player.getSpriteClassId(), new DisableBehavior());
 
         Sprite platform7 = SpriteFactory.platform(100, 20, (int) (wall1.getX() + 180), 520);
-        platform7.setSpriteId(507); //set it high so we know it won't get overwritten upon 
+        platform7.setSpriteId(507); //set it high so we know it won't get overwritten upon
         player.addCustomCollision(507, new CollideWithFloorNoClipBehavior(platform7));
 
         Sprite platform10 = SpriteFactory.platform(100, 20, (int) (platform7.getX() + 300), (int) (platform7.getY() - 110));
-        platform10.setSpriteId(520); //set it high so we know it won't get overwritten upon 
+        platform10.setSpriteId(520); //set it high so we know it won't get overwritten upon
         player.addCustomCollision(520, new CollideWithFloorNoClipBehavior(platform10));
 
         Sprite platform11 = SpriteFactory.platform(100, 20, (int) (platform10.getX() + 300), (int) (platform10.getY() - 90));
-        platform11.setSpriteId(525); //set it high so we know it won't get overwritten upon 
+        platform11.setSpriteId(525); //set it high so we know it won't get overwritten upon
         player.addCustomCollision(525, new CollideWithFloorNoClipBehavior(platform11));
 
 
