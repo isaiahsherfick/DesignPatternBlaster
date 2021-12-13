@@ -45,6 +45,7 @@ public class App extends Application {
         levels.add(LevelFactory.factoryLevel());
 
         levels.add(LevelFactory.strategyLevelFlashScreen());
+        levels.add(LevelFactory.videoPlayer("src/main/resources/assets/videos/Strategy.mp4"));
         levels.add(LevelFactory.strategyLevel());
 
         levels.add(LevelFactory.MVCLevelFlashScreen());
